@@ -2,14 +2,12 @@ datasource:
   rdb:
     writer:
       pool-name: rdb-writer
-      jdbc-url: jdbc:mysql://localhost:3311/rdb
-      username: user
+      username: root
       password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
     reader:
       pool-name: rdb-reader
-      jdbc-url: jdbc:mysql://localhost:3311/rdb
-      username: user
+      username: root
       password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
 

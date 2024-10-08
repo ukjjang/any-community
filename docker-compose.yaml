@@ -4,13 +4,33 @@ services:
   rdb:
     image: mysql:latest
     environment:
-      MYSQL_DATABASE: 'rdb'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'rootpassword'
+      MYSQL_DATABASE: rdb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
     ports:
-      - '3311:3306'
+      - '3306:3306'
     volumes:
       - 'mysqldata:/var/lib/mysql'
+    networks:
+      - mynetwork
+
+  external-api:
+    build:
+      context: ./apps/external-api
+    depends_on:
+      - rdb
+    ports:
+      - '8080:8080'
+    networks:
+      - mynetwork
+    restart: always
+    environment:
+      DATASOURCE_RDB_WRITER_JDBC-URL: jdbc:mysql://rdb:3306/rdb
+      DATASOURCE_RDB_READER_JDBC-URL: jdbc:mysql://rdb:3306/rdb
+
+networks:
+  mynetwork:
+
 volumes:
   mysqldata:

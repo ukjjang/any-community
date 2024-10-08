@@ -3,7 +3,7 @@ plugins {
     id("com.jinuk.toy.spring-boot-jpa")
 }
 
-val serviceName = "internal-api"
+val serviceName = "external-api"
 
 tasks.bootJar {
     archiveBaseName.set(serviceName)
