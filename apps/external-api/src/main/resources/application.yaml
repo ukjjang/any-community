@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    include:
+      - domain
+      - infra-rdb
+    active: local
