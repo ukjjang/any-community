@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 
 data class Post(
     val id: Long? = null,
+    val title: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now(),
 )

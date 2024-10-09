@@ -19,6 +19,9 @@ class PostEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @Column(name = "title")
+    val title: String,
+
     @Column(name = "created_at")
     @CreationTimestamp
     val createdAt: LocalDateTime = LocalDateTime.now(),
