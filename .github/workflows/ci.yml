@@ -1,0 +1,42 @@
+name: pr-build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+  push:
+    branches:
+      - main
+
+
+jobs:
+  pr-build:
+    timeout-minutes: 10
+    runs-on : ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            application:
+              - 'build.gradle.kts'
+              - '**/src/**'
+              - '**/build.gradle.kts'
+
+      - name: Set up JDK
+        if: steps.changes.outputs.application == 'true'
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 21
+          cache: 'gradle'
+
+      - name: build
+        if: steps.changes.outputs.application == 'true'
+        run: |
+          ./gradlew build --parallel
+
