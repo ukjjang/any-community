@@ -7,4 +7,4 @@ include("apps:external-api")
 include("infra:rdb")
 
 // domain
-include("domain")
+include("domain:post")
