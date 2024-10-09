@@ -1,6 +1,6 @@
 package com.jinuk.toy.externalapi.view.post.request
 
-import com.jinuk.toy.applicaiton.post.command.dto.PostCreateCommandDto
+import com.jinuk.toy.domain.post.service.command.PostCreateCommand
 import com.jinuk.toy.domain.post.value.PostTitle
 import io.swagger.v3.oas.annotations.media.Schema
 
@@ -10,4 +10,4 @@ data class PostCreateRequest(
     val title: PostTitle,
 )
 
-internal fun PostCreateRequest.toCommand() = PostCreateCommandDto(title)
+internal fun PostCreateRequest.toCommand() = PostCreateCommand(title)
