@@ -1,11 +1,12 @@
 package com.jinuk.toy.domain.post
 
 import com.jinuk.toy.domain.post.service.command.PostCreateCommand
+import com.jinuk.toy.domain.post.value.PostTitle
 import java.time.LocalDateTime
 
 data class Post(
     val id: Long? = null,
-    val title: String,
+    val title: PostTitle,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now(),
 ) {
