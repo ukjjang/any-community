@@ -1,6 +1,6 @@
 plugins {
     id("com.jinuk.toy.lib")
-    id("com.jinuk.toy.querydsl")
+    id("com.jinuk.toy.spring-boot-jpa")
     id("java-test-fixtures")
 }
 
