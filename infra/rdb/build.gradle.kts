@@ -1,6 +1,6 @@
 plugins {
     id("com.jinuk.toy.lib")
-    id("com.jinuk.toy.spring-boot-jpa")
+    id("com.jinuk.toy.querydsl")
 }
 
 dependencies {

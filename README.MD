@@ -9,6 +9,8 @@
 * JDK 21
 * Spring Boot 3.3.2
 * Gradle 8.10
+* JPA / Hibernate
+* Querydsl
 
 ### 시작하기
 
