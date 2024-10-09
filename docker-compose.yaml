@@ -17,7 +17,7 @@ services:
 
   external-api:
     build:
-      context: ./apps/external-api
+      context: ./app/external-api
     depends_on:
       - rdb
     ports:
