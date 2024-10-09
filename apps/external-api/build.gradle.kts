@@ -10,7 +10,7 @@ tasks.bootJar {
 }
 
 dependencies {
-    api(project(":domain"))
+    api(project(":domain:post"))
     api(project(":infra:rdb"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
