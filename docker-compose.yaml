@@ -13,7 +13,23 @@ services:
     volumes:
       - 'mysqldata:/var/lib/mysql'
     networks:
-      - mynetwork
+      - toy-network
+
+  flyway:
+    image: flyway/flyway
+    command: -configFiles=/flyway/conf/flyway.config -locations=filesystem:/flyway/sql -connectRetries=60 migrate
+    volumes:
+      - ./infra/rdb/src/main/resources/db/migration:/flyway/sql
+      - ./infra/rdb/src/main/resources/db/flyway.conf:/flyway/conf/flyway.config
+    depends_on:
+      - rdb
+    environment:
+      FLYWAY_DB_URL: jdbc:mysql://rdb:3306/rdb
+      FLYWAY_DB_USER: user
+      FLYWAY_DB_PASSWORD: password
+      FLYWAY_BASELINE_ON_MIGRATE: true
+    networks:
+      - toy-network
 
   external-api:
     build:
@@ -23,14 +39,14 @@ services:
     ports:
       - '8080:8080'
     networks:
-      - mynetwork
+      - toy-network
     restart: always
     environment:
       DATASOURCE_RDB_WRITER_JDBC-URL: jdbc:mysql://rdb:3306/rdb
       DATASOURCE_RDB_READER_JDBC-URL: jdbc:mysql://rdb:3306/rdb
 
 networks:
-  mynetwork:
+  toy-network:
 
 volumes:
   mysqldata:
