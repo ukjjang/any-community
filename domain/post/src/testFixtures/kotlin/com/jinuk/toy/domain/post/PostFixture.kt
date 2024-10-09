@@ -1,5 +1,6 @@
 package com.jinuk.toy.domain.post
 
+import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.util.faker.faker
 
 object PostFixture {
@@ -9,7 +10,7 @@ object PostFixture {
     ): Post {
         return Post(
             id = id,
-            title = title,
+            title = PostTitle(title),
         )
     }
 }
