@@ -5,12 +5,11 @@
 ---
 
 ### 개발 환경
-
+* Kotlin 2.0.20
 * JDK 21
-* Spring Boot 3.3.2
 * Gradle 8.10
+* Spring Boot 3.3.2
 * JPA / Hibernate
-* Querydsl
 
 ### 시작하기
 
