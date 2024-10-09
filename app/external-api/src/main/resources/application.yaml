@@ -6,3 +6,7 @@ spring:
     include:
       - infra-rdb
     active: local
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
