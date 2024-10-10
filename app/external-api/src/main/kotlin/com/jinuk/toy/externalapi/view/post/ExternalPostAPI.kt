@@ -1,6 +1,7 @@
 package com.jinuk.toy.externalapi.view.post
 
 import com.jinuk.toy.applicaiton.post.command.adaptor.PostCommandBus
+import com.jinuk.toy.externalapi.global.exception.ErrorResponse
 import com.jinuk.toy.externalapi.view.post.request.PostCreateRequest
 import com.jinuk.toy.externalapi.view.post.request.toCommand
 import com.jinuk.toy.externalapi.view.post.response.PostCreateResponse
@@ -31,6 +32,13 @@ class ExternalPostAPI(
                 description = "게시글 등록 성공",
                 content = [
                     Content(schema = Schema(implementation = PostCreateResponse::class))
+                ]
+            ),
+            ApiResponse(
+                responseCode = "400",
+                description = "게시글 등록 실패",
+                content = [
+                    Content(schema = Schema(implementation = ErrorResponse::class))
                 ]
             )
         ]
