@@ -24,8 +24,9 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion(jdkVersion)
-    targetCompatibility = JavaVersion.toVersion(jdkVersion)
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(jdkVersion)
+    }
 }
 
 kotlin {
