@@ -16,7 +16,7 @@ value class PostTitle private constructor(val value: String) {
     }
 
     private fun validate(title: String) {
-        require(title.isNotBlank()) { "포스터의 제목은 비어있을 수 없습니다." }
-        require(title.length <= 50) { "포스터의 제목은 50자를 초과할 수 없습니다." }
+        require(title.isNotBlank()) { "게시글의 제목은 비어있을 수 없습니다." }
+        require(title.length <= 50) { "게시글의 제목은 50자를 초과할 수 없습니다." }
     }
 }
