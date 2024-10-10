@@ -9,5 +9,5 @@ class PostCreateApplication(
     private val postCreateService: PostCreateService,
 ) {
 
-    operator fun invoke(command: PostCreateCommand) = postCreateService(command)
+    operator fun invoke(command: PostCreateCommand) = postCreateService.create(command)
 }
