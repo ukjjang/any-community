@@ -5,8 +5,8 @@ import com.jinuk.toy.domain.post.value.PostTitle
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 
-@Schema(description = "게시글 생성 응답")
-data class PostCreateResponse(
+@Schema(description = "게시글 응답")
+data class PostResponse(
 
     @Schema(description = "게시물 id")
     val id: Long?,
@@ -21,7 +21,7 @@ data class PostCreateResponse(
     val updatedAt: LocalDateTime,
 )
 
-fun Post.toResponse() = PostCreateResponse(
+fun Post.toResponse() = PostResponse(
     id = id,
     title = title,
     createdAt = createdAt,

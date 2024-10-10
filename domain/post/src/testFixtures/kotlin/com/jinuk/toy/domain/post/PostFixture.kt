@@ -5,7 +5,7 @@ import com.jinuk.toy.util.faker.faker
 
 object PostFixture {
     fun create(
-        id: Long = faker.random().nextLong(),
+        id: Long? = null,
         title: PostTitle = PostTitle(faker.lorem().characters(1, 30))
     ): Post {
         return Post(
