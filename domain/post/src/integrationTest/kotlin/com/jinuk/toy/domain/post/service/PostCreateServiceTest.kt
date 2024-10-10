@@ -24,7 +24,7 @@ internal class PostCreateServiceTest(
                     val title = PostTitle("title")
                     val command = PostCreateCommand(title)
 
-                    val post = postCreateService(command)
+                    val post = postCreateService.create(command)
                     val postEntity = postRepository.findById(post.id!!)
 
                     post shouldBe postEntity
@@ -34,7 +34,7 @@ internal class PostCreateServiceTest(
                 it("create fail - exists title") {
                     val command = PostCreateCommand(existsTitle)
                     shouldThrow<IllegalArgumentException> {
-                        postCreateService(command)
+                        postCreateService.create(command)
                     }
                 }
             }
