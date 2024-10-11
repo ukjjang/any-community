@@ -1,4 +1,4 @@
-package com.jinuk.toy.applicaiton.post.query.port
+package com.jinuk.toy.applicaiton.post.query
 
 import com.jinuk.toy.domain.post.service.PostQueryService
 import org.springframework.stereotype.Service

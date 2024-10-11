@@ -1,6 +1,6 @@
-package com.jinuk.toy.applicaiton.post.command.adaptor
+package com.jinuk.toy.applicaiton.post
 
-import com.jinuk.toy.applicaiton.post.command.port.PostCreateApplication
+import com.jinuk.toy.applicaiton.post.command.PostCreateApplication
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.command.PostCreateCommand
 import org.springframework.stereotype.Service

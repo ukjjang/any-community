@@ -1,6 +1,6 @@
-package com.jinuk.toy.applicaiton.post.query.adaptor
+package com.jinuk.toy.applicaiton.post
 
-import com.jinuk.toy.applicaiton.post.query.port.PostDetailQueryApplication
+import com.jinuk.toy.applicaiton.post.query.PostDetailQueryApplication
 import com.jinuk.toy.domain.post.Post
 import org.springframework.stereotype.Service
 

@@ -1,4 +1,4 @@
-package com.jinuk.toy.applicaiton.post.command.port
+package com.jinuk.toy.applicaiton.post.command
 
 import com.jinuk.toy.domain.post.service.PostCreateService
 import com.jinuk.toy.domain.post.service.command.PostCreateCommand
