@@ -1,5 +1,7 @@
 rootProject.name = "toy"
 
+include("external-api")
+
 // util
 include("util:faker")
 include("util:jbcrypt")
@@ -12,6 +14,3 @@ include("domain:post")
 
 // application
 include("application")
-
-// app
-include("app:external-api")

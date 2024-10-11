@@ -1,5 +1,5 @@
 plugins {
-    id("com.jinuk.toy.app")
+    id("com.jinuk.toy.api")
 }
 
 val serviceName = "external-api"
