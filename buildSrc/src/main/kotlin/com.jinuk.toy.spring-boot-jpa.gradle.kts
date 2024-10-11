@@ -1,7 +1,8 @@
 plugins {
+    kotlin("plugin.jpa")
+
     id("com.jinuk.toy.kotlin")
     id("com.jinuk.toy.spring-boot")
-    kotlin("plugin.jpa")
 }
 
 allOpen {

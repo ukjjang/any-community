@@ -2,9 +2,18 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("com.jinuk.toy.kotlin")
-    id("com.jinuk.toy.spring-boot")
+    id("com.jinuk.toy.spring-boot-jpa")
     id("com.jinuk.toy.integration-test")
+    id("java-test-fixtures")
 }
+
+dependencies {
+    api(project(":domain:post"))
+    testImplementation(testFixtures(project(":domain:post")))
+
+    testImplementation(testFixtures(project(":infra:rdb")))
+}
+
 
 val bootJar: BootJar by tasks
 val jar: Jar by tasks
