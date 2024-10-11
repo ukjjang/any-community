@@ -1,7 +1,7 @@
 package com.jinuk.toy.externalapi.view.post
 
-import com.jinuk.toy.applicaiton.post.command.adaptor.PostCommandBus
-import com.jinuk.toy.applicaiton.post.query.adaptor.PostQueryBus
+import com.jinuk.toy.applicaiton.post.PostCommandBus
+import com.jinuk.toy.applicaiton.post.PostQueryBus
 import com.jinuk.toy.externalapi.global.exception.ErrorResponse
 import com.jinuk.toy.externalapi.view.post.request.PostCreateRequest
 import com.jinuk.toy.externalapi.view.post.request.toCommand
