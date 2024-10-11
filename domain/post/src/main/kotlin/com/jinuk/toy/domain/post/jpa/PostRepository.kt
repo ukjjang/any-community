@@ -1,4 +1,4 @@
-package com.jinuk.toy.domain.post.repository
+package com.jinuk.toy.domain.post.jpa
 
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.infra.rdb.post.jpa.PostEntityRepository

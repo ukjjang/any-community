@@ -2,7 +2,7 @@ package com.jinuk.toy.domain.post.service
 
 import com.jinuk.toy.domain.IntegrationTest
 import com.jinuk.toy.domain.post.PostFixture
-import com.jinuk.toy.domain.post.repository.PostRepository
+import com.jinuk.toy.domain.post.jpa.PostRepository
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe

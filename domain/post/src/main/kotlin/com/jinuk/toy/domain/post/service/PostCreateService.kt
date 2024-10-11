@@ -1,7 +1,7 @@
 package com.jinuk.toy.domain.post.service
 
 import com.jinuk.toy.domain.post.Post
-import com.jinuk.toy.domain.post.repository.PostRepository
+import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.domain.post.service.command.PostCreateCommand
 import org.springframework.stereotype.Service
 
