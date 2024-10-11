@@ -1,5 +1,5 @@
 plugins {
-    id("com.jinuk.toy.lib")
+    id("com.jinuk.toy.util")
 }
 
 dependencies {

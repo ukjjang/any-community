@@ -33,7 +33,7 @@ services:
 
   external-api:
     build:
-      context: ./app/external-api
+      context: ./external-api
     depends_on:
       - rdb
     ports:

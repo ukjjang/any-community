@@ -4,3 +4,7 @@ plugins {
     id("com.jinuk.toy.springdoc-openapi")
     id("com.jinuk.toy.integration-test")
 }
+
+dependencies {
+    implementation(project(":application"))
+}

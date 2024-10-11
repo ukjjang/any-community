@@ -1,5 +1,6 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
-    id("com.jinuk.toy.lib")
     id("com.jinuk.toy.spring-boot-jpa")
     id("java-test-fixtures")
 }
@@ -13,3 +14,9 @@ dependencies {
     testFixturesImplementation("org.testcontainers:junit-jupiter:${testContainersVersion}")
     testFixturesImplementation("org.testcontainers:mysql:$testContainersVersion")
 }
+
+val bootJar: BootJar by tasks
+val jar: Jar by tasks
+
+bootJar.enabled = false
+jar.enabled = true
