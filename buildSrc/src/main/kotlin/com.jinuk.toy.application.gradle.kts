@@ -9,7 +9,9 @@ plugins {
 
 dependencies {
     api(project(":domain:post"))
+    api(project(":domain:user"))
     testImplementation(testFixtures(project(":domain:post")))
+    testImplementation(testFixtures(project(":domain:user")))
 
     testImplementation(testFixtures(project(":infra:rdb")))
 }

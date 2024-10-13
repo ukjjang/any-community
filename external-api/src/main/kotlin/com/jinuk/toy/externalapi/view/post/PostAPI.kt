@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "게시글")
 @RequestMapping("/post")
 @RestController
-class ExternalPostAPI(
+class PostAPI(
     private val postCommandBus: PostCommandBus,
     private val postQueryBus: PostQueryBus,
 ) {

@@ -1,13 +1,13 @@
 package com.jinuk.toy.externalapi.view.post.exception
 
 import com.jinuk.toy.externalapi.global.exception.ErrorResponse
-import com.jinuk.toy.externalapi.view.post.ExternalPostAPI
+import com.jinuk.toy.externalapi.view.post.PostAPI
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
-@RestControllerAdvice(assignableTypes = [ExternalPostAPI::class])
+@RestControllerAdvice(assignableTypes = [PostAPI::class])
 class ExternalPostAPIExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException::class)
