@@ -5,8 +5,6 @@ plugins {
     id("java-test-fixtures")
 }
 
-val testContainersVersion = "1.20.0"
-
 dependencies {
     runtimeOnly(Dependencies.Mysql.CONNECTOR)
 

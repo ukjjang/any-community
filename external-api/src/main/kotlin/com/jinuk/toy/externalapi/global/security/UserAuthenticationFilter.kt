@@ -24,8 +24,9 @@ UserAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain,
     ) {
-        val bearerToken = request.getHeader("Authorization")
-        val authUser = jwtTokenProvider.resolveToken(bearerToken)?.let {
+        val authUser = request.getHeader("Authorization")?.let {
+            jwtTokenProvider.resolveToken(it)
+        }?.let {
             userQueryService.findByUsername(Username(it))
         }?.let { AuthUser(it) }
 
