@@ -73,4 +73,10 @@ object Dependencies {
 
         const val FAKER = "net.datafaker:datafaker:$VERSION"
     }
+
+    object Logger {
+        private const val VERSION = "7.0.0"
+
+        const val KOTLIN_LOGGING = "io.github.oshai:kotlin-logging-jvm:$VERSION"
+    }
 }

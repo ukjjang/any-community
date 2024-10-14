@@ -6,6 +6,7 @@ include("external-api")
 include("util:faker")
 include("util:jbcrypt")
 include("util:jwt")
+include("util:logger")
 
 // infra
 include("infra:rdb")
