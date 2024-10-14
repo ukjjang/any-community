@@ -6,13 +6,19 @@ import java.time.LocalDateTime
 
 data class Post(
     val id: Long? = null,
+    val userId: Long,
     val title: PostTitle,
+    val content: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now(),
 ) {
     companion object {
         fun create(command: PostCreateCommand) = with(command) {
-            Post(title = title)
+            Post(
+                userId = userId,
+                title = title,
+                content = content,
+            )
         }
     }
 

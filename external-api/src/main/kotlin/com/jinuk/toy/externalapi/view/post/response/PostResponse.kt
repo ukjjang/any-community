@@ -14,6 +14,9 @@ data class PostResponse(
     @Schema(description = "게시물 제목")
     val title: PostTitle,
 
+    @Schema(description = "게시물 내용")
+    val content: String,
+
     @Schema(description = "생성일자", example = "yyyy-MM-dd HH:mm:ss")
     val createdAt: LocalDateTime,
 
@@ -24,6 +27,7 @@ data class PostResponse(
 fun Post.toResponse() = PostResponse(
     id = id,
     title = title,
+    content = content,
     createdAt = createdAt,
     updatedAt = updatedAt,
 )

@@ -19,8 +19,14 @@ class PostEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @Column(name = "user_id")
+    val userId: Long,
+
     @Column(name = "title")
     val title: String,
+
+    @Column(name = "content")
+    val content: String,
 
     @Column(name = "created_at")
     @CreationTimestamp
