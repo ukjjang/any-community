@@ -2,6 +2,7 @@ package com.jinuk.toy.externalapi.view.post
 
 import com.jinuk.toy.applicaiton.post.PostCommandBus
 import com.jinuk.toy.applicaiton.post.PostQueryBus
+import com.jinuk.toy.applicaiton.post.query.GetPostDetailQuery
 import com.jinuk.toy.externalapi.global.security.AuthRole
 import com.jinuk.toy.externalapi.global.security.AuthUser
 import com.jinuk.toy.externalapi.view.post.request.PostCreateRequest
@@ -35,12 +36,16 @@ class PostAPI(
     fun create(
         @AuthenticationPrincipal user: AuthUser,
         @RequestBody request: PostCreateRequest
-    ) = postCommandBus.execute(request.toCommand(user.id)).toResponse()
+    ) = request.toCommand(user.id).let {
+        postCommandBus.execute(it)
+    }.toResponse()
 
     @Operation(
         summary = "게시글 상세 조회",
         description = "id로 게시글을 조회합니다.",
     )
     @GetMapping("/{postId}")
-    fun getPostDetail(@PathVariable postId: Long) = postQueryBus.query(postId).toResponse()
+    fun getPostDetail(@PathVariable postId: Long) = GetPostDetailQuery(postId).let {
+        postQueryBus.query(it)
+    }.toResponse()
 }

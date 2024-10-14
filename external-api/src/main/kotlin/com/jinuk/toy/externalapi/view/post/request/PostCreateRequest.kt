@@ -1,6 +1,6 @@
 package com.jinuk.toy.externalapi.view.post.request
 
-import com.jinuk.toy.domain.post.service.command.PostCreateCommand
+import com.jinuk.toy.applicaiton.post.command.CreatePostCommand
 import com.jinuk.toy.domain.post.value.PostTitle
 
 data class PostCreateRequest(
@@ -8,7 +8,7 @@ data class PostCreateRequest(
     val content: String,
 )
 
-internal fun PostCreateRequest.toCommand(userId: Long) = PostCreateCommand(
+internal fun PostCreateRequest.toCommand(userId: Long) = CreatePostCommand(
     userId = userId,
     title = title,
     content = content,

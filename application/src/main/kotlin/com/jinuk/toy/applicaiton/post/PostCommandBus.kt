@@ -1,18 +1,18 @@
 package com.jinuk.toy.applicaiton.post
 
-import com.jinuk.toy.applicaiton.post.command.PostCreateApplication
+import com.jinuk.toy.applicaiton.post.usecase.CreatePostUsecase
+import com.jinuk.toy.applicaiton.post.command.CreatePostCommand
 import com.jinuk.toy.domain.post.Post
-import com.jinuk.toy.domain.post.service.command.PostCreateCommand
 import org.springframework.stereotype.Service
 
 sealed interface PostCommandBus {
-    infix fun execute(command: PostCreateCommand): Post
+    infix fun execute(command: CreatePostCommand): Post
 }
 
 @Service
 internal class PostCommandBusImpl(
-    private val postCreateApplication: PostCreateApplication
+    private val createPostUsecase: CreatePostUsecase
 ) : PostCommandBus {
 
-    override fun execute(command: PostCreateCommand) = postCreateApplication(command)
+    override fun execute(command: CreatePostCommand) = createPostUsecase(command)
 }

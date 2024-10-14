@@ -1,17 +1,17 @@
 package application.post.command
 
 import application.IntegrationTest
-import com.jinuk.toy.applicaiton.post.command.PostCreateApplication
+import com.jinuk.toy.applicaiton.post.command.CreatePostCommand
+import com.jinuk.toy.applicaiton.post.usecase.CreatePostUsecase
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
-import com.jinuk.toy.domain.post.service.command.PostCreateCommand
 import com.jinuk.toy.domain.post.value.PostTitle
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 
-internal class PostCreateApplicationTest(
-    private val postCreateApplication: PostCreateApplication,
+internal class CreatePostUsecaseTest(
+    private val createPostUsecase: CreatePostUsecase,
     private val postRepository: PostRepository,
 ) : IntegrationTest, DescribeSpec(
     {
@@ -23,9 +23,9 @@ internal class PostCreateApplicationTest(
 
                 it("create success") {
                     val title = PostTitle("title")
-                    val command = PostCreateCommand(1, title, "content")
+                    val command = CreatePostCommand(1, title, "content")
 
-                    val post = postCreateApplication(command)
+                    val post = createPostUsecase(command)
                     val postEntity = postRepository.findById(post.id!!)
 
                     post shouldBe postEntity
@@ -35,9 +35,9 @@ internal class PostCreateApplicationTest(
                 }
 
                 it("create fail - exists title") {
-                    val command = PostCreateCommand(1, existsTitle, "content")
+                    val command = CreatePostCommand(1, existsTitle, "content")
                     shouldThrow<IllegalArgumentException> {
-                        postCreateApplication(command)
+                        createPostUsecase(command)
                     }
                 }
             }
