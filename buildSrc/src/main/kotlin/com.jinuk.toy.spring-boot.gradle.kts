@@ -9,10 +9,10 @@ plugins {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_WEB)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_TEST)
+    testRuntimeOnly(Dependencies.SpringBoot.JUNIT_PLATFORM_LAUNCHER)
 }
 
 tasks.withType<Test> {

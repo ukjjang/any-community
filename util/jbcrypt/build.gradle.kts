@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation("org.mindrot:jbcrypt:0.4")
+    implementation(Dependencies.JBcrypt.JBCRYPT)
 }
