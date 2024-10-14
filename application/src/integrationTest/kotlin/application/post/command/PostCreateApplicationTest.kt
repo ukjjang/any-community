@@ -23,17 +23,19 @@ internal class PostCreateApplicationTest(
 
                 it("create success") {
                     val title = PostTitle("title")
-                    val command = PostCreateCommand(title)
+                    val command = PostCreateCommand(1, title, "content")
 
                     val post = postCreateApplication(command)
                     val postEntity = postRepository.findById(post.id!!)
 
                     post shouldBe postEntity
+                    post.userId shouldBe 1
                     post.title shouldBe title
+                    post.content shouldBe "content"
                 }
 
                 it("create fail - exists title") {
-                    val command = PostCreateCommand(existsTitle)
+                    val command = PostCreateCommand(1, existsTitle, "content")
                     shouldThrow<IllegalArgumentException> {
                         postCreateApplication(command)
                     }

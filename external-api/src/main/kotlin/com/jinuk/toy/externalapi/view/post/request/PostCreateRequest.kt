@@ -8,6 +8,13 @@ import io.swagger.v3.oas.annotations.media.Schema
 data class PostCreateRequest(
     @Schema(description = "게시물 제목")
     val title: PostTitle,
+
+    @Schema(description = "게시물 내용")
+    val content: String,
 )
 
-internal fun PostCreateRequest.toCommand() = PostCreateCommand(title)
+internal fun PostCreateRequest.toCommand(userId: Long) = PostCreateCommand(
+    userId = userId,
+    title = title,
+    content = content,
+)
