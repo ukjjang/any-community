@@ -26,18 +26,14 @@ tasks.check {
     dependsOn(integrationTestTask)
 }
 
-val kotestVersion = "5.9.1"
-val kotestExtensionsSpringVersion = "1.3.0"
-val logcaptureVersion = "1.3.3"
-
 dependencies {
     "integrationTestImplementation"(project)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.kotest.extensions:kotest-extensions-spring:${kotestExtensionsSpringVersion}")
-    testImplementation("org.logcapture:logcapture-kotest:${logcaptureVersion}")
-    testImplementation("org.logcapture:logcapture-core:${logcaptureVersion}")
-    testImplementation("io.kotest:kotest-extensions-now:${kotestVersion}")
+    testImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_TEST)
+    testImplementation(Dependencies.Kotest.EXTENSIONS_SPRING)
+    testImplementation(Dependencies.Logcapture.KOTEST)
+    testImplementation(Dependencies.Logcapture.CORE)
+    testImplementation(Dependencies.Kotest.EXTENSIONS_NOW)
 }
 
 kotlin.target.compilations {

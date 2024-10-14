@@ -11,16 +11,16 @@ repositories {
 val jdkVersion = "21"
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    implementation(Dependencies.Kotlin.KOTLIN_REFLECT)
+    implementation(Dependencies.Kotlin.KOTLIN_STDLIB)
+    implementation(Dependencies.Kotlin.JACKSON_MODULE_KOTLIN)
+    testImplementation(Dependencies.Kotlin.KOTLIN_TEST_JUNIT5)
 
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
-    testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
-    testImplementation("io.kotest:kotest-assertions-core:5.9.1")
-    testImplementation("io.kotest:kotest-assertions-json:5.9.1")
-    testImplementation("io.kotest:kotest-property:5.9.1")
+    testImplementation(Dependencies.Kotlin.KOTLINX_COROUTINES_TEST)
+    testImplementation(Dependencies.Kotest.RUNNER_JUNIT5)
+    testImplementation(Dependencies.Kotest.ASSERTIONS_CORE)
+    testImplementation(Dependencies.Kotest.ASSERTIONS_JSON)
+    testImplementation(Dependencies.Kotest.PROPERTY)
 }
 
 java {

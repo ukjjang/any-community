@@ -11,6 +11,6 @@ tasks.bootJar {
 dependencies {
     implementation(project(":util:jwt"))
 
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_SECURITY)
 
 }

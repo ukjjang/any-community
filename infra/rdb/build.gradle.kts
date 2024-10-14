@@ -8,11 +8,11 @@ plugins {
 val testContainersVersion = "1.20.0"
 
 dependencies {
-    runtimeOnly("com.mysql:mysql-connector-j")
+    runtimeOnly(Dependencies.Mysql.CONNECTOR)
 
-    testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
-    testFixturesImplementation("org.testcontainers:junit-jupiter:${testContainersVersion}")
-    testFixturesImplementation("org.testcontainers:mysql:$testContainersVersion")
+    testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_TEST)
+    testFixturesImplementation(Dependencies.TestContainers.JUNIT_JUPITER)
+    testFixturesImplementation(Dependencies.TestContainers.MYSQL)
 }
 
 val bootJar: BootJar by tasks

@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    api("net.datafaker:datafaker:2.2.2")
+    api(Dependencies.Faker.FAKER)
 }
