@@ -1,15 +1,16 @@
 datasource:
   rdb:
     writer:
-      jdbc-url: jdbc:mysql://localhost:3306/rdb
       pool-name: rdb-writer
-      username: root
-      password: 4a5s6d
+      jdbc-url: jdbc:mysql://127.0.0.1:3307/rdb
+      username: user
+      password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
     reader:
-      jdbc-url: jdbc:mysql://localhost:3306/rdb
-      username: root
-      password: 4a5s6d
+      pool-name: rdb-reader
+      jdbc-url: jdbc:mysql://127.0.0.1:3307/rdb
+      username: user
+      password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
 
 spring:

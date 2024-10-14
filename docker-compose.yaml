@@ -9,11 +9,9 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
-      - '3306:3306'
+      - '3307:3306'
     volumes:
       - 'mysqldata:/var/lib/mysql'
-    networks:
-      - toy-network
 
   flyway:
     image: flyway/flyway
@@ -28,25 +26,6 @@ services:
       FLYWAY_DB_USER: user
       FLYWAY_DB_PASSWORD: password
       FLYWAY_BASELINE_ON_MIGRATE: true
-    networks:
-      - toy-network
-
-  external-api:
-    build:
-      context: ./external-api
-    depends_on:
-      - rdb
-    ports:
-      - '8080:8080'
-    networks:
-      - toy-network
-    restart: always
-    environment:
-      DATASOURCE_RDB_WRITER_JDBC-URL: jdbc:mysql://rdb:3306/rdb
-      DATASOURCE_RDB_READER_JDBC-URL: jdbc:mysql://rdb:3306/rdb
-
-networks:
-  toy-network:
 
 volumes:
   mysqldata:
