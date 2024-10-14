@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserAuthService(
+    private val jwtTokenProvider: JwtTokenProvider,
     private val userRepository: UserRepository,
 ) {
 
@@ -22,10 +23,8 @@ class UserAuthService(
         val user =
             userRepository.findByUsername(userCredentials.username) ?: throw NoSuchElementException("존재하지 않는 사용자입니다.")
 
-        if (!Jbcrypt.verify(userCredentials.password, user.password)) {
-            throw IllegalArgumentException("잘못된 비밀번호입니다.")
-        }
+        require(Jbcrypt.verify(userCredentials.password, user.password)) { "잘못된 비밀번호입니다." }
 
-        return JwtTokenProvider.createToken(user.username.value)
+        return jwtTokenProvider.createToken(user.username.value)
     }
 }

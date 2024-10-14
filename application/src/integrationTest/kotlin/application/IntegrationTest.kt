@@ -17,6 +17,7 @@ internal class IntegrationTestConfiguration
 @ActiveProfiles(
     "test",
     "infra-rdb",
+    "util-jwt",
 )
 @ContextConfiguration(classes = [IntegrationTestConfiguration::class])
 @SpringBootTest
