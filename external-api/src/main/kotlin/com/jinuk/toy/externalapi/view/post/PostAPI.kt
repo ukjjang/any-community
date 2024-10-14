@@ -2,6 +2,7 @@ package com.jinuk.toy.externalapi.view.post
 
 import com.jinuk.toy.applicaiton.post.PostCommandBus
 import com.jinuk.toy.applicaiton.post.PostQueryBus
+import com.jinuk.toy.applicaiton.post.command.DeletePostCommand
 import com.jinuk.toy.applicaiton.post.query.GetPostDetailQuery
 import com.jinuk.toy.externalapi.global.security.AuthRole
 import com.jinuk.toy.externalapi.global.security.AuthUser
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.access.annotation.Secured
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -48,4 +50,17 @@ class PostAPI(
     fun getPostDetail(@PathVariable postId: Long) = GetPostDetailQuery(postId).let {
         postQueryBus.query(it)
     }.toResponse()
+
+    @Operation(
+        summary = "게시글 삭제",
+        description = "id로 게시글을 삭제합니다.",
+    )
+    @Secured(AuthRole.USER)
+    @DeleteMapping("/{postId}")
+    fun delete(
+        @AuthenticationPrincipal user: AuthUser,
+        @PathVariable postId: Long
+    ) = DeletePostCommand(user.id, postId).let {
+        postCommandBus.execute(it)
+    }
 }
