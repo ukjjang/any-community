@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.post.jpa
 
 import com.jinuk.toy.domain.post.Post
+import com.jinuk.toy.domain.post.toEntity
+import com.jinuk.toy.domain.post.toModel
 import com.jinuk.toy.infra.rdb.post.jpa.PostEntityRepository
-import com.jinuk.toy.domain.post.mapper.PostEntityMapper.toEntity
-import com.jinuk.toy.domain.post.mapper.PostEntityMapper.toModel
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
