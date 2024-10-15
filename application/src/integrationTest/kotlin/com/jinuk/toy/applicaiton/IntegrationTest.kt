@@ -1,4 +1,4 @@
-package application
+package com.jinuk.toy.applicaiton
 
 import com.jinuk.toy.infra.rdb.InfraRdbTestContainer
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration

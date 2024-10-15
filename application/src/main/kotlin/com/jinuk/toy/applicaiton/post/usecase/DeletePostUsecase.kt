@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 class DeletePostUsecase(
     private val postDeleteService: PostDeleteService
 ) {
-    operator fun invoke(query: DeletePostCommand) = with(query) {
+    operator fun invoke(command: DeletePostCommand) = with(command) {
         postDeleteService.delete(id, userId)
     }
 }

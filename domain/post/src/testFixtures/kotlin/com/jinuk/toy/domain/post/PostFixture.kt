@@ -2,13 +2,15 @@ package com.jinuk.toy.domain.post
 
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.util.faker.faker
+import com.jinuk.toy.util.faker.randomLong
+import com.jinuk.toy.util.faker.randomString
 
 object PostFixture {
     fun create(
         id: Long? = null,
-        userId: Long = faker.random().nextLong(),
-        title: PostTitle = PostTitle(faker.lorem().characters(1, 30)),
-        content: String = faker.lorem().characters(1, 300)
+        userId: Long = faker.randomLong(),
+        title: PostTitle = PostTitle(faker.randomString(20)),
+        content: String = faker.randomString(100),
     ): Post {
         return Post(
             userId = userId,
