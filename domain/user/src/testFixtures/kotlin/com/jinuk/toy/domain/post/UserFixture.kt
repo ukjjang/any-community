@@ -12,7 +12,7 @@ object UserFixture {
         password: String = faker.randomString(40)
     ): User {
         return User(
-            id = id,
+            _id = id,
             username = username,
             password = password,
         )

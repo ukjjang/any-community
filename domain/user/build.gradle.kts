@@ -5,5 +5,4 @@ plugins {
 dependencies {
     implementation(project(":util:jbcrypt"))
     implementation(project(":util:jwt"))
-    api(project(":util:logger"))
 }

@@ -17,13 +17,13 @@ class GetPostDetailUsecaseTest(
                 val exist = postRepository.save(PostFixture.create())
 
                 it("조회 성공") {
-                    val post = getPostDetailUsecase(GetPostDetailQuery(exist.id!!))
+                    val post = getPostDetailUsecase(GetPostDetailQuery(exist.id))
                     post shouldBe exist
                 }
 
                 it("조회 실패 - 다른 id로 조회") {
                     shouldThrow<NoSuchElementException> {
-                        getPostDetailUsecase(GetPostDetailQuery(exist.id!! + 1))
+                        getPostDetailUsecase(GetPostDetailQuery(exist.id + 1))
                     }
                 }
             }

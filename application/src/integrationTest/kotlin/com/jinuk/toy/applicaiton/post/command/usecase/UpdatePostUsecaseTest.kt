@@ -30,13 +30,13 @@ internal class UpdatePostUsecaseTest(
                 it("수정 성공") {
                     val command = UpdatePostCommand(
                         exits1.userId,
-                        exits1.id!!,
+                        exits1.id,
                         PostTitle("faker.randomString()"),
                         faker.randomString()
                     )
 
                     val post = updatePostUsecase(command)
-                    val postEntity = postRepository.findById(post.id!!)
+                    val postEntity = postRepository.findById(post.id)
 
                     post shouldBe postEntity
                     post.title shouldBe command.title
@@ -46,7 +46,7 @@ internal class UpdatePostUsecaseTest(
                 it("수정 실패 - 작성자가 아닌 유저") {
                     val command = UpdatePostCommand(
                         faker.randomLong(),
-                        exits1.id!!,
+                        exits1.id,
                         PostTitle("faker.randomString()"),
                         randomContent,
                     )
@@ -58,7 +58,7 @@ internal class UpdatePostUsecaseTest(
                 it("수정 실패 - 이미 존재하는 제목") {
                     val command = UpdatePostCommand(
                         exits1.userId,
-                        exits1.id!!,
+                        exits1.id,
                         exits2.title,
                         randomContent,
                     )

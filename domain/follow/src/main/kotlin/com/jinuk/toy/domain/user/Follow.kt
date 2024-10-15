@@ -1,37 +1,33 @@
-package com.jinuk.toy.domain.post
+package com.jinuk.toy.domain.user
 
-import com.jinuk.toy.domain.post.value.PostTitle
-import com.jinuk.toy.infra.rdb.post.entity.PostEntity
+import com.jinuk.toy.infra.rdb.follow.entity.FollowEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
 import java.time.LocalDateTime
 
-data class Post(
+data class Follow(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
 
-    val userId: Long,
-    val title: PostTitle,
-    val content: String,
+    val followerUserId: Long,
+    val followingUserId: Long,
 ) : BaseDomain(_id, createdAt, updatedAt) {
     override fun equals(other: Any?) = super.equals(other)
     override fun hashCode() = super.hashCode()
 }
 
-internal fun PostEntity.toModel() = Post(
+internal fun FollowEntity.toModel() = Follow(
     _id = id,
-    userId = userId,
-    title = PostTitle(title),
-    content = content,
+    followerUserId = followerUserId,
+    followingUserId = followingUserId,
     createdAt = createdAt,
     updatedAt = updatedAt,
 )
 
-internal fun Post.toEntity() = PostEntity(
+internal fun Follow.toEntity() = FollowEntity(
     id = _id,
-    userId = userId,
-    title = title.value,
-    content = content,
+    followerUserId = followerUserId,
+    followingUserId = followingUserId,
     createdAt = createdAt,
     updatedAt = updatedAt,
 )

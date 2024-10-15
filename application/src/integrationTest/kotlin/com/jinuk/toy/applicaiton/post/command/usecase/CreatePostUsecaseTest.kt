@@ -22,7 +22,7 @@ internal class CreatePostUsecaseTest(
                     val command = CreatePostCommand(1, title, "content")
 
                     val post = createPostUsecase(command)
-                    val postEntity = postRepository.findById(post.id!!)
+                    val postEntity = postRepository.findById(post.id)
 
                     post shouldBe postEntity
                     post.userId shouldBe 1

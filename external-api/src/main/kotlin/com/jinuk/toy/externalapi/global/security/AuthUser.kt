@@ -14,7 +14,7 @@ data class AuthUser(
 
     companion object {
         operator fun invoke(user: User) = AuthUser(
-            id = user.id!!,
+            id = user.id,
             username = user.username,
             userRoles = listOf(AuthRole.USER)
         )

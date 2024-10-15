@@ -7,6 +7,7 @@ include("util:faker")
 include("util:jbcrypt")
 include("util:jwt")
 include("util:logger")
+include("util:domain-helper")
 
 // infra
 include("infra:rdb")
@@ -14,6 +15,7 @@ include("infra:rdb")
 // domain
 include("domain:post")
 include("domain:user")
+include("domain:follow")
 
 // application
 include("application")
