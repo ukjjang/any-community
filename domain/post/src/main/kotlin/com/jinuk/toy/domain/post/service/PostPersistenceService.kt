@@ -10,7 +10,7 @@ class PostPersistenceService(
 ) {
 
     fun persist(post: Post): Post {
-        require(!postRepository.existsByTitle(post.title.value)) { "이미 존재하는 게시글 제목입니다." }
+
         return postRepository.save(post)
     }
 }

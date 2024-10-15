@@ -1,8 +1,6 @@
-package application.post.command
+package com.jinuk.toy.applicaiton.post.command.usecase
 
-import application.IntegrationTest
-import com.jinuk.toy.applicaiton.post.command.CreatePostCommand
-import com.jinuk.toy.applicaiton.post.usecase.CreatePostUsecase
+import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.domain.post.value.PostTitle
@@ -15,13 +13,11 @@ internal class CreatePostUsecaseTest(
     private val postRepository: PostRepository,
 ) : IntegrationTest, DescribeSpec(
     {
-        describe("post create") {
-            context("post exists title") {
-                val existsTitle = PostTitle("exists")
-                val exits = PostFixture.create(title = existsTitle)
-                postRepository.save(exits)
+        describe("게시글 생성 유스케이스") {
+            context("exists 이름을 가진 게시글 존재") {
+                val exits = postRepository.save(PostFixture.create())
 
-                it("create success") {
+                it("생성 성공") {
                     val title = PostTitle("title")
                     val command = CreatePostCommand(1, title, "content")
 
@@ -34,8 +30,8 @@ internal class CreatePostUsecaseTest(
                     post.content shouldBe "content"
                 }
 
-                it("create fail - exists title") {
-                    val command = CreatePostCommand(1, existsTitle, "content")
+                it("생성 실패 - 동일한 제목") {
+                    val command = CreatePostCommand(1, exits.title, "content")
                     shouldThrow<IllegalArgumentException> {
                         createPostUsecase(command)
                     }

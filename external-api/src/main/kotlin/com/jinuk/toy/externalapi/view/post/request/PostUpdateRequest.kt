@@ -1,15 +1,16 @@
 package com.jinuk.toy.externalapi.view.post.request
 
-import com.jinuk.toy.applicaiton.post.command.usecase.CreatePostCommand
+import com.jinuk.toy.applicaiton.post.command.usecase.UpdatePostCommand
 import com.jinuk.toy.domain.post.value.PostTitle
 
-data class PostCreateRequest(
+data class PostUpdateRequest(
     val title: PostTitle,
     val content: String,
 )
 
-internal fun PostCreateRequest.toCommand(userId: Long) = CreatePostCommand(
+internal fun PostUpdateRequest.toCommand(userId: Long, id: Long) = UpdatePostCommand(
     userId = userId,
+    id = id,
     title = title,
     content = content,
 )
