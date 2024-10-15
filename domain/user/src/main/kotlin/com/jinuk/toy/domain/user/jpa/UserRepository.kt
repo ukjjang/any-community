@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.user.jpa
 
 import com.jinuk.toy.domain.user.User
-import com.jinuk.toy.domain.user.mapper.UserEntityMapper.toEntity
-import com.jinuk.toy.domain.user.mapper.UserEntityMapper.toModel
+import com.jinuk.toy.domain.user.toEntity
+import com.jinuk.toy.domain.user.toModel
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.rdb.user.jpa.UserEntityRepository
 import org.springframework.data.repository.findByIdOrNull

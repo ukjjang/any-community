@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.user
 
 import com.jinuk.toy.domain.user.value.Username
+import com.jinuk.toy.infra.rdb.user.entity.UserEntity
 import com.jinuk.toy.util.jbcrypt.Jbcrypt
 import java.time.LocalDateTime
 
@@ -29,3 +30,19 @@ data class User(
             User(username = userCredentials.username, password = Jbcrypt.encrypt(userCredentials.password))
     }
 }
+
+internal fun UserEntity.toModel() = User(
+    id = id,
+    username = Username(username),
+    password = password,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+internal fun User.toEntity() = UserEntity(
+    id = id,
+    username = username.value,
+    password = password,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
