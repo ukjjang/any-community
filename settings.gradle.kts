@@ -7,6 +7,7 @@ include("util:faker")
 include("util:jbcrypt")
 include("util:jwt")
 include("util:logger")
+include("util:domain-helper")
 
 // infra
 include("infra:rdb")
