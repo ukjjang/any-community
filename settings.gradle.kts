@@ -15,6 +15,7 @@ include("infra:rdb")
 // domain
 include("domain:post")
 include("domain:user")
+include("domain:follow")
 
 // application
 include("application")
