@@ -1,10 +1,9 @@
-package com.jinuk.toy.applicaiton.post.usecase
+package com.jinuk.toy.applicaiton.post.command.usecase
 
-import com.jinuk.toy.applicaiton.post.command.CreatePostCommand
-import com.jinuk.toy.applicaiton.post.command.toPost
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostPersistenceService
 import com.jinuk.toy.domain.post.service.PostQueryService
+import com.jinuk.toy.domain.post.value.PostTitle
 import org.springframework.stereotype.Service
 
 @Service
@@ -18,3 +17,15 @@ class CreatePostUsecase(
         return postPersistenceService.persist(command.toPost())
     }
 }
+
+data class CreatePostCommand(
+    val userId: Long,
+    val title: PostTitle,
+    val content: String,
+)
+
+private fun CreatePostCommand.toPost() = Post(
+    userId = userId,
+    title = title,
+    content = content,
+)

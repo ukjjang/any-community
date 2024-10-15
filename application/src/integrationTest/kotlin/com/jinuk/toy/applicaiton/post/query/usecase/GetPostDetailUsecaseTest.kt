@@ -1,7 +1,6 @@
-package com.jinuk.toy.applicaiton.post.usecase
+package com.jinuk.toy.applicaiton.post.query.usecase
 
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.applicaiton.post.query.GetPostDetailQuery
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import io.kotest.assertions.throwables.shouldThrow

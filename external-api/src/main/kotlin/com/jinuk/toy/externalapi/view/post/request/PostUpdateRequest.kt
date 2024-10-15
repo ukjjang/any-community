@@ -1,6 +1,6 @@
 package com.jinuk.toy.externalapi.view.post.request
 
-import com.jinuk.toy.applicaiton.post.command.UpdatePostCommand
+import com.jinuk.toy.applicaiton.post.command.usecase.UpdatePostCommand
 import com.jinuk.toy.domain.post.value.PostTitle
 
 data class PostUpdateRequest(

@@ -1,9 +1,9 @@
 package com.jinuk.toy.externalapi.view.post
 
-import com.jinuk.toy.applicaiton.post.PostCommandBus
-import com.jinuk.toy.applicaiton.post.PostQueryBus
-import com.jinuk.toy.applicaiton.post.command.DeletePostCommand
-import com.jinuk.toy.applicaiton.post.query.GetPostDetailQuery
+import com.jinuk.toy.applicaiton.post.command.PostCommandBus
+import com.jinuk.toy.applicaiton.post.query.PostQueryBus
+import com.jinuk.toy.applicaiton.post.command.usecase.DeletePostCommand
+import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailQuery
 import com.jinuk.toy.externalapi.global.security.AuthRole
 import com.jinuk.toy.externalapi.global.security.AuthUser
 import com.jinuk.toy.externalapi.view.post.request.PostCreateRequest

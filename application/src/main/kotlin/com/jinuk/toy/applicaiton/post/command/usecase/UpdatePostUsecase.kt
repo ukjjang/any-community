@@ -1,10 +1,9 @@
-package com.jinuk.toy.applicaiton.post.usecase
+package com.jinuk.toy.applicaiton.post.command.usecase
 
-import com.jinuk.toy.applicaiton.post.command.UpdatePostCommand
-import com.jinuk.toy.applicaiton.post.command.update
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostPersistenceService
 import com.jinuk.toy.domain.post.service.PostQueryService
+import com.jinuk.toy.domain.post.value.PostTitle
 import org.springframework.stereotype.Service
 
 @Service
@@ -19,4 +18,23 @@ class UpdatePostUsecase(
         val updatedPost = post.update(command)
         return postPersistenceService.persist(updatedPost)
     }
+}
+
+data class UpdatePostCommand(
+    val userId: Long,
+    val id: Long,
+    val title: PostTitle,
+    val content: String,
+)
+
+fun Post.update(
+    command: UpdatePostCommand,
+): Post {
+    require(this.userId == command.userId) {
+        "작성자만 게시글을 수정할 수 있습니다."
+    }
+    return this.copy(
+        title = command.title,
+        content = command.content,
+    )
 }

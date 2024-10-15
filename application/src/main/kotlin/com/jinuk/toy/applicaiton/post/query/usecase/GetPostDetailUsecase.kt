@@ -1,6 +1,5 @@
-package com.jinuk.toy.applicaiton.post.usecase
+package com.jinuk.toy.applicaiton.post.query.usecase
 
-import com.jinuk.toy.applicaiton.post.query.GetPostDetailQuery
 import com.jinuk.toy.domain.post.service.PostQueryService
 import org.springframework.stereotype.Service
 
@@ -10,3 +9,5 @@ class GetPostDetailUsecase(
 ) {
     operator fun invoke(query: GetPostDetailQuery) = postQueryService.getById(query.id)
 }
+
+data class GetPostDetailQuery(val id: Long)

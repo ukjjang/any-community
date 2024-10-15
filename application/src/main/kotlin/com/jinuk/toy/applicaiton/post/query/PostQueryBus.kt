@@ -1,7 +1,7 @@
-package com.jinuk.toy.applicaiton.post
+package com.jinuk.toy.applicaiton.post.query
 
-import com.jinuk.toy.applicaiton.post.query.GetPostDetailQuery
-import com.jinuk.toy.applicaiton.post.usecase.GetPostDetailUsecase
+import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailQuery
+import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailUsecase
 import com.jinuk.toy.domain.post.Post
 import org.springframework.stereotype.Service
 
