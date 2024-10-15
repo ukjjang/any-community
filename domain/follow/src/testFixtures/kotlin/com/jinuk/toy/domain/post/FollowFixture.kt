@@ -11,7 +11,7 @@ object FollowFixture {
         followingUserId: Long = faker.randomLong(),
     ): Follow {
         return Follow(
-            id = id,
+            _id = id,
             followerUserId = followerUserId,
             followingUserId = followingUserId,
         )

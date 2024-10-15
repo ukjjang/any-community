@@ -23,15 +23,15 @@ internal class DeletePostUsecaseTest(
                 val exits = postRepository.save(PostFixture.create())
 
                 it("삭제 성공") {
-                    val command = DeletePostCommand(exits.userId, exits.id!!)
+                    val command = DeletePostCommand(exits.userId, exits.id)
 
                     deletePostUsecase(command)
-                    val postEntity = postRepository.findById(exits.id!!)
+                    val postEntity = postRepository.findById(exits.id)
                     postEntity shouldBe null
                 }
 
                 it("삭제 실패 - 작성자가 아닌 유저") {
-                    val command = DeletePostCommand(faker.randomLong(), exits.id!!)
+                    val command = DeletePostCommand(faker.randomLong(), exits.id)
                     shouldThrow<IllegalArgumentException> {
                         deletePostUsecase(command)
                     }

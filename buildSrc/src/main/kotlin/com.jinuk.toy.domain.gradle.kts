@@ -13,9 +13,9 @@ plugins {
 
 dependencies {
     api(project(":util:logger"))
+    api(project(":util:domain-helper"))
 
     implementation(project(":infra:rdb"))
-    implementation(project(":util:domain-helper"))
     testImplementation(testFixtures(project(":infra:rdb")))
 
     testFixturesImplementation(project(":util:faker"))

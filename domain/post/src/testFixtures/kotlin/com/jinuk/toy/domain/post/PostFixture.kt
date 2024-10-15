@@ -14,7 +14,7 @@ object PostFixture {
     ): Post {
         return Post(
             userId = userId,
-            id = id,
+            _id = id,
             title = title,
             content = content
         )

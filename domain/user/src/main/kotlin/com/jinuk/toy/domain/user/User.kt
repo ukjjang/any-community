@@ -2,28 +2,20 @@ package com.jinuk.toy.domain.user
 
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.rdb.user.entity.UserEntity
+import com.jinuk.toy.util.domainhelper.BaseDomain
 import com.jinuk.toy.util.jbcrypt.Jbcrypt
 import java.time.LocalDateTime
 
 data class User(
-    val id: Long? = null,
+    override val _id: Long? = null,
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    override val updatedAt: LocalDateTime = LocalDateTime.now(),
+
     val username: Username,
     val password: String,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
-) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is User) return false
-
-        if (id != other.id) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return id?.hashCode() ?: 0
-    }
+) : BaseDomain(_id, createdAt, updatedAt) {
+    override fun equals(other: Any?) = super.equals(other)
+    override fun hashCode() = super.hashCode()
 
     companion object {
         fun signup(userCredentials: UserCredentials) =
@@ -32,7 +24,7 @@ data class User(
 }
 
 internal fun UserEntity.toModel() = User(
-    id = id,
+    _id = id,
     username = Username(username),
     password = password,
     createdAt = createdAt,
@@ -40,7 +32,7 @@ internal fun UserEntity.toModel() = User(
 )
 
 internal fun User.toEntity() = UserEntity(
-    id = id,
+    id = _id,
     username = username.value,
     password = password,
     createdAt = createdAt,

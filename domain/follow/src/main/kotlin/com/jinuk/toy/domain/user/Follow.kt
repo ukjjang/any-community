@@ -11,7 +11,10 @@ data class Follow(
 
     val followerUserId: Long,
     val followingUserId: Long,
-) : BaseDomain(_id, createdAt, updatedAt)
+) : BaseDomain(_id, createdAt, updatedAt) {
+    override fun equals(other: Any?) = super.equals(other)
+    override fun hashCode() = super.hashCode()
+}
 
 internal fun FollowEntity.toModel() = Follow(
     _id = id,
