@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository
 class FollowRepository(
     private val followEntityRepository: FollowEntityRepository,
 ) {
-    fun save(user: Follow) = followEntityRepository.save(user.toEntity()).toModel()
+    fun save(follow: Follow) = followEntityRepository.save(follow.toEntity()).toModel()
 
-    fun delete(user: Follow) = followEntityRepository.delete(user.toEntity())
+    fun delete(follow: Follow) = followEntityRepository.delete(follow.toEntity())
 
     fun findById(id: Long) = followEntityRepository.findByIdOrNull(id)?.toModel()
 

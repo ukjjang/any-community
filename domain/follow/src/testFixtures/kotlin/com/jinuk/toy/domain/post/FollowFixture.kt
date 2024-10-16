@@ -12,11 +12,9 @@ class FollowFixture(
 ) {
     companion object {
         fun create(
-            id: Long? = null,
             followerUserId: Long = faker.randomLong(),
             followingUserId: Long = faker.randomLong(),
         ) = Follow(
-            _id = id,
             followerUserId = followerUserId,
             followingUserId = followingUserId,
         )
@@ -26,6 +24,6 @@ class FollowFixture(
         id: Long? = null,
         followerUserId: Long = faker.randomLong(),
         followingUserId: Long = faker.randomLong(),
-    ) = followRepository.save(create(id, followerUserId, followingUserId))
+    ) = followRepository.save(create(followerUserId, followingUserId))
 }
 
