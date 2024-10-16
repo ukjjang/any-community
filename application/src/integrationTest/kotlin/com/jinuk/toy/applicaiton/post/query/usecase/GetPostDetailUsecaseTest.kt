@@ -12,7 +12,7 @@ class GetPostDetailUsecaseTest(
 ) : IntegrationTest, DescribeSpec(
     {
         describe("게시글 단일 조회 유스케이스") {
-            context("exists 이름을 가진 게시글 존재") {
+            context("게시글 존재") {
                 val exist = postFixture.persist()
 
                 it("조회 성공") {
