@@ -17,7 +17,7 @@ internal class LoginUsecaseTest(
     {
         describe("로그인 유스케이스") {
             context("유저 존재") {
-                val signupCredentials = UserCredentials(Username("username"), "password")
+                val signupCredentials = UserCredentials(Username(faker.randomString(4)), "password")
                 authService.signUp(signupCredentials)
 
                 it("로그인 성공") {

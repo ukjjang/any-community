@@ -4,6 +4,8 @@ import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.post.UserFixture
 import com.jinuk.toy.domain.user.jpa.UserRepository
 import com.jinuk.toy.domain.user.value.Username
+import com.jinuk.toy.util.faker.faker
+import com.jinuk.toy.util.faker.randomString
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldNotBe
@@ -19,7 +21,7 @@ internal class SignupUsecaseTest(
                 val exits = userFixture.persist()
 
                 it("회원가입 성공") {
-                    val command = SignupCommand(Username("username"), "password")
+                    val command = SignupCommand(Username(faker.randomString(4)), "password")
 
                     signupUsecase(command)
                     userRepository.findByUsername(command.username) shouldNotBe null
