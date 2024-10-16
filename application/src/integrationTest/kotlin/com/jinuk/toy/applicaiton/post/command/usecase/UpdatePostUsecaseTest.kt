@@ -16,14 +16,15 @@ import io.kotest.matchers.shouldBe
 internal class UpdatePostUsecaseTest(
     private val updatePostUsecase: UpdatePostUsecase,
     private val postRepository: PostRepository,
+    private val postFixture: PostFixture,
 ) : IntegrationTest, DescribeSpec(
     {
         extensions(SpringTestExtension(SpringTestLifecycleMode.Test))
 
         describe("게시글 수정 유스케이스") {
             context("특정 유저가 작성한 게시글이 2개 존재") {
-                val exits1 = postRepository.save(PostFixture.create())
-                val exits2 = postRepository.save(PostFixture.create())
+                val exits1 = postFixture.persist()
+                val exits2 = postFixture.persist()
 
                 val randomContent = faker.randomString()
 

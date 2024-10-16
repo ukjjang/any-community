@@ -1,7 +1,6 @@
 import gradle.kotlin.dsl.accessors._458d78406d6ada6c312d6c9e71140b0b.api
 import gradle.kotlin.dsl.accessors._458d78406d6ada6c312d6c9e71140b0b.implementation
 import gradle.kotlin.dsl.accessors._458d78406d6ada6c312d6c9e71140b0b.testImplementation
-import gradle.kotlin.dsl.accessors._898f58a249179918706b9ca370c320ba.testFixturesImplementation
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
@@ -19,6 +18,7 @@ dependencies {
     testImplementation(testFixtures(project(":infra:rdb")))
 
     testFixturesImplementation(project(":util:faker"))
+    testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_WEB)
 }
 
 val bootJar: BootJar by tasks
