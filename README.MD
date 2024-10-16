@@ -11,6 +11,13 @@
 * Spring Boot 3.3.2
 * JPA / Hibernate
 
+### 세팅하기
+- IntelliJ에서 JDK 21 설정
+- ktlint pre-commit-hook 설정
+    ```shell
+    $ ./gradlew addKtlintFormatGitPreCommitHook
+    ```
+
 ### 시작하기
 
 ```bash
