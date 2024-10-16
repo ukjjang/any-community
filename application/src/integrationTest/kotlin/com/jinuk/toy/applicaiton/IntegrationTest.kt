@@ -1,6 +1,7 @@
 package com.jinuk.toy.applicaiton
 
 import com.jinuk.toy.infra.rdb.InfraRdbTestContainer
+import com.jinuk.toy.infra.redis.InfraRedisContainer
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.test.context.SpringBootTest
@@ -17,8 +18,9 @@ internal class IntegrationTestConfiguration
 @ActiveProfiles(
     "test",
     "infra-rdb",
+    "infra-redis",
     "util-jwt",
 )
 @ContextConfiguration(classes = [IntegrationTestConfiguration::class])
 @SpringBootTest
-internal interface IntegrationTest : InfraRdbTestContainer
+internal interface IntegrationTest : InfraRdbTestContainer, InfraRedisContainer

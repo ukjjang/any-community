@@ -2,6 +2,7 @@ object Dependencies {
     object SpringBoot {
         const val SPRING_BOOT_STARTER_WEB = "org.springframework.boot:spring-boot-starter-web"
         const val SPRING_BOOT_STARTER_TEST = "org.springframework.boot:spring-boot-starter-test"
+        const val SPRING_BOOT_STARTER_REDIS = "org.springframework.boot:spring-boot-starter-data-redis"
         const val SPRING_BOOT_STARTER_DATA_JPA = "org.springframework.boot:spring-boot-starter-data-jpa"
         const val SPRING_BOOT_STARTER_SECURITY = "org.springframework.boot:spring-boot-starter-security"
 

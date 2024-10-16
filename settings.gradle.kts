@@ -11,6 +11,7 @@ include("util:domain-helper")
 
 // infra
 include("infra:rdb")
+include("infra:redis")
 
 // domain
 include("domain:post")
