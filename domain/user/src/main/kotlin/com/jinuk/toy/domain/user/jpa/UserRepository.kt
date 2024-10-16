@@ -20,6 +20,7 @@ class UserRepository(
 
     fun findByIdIn(ids: List<Long>): List<User> = userEntityRepository.findAllById(ids).map { it.toModel() }
 
+    fun existsById(id: Long) = userEntityRepository.existsById(id)
     fun existsByUsername(username: Username) = userEntityRepository.existsByUsername(username.value)
     fun findByUsername(username: Username) = userEntityRepository.findByUsername(username.value)?.toModel()
 }

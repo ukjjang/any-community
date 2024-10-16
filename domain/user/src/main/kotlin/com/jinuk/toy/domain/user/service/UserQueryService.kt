@@ -9,5 +9,6 @@ class UserQueryService(
     private val userRepository: UserRepository,
 ) {
 
+    fun existsById(id: Long) = userRepository.existsById(id)
     fun findByUsername(username: Username) = userRepository.findByUsername(username)
 }

@@ -13,7 +13,7 @@ class FollowCommandService(
     fun create(followRelation: FollowRelation) =
         require(!followQueryService.existsByFollowRelation(followRelation)) {
             "이미 팔로우 관계입니다."
-        }.also {
+        }.let {
             followRepository.save(Follow.create(followRelation))
         }
 
