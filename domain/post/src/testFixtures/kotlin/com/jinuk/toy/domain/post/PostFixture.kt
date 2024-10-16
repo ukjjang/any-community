@@ -13,22 +13,19 @@ class PostFixture(
 ) {
     companion object {
         fun create(
-            id: Long? = null,
             userId: Long = faker.randomLong(),
             title: PostTitle = PostTitle(faker.randomString(20)),
             content: String = faker.randomString(100),
         ) = Post(
             userId = userId,
-            _id = id,
             title = title,
             content = content
         )
     }
 
     fun persist(
-        id: Long? = null,
         userId: Long = faker.randomLong(),
         title: PostTitle = PostTitle(faker.randomString(20)),
         content: String = faker.randomString(100),
-    ) = postRepository.save(create(id, userId, title, content))
+    ) = postRepository.save(create(userId, title, content))
 }
