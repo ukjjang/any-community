@@ -1,9 +1,10 @@
-package com.jinuk.toy.externalapi.view.follow
+package com.jinuk.toy.externalapi.view.user
 
 import com.jinuk.toy.applicaiton.follow.command.FollowCommandBus
 import com.jinuk.toy.applicaiton.follow.command.usecase.CreateFollowCommand
 import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowCommand
 import com.jinuk.toy.domain.user.FollowRelation
+import com.jinuk.toy.externalapi.global.ExternalAPIController
 import com.jinuk.toy.externalapi.global.security.AuthRole
 import com.jinuk.toy.externalapi.global.security.AuthUser
 import io.swagger.v3.oas.annotations.Operation
@@ -13,19 +14,16 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "팔로우")
-@RequestMapping("/follow")
-@RestController
-class FollowAPI(
+@Tag(name = "유저")
+@ExternalAPIController
+class UserAPI(
     private val followCommandBus: FollowCommandBus
 ) {
 
     @Operation(summary = "팔로우")
     @Secured(AuthRole.USER)
-    @PostMapping("/{followingUserId}")
+    @PostMapping("/v1/user/{followingUserId}/follow")
     fun follow(
         @AuthenticationPrincipal user: AuthUser,
         @PathVariable followingUserId: Long,
@@ -35,7 +33,7 @@ class FollowAPI(
 
     @Operation(summary = "언팔로우")
     @Secured(AuthRole.USER)
-    @DeleteMapping("/{followingUserId}")
+    @DeleteMapping("/v1/user/{followingUserId}/follow")
     fun unFollow(
         @AuthenticationPrincipal user: AuthUser,
         @PathVariable followingUserId: Long,
