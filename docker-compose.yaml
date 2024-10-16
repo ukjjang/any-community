@@ -29,7 +29,7 @@ services:
     depends_on:
       - rdb
     environment:
-      FLYWAY_DB_URL: jdbc:mysql://rdb:3306/rdb
+      FLYWAY_DB_URL: jdbc:mysql://rdb:3306/rdb?useSSL=false&allowPublicKeyRetrieval=true
       FLYWAY_DB_USER: user
       FLYWAY_DB_PASSWORD: password
       FLYWAY_BASELINE_ON_MIGRATE: true
