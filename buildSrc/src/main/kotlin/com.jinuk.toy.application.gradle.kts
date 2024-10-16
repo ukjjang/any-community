@@ -16,6 +16,9 @@ dependencies {
     testImplementation(testFixtures(project(":domain:follow")))
 
     testImplementation(testFixtures(project(":infra:rdb")))
+
+    implementation(project(":infra:redis"))
+    testImplementation(testFixtures(project(":infra:redis")))
 }
 
 

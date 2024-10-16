@@ -17,6 +17,9 @@ dependencies {
     implementation(project(":infra:rdb"))
     testImplementation(testFixtures(project(":infra:rdb")))
 
+    implementation(project(":infra:redis"))
+    testImplementation(testFixtures(project(":infra:redis")))
+
     testFixturesImplementation(project(":util:faker"))
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_WEB)
 }
