@@ -11,9 +11,11 @@ dependencies {
     api(project(":domain:post"))
     api(project(":domain:user"))
     api(project(":domain:follow"))
+    api(project(":domain:comment"))
     testImplementation(testFixtures(project(":domain:post")))
     testImplementation(testFixtures(project(":domain:user")))
     testImplementation(testFixtures(project(":domain:follow")))
+    testImplementation(testFixtures(project(":domain:comment")))
 
     testImplementation(testFixtures(project(":infra:rdb")))
 

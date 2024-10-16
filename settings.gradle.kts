@@ -17,6 +17,7 @@ include("infra:redis")
 include("domain:post")
 include("domain:user")
 include("domain:follow")
+include("domain:comment")
 
 // application
 include("application")
