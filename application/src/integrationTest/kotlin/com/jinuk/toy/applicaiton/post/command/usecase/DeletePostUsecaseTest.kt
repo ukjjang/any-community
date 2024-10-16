@@ -14,13 +14,14 @@ import io.kotest.matchers.shouldBe
 internal class DeletePostUsecaseTest(
     private val deletePostUsecase: DeletePostUsecase,
     private val postRepository: PostRepository,
+    private val postFixture: PostFixture,
 ) : IntegrationTest, DescribeSpec(
     {
         extensions(SpringTestExtension(SpringTestLifecycleMode.Test))
 
         describe("게시글 삭제 유스케이스") {
             context("게시글 존재") {
-                val exits = postRepository.save(PostFixture.create())
+                val exits = postFixture.persist()
 
                 it("삭제 성공") {
                     val command = DeletePostCommand(exits.userId, exits.id)

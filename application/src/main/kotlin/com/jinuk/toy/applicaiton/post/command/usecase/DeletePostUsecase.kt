@@ -1,14 +1,14 @@
 package com.jinuk.toy.applicaiton.post.command.usecase
 
-import com.jinuk.toy.domain.post.service.PostDeleteService
+import com.jinuk.toy.domain.post.service.PostCommandService
 import org.springframework.stereotype.Service
 
 @Service
 class DeletePostUsecase(
-    private val postDeleteService: PostDeleteService
+    private val postCommandService: PostCommandService,
 ) {
     operator fun invoke(command: DeletePostCommand) = with(command) {
-        postDeleteService.delete(id, userId)
+        postCommandService.delete(id, userId)
     }
 }
 

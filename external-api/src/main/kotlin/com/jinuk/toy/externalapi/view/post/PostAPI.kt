@@ -1,9 +1,10 @@
 package com.jinuk.toy.externalapi.view.post
 
 import com.jinuk.toy.applicaiton.post.command.PostCommandBus
-import com.jinuk.toy.applicaiton.post.query.PostQueryBus
 import com.jinuk.toy.applicaiton.post.command.usecase.DeletePostCommand
+import com.jinuk.toy.applicaiton.post.query.PostQueryBus
 import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailQuery
+import com.jinuk.toy.externalapi.global.ExternalAPIController
 import com.jinuk.toy.externalapi.global.security.AuthRole
 import com.jinuk.toy.externalapi.global.security.AuthUser
 import com.jinuk.toy.externalapi.view.post.request.PostCreateRequest
@@ -20,12 +21,9 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "게시글")
-@RequestMapping("/post")
-@RestController
+@ExternalAPIController
 class PostAPI(
     private val postCommandBus: PostCommandBus,
     private val postQueryBus: PostQueryBus,
@@ -36,7 +34,7 @@ class PostAPI(
         description = "게시글을 신규 등록합니다.",
     )
     @Secured(AuthRole.USER)
-    @PostMapping
+    @PostMapping("/v1/post")
     fun create(
         @AuthenticationPrincipal user: AuthUser,
         @RequestBody request: PostCreateRequest
@@ -48,7 +46,7 @@ class PostAPI(
         summary = "게시글 상세 조회",
         description = "id로 게시글을 조회합니다.",
     )
-    @GetMapping("/{postId}")
+    @GetMapping("/v1/post/{postId}")
     fun getPostDetail(@PathVariable postId: Long) = GetPostDetailQuery(postId).let {
         postQueryBus.query(it)
     }.toResponse()
@@ -57,7 +55,7 @@ class PostAPI(
         summary = "게시글 수정",
     )
     @Secured(AuthRole.USER)
-    @PutMapping("/{postId}")
+    @PutMapping("/v1/post/{postId}")
     fun updatePost(
         @AuthenticationPrincipal user: AuthUser,
         @PathVariable postId: Long,
@@ -71,7 +69,7 @@ class PostAPI(
         description = "id로 게시글을 삭제합니다.",
     )
     @Secured(AuthRole.USER)
-    @DeleteMapping("/{postId}")
+    @DeleteMapping("/v1/post/{postId}")
     fun delete(
         @AuthenticationPrincipal user: AuthUser,
         @PathVariable postId: Long

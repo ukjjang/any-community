@@ -27,5 +27,8 @@ class FollowRepository(
 
     fun findByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long) =
         followEntityRepository.findByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)?.toModel()
+
+    fun existsByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long) =
+        followEntityRepository.existsByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)
 }
 

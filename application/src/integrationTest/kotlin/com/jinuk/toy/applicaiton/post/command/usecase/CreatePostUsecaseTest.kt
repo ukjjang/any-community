@@ -11,11 +11,12 @@ import io.kotest.matchers.shouldBe
 internal class CreatePostUsecaseTest(
     private val createPostUsecase: CreatePostUsecase,
     private val postRepository: PostRepository,
+    private val postFixture: PostFixture,
 ) : IntegrationTest, DescribeSpec(
     {
         describe("게시글 생성 유스케이스") {
             context("exists 이름을 가진 게시글 존재") {
-                val exits = postRepository.save(PostFixture.create())
+                val exits = postFixture.persist()
 
                 it("생성 성공") {
                     val title = PostTitle("title")
