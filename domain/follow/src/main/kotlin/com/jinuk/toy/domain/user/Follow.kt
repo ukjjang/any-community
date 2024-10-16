@@ -14,6 +14,15 @@ data class Follow(
 ) : BaseDomain(_id, createdAt, updatedAt) {
     override fun equals(other: Any?) = super.equals(other)
     override fun hashCode() = super.hashCode()
+
+    companion object {
+        fun create(followRelation: FollowRelation) = with(followRelation) {
+            Follow(
+                followerUserId = followerUserId,
+                followingUserId = followingUserId,
+            )
+        }
+    }
 }
 
 internal fun FollowEntity.toModel() = Follow(
