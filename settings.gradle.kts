@@ -18,6 +18,7 @@ include("domain:post")
 include("domain:user")
 include("domain:follow")
 include("domain:comment")
+include("domain:like")
 
 // application
 include("application")
