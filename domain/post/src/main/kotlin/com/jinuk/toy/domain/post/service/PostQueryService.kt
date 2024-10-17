@@ -9,4 +9,5 @@ class PostQueryService(
 ) {
     fun getById(id: Long) = postRepository.findById(id) ?: throw NoSuchElementException("존재하지 않는 게시글입니다.")
     fun existsByTitle(title: String) = postRepository.existsByTitle(title)
+    fun existsById(postId: Long) = postRepository.existsById(postId)
 }
