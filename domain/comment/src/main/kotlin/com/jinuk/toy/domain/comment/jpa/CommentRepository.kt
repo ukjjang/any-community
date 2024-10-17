@@ -18,6 +18,7 @@ class CommentRepository(
 
     fun findById(id: Long) = commentEntityRepository.findByIdOrNull(id)?.toModel()
     fun findByPostId(postId: Long) = commentEntityRepository.findByPostId(postId).map { it.toModel() }
+    fun findByPostIdIn(postIds: List<Long>) = commentEntityRepository.findByPostIdIn(postIds).map { it.toModel() }
 
     fun findByIdIn(ids: List<Long>): List<Comment> = commentEntityRepository.findAllById(ids).map { it.toModel() }
     fun findByUserIdAndPostId(userId: Long, postId: Long) =

@@ -4,6 +4,7 @@ import com.jinuk.toy.applicaiton.post.command.PostCommandBus
 import com.jinuk.toy.applicaiton.post.command.usecase.DeletePostCommand
 import com.jinuk.toy.applicaiton.post.query.PostQueryBus
 import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailQuery
+import com.jinuk.toy.applicaiton.post.query.usecase.SearchPostQuery
 import com.jinuk.toy.externalapi.global.ExternalAPIController
 import com.jinuk.toy.externalapi.global.security.AuthRole
 import com.jinuk.toy.externalapi.global.security.AuthUser
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestParam
 
 @Tag(name = "게시글")
 @ExternalAPIController
@@ -28,6 +30,19 @@ class PostAPI(
     private val postCommandBus: PostCommandBus,
     private val postQueryBus: PostQueryBus,
 ) {
+
+    @Operation(summary = "게시글 검색")
+    @PostMapping("/v1/post/search")
+    fun getPosts(
+        @RequestParam keyword: String?,
+        @RequestParam page: Int = 1,
+        @RequestParam size: Int = 20,
+    ) = postQueryBus.ask(SearchPostQuery(
+            keyword = keyword,
+            page = page,
+            size = size
+        )
+    ).map { it.toResponse() }
 
     @Operation(
         summary = "게시글 등록",
@@ -48,7 +63,7 @@ class PostAPI(
     )
     @GetMapping("/v1/post/{postId}")
     fun getPostDetail(@PathVariable postId: Long) = GetPostDetailQuery(postId).let {
-        postQueryBus.query(it)
+        postQueryBus.ask(it)
     }.toResponse()
 
     @Operation(
