@@ -9,8 +9,6 @@ import com.jinuk.toy.util.faker.faker
 import com.jinuk.toy.util.faker.randomLong
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.extensions.spring.SpringTestExtension
-import io.kotest.extensions.spring.SpringTestLifecycleMode
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
@@ -22,31 +20,27 @@ internal class DeletePostUsecaseTest(
     private val commentRepository: CommentRepository,
 ) : IntegrationTest, DescribeSpec(
     {
-        extensions(SpringTestExtension(SpringTestLifecycleMode.Test))
-
         describe("게시글 삭제 유스케이스") {
-            context("게시글 존재") {
+            it("삭제 성공") {
                 val exits = postFixture.persist()
 
                 commentFixture.persist(postId = exits.id)
                 commentFixture.persist(postId = exits.id)
                 val anotherPostComment = commentFixture.persist()
 
-                it("삭제 성공") {
-                    val command = DeletePostCommand(exits.userId, exits.id)
+                val command = DeletePostCommand(exits.userId, exits.id)
+                deletePostUsecase(command)
 
+                postRepository.findById(exits.id) shouldBe null
+                commentRepository.findByPostId(command.id) shouldBe emptyList()
+                commentRepository.findById(anotherPostComment.id) shouldNotBe null
+            }
+
+            it("삭제 실패 - 작성자가 아닌 유저") {
+                val exits = postFixture.persist()
+                val command = DeletePostCommand(faker.randomLong(), exits.id)
+                shouldThrow<IllegalArgumentException> {
                     deletePostUsecase(command)
-
-                    postRepository.findById(exits.id) shouldBe null
-                    commentRepository.findByPostId(command.id) shouldBe emptyList()
-                    commentRepository.findById(anotherPostComment.id) shouldNotBe null
-                }
-
-                it("삭제 실패 - 작성자가 아닌 유저") {
-                    val command = DeletePostCommand(faker.randomLong(), exits.id)
-                    shouldThrow<IllegalArgumentException> {
-                        deletePostUsecase(command)
-                    }
                 }
             }
         }
