@@ -6,6 +6,7 @@ import com.jinuk.toy.externalapi.global.ExternalAPIController
 import com.jinuk.toy.externalapi.global.security.AuthRole
 import com.jinuk.toy.externalapi.global.security.AuthUser
 import com.jinuk.toy.externalapi.view.post.request.CommentCreateRequest
+import com.jinuk.toy.externalapi.view.post.request.CommentUpdateRequest
 import com.jinuk.toy.externalapi.view.post.request.toCommand
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -14,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 
 @Tag(name = "게시글 댓글")
@@ -50,5 +52,22 @@ class PostCommentAPI(
         userId = user.id,
         postId = postId,
         commentId = commentId,
+    ).let { commentCommandBus.execute(it) }
+
+    @Operation(
+        summary = "게시글 댓글 수정",
+        description = "게시글에 댓글을 수정합니다.",
+    )
+    @Secured(AuthRole.USER)
+    @PutMapping("/v1/post/{postId}/comment/{commentId}")
+    fun updateComment(
+        @AuthenticationPrincipal user: AuthUser,
+        @PathVariable postId: Long,
+        @PathVariable commentId: Long,
+        @RequestBody request: CommentUpdateRequest,
+    ) = request.toCommand(
+        id = commentId,
+        userId = user.id,
+        postId = postId,
     ).let { commentCommandBus.execute(it) }
 }
