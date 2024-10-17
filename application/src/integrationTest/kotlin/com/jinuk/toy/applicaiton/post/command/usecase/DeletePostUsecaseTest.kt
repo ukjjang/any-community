@@ -27,8 +27,8 @@ internal class DeletePostUsecaseTest(
                     val command = DeletePostCommand(exits.userId, exits.id)
 
                     deletePostUsecase(command)
-                    val postEntity = postRepository.findById(exits.id)
-                    postEntity shouldBe null
+                    val post = postRepository.findById(exits.id)
+                    post shouldBe null
                 }
 
                 it("삭제 실패 - 작성자가 아닌 유저") {
