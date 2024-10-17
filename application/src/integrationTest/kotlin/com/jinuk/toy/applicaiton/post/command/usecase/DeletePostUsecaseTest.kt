@@ -1,6 +1,8 @@
 package com.jinuk.toy.applicaiton.post.command.usecase
 
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.domain.comment.CommentFixture
+import com.jinuk.toy.domain.comment.jpa.CommentRepository
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.util.faker.faker
@@ -10,11 +12,14 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.extensions.spring.SpringTestExtension
 import io.kotest.extensions.spring.SpringTestLifecycleMode
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 
 internal class DeletePostUsecaseTest(
     private val deletePostUsecase: DeletePostUsecase,
     private val postRepository: PostRepository,
     private val postFixture: PostFixture,
+    private val commentFixture: CommentFixture,
+    private val commentRepository: CommentRepository,
 ) : IntegrationTest, DescribeSpec(
     {
         extensions(SpringTestExtension(SpringTestLifecycleMode.Test))
@@ -23,12 +28,18 @@ internal class DeletePostUsecaseTest(
             context("게시글 존재") {
                 val exits = postFixture.persist()
 
+                commentFixture.persist(postId = exits.id)
+                commentFixture.persist(postId = exits.id)
+                val anotherPostComment = commentFixture.persist()
+
                 it("삭제 성공") {
                     val command = DeletePostCommand(exits.userId, exits.id)
 
                     deletePostUsecase(command)
-                    val post = postRepository.findById(exits.id)
-                    post shouldBe null
+
+                    postRepository.findById(exits.id) shouldBe null
+                    commentRepository.findByPostId(command.id) shouldBe emptyList()
+                    commentRepository.findById(anotherPostComment.id) shouldNotBe null
                 }
 
                 it("삭제 실패 - 작성자가 아닌 유저") {
