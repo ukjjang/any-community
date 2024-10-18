@@ -15,6 +15,14 @@ data class Like(
 ) : BaseDomain(_id, createdAt, updatedAt) {
     override fun equals(other: Any?) = super.equals(other)
     override fun hashCode() = super.hashCode()
+
+    companion object {
+        fun create(userId: Long, likeTarget: LikeTarget) = Like(
+            userId = userId,
+            targetType = likeTarget.type,
+            targetId = likeTarget.id,
+        )
+    }
 }
 
 internal fun LikeEntity.toModel() = Like(
