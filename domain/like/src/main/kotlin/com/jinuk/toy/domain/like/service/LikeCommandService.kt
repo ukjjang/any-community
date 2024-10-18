@@ -17,4 +17,9 @@ class LikeCommandService(
         }.let {
             likeRepository.save(Like.create(userId, likeTarget))
         }
+
+    fun delete(userId: Long, likeTarget: LikeTarget) =
+        likeQueryService.getByUserIdAndTargetTypeAndTargetId(userId, likeTarget).let {
+            likeRepository.delete(it)
+        }
 }

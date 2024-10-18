@@ -2,6 +2,7 @@ package com.jinuk.toy.externalapi.view.like
 
 import com.jinuk.toy.applicaiton.like.command.LikeCommandBus
 import com.jinuk.toy.applicaiton.like.command.usecase.AddLikeCommand
+import com.jinuk.toy.applicaiton.like.command.usecase.CancelLikeCommand
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.externalapi.global.ExternalAPIController
@@ -29,6 +30,20 @@ class LikeAPI(
         @PathVariable targetType: LikeType,
         @PathVariable targetId: String,
     ) = AddLikeCommand(
+        likeTarget = LikeTarget(targetType, targetId),
+        userId = user.id,
+    ).let {
+        likeCommandBus.execute(it)
+    }
+
+    @Operation(summary = "좋아요 취소")
+    @Secured(AuthRole.USER)
+    @DeleteMapping("/v1/like/{targetType}/{targetId}")
+    fun cancelLike(
+        @AuthenticationPrincipal user: AuthUser,
+        @PathVariable targetType: LikeType,
+        @PathVariable targetId: String,
+    ) = CancelLikeCommand(
         likeTarget = LikeTarget(targetType, targetId),
         userId = user.id,
     ).let {
