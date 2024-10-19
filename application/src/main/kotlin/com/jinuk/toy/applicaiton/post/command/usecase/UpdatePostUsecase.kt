@@ -3,7 +3,9 @@ package com.jinuk.toy.applicaiton.post.command.usecase
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostCommandService
 import com.jinuk.toy.domain.post.service.PostQueryService
+import com.jinuk.toy.domain.post.service.cacheKeyByGetById
 import com.jinuk.toy.domain.post.value.PostTitle
+import com.jinuk.toy.infra.redis.cache.cacheEvict
 import org.springframework.stereotype.Service
 
 @Service
@@ -15,7 +17,9 @@ class UpdatePostUsecase(
         require(!postQueryService.existsByTitle(command.title.value)) { "이미 존재하는 게시글 제목입니다." }
         val post = postQueryService.getById(command.id)
         val updatedPost = post.update(command)
-        return postCommandService.save(updatedPost)
+        return postCommandService.save(updatedPost).also {
+            cacheEvict(cacheKeyByGetById(post.id))
+        }
     }
 }
 

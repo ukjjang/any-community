@@ -56,7 +56,7 @@ fun <T> cached(
     return notCachedValued
 }
 
-fun evict(key: String) {
+fun cacheEvict(key: String) {
     try {
         redisTemplate.delete(key)
     } catch (e: Exception) {
