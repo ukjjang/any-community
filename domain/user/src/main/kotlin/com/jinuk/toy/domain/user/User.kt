@@ -10,31 +10,29 @@ data class User(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
-
     val username: Username,
     val password: String,
 ) : BaseDomain(_id, createdAt, updatedAt) {
-    override fun equals(other: Any?) = super.equals(other)
-    override fun hashCode() = super.hashCode()
-
     companion object {
         fun signup(userCredentials: UserCredentials) =
             User(username = userCredentials.username, password = Jbcrypt.encrypt(userCredentials.password))
     }
 }
 
-internal fun UserEntity.toModel() = User(
-    _id = id,
-    username = Username(username),
-    password = password,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
+internal fun UserEntity.toModel() =
+    User(
+        _id = id,
+        username = Username(username),
+        password = password,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+    )
 
-internal fun User.toEntity() = UserEntity(
-    id = _id,
-    username = username.value,
-    password = password,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
+internal fun User.toEntity() =
+    UserEntity(
+        id = _id,
+        username = username.value,
+        password = password,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+    )

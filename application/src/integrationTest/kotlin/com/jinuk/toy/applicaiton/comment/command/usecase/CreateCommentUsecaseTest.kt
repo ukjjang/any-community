@@ -10,21 +10,21 @@ internal class CreateCommentUsecaseTest(
     private val createCommentUsecase: CreateCommentUsecase,
     private val commentRepository: CommentRepository,
 ) : IntegrationTest, DescribeSpec(
-    {
-        describe("댓글 생성 유스케이스") {
-            it("생성 성공") {
-                val userId = faker.random().nextLong()
-                val postId = faker.random().nextLong()
-                val command = CreateCommentCommand(userId, postId, null, "content")
-                createCommentUsecase(command)
+        {
+            describe("댓글 생성 유스케이스") {
+                it("생성 성공") {
+                    val userId = faker.random().nextLong()
+                    val postId = faker.random().nextLong()
+                    val command = CreateCommentCommand(userId, postId, null, "content")
+                    createCommentUsecase(command)
 
-                val searched = commentRepository.findByUserIdAndPostId(userId, postId)
-                searched.size shouldBe 1
-                searched[0].userId shouldBe command.userId
-                searched[0].postId shouldBe command.postId
-                searched[0].parentCommentId shouldBe command.parentCommentId
-                searched[0].content shouldBe command.content
+                    val searched = commentRepository.findByUserIdAndPostId(userId, postId)
+                    searched.size shouldBe 1
+                    searched[0].userId shouldBe command.userId
+                    searched[0].postId shouldBe command.postId
+                    searched[0].parentCommentId shouldBe command.parentCommentId
+                    searched[0].content shouldBe command.content
+                }
             }
-        }
-    },
-)
+        },
+    )

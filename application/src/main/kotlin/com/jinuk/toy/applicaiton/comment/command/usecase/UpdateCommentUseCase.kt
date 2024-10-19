@@ -21,12 +21,10 @@ data class UpdateCommentCommand(
     val id: Long,
     val userId: Long,
     val postId: Long,
-    val content: String
+    val content: String,
 )
 
-fun Comment.update(
-    command: UpdateCommentCommand,
-): Comment {
+fun Comment.update(command: UpdateCommentCommand): Comment {
     require(this.userId == command.userId) { "작성자만 게시글을 수정할 수 있습니다." }
     require(this.postId == command.postId) { "해당 댓글은 지정된 게시글에 속하지 않습니다." }
     return this.copy(

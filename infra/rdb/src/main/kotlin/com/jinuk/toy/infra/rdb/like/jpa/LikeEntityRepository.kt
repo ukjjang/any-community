@@ -4,7 +4,21 @@ import com.jinuk.toy.infra.rdb.like.entity.LikeEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface LikeEntityRepository : JpaRepository<LikeEntity, Long> {
-    fun findByUserIdAndTargetTypeAndTargetId(userId: Long, targetType: String, targetId: String): LikeEntity?
-    fun existsByUserIdAndTargetTypeAndTargetId(userId: Long, targetType: String, targetId: String): Boolean
-    fun countByUserIdAndTargetTypeAndTargetId(userId: Long, targetType: String, targetId: String): Int
+    fun findByUserIdAndTargetTypeAndTargetId(
+        userId: Long,
+        targetType: String,
+        targetId: String,
+    ): LikeEntity?
+
+    fun existsByUserIdAndTargetTypeAndTargetId(
+        userId: Long,
+        targetType: String,
+        targetId: String,
+    ): Boolean
+
+    fun countByUserIdAndTargetTypeAndTargetId(
+        userId: Long,
+        targetType: String,
+        targetId: String,
+    ): Int
 }

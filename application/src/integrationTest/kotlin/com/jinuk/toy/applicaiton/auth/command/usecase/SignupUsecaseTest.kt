@@ -15,25 +15,25 @@ internal class SignupUsecaseTest(
     private val userFixture: UserFixture,
     private val userRepository: UserRepository,
 ) : IntegrationTest, DescribeSpec(
-    {
-        describe("회원가입 유스케이스") {
-            context("유저 존재") {
-                val exits = userFixture.persist()
+        {
+            describe("회원가입 유스케이스") {
+                context("유저 존재") {
+                    val exits = userFixture.persist()
 
-                it("회원가입 성공") {
-                    val command = SignupCommand(Username(faker.randomString(4)), "password")
+                    it("회원가입 성공") {
+                        val command = SignupCommand(Username(faker.randomString(4)), "password")
 
-                    signupUsecase(command)
-                    userRepository.findByUsername(command.username) shouldNotBe null
-                }
-
-                it("회원가입 실패 - 동일한 사용자 이름") {
-                    val command = SignupCommand(exits.username, "password")
-                    shouldThrow<IllegalArgumentException> {
                         signupUsecase(command)
+                        userRepository.findByUsername(command.username) shouldNotBe null
+                    }
+
+                    it("회원가입 실패 - 동일한 사용자 이름") {
+                        val command = SignupCommand(exits.username, "password")
+                        shouldThrow<IllegalArgumentException> {
+                            signupUsecase(command)
+                        }
                     }
                 }
             }
-        }
-    },
-)
+        },
+    )

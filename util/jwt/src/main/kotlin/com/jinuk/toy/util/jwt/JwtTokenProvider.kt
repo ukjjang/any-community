@@ -21,10 +21,10 @@ class JwtTokenProvider(
 
         return Jwts.builder()
             .setClaims(
-                Jwts.claims().setSubject(username)
+                Jwts.claims().setSubject(username),
             )
-            .setIssuedAt(now)  // 토큰 발급 시간
-            .setExpiration(validity)  // 토큰 만료 시간
+            .setIssuedAt(now) // 토큰 발급 시간
+            .setExpiration(validity) // 토큰 만료 시간
             .signWith(key, SignatureAlgorithm.HS256)
             .compact()
     }
@@ -39,6 +39,8 @@ class JwtTokenProvider(
         return if (bearerToken.startsWith("Bearer ")) {
             val jwtToken = bearerToken.substring(7) // "Bearer " 부분 제거
             return getUsername(jwtToken)
-        } else null
+        } else {
+            null
+        }
     }
 }

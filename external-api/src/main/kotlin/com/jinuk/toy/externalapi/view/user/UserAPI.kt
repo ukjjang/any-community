@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping
 @Tag(name = "유저")
 @ExternalAPIController
 class UserAPI(
-    private val followCommandBus: FollowCommandBus
+    private val followCommandBus: FollowCommandBus,
 ) {
-
     @Operation(summary = "팔로우")
     @Secured(AuthRole.USER)
     @PostMapping("/v1/user/{followingUserId}/follow")

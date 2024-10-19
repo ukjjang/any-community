@@ -20,9 +20,10 @@ class FollowRelationTest : DescribeSpec({
 
         context("팔로워와 팔로잉 ID가 동일할 때") {
             it("IllegalArgumentException이 발생한다") {
-                val exception = shouldThrow<IllegalArgumentException> {
-                    FollowRelation(1L, 1L)
-                }
+                val exception =
+                    shouldThrow<IllegalArgumentException> {
+                        FollowRelation(1L, 1L)
+                    }
 
                 exception.message shouldBe "팔로워와 팔로잉 대상은 같을 수 없습니다."
             }

@@ -11,13 +11,13 @@ data class AuthUser(
     val username: Username,
     val userRoles: List<String> = listOf(),
 ) : UserDetails {
-
     companion object {
-        operator fun invoke(user: User) = AuthUser(
-            id = user.id,
-            username = user.username,
-            userRoles = listOf(AuthRole.USER)
-        )
+        operator fun invoke(user: User) =
+            AuthUser(
+                id = user.id,
+                username = user.username,
+                userRoles = listOf(AuthRole.USER),
+            )
     }
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

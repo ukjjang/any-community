@@ -13,22 +13,17 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "follow")
 class FollowEntity(
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-
     @Column(name = "follower_user_id")
     val followerUserId: Long,
-
     @Column(name = "following_user_id")
     val followingUserId: Long,
-
     @Column(name = "created_at")
     @CreationTimestamp
     val createdAt: LocalDateTime = LocalDateTime.now(),
-
     @Column(name = "updated_at")
     @UpdateTimestamp
     val updatedAt: LocalDateTime = LocalDateTime.now(),

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody
 class PostCommentAPI(
     private val commentCommandBus: CommentCommandBus,
 ) {
-
     @Operation(
         summary = "게시글 댓글 작성",
         description = "게시글에 댓글을 작성합니다.",

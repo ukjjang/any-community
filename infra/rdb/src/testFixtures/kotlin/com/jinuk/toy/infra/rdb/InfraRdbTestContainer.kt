@@ -22,17 +22,18 @@ interface InfraRdbTestContainer {
         private const val DB_USERNAME = "user"
         private const val DB_PASSWORD = "password"
 
-        private val DB = DockerImageName.parse("mysql/mysql-server:8.0.26")
-            .asCompatibleSubstituteFor("mysql")
-            .let { compatibleImageName -> MySQLContainer<Nothing>(compatibleImageName) }
-            .apply {
-                withDatabaseName(DB_NAME)
-                withUsername("user")
-                withPassword("password")
-                withNetwork(NET_WORK)
-                withNetworkAliases(NET_WORK_ALIASES)
-                withCommand("mysqld", "--sql_mode=")
-            }
+        private val DB =
+            DockerImageName.parse("mysql/mysql-server:8.0.26")
+                .asCompatibleSubstituteFor("mysql")
+                .let { compatibleImageName -> MySQLContainer<Nothing>(compatibleImageName) }
+                .apply {
+                    withDatabaseName(DB_NAME)
+                    withUsername("user")
+                    withPassword("password")
+                    withNetwork(NET_WORK)
+                    withNetworkAliases(NET_WORK_ALIASES)
+                    withCommand("mysqld", "--sql_mode=")
+                }
 
         @JvmStatic
         @DynamicPropertySource

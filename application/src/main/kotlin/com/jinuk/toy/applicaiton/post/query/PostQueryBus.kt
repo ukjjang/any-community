@@ -11,15 +11,16 @@ import org.springframework.stereotype.Service
 
 sealed interface PostQueryBus {
     infix fun ask(query: GetPostDetailQuery): PostDetailResult
+
     infix fun ask(query: SearchPostQuery): Page<SearchedPostResult>
 }
 
 @Service
 internal class PostQueryBusImpl(
     private val getPostDetailUsecase: GetPostDetailUsecase,
-    private val searchPostUsecase: SearchPostUsecase
+    private val searchPostUsecase: SearchPostUsecase,
 ) : PostQueryBus {
-
     override fun ask(query: GetPostDetailQuery) = getPostDetailUsecase(query)
+
     override fun ask(query: SearchPostQuery) = searchPostUsecase(query)
 }

@@ -29,4 +29,3 @@ class LikeFixture(
         targetId: String = faker.randomString(),
     ) = likeRepository.save(create(userId, targetType, targetId))
 }
-

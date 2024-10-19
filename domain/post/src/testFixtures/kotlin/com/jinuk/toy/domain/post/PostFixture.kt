@@ -19,7 +19,7 @@ class PostFixture(
         ) = Post(
             userId = userId,
             title = title,
-            content = content
+            content = content,
         )
     }
 

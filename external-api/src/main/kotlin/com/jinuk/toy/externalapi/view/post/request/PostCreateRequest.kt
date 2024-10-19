@@ -8,8 +8,9 @@ data class PostCreateRequest(
     val content: String,
 )
 
-internal fun PostCreateRequest.toCommand(userId: Long) = CreatePostCommand(
-    userId = userId,
-    title = title,
-    content = content,
-)
+internal fun PostCreateRequest.toCommand(userId: Long) =
+    CreatePostCommand(
+        userId = userId,
+        title = title,
+        content = content,
+    )

@@ -12,7 +12,6 @@ class UserAuthService(
     private val jwtTokenProvider: JwtTokenProvider,
     private val userRepository: UserRepository,
 ) {
-
     fun signUp(userCredentials: UserCredentials): User {
         require(!userRepository.existsByUsername(userCredentials.username)) { "이미 존재하는 사용자 이름입니다." }
         return User.signup(userCredentials).let { userRepository.save(it) }

@@ -9,29 +9,27 @@ data class Post(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
-
     val userId: Long,
     val title: PostTitle,
     val content: String,
-) : BaseDomain(_id, createdAt, updatedAt) {
-    override fun equals(other: Any?) = super.equals(other)
-    override fun hashCode() = super.hashCode()
-}
+) : BaseDomain(_id, createdAt, updatedAt)
 
-internal fun PostEntity.toModel() = Post(
-    _id = id,
-    userId = userId,
-    title = PostTitle(title),
-    content = content,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
+internal fun PostEntity.toModel() =
+    Post(
+        _id = id,
+        userId = userId,
+        title = PostTitle(title),
+        content = content,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+    )
 
-internal fun Post.toEntity() = PostEntity(
-    id = _id,
-    userId = userId,
-    title = title.value,
-    content = content,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
+internal fun Post.toEntity() =
+    PostEntity(
+        id = _id,
+        userId = userId,
+        title = title.value,
+        content = content,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+    )

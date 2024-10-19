@@ -9,12 +9,15 @@ import kotlin.reflect.KProperty
 class LazyLogger : ReadOnlyProperty<Any, KLogger> {
     private var logger: KLogger? = null
 
-    override fun getValue(thisRef: Any, property: KProperty<*>) =
-        logger ?: createLogger(thisRef::class).also { logger = it }
+    override fun getValue(
+        thisRef: Any,
+        property: KProperty<*>,
+    ) = logger ?: createLogger(thisRef::class).also { logger = it }
 
     companion object {
-        private fun createLogger(clazz: KClass<*>) = KotlinLogging.logger(
-            clazz.java.enclosingClass?.name ?: clazz.java.name
-        )
+        private fun createLogger(clazz: KClass<*>) =
+            KotlinLogging.logger(
+                clazz.java.enclosingClass?.name ?: clazz.java.name,
+            )
     }
 }

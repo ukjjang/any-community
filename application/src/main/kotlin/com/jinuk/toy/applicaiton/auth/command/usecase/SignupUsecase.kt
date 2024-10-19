@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SignupUsecase(
-    private val authService: UserAuthService
+    private val authService: UserAuthService,
 ) {
     operator fun invoke(command: SignupCommand) {
         authService.signUp(command.toUserCredentials())
@@ -19,7 +19,8 @@ data class SignupCommand(
     val password: String,
 )
 
-private fun SignupCommand.toUserCredentials() = UserCredentials(
-    username = username,
-    password = password,
-)
+private fun SignupCommand.toUserCredentials() =
+    UserCredentials(
+        username = username,
+        password = password,
+    )
