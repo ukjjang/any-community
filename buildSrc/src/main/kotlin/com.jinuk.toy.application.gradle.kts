@@ -23,6 +23,8 @@ dependencies {
 
     implementation(project(":infra:redis"))
     testImplementation(testFixtures(project(":infra:redis")))
+
+    api(project(":util:object-mapper"))
 }
 
 
