@@ -12,13 +12,14 @@ import java.time.Duration
 class PostQueryService(
     private val postRepository: PostRepository,
 ) {
-    fun getById(id: Long) = cached(
-        key = cacheKeyByGetById(id),
-        expire = Duration.ofMinutes(10),
-        returnType = object : TypeReference<Post>() {},
-    ) {
-        postRepository.findById(id) ?: throw NoSuchElementException("존재하지 않는 게시글입니다.")
-    }
+    fun getById(id: Long) =
+        cached(
+            key = cacheKeyByGetById(id),
+            expire = Duration.ofMinutes(10),
+            returnType = object : TypeReference<Post>() {},
+        ) {
+            postRepository.findById(id) ?: throw NoSuchElementException("존재하지 않는 게시글입니다.")
+        }
 
     fun existsByTitle(title: String) = postRepository.existsByTitle(title)
 

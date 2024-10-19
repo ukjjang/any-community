@@ -15,7 +15,6 @@ class RedisCacheHandler(
     _redisTemplate: RedisTemplate<String, String>,
     _objectMapper: ObjectMapper,
 ) {
-
     init {
         redisTemplate = _redisTemplate
         objectMapper = _objectMapper
