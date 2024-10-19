@@ -8,6 +8,7 @@ include("util:jbcrypt")
 include("util:jwt")
 include("util:logger")
 include("util:domain-helper")
+include("util:object-mapper")
 
 // infra
 include("infra:rdb")

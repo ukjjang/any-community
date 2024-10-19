@@ -10,4 +10,5 @@ dependencies {
     testFixturesImplementation(Dependencies.TestContainers.JUNIT_JUPITER)
 
     implementation(project(":util:logger"))
+    implementation(project(":util:object-mapper"))
 }
