@@ -20,13 +20,18 @@ class LikeRepository(
 
     fun findByIdIn(ids: List<Long>): List<Like> = likeEntityRepository.findAllById(ids).map { it.toModel() }
 
-    fun findByUserIdAndTargetTypeAndTargetId(userId: Long, target: LikeTarget) =
-        likeEntityRepository.findByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)?.toModel()
+    fun findByUserIdAndTargetTypeAndTargetId(
+        userId: Long,
+        target: LikeTarget,
+    ) = likeEntityRepository.findByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)?.toModel()
 
-    fun existsByUserIdAndTargetTypeAndTargetId(userId: Long, target: LikeTarget) =
-        likeEntityRepository.existsByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)
+    fun existsByUserIdAndTargetTypeAndTargetId(
+        userId: Long,
+        target: LikeTarget,
+    ) = likeEntityRepository.existsByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)
 
-    fun countByUserIdAndTargetTypeAndTargetId(userId: Long, target: LikeTarget) =
-        likeEntityRepository.countByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)
+    fun countByUserIdAndTargetTypeAndTargetId(
+        userId: Long,
+        target: LikeTarget,
+    ) = likeEntityRepository.countByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)
 }
-

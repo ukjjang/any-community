@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping
 @Tag(name = "헬스 체크")
 @ExternalAPIController
 class HealthCheckAPI {
-
     @Operation(summary = "헬스 체크")
     @GetMapping("/v1/health")
     fun healthCheck() = "I`m Health :)"

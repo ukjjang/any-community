@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service
 class DeleteCommentUsecase(
     private val commentCommandService: CommentCommandService,
 ) {
-    operator fun invoke(command: DeleteCommentCommand) =
-        commentCommandService.delete(command.commentId, command.userId, command.postId)
+    operator fun invoke(command: DeleteCommentCommand) = commentCommandService.delete(command.commentId, command.userId, command.postId)
 }
 
 data class DeleteCommentCommand(

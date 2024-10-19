@@ -13,25 +13,19 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "post")
 class PostEntity(
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-
     @Column(name = "user_id")
     val userId: Long,
-
     @Column(name = "title")
     val title: String,
-
     @Column(name = "content")
     val content: String,
-
     @Column(name = "created_at")
     @CreationTimestamp
     val createdAt: LocalDateTime = LocalDateTime.now(),
-
     @Column(name = "updated_at")
     @UpdateTimestamp
     val updatedAt: LocalDateTime = LocalDateTime.now(),

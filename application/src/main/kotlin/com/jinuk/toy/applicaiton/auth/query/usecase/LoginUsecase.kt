@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class LoginUsecase(
-    private val authService: UserAuthService
+    private val authService: UserAuthService,
 ) {
     operator fun invoke(query: LoginQuery) = LoginResult(authService.login(query.toUserCredentials()))
 }
@@ -18,7 +18,8 @@ data class LoginQuery(
     val password: String,
 )
 
-private fun LoginQuery.toUserCredentials() = UserCredentials(
-    username = username,
-    password = password,
-)
+private fun LoginQuery.toUserCredentials() =
+    UserCredentials(
+        username = username,
+        password = password,
+    )

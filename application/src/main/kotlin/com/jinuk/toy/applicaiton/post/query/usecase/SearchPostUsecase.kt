@@ -19,33 +19,38 @@ class SearchPostUsecase(
     private val commentQueryService: CommentQueryService,
     private val userQueryService: UserQueryService,
 ) {
-
     operator fun invoke(query: SearchPostQuery): Page<SearchedPostResult> {
-        val postsPage = if (query.keyword != null) {
-            postQueryService.findByTitleStartsWithIgnoreCaseOrderByIdDesc(query.keyword, query.pageable())
-        } else {
-            postQueryService.findByOrderByIdDesc(query.pageable())
-        }
+        val postsPage =
+            if (query.keyword != null) {
+                postQueryService.findByTitleStartsWithIgnoreCaseOrderByIdDesc(query.keyword, query.pageable())
+            } else {
+                postQueryService.findByOrderByIdDesc(query.pageable())
+            }
         return createPage(postsPage.content, query.pageable(), postsPage.totalElements)
     }
 
-    private fun createPage(posts: List<Post>, pageable: Pageable, totalSize: Long): Page<SearchedPostResult> {
+    private fun createPage(
+        posts: List<Post>,
+        pageable: Pageable,
+        totalSize: Long,
+    ): Page<SearchedPostResult> {
         val postIds = posts.map { it.id }
         val userIds = posts.map { it.userId }
 
         val userMap = userQueryService.findByIdIn(userIds).associateBy { it.id }
         val commentGroup = commentQueryService.findByPostIdIn(postIds).groupBy { it.postId }
 
-        val content = posts.map {
-            SearchedPostResult(
-                id = it.id,
-                title = it.title,
-                userName = userMap.getValue(it.userId).username,
-                commentCount = commentGroup[it.id]?.size ?: 0,
-                createdAt = it.createdAt,
-                updatedAt = it.updatedAt,
-            )
-        }
+        val content =
+            posts.map {
+                SearchedPostResult(
+                    id = it.id,
+                    title = it.title,
+                    userName = userMap.getValue(it.userId).username,
+                    commentCount = commentGroup[it.id]?.size ?: 0,
+                    createdAt = it.createdAt,
+                    updatedAt = it.updatedAt,
+                )
+            }
 
         return PageImpl(content, pageable, totalSize)
     }
@@ -54,7 +59,7 @@ class SearchPostUsecase(
 data class SearchPostQuery(
     val keyword: String?,
     val page: Int,
-    val size: Int
+    val size: Int,
 ) {
     fun pageable(): Pageable = PageRequest.of(page - 1, size)
 }

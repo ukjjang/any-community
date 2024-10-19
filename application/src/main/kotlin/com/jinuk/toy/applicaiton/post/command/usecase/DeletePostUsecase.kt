@@ -9,10 +9,11 @@ class DeletePostUsecase(
     private val postCommandService: PostCommandService,
     private val commentCommandService: CommentCommandService,
 ) {
-    operator fun invoke(command: DeletePostCommand) = with(command) {
-        postCommandService.delete(id, userId)
-        commentCommandService.deleteByPostId(id)
-    }
+    operator fun invoke(command: DeletePostCommand) =
+        with(command) {
+            postCommandService.delete(id, userId)
+            commentCommandService.deleteByPostId(id)
+        }
 }
 
 data class DeletePostCommand(val userId: Long, val id: Long)

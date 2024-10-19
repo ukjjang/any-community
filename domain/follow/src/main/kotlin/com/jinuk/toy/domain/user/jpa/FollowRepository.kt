@@ -19,16 +19,17 @@ class FollowRepository(
 
     fun findByIdIn(ids: List<Long>): List<Follow> = followEntityRepository.findAllById(ids).map { it.toModel() }
 
-    fun findByFollowerUserId(followerUserId: Long) =
-        followEntityRepository.findByFollowerUserId(followerUserId).map { it.toModel() }
+    fun findByFollowerUserId(followerUserId: Long) = followEntityRepository.findByFollowerUserId(followerUserId).map { it.toModel() }
 
-    fun findByFollowingUserId(followingUserId: Long) =
-        followEntityRepository.findByFollowingUserId(followingUserId).map { it.toModel() }
+    fun findByFollowingUserId(followingUserId: Long) = followEntityRepository.findByFollowingUserId(followingUserId).map { it.toModel() }
 
-    fun findByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long) =
-        followEntityRepository.findByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)?.toModel()
+    fun findByFollowerUserIdAndFollowingUserId(
+        followerUserId: Long,
+        followingUserId: Long,
+    ) = followEntityRepository.findByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)?.toModel()
 
-    fun existsByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long) =
-        followEntityRepository.existsByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)
+    fun existsByFollowerUserIdAndFollowingUserId(
+        followerUserId: Long,
+        followingUserId: Long,
+    ) = followEntityRepository.existsByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)
 }
-

@@ -1,4 +1,3 @@
-import gradle.kotlin.dsl.accessors._898f58a249179918706b9ca370c320ba.testFixturesImplementation
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 
 plugins {

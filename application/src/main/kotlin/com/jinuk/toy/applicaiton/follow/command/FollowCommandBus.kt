@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service
 
 sealed interface FollowCommandBus {
     infix fun execute(command: CreateFollowCommand)
+
     infix fun execute(command: UnFollowCommand)
 }
 
@@ -16,7 +17,7 @@ internal class FollowCommandBusImpl(
     private val createFollowUseCase: CreateFollowUseCase,
     private val unFollowUseCase: UnFollowUseCase,
 ) : FollowCommandBus {
-
     override fun execute(command: CreateFollowCommand) = createFollowUseCase(command)
+
     override fun execute(command: UnFollowCommand) = unFollowUseCase(command)
 }

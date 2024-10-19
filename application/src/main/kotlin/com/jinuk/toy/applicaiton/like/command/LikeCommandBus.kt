@@ -8,15 +8,16 @@ import org.springframework.stereotype.Service
 
 sealed interface LikeCommandBus {
     infix fun execute(command: AddLikeCommand)
+
     infix fun execute(command: CancelLikeCommand)
 }
 
 @Service
 internal class LikeCommandBusImpl(
     private val addLikeUseCase: AddLikeUseCase,
-    private val cancelLikeUsecase: CancelLikeUsecase
+    private val cancelLikeUsecase: CancelLikeUsecase,
 ) : LikeCommandBus {
-
     override fun execute(command: AddLikeCommand) = addLikeUseCase(command)
+
     override fun execute(command: CancelLikeCommand) = cancelLikeUsecase(command)
 }

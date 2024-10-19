@@ -19,5 +19,5 @@ class CreateFollowUseCase(
 }
 
 data class CreateFollowCommand(
-    val followRelation: FollowRelation
+    val followRelation: FollowRelation,
 )

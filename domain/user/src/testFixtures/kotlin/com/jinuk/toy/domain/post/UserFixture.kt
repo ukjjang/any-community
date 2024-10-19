@@ -14,7 +14,7 @@ class UserFixture(
     companion object {
         fun create(
             username: Username = Username(faker.randomString(15)),
-            password: String = faker.randomString(40)
+            password: String = faker.randomString(40),
         ) = User(
             username = username,
             password = password,
@@ -24,6 +24,6 @@ class UserFixture(
     fun persist(
         id: Long? = null,
         username: Username = Username(faker.randomString(15)),
-        password: String = faker.randomString(40)
+        password: String = faker.randomString(40),
     ) = userRepository.save(create(username, password))
 }

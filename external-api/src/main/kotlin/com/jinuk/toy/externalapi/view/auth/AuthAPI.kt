@@ -17,11 +17,13 @@ class AuthAPI(
     private val authCommandBus: AuthCommandBus,
     private val authQueryBus: AuthQueryBus,
 ) {
-
     @PostMapping("/v1/auth/login")
-    fun login(@RequestBody request: AuthCredentialsRequest) =
-        AuthLoginResponse.from(authQueryBus ask request.toQuery())
+    fun login(
+        @RequestBody request: AuthCredentialsRequest,
+    ) = AuthLoginResponse.from(authQueryBus ask request.toQuery())
 
     @PostMapping("/v1/auth/signup")
-    fun signup(@RequestBody request: AuthCredentialsRequest) = authCommandBus execute request.toCommand()
+    fun signup(
+        @RequestBody request: AuthCredentialsRequest,
+    ) = authCommandBus execute request.toCommand()
 }

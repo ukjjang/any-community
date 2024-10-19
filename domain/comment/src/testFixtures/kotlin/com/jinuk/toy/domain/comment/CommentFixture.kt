@@ -31,4 +31,3 @@ class CommentFixture(
         content: String = faker.randomString(),
     ) = commentRepository.save(create(userId, postId, parentCommentId, content))
 }
-

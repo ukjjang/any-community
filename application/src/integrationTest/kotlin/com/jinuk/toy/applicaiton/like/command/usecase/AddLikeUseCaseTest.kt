@@ -18,26 +18,26 @@ internal class AddLikeUseCaseTest(
     private val likeFixture: LikeFixture,
     private val likeQueryService: LikeQueryService,
 ) : IntegrationTest, DescribeSpec(
-    {
-        describe("좋아요 추가 유스케이스") {
-            val userId = faker.randomLong()
-            val likeTarget = LikeTarget(faker.randomEnum<LikeType>(), faker.randomString())
+        {
+            describe("좋아요 추가 유스케이스") {
+                val userId = faker.randomLong()
+                val likeTarget = LikeTarget(faker.randomEnum<LikeType>(), faker.randomString())
 
-            it("좋아요 성공") {
-                val command = AddLikeCommand(userId, likeTarget)
-                addLikeUseCase(command)
-
-                likeQueryService.existsByUserIdAndTargetTypeAndTargetId(userId, likeTarget) shouldBe true
-            }
-
-            it("좋아요 실패 - 이미 좋아요한 상태") {
-                likeFixture.persist(userId = userId, targetId = likeTarget.id, targetType = likeTarget.type)
-
-                val command = AddLikeCommand(userId, likeTarget)
-                shouldThrow<IllegalArgumentException> {
+                it("좋아요 성공") {
+                    val command = AddLikeCommand(userId, likeTarget)
                     addLikeUseCase(command)
+
+                    likeQueryService.existsByUserIdAndTargetTypeAndTargetId(userId, likeTarget) shouldBe true
+                }
+
+                it("좋아요 실패 - 이미 좋아요한 상태") {
+                    likeFixture.persist(userId = userId, targetId = likeTarget.id, targetType = likeTarget.type)
+
+                    val command = AddLikeCommand(userId, likeTarget)
+                    shouldThrow<IllegalArgumentException> {
+                        addLikeUseCase(command)
+                    }
                 }
             }
-        }
-    },
-)
+        },
+    )

@@ -12,5 +12,4 @@ dependencies {
     implementation(project(":util:jwt"))
 
     implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_SECURITY)
-
 }

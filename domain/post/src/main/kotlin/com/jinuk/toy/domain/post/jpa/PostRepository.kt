@@ -21,10 +21,13 @@ class PostRepository(
     fun findByIdIn(ids: List<Long>): List<Post> = postEntityRepository.findAllById(ids).map { it.toModel() }
 
     fun existsByTitle(title: String) = postEntityRepository.existsByTitle(title)
+
     fun existsById(id: Long) = postEntityRepository.existsById(id)
-    fun findByTitleStartsWithIgnoreCaseOrderByIdDesc(title: String, pageable: Pageable) =
-        postEntityRepository.findByTitleStartsWithIgnoreCaseOrderByIdDesc(title, pageable).map { it.toModel() }
+
+    fun findByTitleStartsWithIgnoreCaseOrderByIdDesc(
+        title: String,
+        pageable: Pageable,
+    ) = postEntityRepository.findByTitleStartsWithIgnoreCaseOrderByIdDesc(title, pageable).map { it.toModel() }
 
     fun findByOrderByIdDesc(pageable: Pageable) = postEntityRepository.findByOrderByIdDesc(pageable).map { it.toModel() }
 }
-

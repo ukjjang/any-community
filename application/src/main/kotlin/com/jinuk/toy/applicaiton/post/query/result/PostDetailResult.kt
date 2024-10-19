@@ -17,7 +17,6 @@ data class PostDetailResult(
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 ) {
-
     data class CommentDetail(
         val id: Long?,
         val userId: Long,
@@ -27,7 +26,10 @@ data class PostDetailResult(
         val updatedAt: LocalDateTime,
     ) {
         companion object {
-            fun from(comment: Comment, username: Username) = with(comment) {
+            fun from(
+                comment: Comment,
+                username: Username,
+            ) = with(comment) {
                 CommentDetail(
                     id = id,
                     userId = userId,
@@ -41,12 +43,17 @@ data class PostDetailResult(
     }
 
     companion object {
-        fun from(post: Post, comments: List<Comment>, users: List<User>): PostDetailResult {
+        fun from(
+            post: Post,
+            comments: List<Comment>,
+            users: List<User>,
+        ): PostDetailResult {
             val usernameMap = users.associate { it.id to it.username }
-            val commentDetails = comments.mapNotNull { comment ->
-                val commentUsername = usernameMap[comment.userId] ?: return@mapNotNull null
-                CommentDetail.from(comment, commentUsername)
-            }
+            val commentDetails =
+                comments.mapNotNull { comment ->
+                    val commentUsername = usernameMap[comment.userId] ?: return@mapNotNull null
+                    CommentDetail.from(comment, commentUsername)
+                }
 
             return with(post) {
                 PostDetailResult(
@@ -63,5 +70,3 @@ data class PostDetailResult(
         }
     }
 }
-
-

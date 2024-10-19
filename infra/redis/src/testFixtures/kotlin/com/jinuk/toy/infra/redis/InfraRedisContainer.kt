@@ -11,10 +11,11 @@ interface InfraRedisContainer {
         private const val DOCKER_REDIS_IMAGE = "redis:7.0.8-alpine"
         private const val REDIS_PORT = 6379
 
-        private val onboardingRedis = GenericContainer<Nothing>(DOCKER_REDIS_IMAGE).apply {
-            withExposedPorts(REDIS_PORT)
-            withReuse(true)
-        }
+        private val onboardingRedis =
+            GenericContainer<Nothing>(DOCKER_REDIS_IMAGE).apply {
+                withExposedPorts(REDIS_PORT)
+                withReuse(true)
+            }
 
         @JvmStatic
         @DynamicPropertySource

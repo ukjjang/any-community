@@ -18,7 +18,6 @@ import javax.sql.DataSource
 
 @Configuration
 class RdbConfig : HikariConfig() {
-
     @Bean
     @ConfigurationProperties(prefix = "datasource.rdb.writer")
     fun writerDataSource(): DataSource {
@@ -36,10 +35,11 @@ class RdbConfig : HikariConfig() {
         @Qualifier("writerDataSource") writerDataSource: DataSource,
         @Qualifier("readerDataSource") readerDataSource: DataSource,
     ): DataSource {
-        val dataSourceMap: Map<Any, Any> = mutableMapOf(
-            "write" to writerDataSource,
-            "read" to readerDataSource,
-        )
+        val dataSourceMap: Map<Any, Any> =
+            mutableMapOf(
+                "write" to writerDataSource,
+                "read" to readerDataSource,
+            )
 
         val dataSource = RdbRoutingDataSource()
         dataSource.setTargetDataSources(dataSourceMap)

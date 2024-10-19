@@ -26,27 +26,29 @@ data class PostDetailResponse(
     )
 }
 
-internal fun PostDetailResult.toResponse() = with(this) {
-    PostDetailResponse(
-        id = id,
-        userId = userId,
-        username = username,
-        title = title,
-        content = content,
-        comments = comments.map { it.toResponse() },
-        commentSize = comments.size,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
-}
+internal fun PostDetailResult.toResponse() =
+    with(this) {
+        PostDetailResponse(
+            id = id,
+            userId = userId,
+            username = username,
+            title = title,
+            content = content,
+            comments = comments.map { it.toResponse() },
+            commentSize = comments.size,
+            createdAt = createdAt,
+            updatedAt = updatedAt,
+        )
+    }
 
-internal fun PostDetailResult.CommentDetail.toResponse() = with(this) {
-    PostDetailResponse.CommentDetailResponse(
-        id = id,
-        userId = userId,
-        username = username,
-        content = content,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
-}
+internal fun PostDetailResult.CommentDetail.toResponse() =
+    with(this) {
+        PostDetailResponse.CommentDetailResponse(
+            id = id,
+            userId = userId,
+            username = username,
+            content = content,
+            createdAt = createdAt,
+            updatedAt = updatedAt,
+        )
+    }

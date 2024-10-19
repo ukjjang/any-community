@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping
 class LikeAPI(
     private val likeCommandBus: LikeCommandBus,
 ) {
-
     @Operation(summary = "좋아요 추가")
     @Secured(AuthRole.USER)
     @PostMapping("/v1/like/{targetType}/{targetId}")
@@ -50,5 +49,3 @@ class LikeAPI(
         likeCommandBus.execute(it)
     }
 }
-
-

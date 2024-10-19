@@ -26,4 +26,3 @@ class FollowFixture(
         followingUserId: Long = faker.randomLong(),
     ) = followRepository.save(create(followerUserId, followingUserId))
 }
-

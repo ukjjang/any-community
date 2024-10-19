@@ -17,17 +17,17 @@ class UserAuthenticationFilter(
     private val jwtTokenProvider: JwtTokenProvider,
     private val userQueryService: UserQueryService,
 ) : OncePerRequestFilter() {
-
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain,
     ) {
-        val authUser = request.getHeader("Authorization")?.let {
-            jwtTokenProvider.resolveToken(it)
-        }?.let {
-            userQueryService.findByUsername(Username(it))
-        }?.let { AuthUser(it) }
+        val authUser =
+            request.getHeader("Authorization")?.let {
+                jwtTokenProvider.resolveToken(it)
+            }?.let {
+                userQueryService.findByUsername(Username(it))
+            }?.let { AuthUser(it) }
 
         if (authUser != null) {
             val token = UsernamePasswordAuthenticationToken(authUser, null, authUser.authorities)

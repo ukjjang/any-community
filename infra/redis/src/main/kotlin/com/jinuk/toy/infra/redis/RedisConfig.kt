@@ -12,7 +12,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 class RedisConfig(
     @Value(value = "\${redis.host}")
     private val host: String,
-
     @Value(value = "\${redis.port}")
     private val port: Int,
 ) {

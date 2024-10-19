@@ -11,7 +11,6 @@ class CreatePostUsecase(
     private val postQueryService: PostQueryService,
     private val postCommandService: PostCommandService,
 ) {
-
     operator fun invoke(command: CreatePostCommand): Post {
         require(!postQueryService.existsByTitle(command.title.value)) { "이미 존재하는 게시글 제목입니다." }
         return postCommandService.save(command.toPost())
@@ -24,8 +23,9 @@ data class CreatePostCommand(
     val content: String,
 )
 
-private fun CreatePostCommand.toPost() = Post(
-    userId = userId,
-    title = title,
-    content = content,
-)
+private fun CreatePostCommand.toPost() =
+    Post(
+        userId = userId,
+        title = title,
+        content = content,
+    )

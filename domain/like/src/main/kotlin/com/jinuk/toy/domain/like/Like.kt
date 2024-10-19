@@ -8,16 +8,15 @@ data class Like(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
-
     val userId: Long,
     val targetType: LikeType,
     val targetId: String,
 ) : BaseDomain(_id, createdAt, updatedAt) {
-    override fun equals(other: Any?) = super.equals(other)
-    override fun hashCode() = super.hashCode()
-
     companion object {
-        fun create(userId: Long, likeTarget: LikeTarget) = Like(
+        fun create(
+            userId: Long,
+            likeTarget: LikeTarget,
+        ) = Like(
             userId = userId,
             targetType = likeTarget.type,
             targetId = likeTarget.id,
@@ -25,20 +24,22 @@ data class Like(
     }
 }
 
-internal fun LikeEntity.toModel() = Like(
-    _id = id,
-    userId = userId,
-    targetType = LikeType.from(targetType),
-    targetId = targetId,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
+internal fun LikeEntity.toModel() =
+    Like(
+        _id = id,
+        userId = userId,
+        targetType = LikeType.from(targetType),
+        targetId = targetId,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+    )
 
-internal fun Like.toEntity() = LikeEntity(
-    id = _id,
-    userId = userId,
-    targetType = targetType.name,
-    targetId = targetId,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
+internal fun Like.toEntity() =
+    LikeEntity(
+        id = _id,
+        userId = userId,
+        targetType = targetType.name,
+        targetId = targetId,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+    )

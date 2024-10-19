@@ -11,7 +11,6 @@ class UpdatePostUsecase(
     private val postQueryService: PostQueryService,
     private val postCommandService: PostCommandService,
 ) {
-
     operator fun invoke(command: UpdatePostCommand): Post {
         require(!postQueryService.existsByTitle(command.title.value)) { "이미 존재하는 게시글 제목입니다." }
         val post = postQueryService.getById(command.id)
@@ -27,9 +26,7 @@ data class UpdatePostCommand(
     val content: String,
 )
 
-fun Post.update(
-    command: UpdatePostCommand,
-): Post {
+fun Post.update(command: UpdatePostCommand): Post {
     require(this.userId == command.userId) {
         "작성자만 게시글을 수정할 수 있습니다."
     }

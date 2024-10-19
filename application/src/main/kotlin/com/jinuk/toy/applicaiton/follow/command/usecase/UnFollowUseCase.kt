@@ -19,5 +19,5 @@ class UnFollowUseCase(
 }
 
 data class UnFollowCommand(
-    val followRelation: FollowRelation
+    val followRelation: FollowRelation,
 )

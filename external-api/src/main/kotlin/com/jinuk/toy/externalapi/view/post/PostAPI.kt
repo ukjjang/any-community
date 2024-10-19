@@ -30,18 +30,18 @@ class PostAPI(
     private val postCommandBus: PostCommandBus,
     private val postQueryBus: PostQueryBus,
 ) {
-
     @Operation(summary = "게시글 검색")
     @PostMapping("/v1/post/search")
     fun getPosts(
         @RequestParam keyword: String?,
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
-    ) = postQueryBus.ask(SearchPostQuery(
+    ) = postQueryBus.ask(
+        SearchPostQuery(
             keyword = keyword,
             page = page,
-            size = size
-        )
+            size = size,
+        ),
     ).map { it.toResponse() }
 
     @Operation(
@@ -52,7 +52,7 @@ class PostAPI(
     @PostMapping("/v1/post")
     fun create(
         @AuthenticationPrincipal user: AuthUser,
-        @RequestBody request: PostCreateRequest
+        @RequestBody request: PostCreateRequest,
     ) = request.toCommand(user.id).let {
         postCommandBus.execute(it)
     }.toResponse()
@@ -62,7 +62,9 @@ class PostAPI(
         description = "id로 게시글을 조회합니다.",
     )
     @GetMapping("/v1/post/{postId}")
-    fun getPostDetail(@PathVariable postId: Long) = GetPostDetailQuery(postId).let {
+    fun getPostDetail(
+        @PathVariable postId: Long,
+    ) = GetPostDetailQuery(postId).let {
         postQueryBus.ask(it)
     }.toResponse()
 
@@ -74,7 +76,7 @@ class PostAPI(
     fun updatePost(
         @AuthenticationPrincipal user: AuthUser,
         @PathVariable postId: Long,
-        @RequestBody request: PostUpdateRequest
+        @RequestBody request: PostUpdateRequest,
     ) = request.toCommand(user.id, postId).let {
         postCommandBus.execute(it)
     }
@@ -87,7 +89,7 @@ class PostAPI(
     @DeleteMapping("/v1/post/{postId}")
     fun delete(
         @AuthenticationPrincipal user: AuthUser,
-        @PathVariable postId: Long
+        @PathVariable postId: Long,
     ) = DeletePostCommand(user.id, postId).let {
         postCommandBus.execute(it)
     }
