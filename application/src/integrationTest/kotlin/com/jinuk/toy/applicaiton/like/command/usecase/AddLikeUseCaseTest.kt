@@ -26,7 +26,7 @@ internal class AddLikeUseCaseTest(
                     val command = AddLikeCommand(userId, likeTarget)
                     addLikeUseCase(command)
 
-                    likeQueryService.existsByUserIdAndTargetTypeAndTargetId(userId, likeTarget) shouldBe true
+                    likeQueryService.existsByUserIdAndTarget(userId, likeTarget) shouldBe true
                 }
 
                 it("좋아요 실패 - 이미 좋아요한 상태") {

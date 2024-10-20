@@ -20,4 +20,15 @@ interface LikeEntityRepository : JpaRepository<LikeEntity, Long> {
         targetType: String,
         targetId: String,
     ): Int
+
+    fun findByTargetTypeAndTargetIdIn(
+        targetType: String,
+        targetId: List<String>,
+    ): List<LikeEntity>
+
+    fun findByUserIdAndTargetTypeAndTargetIdIn(
+        userId: Long,
+        targetType: String,
+        targetId: List<String>,
+    ): List<LikeEntity>
 }

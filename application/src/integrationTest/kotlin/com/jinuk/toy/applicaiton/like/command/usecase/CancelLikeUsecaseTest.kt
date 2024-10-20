@@ -28,7 +28,7 @@ internal class CancelLikeUsecaseTest(
                     val command = CancelLikeCommand(userId, likeTarget)
                     cancelLikeUseCase(command)
 
-                    likeQueryService.existsByUserIdAndTargetTypeAndTargetId(userId, likeTarget) shouldBe false
+                    likeQueryService.existsByUserIdAndTarget(userId, likeTarget) shouldBe false
                 }
 
                 it("좋아요 삭제 실패 - 좋아요 상태가 아님") {

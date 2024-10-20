@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.like.service
 
 import com.jinuk.toy.domain.like.LikeTarget
+import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.jpa.LikeRepository
 import org.springframework.stereotype.Service
 
@@ -8,16 +9,27 @@ import org.springframework.stereotype.Service
 class LikeQueryService(
     private val likeRepository: LikeRepository,
 ) {
-    fun getByUserIdAndTargetTypeAndTargetId(
+    fun getByUserIdAndTarget(
         userId: Long,
         target: LikeTarget,
-    ) = likeRepository.findByUserIdAndTargetTypeAndTargetId(userId, target)
+    ) = likeRepository.findByUserIdAndTarget(userId, target)
         ?: throw NoSuchElementException("좋아요가 존재하지 않습니다.")
 
-    fun existsByUserIdAndTargetTypeAndTargetId(
+    fun existsByUserIdAndTarget(
         userId: Long,
         target: LikeTarget,
-    ) = likeRepository.existsByUserIdAndTargetTypeAndTargetId(userId, target)
+    ) = likeRepository.existsByUserIdAndTarget(userId, target)
 
-    fun countByTargetTypeAndTargetId(target: LikeTarget) = likeRepository.countByTargetTypeAndTargetId(target)
+    fun countByTarget(target: LikeTarget) = likeRepository.countByTarget(target)
+
+    fun findByTargetTypeAndTargetIdIn(
+        targetType: LikeType,
+        targetId: List<String>,
+    ) = likeRepository.findByTargetTypeAndTargetIdIn(targetType, targetId)
+
+    fun findByUserIdAndTargetTypeAndTargetIdIn(
+        userId: Long,
+        targetType: LikeType,
+        targetId: List<String>,
+    ) = likeRepository.findByUserIdAndTargetTypeAndTargetIdIn(userId, targetType, targetId.toList())
 }

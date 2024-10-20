@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.comment.service
 
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,6 +15,14 @@ class CommentQueryService(
     fun countByPostId(id: Long) = commentRepository.countByPostId(id)
 
     fun findByPostId(id: Long) = commentRepository.findByPostId(id)
+
+    fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
+        postId: Long,
+        pageable: Pageable,
+    ) = commentRepository.findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
+        postId,
+        pageable,
+    )
 
     fun findByPostIdIn(id: List<Long>) = commentRepository.findByPostIdIn(id)
 }

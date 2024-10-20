@@ -13,7 +13,7 @@ class LikeCommandService(
     fun add(
         userId: Long,
         likeTarget: LikeTarget,
-    ) = require(!likeQueryService.existsByUserIdAndTargetTypeAndTargetId(userId, likeTarget)) {
+    ) = require(!likeQueryService.existsByUserIdAndTarget(userId, likeTarget)) {
         "이미 좋아요 했습니다."
     }.let {
         likeRepository.save(Like.create(userId, likeTarget))
@@ -22,7 +22,7 @@ class LikeCommandService(
     fun delete(
         userId: Long,
         likeTarget: LikeTarget,
-    ) = likeQueryService.getByUserIdAndTargetTypeAndTargetId(userId, likeTarget).let {
+    ) = likeQueryService.getByUserIdAndTarget(userId, likeTarget).let {
         likeRepository.delete(it)
     }
 }
