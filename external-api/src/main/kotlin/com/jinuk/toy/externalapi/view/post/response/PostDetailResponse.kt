@@ -12,6 +12,8 @@ data class PostDetailResponse(
     val title: PostTitle,
     val content: String,
     val isViewerLike: Boolean,
+    val likeCount: Int,
+    val commentCount: Int,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )
@@ -25,6 +27,8 @@ internal fun PostDetailResult.toResponse() =
             title = title,
             content = content,
             isViewerLike = isViewerLike,
+            likeCount = likeCount,
+            commentCount = commentCount,
             createdAt = createdAt,
             updatedAt = updatedAt,
         )

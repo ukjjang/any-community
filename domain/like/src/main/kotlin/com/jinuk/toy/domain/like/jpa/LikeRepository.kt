@@ -30,8 +30,5 @@ class LikeRepository(
         target: LikeTarget,
     ) = likeEntityRepository.existsByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)
 
-    fun countByUserIdAndTargetTypeAndTargetId(
-        userId: Long,
-        target: LikeTarget,
-    ) = likeEntityRepository.countByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)
+    fun countByTargetTypeAndTargetId(target: LikeTarget) = likeEntityRepository.countByTargetTypeAndTargetId(target.type.name, target.id)
 }

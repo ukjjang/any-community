@@ -13,6 +13,8 @@ data class PostDetailResult(
     val title: PostTitle,
     val content: String,
     val isViewerLike: Boolean,
+    val likeCount: Int,
+    val commentCount: Int,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 ) {
@@ -21,6 +23,8 @@ data class PostDetailResult(
             post: Post,
             writer: User,
             isViewerLike: Boolean,
+            likeCount: Int,
+            commentCount: Int,
         ): PostDetailResult {
             return with(post) {
                 PostDetailResult(
@@ -29,6 +33,8 @@ data class PostDetailResult(
                     username = writer.username,
                     title = title,
                     isViewerLike = isViewerLike,
+                    likeCount = likeCount,
+                    commentCount = commentCount,
                     content = content,
                     createdAt = createdAt,
                     updatedAt = updatedAt,
