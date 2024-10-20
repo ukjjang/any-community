@@ -12,5 +12,7 @@ class UserQueryService(
 
     fun existsById(id: Long) = userRepository.existsById(id)
 
+    fun getById(id: Long) = userRepository.findById(id) ?: throw NoSuchElementException("존재하지 않는 유저입니다.")
+
     fun findByUsername(username: Username) = userRepository.findByUsername(username)
 }
