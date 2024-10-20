@@ -16,6 +16,8 @@ class CommentQueryService(
 
     fun findByPostId(id: Long) = commentRepository.findByPostId(id)
 
+    fun findByPostIdAndParentCommentIdIsNotNull(postId: Long) = commentRepository.findByPostIdAndParentCommentIdIsNotNull(postId)
+
     fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
         postId: Long,
         pageable: Pageable,
