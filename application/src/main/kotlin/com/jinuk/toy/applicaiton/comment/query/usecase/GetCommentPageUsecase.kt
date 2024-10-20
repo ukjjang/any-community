@@ -34,66 +34,67 @@ class GetCommentPageUsecase(
         val usernameMap = userQueryService.findByIdIn(userIds).associate { it.id to it.username }
 
         val isViewerLikeSet =
-            query.viewerId?.let {
+            query.viewerId?.let { viewerId ->
                 likeQueryService.findByUserIdAndTargetTypeAndTargetIdIn(
-                    it,
+                    viewerId,
                     LikeType.COMMENT,
-                    commentIds.map { comment -> comment.toString() },
+                    commentIds.map { it.toString() },
                 ).map { like -> like.targetId.toLong() }.toSet()
             } ?: emptySet()
 
-        val commentParentGroup = allComments.groupBy { it.parentCommentId }.toMutableMap()
-        return buildCommentParentTree(
-            parentId = null,
-            parents = parents,
-            commentParentGroup = commentParentGroup,
-            commentMap = commentMap,
-            isViewerLikeSet = isViewerLikeSet,
-            usernameMap = usernameMap,
-            likeCountMap = likeCountMap,
+        val commentParentGroup =
+            allComments.groupBy { it.parentCommentId }
+                .toMutableMap()
+                .apply { this[null] = parents.content }
+                .toMap()
+
+        val contents =
+            buildCommentParentTree(
+                parentId = null,
+                commentParentGroup = commentParentGroup,
+                commentMap = commentMap,
+                isViewerLikeSet = isViewerLikeSet,
+                usernameMap = usernameMap,
+                likeCountMap = likeCountMap,
+            )
+
+        return PageImpl(
+            contents,
+            parents.pageable,
+            parents.totalElements,
         )
     }
 
     private fun buildCommentParentTree(
         parentId: Long?,
-        parents: Page<Comment>,
         commentParentGroup: Map<Long?, List<Comment>>,
         commentMap: Map<Long, Comment>,
         isViewerLikeSet: Set<Long>,
         usernameMap: Map<Long, Username>,
         likeCountMap: Map<Long, Int>,
-    ): Page<GetCommentPageResult> {
-        val comments = parentId?.let { commentParentGroup[it] ?: emptyList() } ?: parents
-        val results =
-            comments.mapNotNull { comment ->
-                val username = usernameMap[comment.userId] ?: return@mapNotNull null
-                val likeCount = likeCountMap[comment.id] ?: 0
+    ): List<GetCommentPageResult> {
+        return commentParentGroup[parentId]?.mapNotNull { comment ->
+            val username = usernameMap[comment.userId] ?: return@mapNotNull null
+            val likeCount = likeCountMap[comment.id] ?: 0
 
-                GetCommentPageResult(
-                    id = comment.id,
-                    username = username,
-                    isViewerLike = isViewerLikeSet.contains(comment.id),
-                    parentCommentId = comment.parentCommentId,
-                    likeCount = likeCount,
-                    content = comment.content,
-                    children =
-                        buildCommentParentTree(
-                            parentId = comment.id,
-                            parents = parents,
-                            commentParentGroup = commentParentGroup,
-                            commentMap = commentMap,
-                            isViewerLikeSet = isViewerLikeSet,
-                            usernameMap = usernameMap,
-                            likeCountMap = likeCountMap,
-                        ).content.sortedByDescending { it.id },
-                )
-            }
-
-        return PageImpl(
-            results,
-            parents.pageable,
-            parents.totalElements,
-        )
+            GetCommentPageResult(
+                id = comment.id,
+                username = username,
+                isViewerLike = isViewerLikeSet.contains(comment.id),
+                parentCommentId = comment.parentCommentId,
+                likeCount = likeCount,
+                content = comment.content,
+                children =
+                    buildCommentParentTree(
+                        parentId = comment.id,
+                        commentParentGroup = commentParentGroup,
+                        commentMap = commentMap,
+                        isViewerLikeSet = isViewerLikeSet,
+                        usernameMap = usernameMap,
+                        likeCountMap = likeCountMap,
+                    ).sortedByDescending { it.id },
+            )
+        } ?: emptyList()
     }
 }
 
