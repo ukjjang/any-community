@@ -21,6 +21,8 @@ class CommentRepository(
 
     fun findByPostId(postId: Long) = commentEntityRepository.findByPostId(postId).map { it.toModel() }
 
+    fun countByPostId(postId: Long) = commentEntityRepository.countByPostId(postId)
+
     fun findByPostIdIn(postIds: List<Long>) = commentEntityRepository.findByPostIdIn(postIds).map { it.toModel() }
 
     fun findByIdIn(ids: List<Long>): List<Comment> = commentEntityRepository.findAllById(ids).map { it.toModel() }

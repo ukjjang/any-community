@@ -1,6 +1,7 @@
 package com.jinuk.toy.applicaiton.post.query.usecase
 
 import com.jinuk.toy.applicaiton.post.query.result.PostDetailResult
+import com.jinuk.toy.domain.comment.service.CommentQueryService
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.service.LikeQueryService
@@ -13,20 +14,29 @@ class GetPostDetailUsecase(
     private val postQueryService: PostQueryService,
     private val userQueryService: UserQueryService,
     private val likeQueryService: LikeQueryService,
+    private val commentQueryService: CommentQueryService,
 ) {
     operator fun invoke(query: GetPostDetailQuery): PostDetailResult {
         val post = postQueryService.getById(query.id)
         val writer = userQueryService.getById(post.userId)
 
+        val likeTarget = LikeTarget.from(LikeType.POST, post.id)
+
         val isViewerLike =
             query.viewerId?.let { viewerId ->
-                likeQueryService.existsByUserIdAndTargetTypeAndTargetId(
-                    viewerId,
-                    LikeTarget.from(LikeType.POST, post.id),
-                )
+                likeQueryService.existsByUserIdAndTargetTypeAndTargetId(viewerId, likeTarget)
             } ?: false
 
-        return PostDetailResult.from(post, writer, isViewerLike)
+        val likeCount = likeQueryService.countByTargetTypeAndTargetId(likeTarget)
+        val commentCount = commentQueryService.countByPostId(post.id)
+
+        return PostDetailResult.from(
+            post = post,
+            writer = writer,
+            isViewerLike = isViewerLike,
+            likeCount = likeCount,
+            commentCount = commentCount,
+        )
     }
 }
 
