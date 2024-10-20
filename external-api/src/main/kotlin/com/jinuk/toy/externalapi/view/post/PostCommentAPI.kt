@@ -52,9 +52,9 @@ class PostCommentAPI(
     @PostMapping("/v1/post/{postId}/comment")
     fun createComment(
         @AuthenticationPrincipal user: AuthUser,
-        @PathVariable postId: String,
+        @PathVariable postId: Long,
         @RequestBody request: CommentCreateRequest,
-    ) = request.toCommand(user.id).let {
+    ) = request.toCommand(postId, user.id).let {
         commentCommandBus.execute(it)
     }
 
