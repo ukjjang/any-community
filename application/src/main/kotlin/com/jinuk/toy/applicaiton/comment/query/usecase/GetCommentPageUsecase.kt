@@ -22,15 +22,15 @@ class GetCommentPageUsecase(
     operator fun invoke(query: GetCommentPageQuery): Page<GetCommentPageResult> {
         val parents =
             commentQueryService.findByPostIdAndParentCommentIdIsNullOrderByIdDesc(query.postId, query.pageable())
-        val allComments = commentQueryService.findByPostId(query.postId)
+        val children = commentQueryService.findByPostIdAndParentCommentIdIsNotNull(query.postId)
+        val allComments = parents + children
 
         val commentMap = allComments.associateBy { it.id }
         val commentIds = allComments.map { it.id }
+        val userIds = allComments.map { it.userId }
 
         val likes = likeQueryService.findByTargetTypeAndTargetIdIn(LikeType.COMMENT, commentIds.map { it.toString() })
         val likeCountMap = likes.groupBy { it.targetId.toLong() }.mapValues { it.value.size }
-
-        val userIds = allComments.map { it.userId }
         val usernameMap = userQueryService.findByIdIn(userIds).associate { it.id to it.username }
 
         val isViewerLikeSet =
@@ -42,24 +42,15 @@ class GetCommentPageUsecase(
                 ).map { like -> like.targetId.toLong() }.toSet()
             } ?: emptySet()
 
-        val commentParentGroup =
-            allComments.groupBy { it.parentCommentId }
-                .toMutableMap()
-                .apply { this[null] = parents.content }
-                .toMap()
-
-        val contents =
+        return PageImpl(
             buildCommentParentTree(
                 parentId = null,
-                commentParentGroup = commentParentGroup,
+                commentParentGroup = allComments.groupBy { it.parentCommentId },
                 commentMap = commentMap,
                 isViewerLikeSet = isViewerLikeSet,
                 usernameMap = usernameMap,
                 likeCountMap = likeCountMap,
-            )
-
-        return PageImpl(
-            contents,
+            ),
             parents.pageable,
             parents.totalElements,
         )

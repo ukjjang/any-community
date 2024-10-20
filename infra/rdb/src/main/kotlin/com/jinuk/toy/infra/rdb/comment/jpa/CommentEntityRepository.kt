@@ -18,6 +18,8 @@ interface CommentEntityRepository : JpaRepository<CommentEntity, Long> {
 
     fun findByPostId(postId: Long): List<CommentEntity>
 
+    fun findByPostIdAndParentCommentIdIsNotNull(postId: Long): List<CommentEntity>
+
     fun countByPostId(postId: Long): Int
 
     fun findByPostIdIn(postIds: List<Long>): List<CommentEntity>
