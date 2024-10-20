@@ -8,7 +8,6 @@ import com.jinuk.toy.domain.like.service.LikeQueryService
 import com.jinuk.toy.util.faker.faker
 import com.jinuk.toy.util.faker.randomEnum
 import com.jinuk.toy.util.faker.randomLong
-import com.jinuk.toy.util.faker.randomString
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
@@ -21,7 +20,7 @@ internal class AddLikeUseCaseTest(
         {
             describe("좋아요 추가 유스케이스") {
                 val userId = faker.randomLong()
-                val likeTarget = LikeTarget(faker.randomEnum<LikeType>(), faker.randomString())
+                val likeTarget = LikeTarget(faker.randomEnum<LikeType>(), faker.randomLong().toString())
 
                 it("좋아요 성공") {
                     val command = AddLikeCommand(userId, likeTarget)
