@@ -3,6 +3,7 @@ object Dependencies {
         const val SPRING_BOOT_STARTER_WEB = "org.springframework.boot:spring-boot-starter-web"
         const val SPRING_BOOT_STARTER_TEST = "org.springframework.boot:spring-boot-starter-test"
         const val SPRING_BOOT_STARTER_REDIS = "org.springframework.boot:spring-boot-starter-data-redis"
+        const val SPRING_BOOT_STARTER_REDISSON = "org.redisson:redisson-spring-boot-starter:3.35.0"
         const val SPRING_BOOT_STARTER_DATA_JPA = "org.springframework.boot:spring-boot-starter-data-jpa"
         const val SPRING_BOOT_STARTER_SECURITY = "org.springframework.boot:spring-boot-starter-security"
         const val SPRING_BOOT_DATA_COMMONS = "org.springframework.data:spring-data-commons:3.3.3"
@@ -80,5 +81,11 @@ object Dependencies {
         private const val VERSION = "7.0.0"
 
         const val KOTLIN_LOGGING = "io.github.oshai:kotlin-logging-jvm:$VERSION"
+    }
+
+    object AspectjWeaver {
+        private const val VERSION = "1.9.22.1"
+
+        const val ASPECT_WEAVER = "org.aspectj:aspectjweaver:$VERSION"
     }
 }
