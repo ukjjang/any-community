@@ -1,6 +1,6 @@
 rootProject.name = "toy"
 
-include("external-api")
+include("mvc-api")
 
 // util
 include("util:faker")

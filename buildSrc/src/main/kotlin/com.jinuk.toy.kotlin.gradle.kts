@@ -44,7 +44,7 @@ kover.reports {
     filters.excludes {
         packages(
             "com.jinuk.toy.infra",
-            "com.jinuk.toy.externalapi",
+            "com.jinuk.toy.mvcapi",
         )
     }
 
