@@ -12,6 +12,7 @@ data class Post(
     val userId: Long,
     val title: PostTitle,
     val content: String,
+    val commentCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt)
 
 internal fun PostEntity.toModel() =
@@ -20,6 +21,7 @@ internal fun PostEntity.toModel() =
         userId = userId,
         title = PostTitle(title),
         content = content,
+        commentCount = commentCount,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
@@ -30,6 +32,7 @@ internal fun Post.toEntity() =
         userId = userId,
         title = title.value,
         content = content,
+        commentCount = commentCount,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
