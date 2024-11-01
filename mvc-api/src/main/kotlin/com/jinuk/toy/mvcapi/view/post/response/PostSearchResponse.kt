@@ -9,7 +9,7 @@ class PostSearchResponse(
     val id: Long,
     val title: PostTitle,
     val userName: Username,
-    val commentCount: Int,
+    val commentCount: Long,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )

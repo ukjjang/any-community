@@ -28,14 +28,13 @@ class GetPostDetailUsecase(
             } ?: false
 
         val likeCount = likeQueryService.countByTarget(likeTarget)
-        val commentCount = commentQueryService.countByPostId(post.id)
 
         return PostDetailResult.from(
             post = post,
             writer = writer,
             isViewerLike = isViewerLike,
             likeCount = likeCount,
-            commentCount = commentCount,
+            commentCount = post.commentCount,
         )
     }
 }

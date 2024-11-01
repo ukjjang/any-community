@@ -2,14 +2,17 @@ package com.jinuk.toy.applicaiton.comment.command.usecase
 
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.service.CommentCommandService
+import com.jinuk.toy.domain.post.service.PostCommandService
 import org.springframework.stereotype.Service
 
 @Service
 class CreateCommentUsecase(
     private val commentCommandService: CommentCommandService,
+    private val postCommandService: PostCommandService,
 ) {
     operator fun invoke(command: CreateCommentCommand) {
         commentCommandService.save(command.toComment())
+        postCommandService.increaseCommentCount(command.postId)
     }
 }
 

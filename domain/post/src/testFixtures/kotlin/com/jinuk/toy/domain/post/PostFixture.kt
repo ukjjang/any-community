@@ -35,6 +35,7 @@ class PostFixture(
             userId = userId,
             title = title,
             content = content,
+            commentCount = commentCount,
         ),
     )
 }

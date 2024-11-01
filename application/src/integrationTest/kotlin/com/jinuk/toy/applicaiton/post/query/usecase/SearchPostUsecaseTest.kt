@@ -1,7 +1,6 @@
 package com.jinuk.toy.applicaiton.post.query.usecase
 
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.domain.comment.CommentFixture
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.UserFixture
 import com.jinuk.toy.domain.post.value.PostTitle
@@ -11,7 +10,6 @@ import io.kotest.matchers.shouldBe
 class SearchPostUsecaseTest(
     private val searchPostUsecase: SearchPostUsecase,
     private val postFixture: PostFixture,
-    private val commentFixture: CommentFixture,
     private val userFixture: UserFixture,
 ) : IntegrationTest, DescribeSpec(
         {
@@ -20,14 +18,9 @@ class SearchPostUsecaseTest(
                     val user = userFixture.persist()
                     val posts =
                         (1..20).map {
-                            postFixture.persist(title = PostTitle("title$it"), userId = user.id)
+                            postFixture.persist(title = PostTitle("title$it"), userId = user.id, commentCount = 0)
                         }
                     val postsSize = posts.size
-
-                    val commentCount = 5
-                    repeat(commentCount) {
-                        commentFixture.persist(postId = posts[postsSize - 3].id)
-                    }
 
                     val query = SearchPostQuery(keyword = "title", page = 1, size = 3)
                     val result = searchPostUsecase(query)
@@ -41,7 +34,6 @@ class SearchPostUsecaseTest(
                     content[1].id shouldBe posts[postsSize - 2].id
                     content[2].id shouldBe posts[postsSize - 3].id
                     content[2].userName shouldBe user.username
-                    content[2].commentCount shouldBe commentCount
                 }
             }
         },
