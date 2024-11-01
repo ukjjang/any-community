@@ -58,3 +58,5 @@ fun <T> distributedLock(
         }
     }
 }
+
+class CannotAcquireLockException(message: String) : RuntimeException(message)
