@@ -12,11 +12,8 @@ class CommentQueryService(
 
     fun getById(id: Long) = findById(id) ?: throw NoSuchElementException("존재하지 않는 댓글입니다.")
 
-    fun countByPostId(id: Long) = commentRepository.countByPostId(id)
-
-    fun findByPostId(id: Long) = commentRepository.findByPostId(id)
-
-    fun findByPostIdAndParentCommentIdIsNotNull(postId: Long) = commentRepository.findByPostIdAndParentCommentIdIsNotNull(postId)
+    fun findByPostIdAndParentCommentIdIsNotNull(postId: Long) =
+        commentRepository.findByPostIdAndParentCommentIdIsNotNull(postId)
 
     fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
         postId: Long,
@@ -25,6 +22,4 @@ class CommentQueryService(
         postId,
         pageable,
     )
-
-    fun findByPostIdIn(id: List<Long>) = commentRepository.findByPostIdIn(id)
 }
