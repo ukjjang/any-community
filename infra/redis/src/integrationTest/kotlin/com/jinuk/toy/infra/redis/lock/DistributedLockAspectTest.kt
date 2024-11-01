@@ -14,18 +14,18 @@ import java.util.concurrent.TimeUnit.NANOSECONDS
 internal class DistributedLockAspectTest(
     private val lockSample: DistributedLockSample,
 ) : IntegrationTest, DescribeSpec(
-    {
-        describe("DistributedLock 테스트") {
-            it("DistributedLock 을 통한 동시성 제어") {
-                lockSample.catchExceptionCountOnConcurrency { concurrency() } shouldBe 0
-            }
+        {
+            describe("DistributedLock 테스트") {
+                it("DistributedLock 을 통한 동시성 제어") {
+                    lockSample.catchExceptionCountOnConcurrency { concurrency() } shouldBe 0
+                }
 
-            it("Lock 이 설정된 점유 시간 보다 길 경우 동시 접근에 대한 예외가 반환되어야 함") {
-                lockSample.catchExceptionCountOnConcurrency { leaseTime() } shouldBeGreaterThan 0
+                it("Lock 이 설정된 점유 시간 보다 길 경우 동시 접근에 대한 예외가 반환되어야 함") {
+                    lockSample.catchExceptionCountOnConcurrency { leaseTime() } shouldBeGreaterThan 0
+                }
             }
-        }
-    },
-)
+        },
+    )
 
 @Component
 internal class DistributedLockSample {
@@ -36,15 +36,16 @@ internal class DistributedLockSample {
             ConcurrentCounter.decrement()
         }
 
-    fun leaseTime() = distributedLock(
-        "DistributedLockSample-leaseTime",
-        leaseTime = 1,
-        timeUnit = NANOSECONDS,
-    ) {
-        ConcurrentCounter.increment()
-        runBlocking { delay(5) }
-        ConcurrentCounter.decrement()
-    }
+    fun leaseTime() =
+        distributedLock(
+            "DistributedLockSample-leaseTime",
+            leaseTime = 1,
+            timeUnit = NANOSECONDS,
+        ) {
+            ConcurrentCounter.increment()
+            runBlocking { delay(5) }
+            ConcurrentCounter.decrement()
+        }
 }
 
 private fun DistributedLockSample.catchExceptionCountOnConcurrency(block: DistributedLockSample.() -> Unit): Int {
