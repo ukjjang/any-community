@@ -6,6 +6,7 @@ spring:
     include:
       - infra-rdb
       - infra-redis
+      - infra-kafka
       - util-jwt
     active: local
 

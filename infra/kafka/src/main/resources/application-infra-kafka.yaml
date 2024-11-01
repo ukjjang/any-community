@@ -1,0 +1,5 @@
+kafka:
+  bootstrap-servers: localhost:9092
+  security:
+    protocol: SSL
+  offset-reset: latest

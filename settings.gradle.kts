@@ -13,6 +13,7 @@ include("util:object-mapper")
 // infra
 include("infra:rdb")
 include("infra:redis")
+include("infra:kafka")
 
 // domain
 include("domain:post")
