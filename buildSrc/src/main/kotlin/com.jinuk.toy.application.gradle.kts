@@ -24,6 +24,9 @@ dependencies {
     implementation(project(":infra:redis"))
     testImplementation(testFixtures(project(":infra:redis")))
 
+    implementation(project(":infra:kafka"))
+    testImplementation(testFixtures(project(":infra:kafka")))
+
     api(project(":util:object-mapper"))
 }
 

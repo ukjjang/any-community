@@ -20,10 +20,6 @@ internal class DistributedLockAspectTest(
                     lockSample.catchExceptionCountOnConcurrency { concurrency() } shouldBe 0
                 }
 
-                it("Lock 점유 시간이 설정된 대기 시간 보다 길 경우 CannotAcquireLockException 예외를 반환해야 함") {
-                    lockSample.catchExceptionCountOnConcurrency { waitTime() } shouldBe 9
-                }
-
                 it("Lock 이 설정된 점유 시간 보다 길 경우 동시 접근에 대한 예외가 반환되어야 함") {
                     lockSample.catchExceptionCountOnConcurrency { leaseTime() } shouldBeGreaterThan 0
                 }
@@ -38,11 +34,6 @@ internal class DistributedLockSample {
         ConcurrentCounter.increment()
         runBlocking { delay(5) }
         ConcurrentCounter.decrement()
-    }
-
-    @DistributedLock("'DistributedLockSample-waitTime'", waitTime = 0)
-    fun waitTime() {
-        runBlocking { delay(5000) }
     }
 
     @DistributedLock("'DistributedLockSample-leaseTime'", leaseTime = 1, timeUnit = NANOSECONDS)

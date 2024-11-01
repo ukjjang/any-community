@@ -1,5 +1,6 @@
 package com.jinuk.toy.applicaiton
 
+import com.jinuk.toy.infra.kafka.InfraKafkaContainer
 import com.jinuk.toy.infra.rdb.InfraRdbTestContainer
 import com.jinuk.toy.infra.redis.InfraRedisContainer
 import io.kotest.core.config.AbstractProjectConfig
@@ -23,11 +24,12 @@ internal class IntegrationTestConfiguration
     "test",
     "infra-rdb",
     "infra-redis",
+    "infra-kafka",
     "util-jwt",
 )
 @ContextConfiguration(classes = [IntegrationTestConfiguration::class])
 @SpringBootTest
-internal interface IntegrationTest : InfraRdbTestContainer, InfraRedisContainer
+internal interface IntegrationTest : InfraRdbTestContainer, InfraRedisContainer, InfraKafkaContainer
 
 @Configuration
 class KotestProjectConfig : AbstractProjectConfig() {

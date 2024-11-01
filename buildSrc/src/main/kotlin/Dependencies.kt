@@ -6,6 +6,7 @@ object Dependencies {
         const val SPRING_BOOT_STARTER_REDISSON = "org.redisson:redisson-spring-boot-starter:3.35.0"
         const val SPRING_BOOT_STARTER_DATA_JPA = "org.springframework.boot:spring-boot-starter-data-jpa"
         const val SPRING_BOOT_STARTER_SECURITY = "org.springframework.boot:spring-boot-starter-security"
+        const val SPRING_BOOT_STARTER_KAFKA = "org.springframework.kafka:spring-kafka"
         const val SPRING_BOOT_DATA_COMMONS = "org.springframework.data:spring-data-commons:3.3.3"
 
         const val JUNIT_PLATFORM_LAUNCHER = "org.junit.platform:junit-platform-launcher"
@@ -37,6 +38,7 @@ object Dependencies {
 
         const val JUNIT_JUPITER = "org.testcontainers:junit-jupiter:$TEST_CONTAINERS_VERSION"
         const val MYSQL = "org.testcontainers:mysql:$TEST_CONTAINERS_VERSION"
+        const val KAFKA = "org.testcontainers:kafka:$TEST_CONTAINERS_VERSION"
     }
 
     object Mysql {
