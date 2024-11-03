@@ -1,5 +1,6 @@
 plugins {
     id("com.jinuk.toy.api")
+    id("com.jinuk.toy.springdoc-openapi")
 }
 
 val serviceName = "mvc-api"
