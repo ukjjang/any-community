@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.like.service
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.like.Like
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.jpa.LikeRepository
-import org.springframework.stereotype.Service
 
 @Service
 class LikeCommandService(

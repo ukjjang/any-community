@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.comment
 
+import java.time.LocalDateTime
 import com.jinuk.toy.infra.rdb.comment.entity.CommentEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
-import java.time.LocalDateTime
 
 data class Comment(
     override val _id: Long? = null,

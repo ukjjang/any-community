@@ -1,10 +1,10 @@
 package com.jinuk.toy.domain.user
 
+import java.time.LocalDateTime
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.rdb.user.entity.UserEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
 import com.jinuk.toy.util.jbcrypt.Jbcrypt
-import java.time.LocalDateTime
 
 data class User(
     override val _id: Long? = null,

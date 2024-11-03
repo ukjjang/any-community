@@ -1,9 +1,9 @@
 package com.jinuk.toy.applicaiton.follow.command.usecase
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.domain.user.service.FollowCommandService
 import com.jinuk.toy.domain.user.service.UserQueryService
-import org.springframework.stereotype.Service
 
 @Service
 class UnFollowUseCase(

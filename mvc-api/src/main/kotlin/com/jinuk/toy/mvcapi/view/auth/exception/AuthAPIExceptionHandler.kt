@@ -1,11 +1,11 @@
 package com.jinuk.toy.mvcapi.view.auth.exception
 
-import com.jinuk.toy.mvcapi.global.exception.ErrorResponse
-import com.jinuk.toy.mvcapi.view.auth.AuthAPI
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import com.jinuk.toy.mvcapi.global.exception.ErrorResponse
+import com.jinuk.toy.mvcapi.view.auth.AuthAPI
 
 @RestControllerAdvice(assignableTypes = [AuthAPI::class])
 class AuthAPIExceptionHandler {

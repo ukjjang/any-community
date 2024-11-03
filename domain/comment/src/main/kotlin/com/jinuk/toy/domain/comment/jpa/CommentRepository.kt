@@ -1,12 +1,12 @@
 package com.jinuk.toy.domain.comment.jpa
 
+import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Repository
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.toEntity
 import com.jinuk.toy.domain.comment.toModel
 import com.jinuk.toy.infra.rdb.comment.jpa.CommentEntityRepository
-import org.springframework.data.domain.Pageable
-import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Repository
 
 @Repository
 class CommentRepository(

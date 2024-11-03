@@ -1,10 +1,10 @@
 package com.jinuk.toy.infra.kafka.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.jinuk.toy.infra.kafka.model.KafkaMessage
-import com.jinuk.toy.infra.kafka.model.KafkaTopic
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
+import com.jinuk.toy.infra.kafka.model.KafkaMessage
+import com.jinuk.toy.infra.kafka.model.KafkaTopic
 
 @Service
 class KafkaProducer(

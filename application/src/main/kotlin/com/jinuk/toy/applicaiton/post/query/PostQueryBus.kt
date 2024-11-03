@@ -1,13 +1,13 @@
 package com.jinuk.toy.applicaiton.post.query
 
+import org.springframework.data.domain.Page
+import org.springframework.stereotype.Service
 import com.jinuk.toy.applicaiton.post.query.result.PostDetailResult
 import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailQuery
 import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailUsecase
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchPostQuery
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchPostUsecase
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchedPostResult
-import org.springframework.data.domain.Page
-import org.springframework.stereotype.Service
 
 sealed interface PostQueryBus {
     infix fun ask(query: GetPostDetailQuery): PostDetailResult

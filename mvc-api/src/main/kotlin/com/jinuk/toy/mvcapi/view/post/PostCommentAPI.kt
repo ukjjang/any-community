@@ -1,15 +1,5 @@
 package com.jinuk.toy.mvcapi.view.post
 
-import com.jinuk.toy.applicaiton.comment.command.CommentCommandBus
-import com.jinuk.toy.applicaiton.comment.command.usecase.DeleteCommentCommand
-import com.jinuk.toy.applicaiton.comment.query.CommentQueryBus
-import com.jinuk.toy.applicaiton.comment.query.usecase.GetCommentPageQuery
-import com.jinuk.toy.mvcapi.global.MvcAPIController
-import com.jinuk.toy.mvcapi.global.security.AuthRole
-import com.jinuk.toy.mvcapi.global.security.AuthUser
-import com.jinuk.toy.mvcapi.view.post.request.CommentCreateRequest
-import com.jinuk.toy.mvcapi.view.post.request.CommentUpdateRequest
-import com.jinuk.toy.mvcapi.view.post.request.toCommand
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.access.annotation.Secured
@@ -21,6 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
+import com.jinuk.toy.applicaiton.comment.command.CommentCommandBus
+import com.jinuk.toy.applicaiton.comment.command.usecase.DeleteCommentCommand
+import com.jinuk.toy.applicaiton.comment.query.CommentQueryBus
+import com.jinuk.toy.applicaiton.comment.query.usecase.GetCommentPageQuery
+import com.jinuk.toy.mvcapi.global.MvcAPIController
+import com.jinuk.toy.mvcapi.global.security.AuthRole
+import com.jinuk.toy.mvcapi.global.security.AuthUser
+import com.jinuk.toy.mvcapi.view.post.request.CommentCreateRequest
+import com.jinuk.toy.mvcapi.view.post.request.CommentUpdateRequest
+import com.jinuk.toy.mvcapi.view.post.request.toCommand
 
 @Tag(name = "게시글 댓글")
 @MvcAPIController

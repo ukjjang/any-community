@@ -1,11 +1,11 @@
 package com.jinuk.toy.domain.user.jpa
 
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Repository
 import com.jinuk.toy.domain.user.Follow
 import com.jinuk.toy.domain.user.toEntity
 import com.jinuk.toy.domain.user.toModel
 import com.jinuk.toy.infra.rdb.follow.jpa.FollowEntityRepository
-import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Repository
 
 @Repository
 class FollowRepository(
@@ -19,9 +19,17 @@ class FollowRepository(
 
     fun findByIdIn(ids: List<Long>): List<Follow> = followEntityRepository.findAllById(ids).map { it.toModel() }
 
-    fun findByFollowerUserId(followerUserId: Long) = followEntityRepository.findByFollowerUserId(followerUserId).map { it.toModel() }
+    fun findByFollowerUserId(followerUserId: Long) =
+        followEntityRepository.findByFollowerUserId(followerUserId).map {
+            it.toModel()
+        }
 
-    fun findByFollowingUserId(followingUserId: Long) = followEntityRepository.findByFollowingUserId(followingUserId).map { it.toModel() }
+    fun findByFollowingUserId(followingUserId: Long) =
+        followEntityRepository.findByFollowingUserId(
+            followingUserId,
+        ).map {
+            it.toModel()
+        }
 
     fun findByFollowerUserIdAndFollowingUserId(
         followerUserId: Long,

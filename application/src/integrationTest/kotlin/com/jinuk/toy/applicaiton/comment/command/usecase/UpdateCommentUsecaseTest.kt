@@ -1,14 +1,14 @@
 package com.jinuk.toy.applicaiton.comment.command.usecase
 
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.comment.CommentFixture
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
 import com.jinuk.toy.util.faker.faker
 import com.jinuk.toy.util.faker.randomLong
 import com.jinuk.toy.util.faker.randomString
-import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
 
 internal class UpdateCommentUsecaseTest(
     private val updateCommentUsecase: UpdateCommentUsecase,

@@ -1,9 +1,9 @@
 package com.jinuk.toy.applicaiton.comment.command.usecase
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.service.CommentCommandService
 import com.jinuk.toy.domain.comment.service.CommentQueryService
-import org.springframework.stereotype.Service
 
 @Service
 class UpdateCommentUsecase(

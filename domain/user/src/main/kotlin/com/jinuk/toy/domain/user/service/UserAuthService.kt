@@ -1,11 +1,11 @@
 package com.jinuk.toy.domain.user.service
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.jpa.UserRepository
 import com.jinuk.toy.util.jbcrypt.Jbcrypt
 import com.jinuk.toy.util.jwt.JwtTokenProvider
-import org.springframework.stereotype.Service
 
 @Service
 class UserAuthService(

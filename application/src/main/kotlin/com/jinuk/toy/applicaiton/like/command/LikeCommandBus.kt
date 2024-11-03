@@ -1,10 +1,10 @@
 package com.jinuk.toy.applicaiton.like.command
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.applicaiton.like.command.usecase.AddLikeCommand
 import com.jinuk.toy.applicaiton.like.command.usecase.AddLikeUseCase
 import com.jinuk.toy.applicaiton.like.command.usecase.CancelLikeCommand
 import com.jinuk.toy.applicaiton.like.command.usecase.CancelLikeUsecase
-import org.springframework.stereotype.Service
 
 sealed interface LikeCommandBus {
     infix fun execute(command: AddLikeCommand)

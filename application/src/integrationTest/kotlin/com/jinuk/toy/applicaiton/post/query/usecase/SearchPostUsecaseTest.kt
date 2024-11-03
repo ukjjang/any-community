@@ -1,11 +1,11 @@
 package com.jinuk.toy.applicaiton.post.query.usecase
 
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.UserFixture
 import com.jinuk.toy.domain.post.value.PostTitle
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
 
 class SearchPostUsecaseTest(
     private val searchPostUsecase: SearchPostUsecase,
@@ -29,7 +29,6 @@ class SearchPostUsecaseTest(
 
                     val content = result.content
                     content.size shouldBe 3
-
                     content[0].id shouldBe posts[postsSize - 1].id
                     content[1].id shouldBe posts[postsSize - 2].id
                     content[2].id shouldBe posts[postsSize - 3].id

@@ -1,6 +1,5 @@
 package com.jinuk.toy.infra.redis.lock
 
-import com.jinuk.toy.infra.redis.IntegrationTest
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Component
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit.NANOSECONDS
+import com.jinuk.toy.infra.redis.IntegrationTest
 
 internal class DistributedLockAspectTest(
     private val lockSample: DistributedLockSample,

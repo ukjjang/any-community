@@ -1,5 +1,10 @@
 package com.jinuk.toy.applicaiton.comment.query.usecase
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
 import com.jinuk.toy.applicaiton.comment.query.result.GetCommentPageResult
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.service.CommentQueryService
@@ -7,11 +12,6 @@ import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.service.LikeQueryService
 import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
-import org.springframework.stereotype.Service
 
 @Service
 class GetCommentPageUsecase(

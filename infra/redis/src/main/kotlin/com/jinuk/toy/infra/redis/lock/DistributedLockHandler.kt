@@ -1,12 +1,12 @@
 package com.jinuk.toy.infra.redis.lock
 
-import com.jinuk.toy.infra.redis.lock.DistributedLockHandler.Companion.distributedLockForTransaction
-import com.jinuk.toy.infra.redis.lock.DistributedLockHandler.Companion.redisson
 import org.redisson.api.RedissonClient
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.util.concurrent.TimeUnit
+import com.jinuk.toy.infra.redis.lock.DistributedLockHandler.Companion.distributedLockForTransaction
+import com.jinuk.toy.infra.redis.lock.DistributedLockHandler.Companion.redisson
 
 @Component
 class DistributedLockHandler(

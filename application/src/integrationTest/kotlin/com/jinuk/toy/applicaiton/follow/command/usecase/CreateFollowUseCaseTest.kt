@@ -1,5 +1,8 @@
 package com.jinuk.toy.applicaiton.follow.command.usecase
 
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.post.FollowFixture
 import com.jinuk.toy.domain.post.UserFixture
@@ -7,9 +10,6 @@ import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.domain.user.service.FollowQueryService
 import com.jinuk.toy.util.faker.faker
 import com.jinuk.toy.util.faker.randomLong
-import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
 
 internal class CreateFollowUseCaseTest(
     private val createFollowUseCase: CreateFollowUseCase,

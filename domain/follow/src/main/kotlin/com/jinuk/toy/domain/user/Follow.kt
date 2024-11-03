@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.user
 
+import java.time.LocalDateTime
 import com.jinuk.toy.infra.rdb.follow.entity.FollowEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
-import java.time.LocalDateTime
 
 data class Follow(
     override val _id: Long? = null,

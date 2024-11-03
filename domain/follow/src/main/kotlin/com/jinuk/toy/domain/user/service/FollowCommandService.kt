@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.user.service
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.user.Follow
 import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.domain.user.jpa.FollowRepository
-import org.springframework.stereotype.Service
 
 @Service
 class FollowCommandService(
