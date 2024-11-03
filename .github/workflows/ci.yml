@@ -21,6 +21,7 @@ jobs:
       - uses: dorny/paths-filter@v2
         id: changes
         with:
+          token: ${{ secrets.TOKEN }}
           filters: |
             application:
               - 'build.gradle.kts'
