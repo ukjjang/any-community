@@ -10,6 +10,7 @@ object Dependencies {
         const val SPRING_BOOT_STARTER_SECURITY = "org.springframework.boot:spring-boot-starter-security"
         const val SPRING_BOOT_STARTER_KAFKA = "org.springframework.kafka:spring-kafka"
         const val SPRING_BOOT_DATA_COMMONS = "org.springframework.data:spring-data-commons"
+        const val SPRING_BOOT_STARTER_ACTUATOR = "org.springframework.boot:spring-boot-starter-actuator"
 
         const val JUNIT_PLATFORM_LAUNCHER = "org.junit.platform:junit-platform-launcher"
     }
