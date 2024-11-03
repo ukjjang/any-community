@@ -1,9 +1,9 @@
 package jbcrypt
 
-import com.jinuk.toy.util.jbcrypt.Jbcrypt
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import com.jinuk.toy.util.jbcrypt.Jbcrypt
 
 class JbcryptTest : DescribeSpec({
 

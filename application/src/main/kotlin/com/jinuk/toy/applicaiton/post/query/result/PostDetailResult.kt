@@ -1,10 +1,10 @@
 package com.jinuk.toy.applicaiton.post.query.result
 
+import java.time.LocalDateTime
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.value.Username
-import java.time.LocalDateTime
 
 data class PostDetailResult(
     val id: Long?,

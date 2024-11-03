@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.user.service
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.user.jpa.UserRepository
 import com.jinuk.toy.domain.user.value.Username
-import org.springframework.stereotype.Service
 
 @Service
 class UserQueryService(

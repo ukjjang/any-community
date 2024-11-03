@@ -1,13 +1,13 @@
 package com.jinuk.toy.mvcapi.view.health
 
-import com.jinuk.toy.mvcapi.global.MvcAPIController
-import com.jinuk.toy.mvcapi.global.security.AuthRole
-import com.jinuk.toy.mvcapi.global.security.AuthUser
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.access.annotation.Secured
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
+import com.jinuk.toy.mvcapi.global.MvcAPIController
+import com.jinuk.toy.mvcapi.global.security.AuthRole
+import com.jinuk.toy.mvcapi.global.security.AuthUser
 
 @Tag(name = "헬스 체크")
 @MvcAPIController

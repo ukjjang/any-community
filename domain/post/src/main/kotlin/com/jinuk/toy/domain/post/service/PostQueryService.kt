@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.post.service
 
-import com.jinuk.toy.domain.post.jpa.PostRepository
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import com.jinuk.toy.domain.post.jpa.PostRepository
 
 @Service
 class PostQueryService(

@@ -1,8 +1,8 @@
 package com.jinuk.toy.applicaiton.comment.command.usecase
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.comment.service.CommentCommandService
 import com.jinuk.toy.domain.post.service.PostCommandService
-import org.springframework.stereotype.Service
 
 @Service
 class DeleteCommentUsecase(

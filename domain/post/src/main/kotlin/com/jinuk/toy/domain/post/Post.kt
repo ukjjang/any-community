@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.post
 
+import java.time.LocalDateTime
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.infra.rdb.post.entity.PostEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
-import java.time.LocalDateTime
 
 data class Post(
     override val _id: Long? = null,

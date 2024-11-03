@@ -1,10 +1,10 @@
 package com.jinuk.toy.applicaiton.follow.command
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.applicaiton.follow.command.usecase.CreateFollowCommand
 import com.jinuk.toy.applicaiton.follow.command.usecase.CreateFollowUseCase
 import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowCommand
 import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowUseCase
-import org.springframework.stereotype.Service
 
 sealed interface FollowCommandBus {
     infix fun execute(command: CreateFollowCommand)

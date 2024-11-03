@@ -1,10 +1,10 @@
 package com.jinuk.toy.mvcapi.global.security
 
-import com.jinuk.toy.domain.user.User
-import com.jinuk.toy.domain.user.value.Username
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import com.jinuk.toy.domain.user.User
+import com.jinuk.toy.domain.user.value.Username
 
 data class AuthUser(
     val id: Long,

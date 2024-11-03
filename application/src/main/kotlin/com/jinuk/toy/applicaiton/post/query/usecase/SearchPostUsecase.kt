@@ -1,16 +1,16 @@
 package com.jinuk.toy.applicaiton.post.query.usecase
 
-import com.jinuk.toy.domain.post.Post
-import com.jinuk.toy.domain.post.service.PostQueryService
-import com.jinuk.toy.domain.post.value.PostTitle
-import com.jinuk.toy.domain.user.service.UserQueryService
-import com.jinuk.toy.domain.user.value.Username
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import com.jinuk.toy.domain.post.Post
+import com.jinuk.toy.domain.post.service.PostQueryService
+import com.jinuk.toy.domain.post.value.PostTitle
+import com.jinuk.toy.domain.user.service.UserQueryService
+import com.jinuk.toy.domain.user.value.Username
 
 @Service
 class SearchPostUsecase(

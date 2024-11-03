@@ -1,6 +1,5 @@
 package com.jinuk.toy.infra.kafka
 
-import com.jinuk.toy.infra.kafka.model.KafkaTopic
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
@@ -20,6 +19,7 @@ import org.springframework.kafka.listener.DefaultErrorHandler
 import org.springframework.kafka.support.KafkaUtils
 import org.springframework.util.backoff.FixedBackOff
 import java.time.LocalDateTime
+import com.jinuk.toy.infra.kafka.model.KafkaTopic
 
 @Configuration
 class KafkaConfig(

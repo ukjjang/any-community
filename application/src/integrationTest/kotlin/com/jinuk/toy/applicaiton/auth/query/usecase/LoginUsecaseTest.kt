@@ -1,14 +1,14 @@
 package com.jinuk.toy.applicaiton.auth.query.usecase
 
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.shouldNotBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.service.UserAuthService
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.util.faker.faker
 import com.jinuk.toy.util.faker.randomString
-import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldNotBe
 
 internal class LoginUsecaseTest(
     private val loginUsecase: LoginUsecase,

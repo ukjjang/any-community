@@ -1,12 +1,12 @@
 package com.jinuk.toy.applicaiton.comment.command
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.applicaiton.comment.command.usecase.CreateCommentCommand
 import com.jinuk.toy.applicaiton.comment.command.usecase.CreateCommentUsecase
 import com.jinuk.toy.applicaiton.comment.command.usecase.DeleteCommentCommand
 import com.jinuk.toy.applicaiton.comment.command.usecase.DeleteCommentUsecase
 import com.jinuk.toy.applicaiton.comment.command.usecase.UpdateCommentCommand
 import com.jinuk.toy.applicaiton.comment.command.usecase.UpdateCommentUsecase
-import org.springframework.stereotype.Service
 
 sealed interface CommentCommandBus {
     infix fun execute(command: CreateCommentCommand)

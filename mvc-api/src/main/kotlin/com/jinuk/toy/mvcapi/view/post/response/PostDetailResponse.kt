@@ -1,9 +1,9 @@
 package com.jinuk.toy.mvcapi.view.post.response
 
+import java.time.LocalDateTime
 import com.jinuk.toy.applicaiton.post.query.result.PostDetailResult
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.domain.user.value.Username
-import java.time.LocalDateTime
 
 data class PostDetailResponse(
     val id: Long?,

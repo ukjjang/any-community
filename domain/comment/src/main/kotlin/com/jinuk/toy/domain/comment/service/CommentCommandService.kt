@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.comment.service
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
-import org.springframework.stereotype.Service
 
 @Service
 class CommentCommandService(

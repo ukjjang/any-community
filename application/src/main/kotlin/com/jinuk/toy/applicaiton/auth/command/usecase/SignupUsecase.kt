@@ -1,9 +1,9 @@
 package com.jinuk.toy.applicaiton.auth.command.usecase
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.service.UserAuthService
 import com.jinuk.toy.domain.user.value.Username
-import org.springframework.stereotype.Service
 
 @Service
 class SignupUsecase(

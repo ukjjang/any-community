@@ -1,13 +1,13 @@
 package com.jinuk.toy.applicaiton.comment.query.usecase
 
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.comment.CommentFixture
 import com.jinuk.toy.domain.like.LikeFixture
 import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.UserFixture
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
 
 class GetCommentPageUsecaseTest(
     private val getCommentPageUsecase: GetCommentPageUsecase,
@@ -29,20 +29,59 @@ class GetCommentPageUsecaseTest(
                     val comment1 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = null)
 
                     val comment2 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = null)
-                    val child1 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = comment2.id)
-                    val child2 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = comment2.id)
-                    val child3 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = comment2.id)
-                    val child4 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = child3.id)
-                    val child5 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = child3.id)
-                    val child6 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = child3.id)
-                    val child7 = commentFixture.persist(userId = writer.id, postId = post.id, parentCommentId = child5.id)
+                    val child1 =
+                        commentFixture.persist(
+                            userId = writer.id,
+                            postId = post.id,
+                            parentCommentId = comment2.id,
+                        )
+                    val child2 =
+                        commentFixture.persist(
+                            userId = writer.id,
+                            postId = post.id,
+                            parentCommentId = comment2.id,
+                        )
+                    val child3 =
+                        commentFixture.persist(
+                            userId = writer.id,
+                            postId = post.id,
+                            parentCommentId = comment2.id,
+                        )
+                    val child4 =
+                        commentFixture.persist(
+                            userId = writer.id,
+                            postId = post.id,
+                            parentCommentId = child3.id,
+                        )
+                    val child5 =
+                        commentFixture.persist(
+                            userId = writer.id,
+                            postId = post.id,
+                            parentCommentId = child3.id,
+                        )
+                    val child6 =
+                        commentFixture.persist(
+                            userId = writer.id,
+                            postId = post.id,
+                            parentCommentId = child3.id,
+                        )
+                    val child7 =
+                        commentFixture.persist(
+                            userId = writer.id,
+                            postId = post.id,
+                            parentCommentId = child5.id,
+                        )
 
                     likeFixture.persist(
                         userId = viewer.id,
                         targetType = LikeType.COMMENT,
                         targetId = comment2.id.toString(),
                     )
-                    likeFixture.persist(userId = viewer.id, targetType = LikeType.COMMENT, targetId = child3.id.toString())
+                    likeFixture.persist(
+                        userId = viewer.id,
+                        targetType = LikeType.COMMENT,
+                        targetId = child3.id.toString(),
+                    )
 
                     val query =
                         GetCommentPageQuery(

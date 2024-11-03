@@ -11,7 +11,7 @@ interface InfraRedisContainer {
         private const val DOCKER_REDIS_IMAGE = "redis:7.0.8-alpine"
         private const val REDIS_PORT = 6379
 
-        private val onboardingRedis =
+        private val redis =
             GenericContainer<Nothing>(DOCKER_REDIS_IMAGE).apply {
                 withExposedPorts(REDIS_PORT)
                 withReuse(true)
@@ -20,12 +20,12 @@ interface InfraRedisContainer {
         @JvmStatic
         @DynamicPropertySource
         fun registerProperties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.data.redis.host") { onboardingRedis.host }
-            registry.add("spring.data.redis.port") { onboardingRedis.getMappedPort(REDIS_PORT).toString() }
+            registry.add("spring.data.redis.host") { redis.host }
+            registry.add("spring.data.redis.port") { redis.getMappedPort(REDIS_PORT).toString() }
         }
 
         init {
-            onboardingRedis.start()
+            redis.start()
         }
     }
 }

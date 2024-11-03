@@ -1,13 +1,13 @@
 package com.jinuk.toy.domain.like.jpa
 
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Repository
 import com.jinuk.toy.domain.like.Like
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.toEntity
 import com.jinuk.toy.domain.like.toModel
 import com.jinuk.toy.infra.rdb.like.jpa.LikeEntityRepository
-import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Repository
 
 @Repository
 class LikeRepository(
@@ -31,7 +31,11 @@ class LikeRepository(
         target: LikeTarget,
     ) = likeEntityRepository.existsByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)
 
-    fun countByTarget(target: LikeTarget) = likeEntityRepository.countByTargetTypeAndTargetId(target.type.name, target.id)
+    fun countByTarget(target: LikeTarget) =
+        likeEntityRepository.countByTargetTypeAndTargetId(
+            target.type.name,
+            target.id,
+        )
 
     fun findByTargetTypeAndTargetIdIn(
         targetType: LikeType,
@@ -42,5 +46,7 @@ class LikeRepository(
         userId: Long,
         targetType: LikeType,
         targetId: List<String>,
-    ) = likeEntityRepository.findByUserIdAndTargetTypeAndTargetIdIn(userId, targetType.name, targetId.toList()).map { it.toModel() }
+    ) = likeEntityRepository.findByUserIdAndTargetTypeAndTargetIdIn(userId, targetType.name, targetId.toList()).map {
+        it.toModel()
+    }
 }

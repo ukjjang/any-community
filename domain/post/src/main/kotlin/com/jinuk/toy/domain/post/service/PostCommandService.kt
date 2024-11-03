@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.post.service
 
+import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.infra.redis.lock.distributedLock
-import org.springframework.stereotype.Service
 
 @Service
 class PostCommandService(

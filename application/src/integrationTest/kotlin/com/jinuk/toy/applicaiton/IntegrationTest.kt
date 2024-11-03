@@ -1,8 +1,5 @@
 package com.jinuk.toy.applicaiton
 
-import com.jinuk.toy.infra.kafka.InfraKafkaContainer
-import com.jinuk.toy.infra.rdb.InfraRdbTestContainer
-import com.jinuk.toy.infra.redis.InfraRedisContainer
 import io.kotest.core.config.AbstractProjectConfig
 import io.kotest.extensions.spring.SpringTestExtension
 import io.kotest.extensions.spring.SpringTestLifecycleMode
@@ -14,6 +11,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.Transactional
+import com.jinuk.toy.infra.kafka.InfraKafkaContainer
+import com.jinuk.toy.infra.rdb.InfraRdbTestContainer
+import com.jinuk.toy.infra.redis.InfraRedisContainer
 
 @EnableAutoConfiguration(exclude = [DataSourceAutoConfiguration::class])
 @ComponentScan(basePackages = ["com.jinuk.toy"])

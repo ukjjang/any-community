@@ -1,7 +1,7 @@
 package com.jinuk.toy.infra.rdb.follow.jpa
 
-import com.jinuk.toy.infra.rdb.follow.entity.FollowEntity
 import org.springframework.data.jpa.repository.JpaRepository
+import com.jinuk.toy.infra.rdb.follow.entity.FollowEntity
 
 interface FollowEntityRepository : JpaRepository<FollowEntity, Long> {
     fun findByFollowerUserId(followerUserId: Long): List<FollowEntity>
