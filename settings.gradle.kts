@@ -1,6 +1,7 @@
 rootProject.name = "toy"
 
 include("mvc-api")
+include("consumer")
 
 // util
 include("util:faker")
