@@ -83,7 +83,7 @@ class KafkaConfig(
             record.headers().add("consumerGroupId", KafkaUtils.getConsumerGroupId().toByteArray())
             record.headers().add("deadLetterAt", LocalDateTime.now().toString().toByteArray())
             record.headers().add("errorMessage", exception.stackTraceToString().toByteArray(Charsets.UTF_8))
-            TopicPartition(KafkaTopic.DEAD_LETTER.topicName, -1)
+            TopicPartition(KafkaTopic.DEAD_LETTER, -1)
         }
     }
 }
