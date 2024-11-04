@@ -26,33 +26,31 @@ class RedisCacheHandler(
 
         lateinit var objectMapper: ObjectMapper
             private set
-
-        internal val log by LazyLogger()
+        val log by LazyLogger()
     }
 }
 
-fun <T> cached(
+inline fun <reified T> cached(
     key: String,
     expire: Duration = Duration.ofSeconds(300),
-    returnType: TypeReference<T>,
-    function: () -> T,
+    noinline function: () -> T,
 ): T {
     try {
         val cachedValue = redisTemplate.opsForValue()[key]
         if (cachedValue != null) {
-            return objectMapper.readValue(cachedValue, returnType)
+            return objectMapper.readValue(cachedValue, object : TypeReference<T>() {})
         }
     } catch (e: Exception) {
         log.error { "redis get fail: $key, ${e.stackTraceToString()}" }
     }
 
-    val notCachedValued = function()
+    val notCachedValue = function()
     try {
-        redisTemplate.opsForValue().set(key, objectMapper.writeValueAsString(notCachedValued), expire)
+        redisTemplate.opsForValue().set(key, objectMapper.writeValueAsString(notCachedValue), expire)
     } catch (e: Exception) {
         log.error { "redis set fail: $key, ${e.stackTraceToString()}" }
     }
-    return notCachedValued
+    return notCachedValue
 }
 
 fun cacheEvict(key: String) {
