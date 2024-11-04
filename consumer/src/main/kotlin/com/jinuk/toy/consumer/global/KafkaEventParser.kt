@@ -1,25 +1,33 @@
 package com.jinuk.toy.consumer.global
 
+import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.type.TypeFactory
 import org.springframework.stereotype.Component
-import com.jinuk.toy.util.logger.LazyLogger
+import com.jinuk.toy.infra.kafka.model.KafkaMessage
 
 @Component
 class KafkaEventParser(private val objectMapper: ObjectMapper) {
-    companion object {
-        internal val log by LazyLogger()
-    }
-
     fun <T> parse(
         message: String,
-        clazz: Class<T>,
+        payloadClass: Class<T>,
     ): T {
-        return try {
-            objectMapper.readValue(message, TypeFactory.defaultInstance().constructType(clazz))
-        } catch (e: RuntimeException) {
-            log.error { "consume error = ${e.message}" }
-            throw e
+        return parse<T>(message, objectMapper.constructType(payloadClass)).payload
+    }
+
+    private fun <T> parse(
+        message: String,
+        payloadType: JavaType,
+    ): KafkaMessage<T> {
+        require(message.isNotBlank()) { "Message is blank" }
+
+        try {
+            return objectMapper.readValue(message, convertToMessageType(payloadType))
+        } catch (e: Exception) {
+            throw IllegalArgumentException("could not parse the pocket message: $message", e)
         }
+    }
+
+    private fun convertToMessageType(payloadType: JavaType): JavaType {
+        return objectMapper.typeFactory.constructParametricType(KafkaMessage::class.java, payloadType)
     }
 }
