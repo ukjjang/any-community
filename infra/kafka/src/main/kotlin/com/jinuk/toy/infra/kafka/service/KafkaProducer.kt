@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
 import com.jinuk.toy.infra.kafka.model.KafkaMessage
-import com.jinuk.toy.infra.kafka.model.KafkaTopic
 
 @Service
 class KafkaProducer(
@@ -12,21 +11,21 @@ class KafkaProducer(
     private val objectMapper: ObjectMapper,
 ) {
     fun <T : Any> send(
-        topic: KafkaTopic,
+        topic: String,
         key: String,
         payload: T,
     ) {
         KafkaMessage.of(topic, payload).let {
-            kafkaStringTemplate.send(topic.name, key, objectMapper.writeValueAsString(it))
+            kafkaStringTemplate.send(topic, key, objectMapper.writeValueAsString(it))
         }
     }
 
     fun <T : Any> send(
-        topic: KafkaTopic,
+        topic: String,
         payload: T,
     ) {
         KafkaMessage.of(topic, payload).let {
-            kafkaStringTemplate.send(topic.name, objectMapper.writeValueAsString(it))
+            kafkaStringTemplate.send(topic, objectMapper.writeValueAsString(it))
         }
     }
 }
