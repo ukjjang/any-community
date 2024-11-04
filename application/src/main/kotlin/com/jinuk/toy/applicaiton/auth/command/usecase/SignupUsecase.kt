@@ -1,6 +1,7 @@
 package com.jinuk.toy.applicaiton.auth.command.usecase
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.service.UserAuthService
 import com.jinuk.toy.domain.user.value.Username
@@ -9,6 +10,7 @@ import com.jinuk.toy.domain.user.value.Username
 class SignupUsecase(
     private val authService: UserAuthService,
 ) {
+    @Transactional
     operator fun invoke(command: SignupCommand) {
         authService.signUp(command.toUserCredentials())
     }

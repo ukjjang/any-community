@@ -13,6 +13,19 @@ data class User(
     val username: Username,
     val password: String,
 ) : BaseDomain(_id, createdAt, updatedAt) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is User) return false
+
+        if (_id != other._id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return _id?.hashCode() ?: 0
+    }
+
     companion object {
         fun signup(userCredentials: UserCredentials) =
             User(username = userCredentials.username, password = Jbcrypt.encrypt(userCredentials.password))

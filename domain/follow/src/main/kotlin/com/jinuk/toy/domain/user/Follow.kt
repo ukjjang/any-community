@@ -11,6 +11,19 @@ data class Follow(
     val followerUserId: Long,
     val followingUserId: Long,
 ) : BaseDomain(_id, createdAt, updatedAt) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Follow) return false
+
+        if (_id != other._id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return _id?.hashCode() ?: 0
+    }
+
     companion object {
         fun create(followRelation: FollowRelation) =
             with(followRelation) {

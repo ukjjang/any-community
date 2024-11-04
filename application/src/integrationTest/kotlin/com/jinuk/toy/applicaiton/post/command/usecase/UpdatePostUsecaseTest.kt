@@ -78,7 +78,7 @@ internal class UpdatePostUsecaseTest(
                         UpdatePostCommand(
                             exits1.userId,
                             faker.randomLong(),
-                            PostTitle("faker.randomString()"),
+                            PostTitle(faker.randomString()),
                             randomContent,
                         )
                     shouldThrow<NoSuchElementException> {

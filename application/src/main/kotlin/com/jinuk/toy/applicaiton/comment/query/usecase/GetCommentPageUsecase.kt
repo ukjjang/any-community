@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.applicaiton.comment.query.result.GetCommentPageResult
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.service.CommentQueryService
@@ -19,6 +20,7 @@ class GetCommentPageUsecase(
     private val likeQueryService: LikeQueryService,
     private val commentQueryService: CommentQueryService,
 ) {
+    @Transactional(readOnly = true)
     operator fun invoke(query: GetCommentPageQuery): Page<GetCommentPageResult> {
         val parents =
             commentQueryService.findByPostIdAndParentCommentIdIsNullOrderByIdDesc(query.postId, query.pageable())

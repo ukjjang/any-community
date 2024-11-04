@@ -10,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.infra.kafka.InfraKafkaContainer
 import com.jinuk.toy.infra.rdb.InfraRdbTestContainer
 import com.jinuk.toy.infra.redis.InfraRedisContainer
@@ -19,7 +18,6 @@ import com.jinuk.toy.infra.redis.InfraRedisContainer
 @ComponentScan(basePackages = ["com.jinuk.toy"])
 internal class IntegrationTestConfiguration
 
-@Transactional
 @ActiveProfiles(
     "test",
     "infra-rdb",
@@ -33,5 +31,5 @@ internal interface IntegrationTest : InfraRdbTestContainer, InfraRedisContainer,
 
 @Configuration
 class KotestProjectConfig : AbstractProjectConfig() {
-    override fun extensions() = listOf(SpringTestExtension(SpringTestLifecycleMode.Test))
+    override fun extensions() = listOf(SpringTestExtension(SpringTestLifecycleMode.Root))
 }

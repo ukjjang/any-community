@@ -1,6 +1,7 @@
 package com.jinuk.toy.applicaiton.comment.command.usecase
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.event.CommentCreatedEvent
 import com.jinuk.toy.domain.comment.service.CommentCommandService
@@ -12,6 +13,7 @@ class CreateCommentUsecase(
     private val commentCommandService: CommentCommandService,
     private val kafkaProducer: KafkaProducer,
 ) {
+    @Transactional
     operator fun invoke(command: CreateCommentCommand) {
         val comment = commentCommandService.save(command.toComment())
         kafkaProducer.send(
