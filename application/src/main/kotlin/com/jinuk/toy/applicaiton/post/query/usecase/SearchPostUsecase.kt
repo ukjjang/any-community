@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostQueryService
@@ -17,6 +18,7 @@ class SearchPostUsecase(
     private val postQueryService: PostQueryService,
     private val userQueryService: UserQueryService,
 ) {
+    @Transactional(readOnly = true)
     operator fun invoke(query: SearchPostQuery): Page<SearchedPostResult> {
         val postsPage =
             if (query.keyword != null) {

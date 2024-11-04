@@ -12,7 +12,18 @@ data class Comment(
     val postId: Long,
     val parentCommentId: Long? = null,
     val content: String,
-) : BaseDomain(_id, createdAt, updatedAt)
+) : BaseDomain(_id, createdAt, updatedAt) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Comment) return false
+        if (_id != other._id) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return _id?.hashCode() ?: 0
+    }
+}
 
 internal fun CommentEntity.toModel() =
     Comment(

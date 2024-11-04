@@ -12,6 +12,19 @@ data class Like(
     val targetType: LikeType,
     val targetId: String,
 ) : BaseDomain(_id, createdAt, updatedAt) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Like) return false
+
+        if (_id != other._id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return _id?.hashCode() ?: 0
+    }
+
     companion object {
         fun create(
             userId: Long,

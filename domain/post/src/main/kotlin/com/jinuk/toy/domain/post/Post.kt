@@ -14,6 +14,17 @@ data class Post(
     val content: String,
     val commentCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Post) return false
+        if (_id != other._id) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return _id?.hashCode() ?: 0
+    }
+
     fun updateCommentCount(countDelta: Int) = this.copy(commentCount = commentCount + countDelta)
 }
 

@@ -7,6 +7,8 @@ import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.domain.post.value.PostTitle
+import com.jinuk.toy.util.faker.faker
+import com.jinuk.toy.util.faker.randomString
 
 internal class CreatePostUsecaseTest(
     private val createPostUsecase: CreatePostUsecase,
@@ -19,12 +21,11 @@ internal class CreatePostUsecaseTest(
                     val exits = postFixture.persist()
 
                     it("생성 성공") {
-                        val title = PostTitle("title")
+                        val title = PostTitle(faker.randomString())
                         val command = CreatePostCommand(1, title, "content")
 
                         val post = createPostUsecase(command)
                         val postEntity = postRepository.findById(post.id)
-
                         post shouldBe postEntity
                         post.userId shouldBe 1
                         post.title shouldBe title

@@ -7,7 +7,7 @@ import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.UserFixture
 import com.jinuk.toy.domain.post.value.PostTitle
 
-class SearchPostUsecaseTest(
+internal class SearchPostUsecaseTest(
     private val searchPostUsecase: SearchPostUsecase,
     private val postFixture: PostFixture,
     private val userFixture: UserFixture,

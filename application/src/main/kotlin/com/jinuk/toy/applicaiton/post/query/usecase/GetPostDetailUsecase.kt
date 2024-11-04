@@ -1,8 +1,8 @@
 package com.jinuk.toy.applicaiton.post.query.usecase
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.applicaiton.post.query.result.PostDetailResult
-import com.jinuk.toy.domain.comment.service.CommentQueryService
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.service.LikeQueryService
@@ -14,8 +14,8 @@ class GetPostDetailUsecase(
     private val postQueryService: PostQueryService,
     private val userQueryService: UserQueryService,
     private val likeQueryService: LikeQueryService,
-    private val commentQueryService: CommentQueryService,
 ) {
+    @Transactional(readOnly = true)
     operator fun invoke(query: GetPostDetailQuery): PostDetailResult {
         val post = postQueryService.getById(query.id)
         val writer = userQueryService.getById(post.userId)
