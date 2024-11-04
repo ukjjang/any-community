@@ -12,6 +12,7 @@ data class Comment(
     val postId: Long,
     val parentCommentId: Long? = null,
     val content: String,
+    val likeCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -32,6 +33,7 @@ internal fun CommentEntity.toModel() =
         postId = postId,
         parentCommentId = parentCommentId,
         content = content,
+        likeCount = likeCount,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
@@ -43,6 +45,7 @@ internal fun Comment.toEntity() =
         postId = postId,
         parentCommentId = parentCommentId,
         content = content,
+        likeCount = likeCount,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
