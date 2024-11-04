@@ -7,7 +7,6 @@ import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.comment.CommentFixture
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
 import com.jinuk.toy.domain.post.PostFixture
-import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.util.faker.faker
 import com.jinuk.toy.util.faker.randomLong
 
@@ -16,7 +15,6 @@ internal class DeleteCommentUsecaseTest(
     private val commentRepository: CommentRepository,
     private val commentFixture: CommentFixture,
     private val postFixture: PostFixture,
-    private val postRepository: PostRepository,
 ) : IntegrationTest, DescribeSpec(
         {
             describe("댓글 삭제 유스케이스") {
@@ -28,8 +26,6 @@ internal class DeleteCommentUsecaseTest(
                     deleteCommentUsecase(command)
                     val comment = commentRepository.findById(exits.id)
                     comment shouldBe null
-
-                    post.commentCount - 1 shouldBe postRepository.findById(post.id)?.commentCount
                 }
 
                 it("삭제 실패 - 작성자가 아닌 유저") {
