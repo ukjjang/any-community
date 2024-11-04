@@ -7,6 +7,7 @@ import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.toEntity
 import com.jinuk.toy.domain.comment.toModel
 import com.jinuk.toy.infra.rdb.comment.jpa.CommentEntityRepository
+import com.jinuk.toy.util.custompage.toCustomPage
 
 @Repository
 class CommentRepository(
@@ -23,7 +24,10 @@ class CommentRepository(
     fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
         postId: Long,
         pageable: Pageable,
-    ) = commentEntityRepository.findByPostIdAndParentCommentIdIsNullOrderByIdDesc(postId, pageable).map { it.toModel() }
+    ) = commentEntityRepository
+        .findByPostIdAndParentCommentIdIsNullOrderByIdDesc(postId, pageable)
+        .map { it.toModel() }
+        .toCustomPage()
 
     fun findByPostId(postId: Long) = commentEntityRepository.findByPostId(postId).map { it.toModel() }
 

@@ -15,4 +15,5 @@ dependencies {
 
     implementation(project(":util:logger"))
     implementation(project(":util:object-mapper"))
+    implementation(project(":util:custom-page"))
 }

@@ -14,6 +14,7 @@ dependencies {
     api(project(":util:logger"))
     api(project(":util:domain-helper"))
     api(project(":util:object-mapper"))
+    api(project(":util:custom-page"))
 
     implementation(project(":infra:rdb"))
     testImplementation(testFixtures(project(":infra:rdb")))

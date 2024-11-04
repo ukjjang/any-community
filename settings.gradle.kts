@@ -10,6 +10,7 @@ include("util:jwt")
 include("util:logger")
 include("util:domain-helper")
 include("util:object-mapper")
+include("util:custom-page")
 
 // infra
 include("infra:rdb")

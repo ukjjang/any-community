@@ -1,7 +1,5 @@
 package com.jinuk.toy.applicaiton.comment.query.usecase
 
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -13,6 +11,7 @@ import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.service.LikeQueryService
 import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
+import com.jinuk.toy.util.custompage.CustomPage
 
 @Service
 class GetCommentPageUsecase(
@@ -21,7 +20,7 @@ class GetCommentPageUsecase(
     private val commentQueryService: CommentQueryService,
 ) {
     @Transactional(readOnly = true)
-    operator fun invoke(query: GetCommentPageQuery): Page<GetCommentPageResult> {
+    operator fun invoke(query: GetCommentPageQuery): CustomPage<GetCommentPageResult> {
         val parents =
             commentQueryService.findByPostIdAndParentCommentIdIsNullOrderByIdDesc(query.postId, query.pageable())
         val children = commentQueryService.findByPostIdAndParentCommentIdIsNotNull(query.postId)
@@ -44,7 +43,7 @@ class GetCommentPageUsecase(
                 ).map { like -> like.targetId.toLong() }.toSet()
             } ?: emptySet()
 
-        return PageImpl(
+        return CustomPage(
             buildCommentParentTree(
                 parentId = null,
                 commentParentGroup = allComments.groupBy { it.parentCommentId },

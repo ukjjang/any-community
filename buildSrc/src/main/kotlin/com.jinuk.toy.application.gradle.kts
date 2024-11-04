@@ -28,6 +28,7 @@ dependencies {
     testImplementation(testFixtures(project(":infra:kafka")))
 
     api(project(":util:object-mapper"))
+    api(project(":util:custom-page"))
 }
 
 
