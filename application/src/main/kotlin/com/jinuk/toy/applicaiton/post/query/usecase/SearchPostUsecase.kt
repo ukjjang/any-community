@@ -1,7 +1,5 @@
 package com.jinuk.toy.applicaiton.post.query.usecase
 
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -12,6 +10,8 @@ import com.jinuk.toy.domain.post.service.PostQueryService
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
+import com.jinuk.toy.infra.redis.cache.cached
+import com.jinuk.toy.util.custompage.CustomPage
 
 @Service
 class SearchPostUsecase(
@@ -19,21 +19,24 @@ class SearchPostUsecase(
     private val userQueryService: UserQueryService,
 ) {
     @Transactional(readOnly = true)
-    operator fun invoke(query: SearchPostQuery): Page<SearchedPostResult> {
-        val postsPage =
-            if (query.keyword != null) {
-                postQueryService.findByTitleStartsWithIgnoreCaseOrderByIdDesc(query.keyword, query.pageable())
-            } else {
-                postQueryService.findByOrderByIdDesc(query.pageable())
-            }
-        return createPage(postsPage.content, query.pageable(), postsPage.totalElements)
-    }
+    operator fun invoke(query: SearchPostQuery) =
+        cached(
+            key = query.hashCode().toString(),
+        ) {
+            val postsPage =
+                if (query.keyword != null) {
+                    postQueryService.findByTitleStartsWithIgnoreCaseOrderByIdDesc(query.keyword, query.pageable())
+                } else {
+                    postQueryService.findByOrderByIdDesc(query.pageable())
+                }
+            createPage(postsPage.content, query.pageable(), postsPage.totalElements)
+        }
 
     private fun createPage(
         posts: List<Post>,
         pageable: Pageable,
         totalSize: Long,
-    ): Page<SearchedPostResult> {
+    ): CustomPage<SearchedPostResult> {
         val userIds = posts.map { it.userId }
         val userMap = userQueryService.findByIdIn(userIds).associateBy { it.id }
 
@@ -49,7 +52,7 @@ class SearchPostUsecase(
                 )
             }
 
-        return PageImpl(content, pageable, totalSize)
+        return CustomPage(content, pageable, totalSize)
     }
 }
 
