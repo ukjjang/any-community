@@ -13,6 +13,7 @@ data class Post(
     val title: PostTitle,
     val content: String,
     val commentCount: Long = 0L,
+    val likeCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -35,6 +36,7 @@ internal fun PostEntity.toModel() =
         title = PostTitle(title),
         content = content,
         commentCount = commentCount,
+        likeCount = likeCount,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
@@ -46,6 +48,7 @@ internal fun Post.toEntity() =
         title = title.value,
         content = content,
         commentCount = commentCount,
+        likeCount = likeCount,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )

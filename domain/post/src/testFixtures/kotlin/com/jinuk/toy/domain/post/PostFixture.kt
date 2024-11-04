@@ -17,6 +17,7 @@ class PostFixture(
             title: PostTitle = PostTitle(faker.randomString(20)),
             content: String = faker.randomString(100),
             commentCount: Long = faker.randomLong(),
+            likeCount: Long = faker.randomLong(),
         ) = Post(
             userId = userId,
             title = title,
@@ -30,12 +31,14 @@ class PostFixture(
         title: PostTitle = PostTitle(faker.randomString(20)),
         content: String = faker.randomString(100),
         commentCount: Long = faker.randomLong(),
+        likeCount: Long = faker.randomLong(),
     ) = postRepository.save(
         create(
             userId = userId,
             title = title,
             content = content,
             commentCount = commentCount,
+            likeCount = likeCount,
         ),
     )
 }

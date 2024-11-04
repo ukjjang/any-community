@@ -16,11 +16,13 @@ class CommentFixture(
             postId: Long = faker.randomLong(),
             parentCommentId: Long? = faker.randomLong(),
             content: String = faker.randomString(),
+            likeCount: Long = faker.randomLong(),
         ) = Comment(
             userId = userId,
             postId = postId,
             parentCommentId = parentCommentId,
             content = content,
+            likeCount = likeCount,
         )
     }
 
@@ -29,5 +31,6 @@ class CommentFixture(
         postId: Long = faker.randomLong(),
         parentCommentId: Long? = faker.randomLong(),
         content: String = faker.randomString(),
-    ) = commentRepository.save(create(userId, postId, parentCommentId, content))
+        likeCount: Long = faker.randomLong(),
+    ) = commentRepository.save(create(userId, postId, parentCommentId, content, likeCount))
 }

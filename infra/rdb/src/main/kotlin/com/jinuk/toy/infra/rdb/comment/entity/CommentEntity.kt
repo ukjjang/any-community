@@ -25,6 +25,8 @@ class CommentEntity(
     val parentCommentId: Long?,
     @Column(name = "content")
     val content: String,
+    @Column(name = "like_count")
+    val likeCount: Long,
     @Column(name = "created_at")
     @CreationTimestamp
     val createdAt: LocalDateTime = LocalDateTime.now(),
