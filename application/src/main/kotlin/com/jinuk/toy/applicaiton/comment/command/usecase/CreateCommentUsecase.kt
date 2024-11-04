@@ -2,17 +2,22 @@ package com.jinuk.toy.applicaiton.comment.command.usecase
 
 import org.springframework.stereotype.Service
 import com.jinuk.toy.domain.comment.Comment
+import com.jinuk.toy.domain.comment.event.CommentCreatedEvent
 import com.jinuk.toy.domain.comment.service.CommentCommandService
-import com.jinuk.toy.domain.post.service.PostCommandService
+import com.jinuk.toy.infra.kafka.model.KafkaTopic
+import com.jinuk.toy.infra.kafka.service.KafkaProducer
 
 @Service
 class CreateCommentUsecase(
     private val commentCommandService: CommentCommandService,
-    private val postCommandService: PostCommandService,
+    private val kafkaProducer: KafkaProducer,
 ) {
     operator fun invoke(command: CreateCommentCommand) {
-        commentCommandService.save(command.toComment())
-        postCommandService.increaseCommentCount(command.postId)
+        val comment = commentCommandService.save(command.toComment())
+        kafkaProducer.send(
+            topic = KafkaTopic.Comment.CREATE,
+            payload = CommentCreatedEvent.of(comment),
+        )
     }
 }
 

@@ -1,17 +1,22 @@
 package com.jinuk.toy.applicaiton.comment.command.usecase
 
 import org.springframework.stereotype.Service
+import com.jinuk.toy.domain.comment.event.CommentDeletedEvent
 import com.jinuk.toy.domain.comment.service.CommentCommandService
-import com.jinuk.toy.domain.post.service.PostCommandService
+import com.jinuk.toy.infra.kafka.model.KafkaTopic
+import com.jinuk.toy.infra.kafka.service.KafkaProducer
 
 @Service
 class DeleteCommentUsecase(
     private val commentCommandService: CommentCommandService,
-    private val postCommandService: PostCommandService,
+    private val kafkaProducer: KafkaProducer,
 ) {
     operator fun invoke(command: DeleteCommentCommand) {
         commentCommandService.delete(command.commentId, command.userId, command.postId)
-        postCommandService.decreaseCommentCount(command.postId)
+        kafkaProducer.send(
+            topic = KafkaTopic.Comment.CREATE,
+            payload = CommentDeletedEvent(id = command.commentId, postId = command.postId),
+        )
     }
 }
 

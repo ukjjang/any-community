@@ -5,14 +5,12 @@ import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
 import com.jinuk.toy.domain.post.PostFixture
-import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.util.faker.faker
 
 internal class CreateCommentUsecaseTest(
     private val createCommentUsecase: CreateCommentUsecase,
     private val commentRepository: CommentRepository,
     private val postFixture: PostFixture,
-    private val postRepository: PostRepository,
 ) : IntegrationTest, DescribeSpec(
         {
             describe("댓글 생성 유스케이스") {
@@ -28,15 +26,6 @@ internal class CreateCommentUsecaseTest(
                     comments[0].postId shouldBe command.postId
                     comments[0].parentCommentId shouldBe command.parentCommentId
                     comments[0].content shouldBe command.content
-
-                    post.commentCount + 1 shouldBe postRepository.findById(post.id)?.commentCount
-
-                    createCommentUsecase(command)
-                    createCommentUsecase(command)
-                    createCommentUsecase(command)
-                    createCommentUsecase(command)
-
-                    post.commentCount + 5 shouldBe postRepository.findById(post.id)?.commentCount
                 }
             }
         },

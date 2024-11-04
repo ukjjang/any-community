@@ -14,9 +14,7 @@ data class Post(
     val content: String,
     val commentCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt) {
-    fun increaseCommentCount() = this.copy(commentCount = commentCount + 1)
-
-    fun decreaseCommentCount() = this.copy(commentCount = commentCount - 1)
+    fun updateCommentCount(countDelta: Int) = this.copy(commentCount = commentCount + countDelta)
 }
 
 internal fun PostEntity.toModel() =
