@@ -24,4 +24,11 @@ class PostCommandService(
     ) = save(
         postQueryService.getById(postId).updateCommentCount(countDelta),
     )
+
+    fun updateLikeCount(
+        postId: Long,
+        countDelta: Int,
+    ) = save(
+        postQueryService.getById(postId).updateLikeCount(countDelta),
+    )
 }

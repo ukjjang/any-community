@@ -27,6 +27,8 @@ data class Post(
     }
 
     fun updateCommentCount(countDelta: Int) = this.copy(commentCount = commentCount + countDelta)
+
+    fun updateLikeCount(countDelta: Int) = this.copy(likeCount = likeCount + countDelta)
 }
 
 internal fun PostEntity.toModel() =

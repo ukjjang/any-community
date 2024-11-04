@@ -21,4 +21,11 @@ class CommentCommandService(
     }.let(commentRepository::delete)
 
     fun deleteByPostId(postId: Long) = commentRepository.deleteByPostId(postId)
+
+    fun updateLikeCount(
+        commentId: Long,
+        countDelta: Int,
+    ) = save(
+        commentQueryService.getById(commentId).updateLikeCount(countDelta),
+    )
 }
