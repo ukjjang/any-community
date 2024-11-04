@@ -23,7 +23,7 @@ class KafkaEventParser(private val objectMapper: ObjectMapper) {
         try {
             return objectMapper.readValue(message, convertToMessageType(payloadType))
         } catch (e: Exception) {
-            throw IllegalArgumentException("could not parse the pocket message: $message", e)
+            throw IllegalArgumentException("could not parse the message: $message", e)
         }
     }
 

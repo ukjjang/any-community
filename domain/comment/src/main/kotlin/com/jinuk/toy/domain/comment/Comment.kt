@@ -24,6 +24,8 @@ data class Comment(
     override fun hashCode(): Int {
         return _id?.hashCode() ?: 0
     }
+
+    fun updateLikeCount(countDelta: Int) = this.copy(likeCount = likeCount + countDelta)
 }
 
 internal fun CommentEntity.toModel() =
