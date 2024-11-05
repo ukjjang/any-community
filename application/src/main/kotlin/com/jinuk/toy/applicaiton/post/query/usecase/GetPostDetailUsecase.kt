@@ -3,8 +3,8 @@ package com.jinuk.toy.applicaiton.post.query.usecase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.applicaiton.post.query.result.PostDetailResult
+import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.like.LikeTarget
-import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.service.LikeQueryService
 import com.jinuk.toy.domain.post.service.PostQueryService
 import com.jinuk.toy.domain.user.service.UserQueryService

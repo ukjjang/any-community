@@ -2,9 +2,9 @@ package com.jinuk.toy.domain.like.jpa
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
+import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.like.Like
 import com.jinuk.toy.domain.like.LikeTarget
-import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.toEntity
 import com.jinuk.toy.domain.like.toModel
 import com.jinuk.toy.infra.rdb.like.jpa.LikeEntityRepository
@@ -24,29 +24,29 @@ class LikeRepository(
     fun findByUserIdAndTarget(
         userId: Long,
         target: LikeTarget,
-    ) = likeEntityRepository.findByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)?.toModel()
+    ) = likeEntityRepository.findByUserIdAndTargetTypeAndTargetId(userId, target.type, target.id)?.toModel()
 
     fun existsByUserIdAndTarget(
         userId: Long,
         target: LikeTarget,
-    ) = likeEntityRepository.existsByUserIdAndTargetTypeAndTargetId(userId, target.type.name, target.id)
+    ) = likeEntityRepository.existsByUserIdAndTargetTypeAndTargetId(userId, target.type, target.id)
 
     fun countByTarget(target: LikeTarget) =
         likeEntityRepository.countByTargetTypeAndTargetId(
-            target.type.name,
+            target.type,
             target.id,
         )
 
     fun findByTargetTypeAndTargetIdIn(
         targetType: LikeType,
         targetId: List<String>,
-    ) = likeEntityRepository.findByTargetTypeAndTargetIdIn(targetType.name, targetId.toList()).map { it.toModel() }
+    ) = likeEntityRepository.findByTargetTypeAndTargetIdIn(targetType, targetId.toList()).map { it.toModel() }
 
     fun findByUserIdAndTargetTypeAndTargetIdIn(
         userId: Long,
         targetType: LikeType,
         targetId: List<String>,
-    ) = likeEntityRepository.findByUserIdAndTargetTypeAndTargetIdIn(userId, targetType.name, targetId.toList()).map {
+    ) = likeEntityRepository.findByUserIdAndTargetTypeAndTargetIdIn(userId, targetType, targetId.toList()).map {
         it.toModel()
     }
 }

@@ -1,9 +1,9 @@
 package com.jinuk.toy.applicaiton.like.command.usecase
 
 import org.springframework.stereotype.Service
+import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.comment.service.CommentCommandService
 import com.jinuk.toy.domain.like.LikeTarget
-import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.like.event.LikeAddedEvent
 import com.jinuk.toy.domain.like.event.LikeCanceledEvent
 import com.jinuk.toy.domain.post.service.PostCommandService
