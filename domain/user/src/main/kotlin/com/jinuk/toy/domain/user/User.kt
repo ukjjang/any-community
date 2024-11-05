@@ -28,6 +28,10 @@ data class User(
         return _id?.hashCode() ?: 0
     }
 
+    fun updateFollowingCount(countDelta: Int) = this.copy(followingCount = followingCount + countDelta)
+
+    fun updateFollowerCount(countDelta: Int) = this.copy(followerCount = followerCount + countDelta)
+
     companion object {
         fun signup(userCredentials: UserCredentials) =
             User(username = userCredentials.username, password = Jbcrypt.encrypt(userCredentials.password))
