@@ -12,6 +12,8 @@ data class User(
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
     val username: Username,
     val password: String,
+    val followingCount: Long = 0L,
+    val followerCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -37,6 +39,8 @@ internal fun UserEntity.toModel() =
         _id = id,
         username = Username(username),
         password = password,
+        followingCount = followingCount,
+        followerCount = followerCount,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
@@ -46,6 +50,8 @@ internal fun User.toEntity() =
         id = _id,
         username = username.value,
         password = password,
+        followingCount = followingCount,
+        followerCount = followerCount,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
