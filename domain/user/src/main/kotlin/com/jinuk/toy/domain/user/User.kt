@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.user
 
 import java.time.LocalDateTime
+import com.jinuk.toy.constant.user.Gender
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.rdb.user.entity.UserEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
@@ -12,6 +13,7 @@ data class User(
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
     val username: Username,
     val password: String,
+    val gender: Gender,
     val followingCount: Long = 0L,
     val followerCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt) {
@@ -43,6 +45,7 @@ internal fun UserEntity.toModel() =
         _id = id,
         username = Username(username),
         password = password,
+        gender = gender,
         followingCount = followingCount,
         followerCount = followerCount,
         createdAt = createdAt,
@@ -54,6 +57,7 @@ internal fun User.toEntity() =
         id = _id,
         username = username.value,
         password = password,
+        gender = gender,
         followingCount = followingCount,
         followerCount = followerCount,
         createdAt = createdAt,

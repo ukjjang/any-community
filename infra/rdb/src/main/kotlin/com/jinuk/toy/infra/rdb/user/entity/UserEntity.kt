@@ -4,11 +4,14 @@ import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
+import com.jinuk.toy.constant.user.Gender
 
 @Entity
 @Table(name = "user")
@@ -21,6 +24,9 @@ class UserEntity(
     val username: String,
     @Column(name = "password")
     val password: String,
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    val gender: Gender,
     @Column(name = "following_count")
     val followingCount: Long,
     @Column(name = "follower_count")
