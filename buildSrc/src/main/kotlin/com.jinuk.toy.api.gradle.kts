@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    api(project(":constant"))
     implementation(project(":application"))
 
     implementation(Dependencies.SpringBoot.SPRING_BOOT_DATA_COMMONS)

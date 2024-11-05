@@ -1,6 +1,3 @@
-import gradle.kotlin.dsl.accessors._458d78406d6ada6c312d6c9e71140b0b.api
-import gradle.kotlin.dsl.accessors._458d78406d6ada6c312d6c9e71140b0b.implementation
-import gradle.kotlin.dsl.accessors._458d78406d6ada6c312d6c9e71140b0b.testImplementation
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
@@ -11,6 +8,8 @@ plugins {
 }
 
 dependencies {
+    api(project(":constant"))
+
     api(project(":util:logger"))
     api(project(":util:domain-helper"))
     api(project(":util:object-mapper"))

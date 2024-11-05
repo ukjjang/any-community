@@ -8,6 +8,8 @@ plugins {
 }
 
 dependencies {
+    api(project(":constant"))
+
     api(project(":domain:post"))
     api(project(":domain:user"))
     api(project(":domain:follow"))

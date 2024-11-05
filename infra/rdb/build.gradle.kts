@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    api(project(":constant"))
     runtimeOnly(Dependencies.Mysql.CONNECTOR)
 
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_TEST)
