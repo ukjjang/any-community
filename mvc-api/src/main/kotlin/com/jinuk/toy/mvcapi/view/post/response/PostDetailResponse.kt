@@ -12,7 +12,7 @@ data class PostDetailResponse(
     val title: PostTitle,
     val content: String,
     val isViewerLike: Boolean,
-    val likeCount: Int,
+    val likeCount: Long,
     val commentCount: Long,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,

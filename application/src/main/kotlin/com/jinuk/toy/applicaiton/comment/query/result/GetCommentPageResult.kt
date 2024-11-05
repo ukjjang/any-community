@@ -7,7 +7,7 @@ data class GetCommentPageResult(
     val username: Username,
     val isViewerLike: Boolean,
     val parentCommentId: Long?,
-    val likeCount: Int,
+    val likeCount: Long,
     val content: String,
     val children: List<GetCommentPageResult>,
 )

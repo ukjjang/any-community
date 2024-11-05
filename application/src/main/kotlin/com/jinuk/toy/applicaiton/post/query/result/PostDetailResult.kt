@@ -13,7 +13,7 @@ data class PostDetailResult(
     val title: PostTitle,
     val content: String,
     val isViewerLike: Boolean,
-    val likeCount: Int,
+    val likeCount: Long,
     val commentCount: Long,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
@@ -23,7 +23,6 @@ data class PostDetailResult(
             post: Post,
             writer: User,
             isViewerLike: Boolean,
-            likeCount: Int,
             commentCount: Long,
         ): PostDetailResult {
             return with(post) {

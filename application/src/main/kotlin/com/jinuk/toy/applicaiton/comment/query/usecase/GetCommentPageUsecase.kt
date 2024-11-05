@@ -30,8 +30,6 @@ class GetCommentPageUsecase(
         val commentIds = allComments.map { it.id }
         val userIds = allComments.map { it.userId }
 
-        val likes = likeQueryService.findByTargetTypeAndTargetIdIn(LikeType.COMMENT, commentIds.map { it.toString() })
-        val likeCountMap = likes.groupBy { it.targetId.toLong() }.mapValues { it.value.size }
         val usernameMap = userQueryService.findByIdIn(userIds).associate { it.id to it.username }
 
         val isViewerLikeSet =
@@ -50,7 +48,6 @@ class GetCommentPageUsecase(
                 commentMap = commentMap,
                 isViewerLikeSet = isViewerLikeSet,
                 usernameMap = usernameMap,
-                likeCountMap = likeCountMap,
             ),
             parents.pageable,
             parents.totalElements,
@@ -63,18 +60,16 @@ class GetCommentPageUsecase(
         commentMap: Map<Long, Comment>,
         isViewerLikeSet: Set<Long>,
         usernameMap: Map<Long, Username>,
-        likeCountMap: Map<Long, Int>,
     ): List<GetCommentPageResult> {
         return commentParentGroup[parentId]?.mapNotNull { comment ->
             val username = usernameMap[comment.userId] ?: return@mapNotNull null
-            val likeCount = likeCountMap[comment.id] ?: 0
 
             GetCommentPageResult(
                 id = comment.id,
                 username = username,
                 isViewerLike = isViewerLikeSet.contains(comment.id),
                 parentCommentId = comment.parentCommentId,
-                likeCount = likeCount,
+                likeCount = comment.likeCount,
                 content = comment.content,
                 children =
                     buildCommentParentTree(
@@ -83,7 +78,6 @@ class GetCommentPageUsecase(
                         commentMap = commentMap,
                         isViewerLikeSet = isViewerLikeSet,
                         usernameMap = usernameMap,
-                        likeCountMap = likeCountMap,
                     ).sortedByDescending { it.id },
             )
         } ?: emptyList()

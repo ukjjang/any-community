@@ -27,13 +27,10 @@ class GetPostDetailUsecase(
                 likeQueryService.existsByUserIdAndTarget(viewerId, likeTarget)
             } ?: false
 
-        val likeCount = likeQueryService.countByTarget(likeTarget)
-
         return PostDetailResult.from(
             post = post,
             writer = writer,
             isViewerLike = isViewerLike,
-            likeCount = likeCount,
             commentCount = post.commentCount,
         )
     }

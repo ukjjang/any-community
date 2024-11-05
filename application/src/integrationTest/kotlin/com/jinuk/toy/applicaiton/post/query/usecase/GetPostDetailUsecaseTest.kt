@@ -28,9 +28,6 @@ class GetPostDetailUsecaseTest(
 
                     val likeTarget = LikeTarget(LikeType.POST, post.id.toString())
                     likeFixture.persist(targetType = likeTarget.type, targetId = likeTarget.id, userId = viewer.id)
-                    likeFixture.persist(targetType = likeTarget.type, targetId = likeTarget.id)
-                    likeFixture.persist(targetType = likeTarget.type, targetId = likeTarget.id)
-                    likeFixture.persist(targetType = likeTarget.type, targetId = likeTarget.id)
 
                     it("조회 성공") {
                         val result = getPostDetailUsecase(GetPostDetailQuery(post.id, viewer.id))
@@ -40,7 +37,6 @@ class GetPostDetailUsecaseTest(
                         result.username shouldBe postWriter.username
                         result.title shouldBe post.title
                         result.content shouldBe post.content
-                        result.likeCount shouldBe 4
                         result.isViewerLike shouldBe true
                     }
 

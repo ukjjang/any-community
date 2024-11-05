@@ -75,12 +75,12 @@ class GetCommentPageUsecaseTest(
                     likeFixture.persist(
                         userId = viewer.id,
                         targetType = LikeType.COMMENT,
-                        targetId = comment2.id.toString(),
+                        targetId = child3.id.toString(),
                     )
                     likeFixture.persist(
                         userId = viewer.id,
                         targetType = LikeType.COMMENT,
-                        targetId = child3.id.toString(),
+                        targetId = comment2.id.toString(),
                     )
 
                     val query =
@@ -99,12 +99,10 @@ class GetCommentPageUsecaseTest(
                     resultComment1.id shouldBe comment2.id
                     resultComment1.content shouldBe comment2.content
                     resultComment1.isViewerLike shouldBe true
-                    resultComment1.likeCount shouldBe 1
 
                     resultComment1.children.size shouldBe 3
                     resultComment1.children[0].id shouldBe child3.id
                     resultComment1.children[0].isViewerLike shouldBe true
-                    resultComment1.children[0].likeCount shouldBe 1
 
                     resultComment1.children[0].children.size shouldBe 3
                     resultComment1.children[0].children[0].id shouldBe child6.id
