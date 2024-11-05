@@ -1,4 +1,4 @@
-package com.jinuk.toy.domain.like
+package com.jinuk.toy.constant.like
 
 enum class LikeType {
     POST,

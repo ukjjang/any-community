@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import com.jinuk.toy.applicaiton.like.command.LikeCommandBus
 import com.jinuk.toy.applicaiton.like.command.usecase.AddLikeCommand
 import com.jinuk.toy.applicaiton.like.command.usecase.CancelLikeCommand
+import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.like.LikeTarget
-import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
 import com.jinuk.toy.mvcapi.global.security.AuthUser

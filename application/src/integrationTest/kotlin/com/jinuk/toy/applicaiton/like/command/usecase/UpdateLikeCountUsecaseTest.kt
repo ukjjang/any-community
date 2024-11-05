@@ -3,10 +3,10 @@ package com.jinuk.toy.applicaiton.like.command.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.comment.CommentFixture
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
 import com.jinuk.toy.domain.like.LikeTarget
-import com.jinuk.toy.domain.like.LikeType
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
 

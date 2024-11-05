@@ -3,6 +3,7 @@ package com.jinuk.toy.domain.like
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
+import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.util.faker.faker
 import com.jinuk.toy.util.faker.randomLong
 import com.jinuk.toy.util.faker.randomString
