@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.post
 
 import java.time.LocalDateTime
+import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.infra.rdb.post.entity.PostEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
@@ -26,9 +27,12 @@ data class Post(
         return _id?.hashCode() ?: 0
     }
 
-    fun updateCommentCount(countDelta: Int) = this.copy(commentCount = commentCount + countDelta)
+    fun updateCommentCount(countOperation: CountOperation) =
+        this.copy(
+            commentCount = commentCount + countOperation.delta,
+        )
 
-    fun updateLikeCount(countDelta: Int) = this.copy(likeCount = likeCount + countDelta)
+    fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
 }
 
 internal fun PostEntity.toModel() =

@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.user
 
 import java.time.LocalDateTime
+import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.constant.user.Gender
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.rdb.user.entity.UserEntity
@@ -30,9 +31,11 @@ data class User(
         return _id?.hashCode() ?: 0
     }
 
-    fun updateFollowingCount(countDelta: Int) = this.copy(followingCount = followingCount + countDelta)
+    fun updateFollowingCount(countOperation: CountOperation) =
+        this.copy(followingCount = followingCount + countOperation.delta)
 
-    fun updateFollowerCount(countDelta: Int) = this.copy(followerCount = followerCount + countDelta)
+    fun updateFollowerCount(countOperation: CountOperation) =
+        this.copy(followerCount = followerCount + countOperation.delta)
 
     companion object {
         fun signup(

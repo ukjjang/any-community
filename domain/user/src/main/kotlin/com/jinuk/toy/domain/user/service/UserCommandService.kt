@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.user.service
 
 import org.springframework.stereotype.Service
+import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.jpa.UserRepository
 
@@ -13,15 +14,15 @@ class UserCommandService(
 
     fun updateFollowingCount(
         useId: Long,
-        countDelta: Int,
+        countOperation: CountOperation,
     ) = save(
-        userQueryService.getById(useId).updateFollowingCount(countDelta),
+        userQueryService.getById(useId).updateFollowingCount(countOperation),
     )
 
     fun updateFollowerCount(
         useId: Long,
-        countDelta: Int,
+        countOperation: CountOperation,
     ) = save(
-        userQueryService.getById(useId).updateFollowerCount(countDelta),
+        userQueryService.getById(useId).updateFollowerCount(countOperation),
     )
 }

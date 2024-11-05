@@ -3,6 +3,7 @@ package com.jinuk.toy.applicaiton.user.command.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.domain.post.UserFixture
 import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.domain.user.jpa.UserRepository
@@ -19,7 +20,7 @@ internal class UpdateUserFollowCountUsecaseTest(
                     val userB = userFixture.persist(followingCount = 0, followerCount = 0)
                     val followRelation = FollowRelation(followerUserId = userA.id, followingUserId = userB.id)
 
-                    updateUserFollowCountUsecase(UpdateUserFollowCountCommand(followRelation, 1))
+                    updateUserFollowCountUsecase(UpdateUserFollowCountCommand(followRelation, CountOperation.INCREASE))
                     val userA2 = userRepository.findById(userA.id)
                     val userB2 = userRepository.findById(userB.id)
                     userA2?.followingCount shouldBe 1
@@ -27,7 +28,7 @@ internal class UpdateUserFollowCountUsecaseTest(
                     userB2?.followingCount shouldBe 0
                     userB2?.followerCount shouldBe 1
 
-                    updateUserFollowCountUsecase(UpdateUserFollowCountCommand(followRelation, -1))
+                    updateUserFollowCountUsecase(UpdateUserFollowCountCommand(followRelation, CountOperation.DECREMENT))
                     val userA3 = userRepository.findById(userA.id)
                     val userB3 = userRepository.findById(userB.id)
                     userA3?.followingCount shouldBe 0
