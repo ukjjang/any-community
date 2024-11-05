@@ -12,6 +12,11 @@ object KafkaTopic {
         const val ADD = "toy-like-add"
         const val CANCEL = "toy-like-cancel"
     }
+
+    object Follow {
+        const val ADD = "toy-follow-add"
+        const val CANCEL = "toy-follow-cancel"
+    }
 }
 
 object KafkaGroupId {
