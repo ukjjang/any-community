@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.user.service
 
 import org.springframework.stereotype.Service
+import com.jinuk.toy.constant.user.Gender
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.jpa.UserRepository
@@ -12,9 +13,12 @@ class UserAuthService(
     private val jwtTokenProvider: JwtTokenProvider,
     private val userRepository: UserRepository,
 ) {
-    fun signUp(userCredentials: UserCredentials): User {
+    fun signUp(
+        userCredentials: UserCredentials,
+        gender: Gender,
+    ): User {
         require(!userRepository.existsByUsername(userCredentials.username)) { "이미 존재하는 사용자 이름입니다." }
-        return User.signup(userCredentials).let { userRepository.save(it) }
+        return User.signup(userCredentials, gender).let { userRepository.save(it) }
     }
 
     fun login(userCredentials: UserCredentials): String {

@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import com.jinuk.toy.applicaiton.auth.command.AuthCommandBus
 import com.jinuk.toy.applicaiton.auth.query.AuthQueryBus
 import com.jinuk.toy.mvcapi.global.MvcAPIController
-import com.jinuk.toy.mvcapi.view.auth.request.AuthCredentialsRequest
+import com.jinuk.toy.mvcapi.view.auth.request.AuthLoginRequest
+import com.jinuk.toy.mvcapi.view.auth.request.AuthSignupRequest
 import com.jinuk.toy.mvcapi.view.auth.request.toCommand
 import com.jinuk.toy.mvcapi.view.auth.request.toQuery
 import com.jinuk.toy.mvcapi.view.auth.response.AuthLoginResponse
@@ -19,11 +20,11 @@ class AuthAPI(
 ) {
     @PostMapping("/v1/auth/login")
     fun login(
-        @RequestBody request: AuthCredentialsRequest,
+        @RequestBody request: AuthLoginRequest,
     ) = AuthLoginResponse.from(authQueryBus ask request.toQuery())
 
     @PostMapping("/v1/auth/signup")
     fun signup(
-        @RequestBody request: AuthCredentialsRequest,
+        @RequestBody request: AuthSignupRequest,
     ) = authCommandBus execute request.toCommand()
 }
