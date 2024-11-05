@@ -35,8 +35,14 @@ data class User(
     fun updateFollowerCount(countDelta: Int) = this.copy(followerCount = followerCount + countDelta)
 
     companion object {
-        fun signup(userCredentials: UserCredentials) =
-            User(username = userCredentials.username, password = Jbcrypt.encrypt(userCredentials.password))
+        fun signup(
+            userCredentials: UserCredentials,
+            gender: Gender,
+        ) = User(
+            username = userCredentials.username,
+            password = Jbcrypt.encrypt(userCredentials.password),
+            gender = gender,
+        )
     }
 }
 
