@@ -1,4 +1,4 @@
-package com.jinuk.toy.consumer.view.comment
+package com.jinuk.toy.consumer.view.post
 
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.messaging.handler.annotation.Payload
@@ -13,7 +13,7 @@ import com.jinuk.toy.infra.kafka.model.KafkaGroupId
 import com.jinuk.toy.infra.kafka.model.KafkaTopic
 
 @Component
-class CommentConsumer(
+class PostConsumer(
     private val kafkaEventParser: KafkaEventParser,
     private val postCommandBus: PostCommandBus,
 ) {
