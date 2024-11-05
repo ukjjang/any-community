@@ -17,6 +17,9 @@ include("infra:rdb")
 include("infra:redis")
 include("infra:kafka")
 
+// constant
+include("constant")
+
 // domain
 include("domain:post")
 include("domain:user")
