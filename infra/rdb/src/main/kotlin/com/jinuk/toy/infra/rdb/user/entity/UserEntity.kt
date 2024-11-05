@@ -21,6 +21,10 @@ class UserEntity(
     val username: String,
     @Column(name = "password")
     val password: String,
+    @Column(name = "following_count")
+    val followingCount: Long,
+    @Column(name = "follower_count")
+    val followerCount: Long,
     @Column(name = "created_at")
     @CreationTimestamp
     val createdAt: LocalDateTime = LocalDateTime.now(),
