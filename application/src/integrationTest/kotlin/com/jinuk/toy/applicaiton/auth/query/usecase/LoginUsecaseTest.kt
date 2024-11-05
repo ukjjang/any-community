@@ -4,6 +4,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldNotBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.constant.user.Gender
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.service.UserAuthService
 import com.jinuk.toy.domain.user.value.Username
@@ -18,7 +19,7 @@ internal class LoginUsecaseTest(
             describe("로그인 유스케이스") {
                 context("유저 존재") {
                     val signupCredentials = UserCredentials(Username(faker.randomString(4)), "password")
-                    authService.signUp(signupCredentials)
+                    authService.signUp(signupCredentials, gender = Gender.MALE)
 
                     it("로그인 성공") {
                         val query = LoginQuery(signupCredentials.username, signupCredentials.password)
