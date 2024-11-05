@@ -20,6 +20,11 @@ object KafkaTopic {
 }
 
 object KafkaGroupId {
+    object User {
+        const val INCREASE_FOLLOW_COUNT = "toy-user-increaseFollowCount"
+        const val DECREASE_FOLLOW_COUNT = "toy-user-decreaseFollowCount"
+    }
+
     object Post {
         const val INCREASE_COMMENT_COUNT = "toy-post-increaseCommentCount"
         const val DECREASE_COMMENT_COUNT = "toy-post-decreaseCommentCount"
