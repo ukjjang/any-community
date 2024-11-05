@@ -22,7 +22,7 @@ internal class SignupUsecaseTest(
                     val exits = userFixture.persist()
 
                     it("회원가입 성공") {
-                        val command = SignupCommand(Username(faker.randomString(4)), "password", Gender.MALE)
+                        val command = SignupCommand(Username(faker.randomString(4)), "password", Gender.FEMALE)
 
                         signupUsecase(command)
                         userRepository.findByUsername(command.username) shouldNotBe null
