@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.comment
 
 import java.time.LocalDateTime
+import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.infra.rdb.comment.entity.CommentEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
 
@@ -25,7 +26,7 @@ data class Comment(
         return _id?.hashCode() ?: 0
     }
 
-    fun updateLikeCount(countDelta: Int) = this.copy(likeCount = likeCount + countDelta)
+    fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
 }
 
 internal fun CommentEntity.toModel() =

@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.comment.service
 
 import org.springframework.stereotype.Service
+import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
 
@@ -24,8 +25,8 @@ class CommentCommandService(
 
     fun updateLikeCount(
         commentId: Long,
-        countDelta: Int,
+        countOperation: CountOperation,
     ) = save(
-        commentQueryService.getById(commentId).updateLikeCount(countDelta),
+        commentQueryService.getById(commentId).updateLikeCount(countOperation),
     )
 }

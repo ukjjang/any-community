@@ -1,6 +1,7 @@
 package com.jinuk.toy.applicaiton.user.command.usecase
 
 import org.springframework.stereotype.Service
+import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.domain.user.event.FollowAddedEvent
 import com.jinuk.toy.domain.user.event.FollowCanceledEvent
@@ -20,8 +21,8 @@ class UpdateUserFollowCountUsecase(
                 val followerUserId = followRelation.followerUserId
                 val followingUserId = followRelation.followingUserId
 
-                userCommandService.updateFollowingCount(followerUserId, countDelta)
-                userCommandService.updateFollowerCount(followingUserId, countDelta)
+                userCommandService.updateFollowingCount(followerUserId, countOperation)
+                userCommandService.updateFollowerCount(followingUserId, countOperation)
                 return@with
             }
         }
@@ -29,11 +30,15 @@ class UpdateUserFollowCountUsecase(
 
 data class UpdateUserFollowCountCommand(
     val followRelation: FollowRelation,
-    val countDelta: Int,
+    val countOperation: CountOperation,
 ) {
     companion object {
-        fun from(event: FollowAddedEvent) = UpdateUserFollowCountCommand(event.followRelation, 1)
+        fun from(event: FollowAddedEvent) = UpdateUserFollowCountCommand(event.followRelation, CountOperation.INCREASE)
 
-        fun from(event: FollowCanceledEvent) = UpdateUserFollowCountCommand(event.followRelation, -1)
+        fun from(event: FollowCanceledEvent) =
+            UpdateUserFollowCountCommand(
+                event.followRelation,
+                CountOperation.DECREMENT,
+            )
     }
 }

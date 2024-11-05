@@ -1,6 +1,7 @@
 package com.jinuk.toy.applicaiton.like.command.usecase
 
 import org.springframework.stereotype.Service
+import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.comment.service.CommentCommandService
 import com.jinuk.toy.domain.like.LikeTarget
@@ -21,8 +22,17 @@ class UpdateLikeCountUsecase(
         ) {
             val likeTarget = command.likeTarget
             when (likeTarget.type) {
-                LikeType.POST -> postCommandService.updateLikeCount(likeTarget.id.toLong(), command.countDelta)
-                LikeType.COMMENT -> commentCommandService.updateLikeCount(likeTarget.id.toLong(), command.countDelta)
+                LikeType.POST ->
+                    postCommandService.updateLikeCount(
+                        likeTarget.id.toLong(),
+                        command.countOperation,
+                    )
+
+                LikeType.COMMENT ->
+                    commentCommandService.updateLikeCount(
+                        likeTarget.id.toLong(),
+                        command.countOperation,
+                    )
             }
             return@distributedLock
         }
@@ -30,11 +40,12 @@ class UpdateLikeCountUsecase(
 
 data class UpdateLikeCountCommand(
     val likeTarget: LikeTarget,
-    val countDelta: Int,
+    val countOperation: CountOperation,
 ) {
     companion object {
-        fun from(event: LikeAddedEvent) = with(event) { UpdateLikeCountCommand(likeTarget, 1) }
+        fun from(event: LikeAddedEvent) = with(event) { UpdateLikeCountCommand(likeTarget, CountOperation.INCREASE) }
 
-        fun from(event: LikeCanceledEvent) = with(event) { UpdateLikeCountCommand(likeTarget, -1) }
+        fun from(event: LikeCanceledEvent) =
+            with(event) { UpdateLikeCountCommand(likeTarget, CountOperation.DECREMENT) }
     }
 }
