@@ -1,10 +1,12 @@
 package com.jinuk.toy.domain.post
 
 import org.springframework.stereotype.Component
+import com.jinuk.toy.constant.user.Gender
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.jpa.UserRepository
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.util.faker.faker
+import com.jinuk.toy.util.faker.randomEnum
 import com.jinuk.toy.util.faker.randomLong
 import com.jinuk.toy.util.faker.randomString
 
@@ -18,9 +20,11 @@ class UserFixture(
             password: String = faker.randomString(40),
             followingCount: Long = faker.randomLong(),
             followerCount: Long = faker.randomLong(),
+            gender: Gender = faker.randomEnum<Gender>(),
         ) = User(
             username = username,
             password = password,
+            gender = gender,
             followingCount = followingCount,
             followerCount = followerCount,
         )
@@ -32,5 +36,14 @@ class UserFixture(
         password: String = faker.randomString(40),
         followingCount: Long = faker.randomLong(),
         followerCount: Long = faker.randomLong(),
-    ) = userRepository.save(create(username, password, followingCount, followerCount))
+        gender: Gender = faker.randomEnum<Gender>(),
+    ) = userRepository.save(
+        create(
+            username = username,
+            password = password,
+            gender = gender,
+            followingCount = followingCount,
+            followerCount = followerCount,
+        ),
+    )
 }
