@@ -14,8 +14,6 @@ class UserRepository(
 ) {
     fun save(user: User) = userEntityRepository.save(user.toEntity()).toModel()
 
-    fun delete(user: User) = userEntityRepository.delete(user.toEntity())
-
     fun findById(id: Long) = userEntityRepository.findByIdOrNull(id)?.toModel()
 
     fun findByIdIn(ids: List<Long>): List<User> = userEntityRepository.findAllById(ids).map { it.toModel() }

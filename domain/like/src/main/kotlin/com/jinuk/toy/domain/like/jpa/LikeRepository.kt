@@ -1,6 +1,5 @@
 package com.jinuk.toy.domain.like.jpa
 
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.like.Like
@@ -19,10 +18,6 @@ class LikeRepository(
 
     fun deleteAll(likes: List<Like>) = likeEntityRepository.deleteAll(likes.map { it.toEntity() })
 
-    fun findById(id: Long) = likeEntityRepository.findByIdOrNull(id)?.toModel()
-
-    fun findByIdIn(ids: List<Long>): List<Like> = likeEntityRepository.findAllById(ids).map { it.toModel() }
-
     fun findByUserIdAndTarget(
         userId: Long,
         target: LikeTarget,
@@ -32,12 +27,6 @@ class LikeRepository(
         userId: Long,
         target: LikeTarget,
     ) = likeEntityRepository.existsByUserIdAndTargetTypeAndTargetId(userId, target.type, target.id)
-
-    fun countByTarget(target: LikeTarget) =
-        likeEntityRepository.countByTargetTypeAndTargetId(
-            target.type,
-            target.id,
-        )
 
     fun findByTargetTypeAndTargetId(target: LikeTarget) =
         likeEntityRepository.findByTargetTypeAndTargetId(target.type, target.id).map { it.toModel() }

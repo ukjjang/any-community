@@ -20,8 +20,6 @@ class LikeQueryService(
         target: LikeTarget,
     ) = likeRepository.existsByUserIdAndTarget(userId, target)
 
-    fun countByTarget(target: LikeTarget) = likeRepository.countByTarget(target)
-
     fun findByTarget(target: LikeTarget) = likeRepository.findByTargetTypeAndTargetId(target)
 
     fun findByUserIdAndTargetTypeAndTargetIdIn(
