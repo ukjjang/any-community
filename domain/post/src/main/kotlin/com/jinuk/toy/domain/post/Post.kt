@@ -2,6 +2,7 @@ package com.jinuk.toy.domain.post
 
 import java.time.LocalDateTime
 import com.jinuk.toy.constant.global.CountOperation
+import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.infra.rdb.post.entity.PostEntity
 import com.jinuk.toy.util.domainhelper.BaseDomain
@@ -12,6 +13,7 @@ data class Post(
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
     val userId: Long,
     val title: PostTitle,
+    val category: PostCategory,
     val content: String,
     val commentCount: Long = 0L,
     val likeCount: Long = 0L,
@@ -40,6 +42,7 @@ internal fun PostEntity.toModel() =
         _id = id,
         userId = userId,
         title = PostTitle(title),
+        category = category,
         content = content,
         commentCount = commentCount,
         likeCount = likeCount,
@@ -52,6 +55,7 @@ internal fun Post.toEntity() =
         id = _id,
         userId = userId,
         title = title.value,
+        category = category,
         content = content,
         commentCount = commentCount,
         likeCount = likeCount,
