@@ -17,6 +17,8 @@ class CommentRepository(
 
     fun delete(comment: Comment) = commentEntityRepository.delete(comment.toEntity())
 
+    fun deleteAll(comments: List<Comment>) = commentEntityRepository.deleteAll(comments.map { it.toEntity() })
+
     fun deleteByPostId(postId: Long) = commentEntityRepository.deleteByPostId(postId)
 
     fun findById(id: Long) = commentEntityRepository.findByIdOrNull(id)?.toModel()

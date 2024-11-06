@@ -22,14 +22,16 @@ class LikeQueryService(
 
     fun countByTarget(target: LikeTarget) = likeRepository.countByTarget(target)
 
-    fun findByTargetTypeAndTargetIdIn(
-        targetType: LikeType,
-        targetId: List<String>,
-    ) = likeRepository.findByTargetTypeAndTargetIdIn(targetType, targetId)
+    fun findByTarget(target: LikeTarget) = likeRepository.findByTargetTypeAndTargetId(target)
 
     fun findByUserIdAndTargetTypeAndTargetIdIn(
         userId: Long,
         targetType: LikeType,
         targetId: List<String>,
     ) = likeRepository.findByUserIdAndTargetTypeAndTargetIdIn(userId, targetType, targetId.toList())
+
+    fun findByTargetTypeAndTargetIdIn(
+        targetType: LikeType,
+        targetId: List<Long>,
+    ) = likeRepository.findByTargetTypeAndTargetIdIn(targetType, targetId.toList())
 }

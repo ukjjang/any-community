@@ -22,13 +22,18 @@ interface LikeEntityRepository : JpaRepository<LikeEntity, Long> {
         targetId: String,
     ): Int
 
-    fun findByTargetTypeAndTargetIdIn(
+    fun findByTargetTypeAndTargetId(
         targetType: LikeType,
-        targetId: List<String>,
+        targetId: String,
     ): List<LikeEntity>
 
     fun findByUserIdAndTargetTypeAndTargetIdIn(
         userId: Long,
+        targetType: LikeType,
+        targetId: List<String>,
+    ): List<LikeEntity>
+
+    fun findByTargetTypeAndTargetIdIn(
         targetType: LikeType,
         targetId: List<String>,
     ): List<LikeEntity>
