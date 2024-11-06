@@ -19,8 +19,6 @@ class CommentRepository(
 
     fun deleteAll(comments: List<Comment>) = commentEntityRepository.deleteAll(comments.map { it.toEntity() })
 
-    fun deleteByPostId(postId: Long) = commentEntityRepository.deleteByPostId(postId)
-
     fun findById(id: Long) = commentEntityRepository.findByIdOrNull(id)?.toModel()
 
     fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
@@ -35,12 +33,6 @@ class CommentRepository(
 
     fun findByPostIdAndParentCommentIdIsNotNull(postId: Long) =
         commentEntityRepository.findByPostIdAndParentCommentIdIsNotNull(postId).map { it.toModel() }
-
-    fun countByPostId(postId: Long) = commentEntityRepository.countByPostId(postId)
-
-    fun findByPostIdIn(postIds: List<Long>) = commentEntityRepository.findByPostIdIn(postIds).map { it.toModel() }
-
-    fun findByIdIn(ids: List<Long>): List<Comment> = commentEntityRepository.findAllById(ids).map { it.toModel() }
 
     fun findByUserIdAndPostId(
         userId: Long,

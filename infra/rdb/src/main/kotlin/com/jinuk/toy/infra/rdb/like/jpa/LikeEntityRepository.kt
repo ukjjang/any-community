@@ -17,11 +17,6 @@ interface LikeEntityRepository : JpaRepository<LikeEntity, Long> {
         targetId: String,
     ): Boolean
 
-    fun countByTargetTypeAndTargetId(
-        targetType: LikeType,
-        targetId: String,
-    ): Int
-
     fun findByTargetTypeAndTargetId(
         targetType: LikeType,
         targetId: String,
