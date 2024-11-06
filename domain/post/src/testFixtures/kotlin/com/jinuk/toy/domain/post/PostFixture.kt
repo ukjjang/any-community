@@ -1,9 +1,11 @@
 package com.jinuk.toy.domain.post
 
 import org.springframework.stereotype.Component
+import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.util.faker.faker
+import com.jinuk.toy.util.faker.randomEnum
 import com.jinuk.toy.util.faker.randomLong
 import com.jinuk.toy.util.faker.randomString
 
@@ -15,12 +17,14 @@ class PostFixture(
         fun create(
             userId: Long = faker.randomLong(),
             title: PostTitle = PostTitle(faker.randomString(20)),
+            category: PostCategory = faker.randomEnum<PostCategory>(),
             content: String = faker.randomString(100),
             commentCount: Long = faker.randomLong(),
             likeCount: Long = faker.randomLong(),
         ) = Post(
             userId = userId,
             title = title,
+            category = category,
             content = content,
             commentCount = commentCount,
         )
@@ -29,6 +33,7 @@ class PostFixture(
     fun persist(
         userId: Long = faker.randomLong(),
         title: PostTitle = PostTitle(faker.randomString(20)),
+        category: PostCategory = faker.randomEnum<PostCategory>(),
         content: String = faker.randomString(100),
         commentCount: Long = faker.randomLong(),
         likeCount: Long = faker.randomLong(),
@@ -36,6 +41,7 @@ class PostFixture(
         create(
             userId = userId,
             title = title,
+            category = category,
             content = content,
             commentCount = commentCount,
             likeCount = likeCount,

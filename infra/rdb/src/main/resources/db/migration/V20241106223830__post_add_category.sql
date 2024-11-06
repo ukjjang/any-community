@@ -1,0 +1,2 @@
+ALTER TABLE `post`
+    ADD COLUMN `category` VARCHAR(40) NOT NULL DEFAULT 'ETC' AFTER `title`;

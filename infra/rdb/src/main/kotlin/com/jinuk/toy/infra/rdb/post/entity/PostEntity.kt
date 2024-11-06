@@ -4,11 +4,14 @@ import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
+import com.jinuk.toy.constant.post.PostCategory
 
 @Entity
 @Table(name = "post")
@@ -21,6 +24,9 @@ class PostEntity(
     val userId: Long,
     @Column(name = "title")
     val title: String,
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    val category: PostCategory,
     @Column(name = "content")
     val content: String,
     @Column(name = "comment_count")
