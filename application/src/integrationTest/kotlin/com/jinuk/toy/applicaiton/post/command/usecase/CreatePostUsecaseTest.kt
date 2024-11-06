@@ -4,6 +4,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.domain.post.value.PostTitle
@@ -22,18 +23,19 @@ internal class CreatePostUsecaseTest(
 
                     it("생성 성공") {
                         val title = PostTitle(faker.randomString())
-                        val command = CreatePostCommand(1, title, "content")
+                        val command = CreatePostCommand(1, title, PostCategory.ETC, "content")
 
                         val post = createPostUsecase(command)
                         val postEntity = postRepository.findById(post.id)
                         post shouldBe postEntity
                         post.userId shouldBe 1
                         post.title shouldBe title
+                        post.category shouldBe PostCategory.ETC
                         post.content shouldBe "content"
                     }
 
                     it("생성 실패 - 동일한 제목") {
-                        val command = CreatePostCommand(1, exits.title, "content")
+                        val command = CreatePostCommand(1, exits.title, PostCategory.ETC, "content")
                         shouldThrow<IllegalArgumentException> {
                             createPostUsecase(command)
                         }
