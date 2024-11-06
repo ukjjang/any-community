@@ -2,6 +2,7 @@ package com.jinuk.toy.applicaiton.post.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostCommandService
 import com.jinuk.toy.domain.post.service.PostQueryService
@@ -22,6 +23,7 @@ class CreatePostUsecase(
 data class CreatePostCommand(
     val userId: Long,
     val title: PostTitle,
+    val category: PostCategory,
     val content: String,
 )
 
@@ -29,5 +31,6 @@ private fun CreatePostCommand.toPost() =
     Post(
         userId = userId,
         title = title,
+        category = category,
         content = content,
     )

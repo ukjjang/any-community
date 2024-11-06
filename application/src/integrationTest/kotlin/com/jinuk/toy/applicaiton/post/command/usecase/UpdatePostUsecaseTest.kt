@@ -4,6 +4,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.domain.post.value.PostTitle
@@ -25,6 +26,7 @@ internal class UpdatePostUsecaseTest(
                             exits1.userId,
                             exits1.id,
                             PostTitle("faker.randomString()"),
+                            PostCategory.NEWS,
                             faker.randomString(),
                         )
 
@@ -34,6 +36,7 @@ internal class UpdatePostUsecaseTest(
                     post shouldBe postEntity
                     post.title shouldBe command.title
                     post.content shouldBe command.content
+                    post.category shouldBe PostCategory.NEWS
                 }
 
                 it("수정 실패 - 작성자가 아닌 유저") {
@@ -45,6 +48,7 @@ internal class UpdatePostUsecaseTest(
                             faker.randomLong(),
                             exits1.id,
                             PostTitle("faker.randomString()"),
+                            PostCategory.NEWS,
                             randomContent,
                         )
                     shouldThrow<IllegalArgumentException> {
@@ -63,6 +67,7 @@ internal class UpdatePostUsecaseTest(
                             exits1.userId,
                             exits1.id,
                             exits2.title,
+                            PostCategory.NEWS,
                             randomContent,
                         )
                     shouldThrow<IllegalArgumentException> {
@@ -79,6 +84,7 @@ internal class UpdatePostUsecaseTest(
                             exits1.userId,
                             faker.randomLong(),
                             PostTitle(faker.randomString()),
+                            PostCategory.NEWS,
                             randomContent,
                         )
                     shouldThrow<NoSuchElementException> {

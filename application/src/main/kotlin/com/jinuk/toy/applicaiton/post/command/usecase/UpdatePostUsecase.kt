@@ -2,6 +2,7 @@ package com.jinuk.toy.applicaiton.post.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostCommandService
 import com.jinuk.toy.domain.post.service.PostQueryService
@@ -25,6 +26,7 @@ data class UpdatePostCommand(
     val userId: Long,
     val id: Long,
     val title: PostTitle,
+    val category: PostCategory,
     val content: String,
 )
 
@@ -34,6 +36,7 @@ fun Post.update(command: UpdatePostCommand): Post {
     }
     return this.copy(
         title = command.title,
+        category = command.category,
         content = command.content,
     )
 }
