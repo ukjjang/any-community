@@ -12,6 +12,8 @@ class CommentQueryService(
 
     fun getById(id: Long) = findById(id) ?: throw NoSuchElementException("존재하지 않는 댓글입니다.")
 
+    fun findByPostId(postId: Long) = commentRepository.findByPostId(postId)
+
     fun findByPostIdAndParentCommentIdIsNotNull(postId: Long) =
         commentRepository.findByPostIdAndParentCommentIdIsNotNull(
             postId,

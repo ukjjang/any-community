@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.like.service
 
 import org.springframework.stereotype.Service
+import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.like.Like
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.jpa.LikeRepository
@@ -24,5 +25,17 @@ class LikeCommandService(
         likeTarget: LikeTarget,
     ) = likeQueryService.getByUserIdAndTarget(userId, likeTarget).let {
         likeRepository.delete(it)
+    }
+
+    fun delete(target: LikeTarget) =
+        likeQueryService.findByTarget(target).let {
+            likeRepository.deleteAll(it)
+        }
+
+    fun delete(
+        likeType: LikeType,
+        ids: List<Long>,
+    ) = likeQueryService.findByTargetTypeAndTargetIdIn(likeType, ids).let {
+        likeRepository.deleteAll(it)
     }
 }

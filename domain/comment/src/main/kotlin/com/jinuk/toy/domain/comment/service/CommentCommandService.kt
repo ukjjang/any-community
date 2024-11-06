@@ -21,7 +21,7 @@ class CommentCommandService(
         require(postId == parentPostId) { "해당 댓글은 지정된 게시글에 속하지 않습니다." }
     }.let(commentRepository::delete)
 
-    fun deleteByPostId(postId: Long) = commentRepository.deleteByPostId(postId)
+    fun deleteAll(comments: List<Comment>) = commentRepository.deleteAll(comments)
 
     fun updateLikeCount(
         commentId: Long,

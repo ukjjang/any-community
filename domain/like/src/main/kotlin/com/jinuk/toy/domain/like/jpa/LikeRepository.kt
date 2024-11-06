@@ -17,6 +17,8 @@ class LikeRepository(
 
     fun delete(like: Like) = likeEntityRepository.delete(like.toEntity())
 
+    fun deleteAll(likes: List<Like>) = likeEntityRepository.deleteAll(likes.map { it.toEntity() })
+
     fun findById(id: Long) = likeEntityRepository.findByIdOrNull(id)?.toModel()
 
     fun findByIdIn(ids: List<Long>): List<Like> = likeEntityRepository.findAllById(ids).map { it.toModel() }
@@ -37,16 +39,21 @@ class LikeRepository(
             target.id,
         )
 
-    fun findByTargetTypeAndTargetIdIn(
-        targetType: LikeType,
-        targetId: List<String>,
-    ) = likeEntityRepository.findByTargetTypeAndTargetIdIn(targetType, targetId.toList()).map { it.toModel() }
+    fun findByTargetTypeAndTargetId(target: LikeTarget) =
+        likeEntityRepository.findByTargetTypeAndTargetId(target.type, target.id).map { it.toModel() }
 
     fun findByUserIdAndTargetTypeAndTargetIdIn(
         userId: Long,
         targetType: LikeType,
         targetId: List<String>,
     ) = likeEntityRepository.findByUserIdAndTargetTypeAndTargetIdIn(userId, targetType, targetId.toList()).map {
+        it.toModel()
+    }
+
+    fun findByTargetTypeAndTargetIdIn(
+        targetType: LikeType,
+        targetId: List<Long>,
+    ) = likeEntityRepository.findByTargetTypeAndTargetIdIn(targetType, targetId.map { it.toString() }).map {
         it.toModel()
     }
 }
