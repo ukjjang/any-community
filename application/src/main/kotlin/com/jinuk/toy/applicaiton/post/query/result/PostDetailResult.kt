@@ -1,6 +1,7 @@
 package com.jinuk.toy.applicaiton.post.query.result
 
 import java.time.LocalDateTime
+import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.domain.user.User
@@ -11,6 +12,7 @@ data class PostDetailResult(
     val userId: Long,
     val username: Username,
     val title: PostTitle,
+    val category: PostCategory,
     val content: String,
     val isViewerLike: Boolean,
     val likeCount: Long,
@@ -31,6 +33,7 @@ data class PostDetailResult(
                     userId = userId,
                     username = writer.username,
                     title = title,
+                    category = category,
                     isViewerLike = isViewerLike,
                     likeCount = likeCount,
                     commentCount = commentCount,

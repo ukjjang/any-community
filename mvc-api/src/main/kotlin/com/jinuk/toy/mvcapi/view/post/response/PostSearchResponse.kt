@@ -8,6 +8,7 @@ import com.jinuk.toy.domain.user.value.Username
 class PostSearchResponse(
     val id: Long,
     val title: PostTitle,
+    val category: PostCategoryResponse,
     val userName: Username,
     val commentCount: Long,
     val createdAt: LocalDateTime,
@@ -18,6 +19,7 @@ fun SearchedPostResult.toResponse() =
     PostSearchResponse(
         id = id,
         title = title,
+        category = PostCategoryResponse.of(category),
         userName = userName,
         commentCount = commentCount,
         createdAt = createdAt,
