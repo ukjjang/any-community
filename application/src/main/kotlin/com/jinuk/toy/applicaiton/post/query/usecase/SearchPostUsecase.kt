@@ -43,6 +43,7 @@ class SearchPostUsecase(
                 SearchedPostResult(
                     id = it.id,
                     title = it.title,
+                    category = it.category,
                     userName = userMap.getValue(it.userId).username,
                     commentCount = it.commentCount,
                     createdAt = it.createdAt,
