@@ -20,13 +20,13 @@ class PostRepository(
 
     fun existsByTitle(title: String) = postEntityRepository.existsByTitle(title)
 
-    fun findByTitleStartsWithIgnoreCaseOrderByIdDesc(
+    fun findByTitleStartsWithIgnoreCase(
         title: String,
         pageable: Pageable,
-    ) = postEntityRepository.findByTitleStartsWithIgnoreCaseOrderByIdDesc(title, pageable).map { it.toModel() }
+    ) = postEntityRepository.findByTitleStartsWithIgnoreCase(title, pageable).map { it.toModel() }
 
-    fun findByOrderByIdDesc(pageable: Pageable) =
-        postEntityRepository.findByOrderByIdDesc(
+    fun findBy(pageable: Pageable) =
+        postEntityRepository.findBy(
             pageable,
         ).map { it.toModel() }
 }

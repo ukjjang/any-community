@@ -16,12 +16,12 @@ interface FollowEntityRepository : JpaRepository<FollowEntity, Long> {
         followingUserId: Long,
     ): Boolean
 
-    fun findByFollowerUserIdOrderByIdDesc(
+    fun findByFollowerUserId(
         followerUserId: Long,
         pageable: Pageable,
     ): Page<FollowEntity>
 
-    fun findByFollowingUserIdOrderByIdDesc(
+    fun findByFollowingUserId(
         followingUserId: Long,
         pageable: Pageable,
     ): Page<FollowEntity>

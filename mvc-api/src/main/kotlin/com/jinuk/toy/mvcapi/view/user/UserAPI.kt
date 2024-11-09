@@ -15,6 +15,7 @@ import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowCommand
 import com.jinuk.toy.applicaiton.follow.query.FollowQueryBus
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowerQuery
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingQuery
+import com.jinuk.toy.constant.follow.FollowSearchSortType
 import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
@@ -52,7 +53,8 @@ class UserAPI(
         @AuthenticationPrincipal user: AuthUser,
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
-    ) = followQueryBus ask GetFollowingQuery(user.id, page, size)
+        @RequestParam followSearchSortType: FollowSearchSortType = FollowSearchSortType.RECENTLY,
+    ) = followQueryBus ask GetFollowingQuery(user.id, page, size, followSearchSortType)
 
     @GetMapping("/v1/user/follower")
     @Secured(AuthRole.USER)
@@ -60,5 +62,6 @@ class UserAPI(
         @AuthenticationPrincipal user: AuthUser,
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
-    ) = followQueryBus ask GetFollowerQuery(user.id, page, size)
+        @RequestParam followSearchSortType: FollowSearchSortType = FollowSearchSortType.RECENTLY,
+    ) = followQueryBus ask GetFollowerQuery(user.id, page, size, followSearchSortType)
 }

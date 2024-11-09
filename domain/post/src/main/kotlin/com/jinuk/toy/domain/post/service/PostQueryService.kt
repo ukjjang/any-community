@@ -12,13 +12,13 @@ class PostQueryService(
 
     fun existsByTitle(title: String) = postRepository.existsByTitle(title)
 
-    fun findByTitleStartsWithIgnoreCaseOrderByIdDesc(
+    fun findByTitleStartsWithIgnoreCase(
         title: String,
         pageable: Pageable,
-    ) = postRepository.findByTitleStartsWithIgnoreCaseOrderByIdDesc(
+    ) = postRepository.findByTitleStartsWithIgnoreCase(
         title,
         pageable,
     )
 
-    fun findByOrderByIdDesc(pageable: Pageable) = postRepository.findByOrderByIdDesc(pageable)
+    fun findBy(pageable: Pageable) = postRepository.findBy(pageable)
 }
