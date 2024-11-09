@@ -1,5 +1,6 @@
 package com.jinuk.toy.applicaiton.follow.query.usecase
 
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -10,6 +11,7 @@ import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.redis.cache.cached
 import com.jinuk.toy.util.custompage.CustomPage
+import com.jinuk.toy.util.custompage.toCustomPage
 
 @Service
 class GetFollowerUsecase(
@@ -26,16 +28,12 @@ class GetFollowerUsecase(
                     followingUserId = query.followingUserId,
                     pageable = query.pageable(),
                     sortType = query.followSearchSortType,
-                ).let { createPage(it.content, it.pageable, it.totalElements) }
+                ).let { createPage(it) }
         }
 
-    private fun createPage(
-        follows: List<Follow>,
-        pageable: Pageable,
-        totalSize: Long,
-    ): CustomPage<GetFollowerResult> {
+    private fun createPage(pages: PageImpl<Follow>): CustomPage<GetFollowerResult> {
         val content =
-            follows
+            pages.content
                 .map { it.followerUserId }
                 .let { followerUserId ->
                     userQueryService
@@ -51,7 +49,7 @@ class GetFollowerUsecase(
                     )
                 }
 
-        return CustomPage(content, pageable, totalSize)
+        return pages.toCustomPage(content)
     }
 }
 

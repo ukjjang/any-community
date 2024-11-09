@@ -1,5 +1,6 @@
 package com.jinuk.toy.applicaiton.post.query.usecase
 
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -13,6 +14,7 @@ import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.redis.cache.cached
 import com.jinuk.toy.util.custompage.CustomPage
+import com.jinuk.toy.util.custompage.toCustomPage
 
 @Service
 class SearchPostUsecase(
@@ -30,15 +32,12 @@ class SearchPostUsecase(
                     pageable = query.pageable(),
                     sortType = query.postSearchSortType,
                 ).let {
-                    createPage(it.content, it.pageable, it.totalElements)
+                    toCustomPage(it)
                 }
         }
 
-    private fun createPage(
-        posts: List<Post>,
-        pageable: Pageable,
-        totalSize: Long,
-    ): CustomPage<SearchedPostResult> {
+    private fun toCustomPage(pages: PageImpl<Post>): CustomPage<SearchedPostResult> {
+        val posts = pages.content
         val userIds = posts.map { it.userId }
         val userMap = userQueryService.findByIdIn(userIds).associateBy { it.id }
 
@@ -55,7 +54,7 @@ class SearchPostUsecase(
                 )
             }
 
-        return CustomPage(content, pageable, totalSize)
+        return pages.toCustomPage(content)
     }
 }
 

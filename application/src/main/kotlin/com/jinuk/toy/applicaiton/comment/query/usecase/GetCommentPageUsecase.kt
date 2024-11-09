@@ -11,6 +11,7 @@ import com.jinuk.toy.domain.like.service.LikeQueryService
 import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.util.custompage.CustomPage
+import com.jinuk.toy.util.custompage.toCustomPage
 
 @Service
 class GetCommentPageUsecase(
@@ -40,17 +41,15 @@ class GetCommentPageUsecase(
                 ).map { like -> like.targetId.toLong() }.toSet()
             } ?: emptySet()
 
-        return CustomPage(
+        val content =
             buildCommentParentTree(
                 parentId = null,
                 commentParentGroup = allComments.groupBy { it.parentCommentId },
                 commentMap = commentMap,
                 isViewerLikeSet = isViewerLikeSet,
                 usernameMap = usernameMap,
-            ),
-            parents.pageable,
-            parents.totalElements,
-        )
+            )
+        return parents.toCustomPage(content)
     }
 
     private fun buildCommentParentTree(

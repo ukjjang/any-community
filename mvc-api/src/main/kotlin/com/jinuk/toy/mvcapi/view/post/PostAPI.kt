@@ -24,6 +24,7 @@ import com.jinuk.toy.mvcapi.view.post.request.PostCreateRequest
 import com.jinuk.toy.mvcapi.view.post.request.PostUpdateRequest
 import com.jinuk.toy.mvcapi.view.post.request.toCommand
 import com.jinuk.toy.mvcapi.view.post.response.toResponse
+import com.jinuk.toy.util.custompage.mapToCustomPage
 
 @Tag(name = "게시글")
 @MvcAPIController
@@ -32,7 +33,7 @@ class PostAPI(
     private val postQueryBus: PostQueryBus,
 ) {
     @Operation(summary = "게시글 검색")
-    @PostMapping("/v1/post/search")
+    @GetMapping("/v1/post/search")
     fun getPosts(
         @RequestParam keyword: String?,
         @RequestParam page: Int = 1,
@@ -45,7 +46,7 @@ class PostAPI(
             size = size,
             postSearchSortType = postSearchSortType,
         ),
-    ).map { it.toResponse() }
+    ).mapToCustomPage { it.toResponse() }
 
     @Operation(
         summary = "게시글 등록",
