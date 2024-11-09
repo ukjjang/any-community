@@ -4,7 +4,6 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import com.jinuk.toy.applicaiton.comment.query.result.GetCommentPageResult
 import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.service.CommentQueryService
@@ -92,3 +91,13 @@ data class GetCommentPageQuery(
 ) {
     fun pageable(): Pageable = PageRequest.of(page - 1, size)
 }
+
+data class GetCommentPageResult(
+    val id: Long,
+    val username: Username,
+    val isViewerLike: Boolean,
+    val parentCommentId: Long?,
+    val likeCount: Long,
+    val content: String,
+    val children: List<GetCommentPageResult>,
+)

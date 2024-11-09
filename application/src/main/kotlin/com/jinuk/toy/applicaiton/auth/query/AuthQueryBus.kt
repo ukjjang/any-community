@@ -1,8 +1,8 @@
 package com.jinuk.toy.applicaiton.auth.query
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.applicaiton.auth.query.result.LoginResult
 import com.jinuk.toy.applicaiton.auth.query.usecase.LoginQuery
+import com.jinuk.toy.applicaiton.auth.query.usecase.LoginResult
 import com.jinuk.toy.applicaiton.auth.query.usecase.LoginUsecase
 
 sealed interface AuthQueryBus {

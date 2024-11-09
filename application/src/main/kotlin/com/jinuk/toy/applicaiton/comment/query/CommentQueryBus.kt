@@ -1,8 +1,8 @@
 package com.jinuk.toy.applicaiton.comment.query
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.applicaiton.comment.query.result.GetCommentPageResult
 import com.jinuk.toy.applicaiton.comment.query.usecase.GetCommentPageQuery
+import com.jinuk.toy.applicaiton.comment.query.usecase.GetCommentPageResult
 import com.jinuk.toy.applicaiton.comment.query.usecase.GetCommentPageUsecase
 import com.jinuk.toy.util.custompage.CustomPage
 
