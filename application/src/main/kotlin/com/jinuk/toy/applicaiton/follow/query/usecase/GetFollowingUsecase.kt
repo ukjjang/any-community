@@ -3,7 +3,6 @@ package com.jinuk.toy.applicaiton.follow.query.usecase
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.constant.follow.FollowSearchSortType
 import com.jinuk.toy.domain.user.Follow
 import com.jinuk.toy.domain.user.service.FollowQueryService
@@ -17,10 +16,10 @@ class GetFollowingUsecase(
     private val followQueryService: FollowQueryService,
     private val userQueryService: UserQueryService,
 ) {
-    @Transactional(readOnly = true)
     operator fun invoke(query: GetFollowingQuery) =
         cached(
             key = "GetFollowingUsecase.invoke.${query.hashCode()}",
+            transactional = true,
         ) {
             followQueryService
                 .search(
