@@ -4,7 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
+import com.jinuk.toy.infra.redis.cache.RedisCacheHandler.Companion.cacheForTransaction
 import com.jinuk.toy.infra.redis.cache.RedisCacheHandler.Companion.log
 import com.jinuk.toy.infra.redis.cache.RedisCacheHandler.Companion.objectMapper
 import com.jinuk.toy.infra.redis.cache.RedisCacheHandler.Companion.redisTemplate
@@ -14,10 +17,12 @@ import com.jinuk.toy.util.logger.LazyLogger
 class RedisCacheHandler(
     _redisTemplate: RedisTemplate<String, String>,
     _objectMapper: ObjectMapper,
+    _cacheForTransaction: CacheForTransaction,
 ) {
     init {
         redisTemplate = _redisTemplate
         objectMapper = _objectMapper
+        cacheForTransaction = _cacheForTransaction
     }
 
     companion object {
@@ -26,13 +31,23 @@ class RedisCacheHandler(
 
         lateinit var objectMapper: ObjectMapper
             private set
+
+        lateinit var cacheForTransaction: CacheForTransaction
+            private set
         val log by LazyLogger()
     }
+}
+
+@Component
+class CacheForTransaction {
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
+    fun <T> proceed(function: () -> T) = function()
 }
 
 inline fun <reified T> cached(
     key: String,
     expire: Duration = Duration.ofSeconds(300),
+    transactional: Boolean = false,
     noinline function: () -> T,
 ): T {
     try {
@@ -44,7 +59,13 @@ inline fun <reified T> cached(
         log.error { "redis get fail: $key, ${e.stackTraceToString()}" }
     }
 
-    val notCachedValue = function()
+    val notCachedValue =
+        if (transactional) {
+            cacheForTransaction.proceed(function)
+        } else {
+            function()
+        }
+
     try {
         redisTemplate.opsForValue().set(key, objectMapper.writeValueAsString(notCachedValue), expire)
     } catch (e: Exception) {

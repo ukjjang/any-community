@@ -3,7 +3,6 @@ package com.jinuk.toy.applicaiton.post.query.usecase
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.applicaiton.post.query.result.SearchedPostResult
 import com.jinuk.toy.constant.post.PostSearchSortType
 import com.jinuk.toy.domain.post.Post
@@ -17,10 +16,10 @@ class SearchPostUsecase(
     private val postQueryService: PostQueryService,
     private val userQueryService: UserQueryService,
 ) {
-    @Transactional(readOnly = true)
     operator fun invoke(query: SearchPostQuery) =
         cached(
             key = "SearchPostUsecase.invoke.${query.hashCode()}",
+            transactional = true,
         ) {
             postQueryService
                 .search(
