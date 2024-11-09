@@ -46,6 +46,8 @@ data class UpdateLikeCountCommand(
         fun from(event: LikeAddedEvent) = with(event) { UpdateLikeCountCommand(likeTarget, CountOperation.INCREASE) }
 
         fun from(event: LikeCanceledEvent) =
-            with(event) { UpdateLikeCountCommand(likeTarget, CountOperation.DECREMENT) }
+            with(
+                event,
+            ) { UpdateLikeCountCommand(likeTarget, CountOperation.DECREMENT) }
     }
 }

@@ -1,6 +1,7 @@
 package com.jinuk.toy.mvcapi.view.user
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.access.annotation.Secured
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -20,6 +21,8 @@ import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
 import com.jinuk.toy.mvcapi.global.security.AuthUser
+import com.jinuk.toy.mvcapi.view.user.response.UserFollowResponse
+import com.jinuk.toy.util.custompage.mapToCustomPage
 
 @Tag(name = "유저")
 @MvcAPIController
@@ -32,6 +35,7 @@ class UserAPI(
     @PostMapping("/v1/user/{followingUserId}/follow")
     fun follow(
         @AuthenticationPrincipal user: AuthUser,
+        @Parameter(description = "팔로우할 유저의 ID", example = "1")
         @PathVariable followingUserId: Long,
     ) = CreateFollowCommand(FollowRelation(user.id, followingUserId)).let {
         followCommandBus.execute(it)
@@ -42,6 +46,7 @@ class UserAPI(
     @DeleteMapping("/v1/user/{followingUserId}/follow")
     fun unFollow(
         @AuthenticationPrincipal user: AuthUser,
+        @Parameter(description = "언팔로우할 유저의 ID", example = "1")
         @PathVariable followingUserId: Long,
     ) = UnFollowCommand(FollowRelation(user.id, followingUserId)).let {
         followCommandBus.execute(it)
@@ -54,7 +59,8 @@ class UserAPI(
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
         @RequestParam followSearchSortType: FollowSearchSortType = FollowSearchSortType.RECENTLY,
-    ) = followQueryBus ask GetFollowingQuery(user.id, page, size, followSearchSortType)
+    ) = followQueryBus.ask(GetFollowingQuery(user.id, page, size, followSearchSortType))
+        .mapToCustomPage { UserFollowResponse.from(it) }
 
     @GetMapping("/v1/user/follower")
     @Secured(AuthRole.USER)
@@ -63,5 +69,6 @@ class UserAPI(
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
         @RequestParam followSearchSortType: FollowSearchSortType = FollowSearchSortType.RECENTLY,
-    ) = followQueryBus ask GetFollowerQuery(user.id, page, size, followSearchSortType)
+    ) = followQueryBus.ask(GetFollowerQuery(user.id, page, size, followSearchSortType))
+        .mapToCustomPage { UserFollowResponse.from(it) }
 }

@@ -1,5 +1,6 @@
 package com.jinuk.toy.mvcapi.view.auth
 
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -18,11 +19,13 @@ class AuthAPI(
     private val authCommandBus: AuthCommandBus,
     private val authQueryBus: AuthQueryBus,
 ) {
+    @Operation(summary = "로그인")
     @PostMapping("/v1/auth/login")
     fun login(
         @RequestBody request: AuthLoginRequest,
     ) = AuthLoginResponse.from(authQueryBus ask request.toQuery())
 
+    @Operation(summary = "회원가입")
     @PostMapping("/v1/auth/signup")
     fun signup(
         @RequestBody request: AuthSignupRequest,

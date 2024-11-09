@@ -53,5 +53,7 @@ class PostJdslRepository(
         }
 
     private fun <T> SpringDataCriteriaQueryDsl<T>.condition(keyword: String?) =
-        keyword?.let { column(PostEntity::title).like("$it%") }
+        keyword?.let {
+            column(PostEntity::title).like("$it%")
+        }
 }

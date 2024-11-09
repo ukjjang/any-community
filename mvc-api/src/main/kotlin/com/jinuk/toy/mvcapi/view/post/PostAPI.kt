@@ -1,6 +1,7 @@
 package com.jinuk.toy.mvcapi.view.post
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.access.annotation.Secured
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -35,6 +36,7 @@ class PostAPI(
     @Operation(summary = "게시글 검색")
     @GetMapping("/v1/post/search")
     fun getPosts(
+        @Parameter(description = "검색 키워드 (특정 접두사로 시작해야 함)", example = "start_")
         @RequestParam keyword: String?,
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
@@ -48,10 +50,7 @@ class PostAPI(
         ),
     ).mapToCustomPage { it.toResponse() }
 
-    @Operation(
-        summary = "게시글 등록",
-        description = "게시글을 신규 등록합니다.",
-    )
+    @Operation(summary = "게시글 등록")
     @Secured(AuthRole.USER)
     @PostMapping("/v1/post")
     fun create(
@@ -61,10 +60,7 @@ class PostAPI(
         postCommandBus.execute(it)
     }.toResponse()
 
-    @Operation(
-        summary = "게시글 상세 조회",
-        description = "id로 게시글을 조회합니다.",
-    )
+    @Operation(summary = "게시글 상세 조회")
     @GetMapping("/v1/post/{postId}")
     fun getPostDetail(
         @PathVariable postId: Long,
@@ -72,9 +68,7 @@ class PostAPI(
         postQueryBus.ask(it)
     }.toResponse()
 
-    @Operation(
-        summary = "게시글 수정",
-    )
+    @Operation(summary = "게시글 수정")
     @Secured(AuthRole.USER)
     @PutMapping("/v1/post/{postId}")
     fun updatePost(
@@ -83,12 +77,9 @@ class PostAPI(
         @RequestBody request: PostUpdateRequest,
     ) = request.toCommand(user.id, postId).let {
         postCommandBus.execute(it)
-    }
+    }.toResponse()
 
-    @Operation(
-        summary = "게시글 삭제",
-        description = "id로 게시글을 삭제합니다.",
-    )
+    @Operation(summary = "게시글 삭제")
     @Secured(AuthRole.USER)
     @DeleteMapping("/v1/post/{postId}")
     fun delete(
