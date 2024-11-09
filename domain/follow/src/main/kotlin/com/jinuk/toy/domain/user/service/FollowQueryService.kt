@@ -20,13 +20,13 @@ class FollowQueryService(
                 ?: throw NoSuchElementException("존재하지 않는 팔로우 관계입니다.")
         }
 
-    fun findByFollowerUserIdOrderByIdDesc(
+    fun findByFollowerUserId(
         followerUserId: Long,
         pageable: Pageable,
-    ) = followRepository.findByFollowerUserIdOrderByIdDesc(followerUserId, pageable)
+    ) = followRepository.findByFollowerUserId(followerUserId, pageable)
 
-    fun findByFollowingUserIdOrderByIdDesc(
+    fun findByFollowingUserId(
         followingUserId: Long,
         pageable: Pageable,
-    ) = followRepository.findByFollowingUserIdOrderByIdDesc(followingUserId, pageable)
+    ) = followRepository.findByFollowingUserId(followingUserId, pageable)
 }

@@ -25,13 +25,13 @@ class FollowRepository(
         followingUserId: Long,
     ) = followEntityRepository.existsByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)
 
-    fun findByFollowerUserIdOrderByIdDesc(
+    fun findByFollowerUserId(
         followerUserId: Long,
         pageable: Pageable,
-    ) = followEntityRepository.findByFollowerUserIdOrderByIdDesc(followerUserId, pageable).map { it.toModel() }
+    ) = followEntityRepository.findByFollowerUserId(followerUserId, pageable).map { it.toModel() }
 
-    fun findByFollowingUserIdOrderByIdDesc(
+    fun findByFollowingUserId(
         followingUserId: Long,
         pageable: Pageable,
-    ) = followEntityRepository.findByFollowingUserIdOrderByIdDesc(followingUserId, pageable).map { it.toModel() }
+    ) = followEntityRepository.findByFollowingUserId(followingUserId, pageable).map { it.toModel() }
 }

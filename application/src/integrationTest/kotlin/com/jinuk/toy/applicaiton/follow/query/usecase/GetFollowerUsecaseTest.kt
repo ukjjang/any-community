@@ -3,6 +3,7 @@ package com.jinuk.toy.applicaiton.follow.query.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.constant.follow.FollowSearchSortType
 import com.jinuk.toy.domain.post.FollowFixture
 import com.jinuk.toy.domain.post.UserFixture
 
@@ -22,7 +23,13 @@ class GetFollowerUsecaseTest(
                         }
                     val followCount = follows.size
 
-                    val query = GetFollowerQuery(followingUserId = followingUser.id, page = 1, size = 3)
+                    val query =
+                        GetFollowerQuery(
+                            followingUserId = followingUser.id,
+                            page = 1,
+                            size = 3,
+                            FollowSearchSortType.RECENTLY,
+                        )
                     val result = getFollowerUsecase(query)
 
                     result.totalElements shouldBe followCount

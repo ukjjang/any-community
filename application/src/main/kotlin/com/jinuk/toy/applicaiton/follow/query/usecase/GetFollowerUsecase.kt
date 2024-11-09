@@ -2,8 +2,10 @@ package com.jinuk.toy.applicaiton.follow.query.usecase
 
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import com.jinuk.toy.constant.follow.FollowSearchSortType
 import com.jinuk.toy.domain.user.service.FollowQueryService
 import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
@@ -21,7 +23,7 @@ class GetFollowerUsecase(
             key = "GetFollowerUsecase.invoke.${query.hashCode()}",
         ) {
             val followPage =
-                followQueryService.findByFollowingUserIdOrderByIdDesc(query.followingUserId, query.pageable())
+                followQueryService.findByFollowingUserId(query.followingUserId, query.pageable())
 
             val content =
                 followPage.content
@@ -48,8 +50,15 @@ data class GetFollowerQuery(
     val followingUserId: Long,
     val page: Int,
     val size: Int,
+    val followSearchSortType: FollowSearchSortType,
 ) {
-    fun pageable(): Pageable = PageRequest.of(page - 1, size)
+    private fun sort(): Sort =
+        when (followSearchSortType) {
+            FollowSearchSortType.RECENTLY -> Sort.by(Sort.Order.desc("id"))
+            FollowSearchSortType.OLDEST -> Sort.by(Sort.Order.asc("id"))
+        }
+
+    fun pageable(): Pageable = PageRequest.of(page - 1, size, sort())
 }
 
 data class GetFollowerResult(

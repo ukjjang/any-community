@@ -8,10 +8,10 @@ import com.jinuk.toy.infra.rdb.post.entity.PostEntity
 interface PostEntityRepository : JpaRepository<PostEntity, Long> {
     fun existsByTitle(title: String): Boolean
 
-    fun findByTitleStartsWithIgnoreCaseOrderByIdDesc(
+    fun findByTitleStartsWithIgnoreCase(
         title: String,
         pageable: Pageable,
     ): Page<PostEntity>
 
-    fun findByOrderByIdDesc(pageable: Pageable): Page<PostEntity>
+    fun findBy(pageable: Pageable): Page<PostEntity>
 }

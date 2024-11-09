@@ -2,9 +2,11 @@ package com.jinuk.toy.applicaiton.post.query.usecase
 
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.applicaiton.post.query.result.SearchedPostResult
+import com.jinuk.toy.constant.post.PostSearchSortType
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostQueryService
 import com.jinuk.toy.domain.user.service.UserQueryService
@@ -23,9 +25,9 @@ class SearchPostUsecase(
         ) {
             val postsPage =
                 if (query.keyword != null) {
-                    postQueryService.findByTitleStartsWithIgnoreCaseOrderByIdDesc(query.keyword, query.pageable())
+                    postQueryService.findByTitleStartsWithIgnoreCase(query.keyword, query.pageable())
                 } else {
-                    postQueryService.findByOrderByIdDesc(query.pageable())
+                    postQueryService.findBy(query.pageable())
                 }
             createPage(postsPage.content, query.pageable(), postsPage.totalElements)
         }
@@ -59,6 +61,13 @@ data class SearchPostQuery(
     val keyword: String?,
     val page: Int,
     val size: Int,
+    val postSearchSortType: PostSearchSortType,
 ) {
-    fun pageable(): Pageable = PageRequest.of(page - 1, size)
+    private fun sort(): Sort =
+        when (postSearchSortType) {
+            PostSearchSortType.RECENTLY -> Sort.by(Sort.Order.desc("id"))
+            PostSearchSortType.OLDEST -> Sort.by(Sort.Order.asc("id"))
+        }
+
+    fun pageable(): Pageable = PageRequest.of(page - 1, size, sort())
 }
