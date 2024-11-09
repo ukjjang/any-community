@@ -2,10 +2,10 @@ package com.jinuk.toy.applicaiton.follow.query.usecase
 
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.constant.follow.FollowSearchSortType
+import com.jinuk.toy.domain.user.Follow
 import com.jinuk.toy.domain.user.service.FollowQueryService
 import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
@@ -22,28 +22,38 @@ class GetFollowerUsecase(
         cached(
             key = "GetFollowerUsecase.invoke.${query.hashCode()}",
         ) {
-            val followPage =
-                followQueryService.findByFollowingUserId(query.followingUserId, query.pageable())
-
-            val content =
-                followPage.content
-                    .map { it.followerUserId }
-                    .let { followerUserId ->
-                        userQueryService.findByIdIn(followerUserId)
-                            .associateBy { it.id }
-                            .let { userMap ->
-                                followerUserId.mapNotNull { userMap[it] }
-                            }
-                    }
-                    .map { user ->
-                        GetFollowerResult(
-                            id = user.id,
-                            username = user.username,
-                        )
-                    }
-
-            CustomPage(content, followPage.pageable, followPage.totalElements)
+            followQueryService
+                .search(
+                    followingUserId = query.followingUserId,
+                    pageable = query.pageable(),
+                    sortType = query.followSearchSortType,
+                ).let { createPage(it.content, it.pageable, it.totalElements) }
         }
+
+    private fun createPage(
+        follows: List<Follow>,
+        pageable: Pageable,
+        totalSize: Long,
+    ): CustomPage<GetFollowerResult> {
+        val content =
+            follows
+                .map { it.followerUserId }
+                .let { followerUserId ->
+                    userQueryService
+                        .findByIdIn(followerUserId)
+                        .associateBy { it.id }
+                        .let { userMap ->
+                            followerUserId.mapNotNull { userMap[it] }
+                        }
+                }.map { user ->
+                    GetFollowerResult(
+                        id = user.id,
+                        username = user.username,
+                    )
+                }
+
+        return CustomPage(content, pageable, totalSize)
+    }
 }
 
 data class GetFollowerQuery(
@@ -52,13 +62,7 @@ data class GetFollowerQuery(
     val size: Int,
     val followSearchSortType: FollowSearchSortType,
 ) {
-    private fun sort(): Sort =
-        when (followSearchSortType) {
-            FollowSearchSortType.RECENTLY -> Sort.by(Sort.Order.desc("id"))
-            FollowSearchSortType.OLDEST -> Sort.by(Sort.Order.asc("id"))
-        }
-
-    fun pageable(): Pageable = PageRequest.of(page - 1, size, sort())
+    fun pageable(): Pageable = PageRequest.of(page - 1, size)
 }
 
 data class GetFollowerResult(
