@@ -15,6 +15,13 @@ object Dependencies {
         const val JUNIT_PLATFORM_LAUNCHER = "org.junit.platform:junit-platform-launcher"
     }
 
+    object KDSL {
+        private const val VERSION = "2.2.1.RELEASE"
+
+        const val KOTLIN_JDSL_JAKARATA =
+            "com.linecorp.kotlin-jdsl:spring-data-kotlin-jdsl-starter-jakarta:$VERSION"
+    }
+
     object Kotlin {
         const val KOTLINX_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1"
         const val KOTLIN_REFLECT = "org.jetbrains.kotlin:kotlin-reflect"

@@ -23,6 +23,7 @@ dependencies {
 
     testFixturesImplementation(project(":util:faker"))
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_WEB)
+    implementation(Dependencies.KDSL.KOTLIN_JDSL_JAKARATA)
 }
 
 val bootJar: BootJar by tasks
