@@ -4,6 +4,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.service.CommentQueryService
@@ -69,6 +70,8 @@ class GetCommentPageUsecase(
                 parentCommentId = comment.parentCommentId,
                 likeCount = comment.likeCount,
                 content = comment.content,
+                createdAt = comment.createdAt,
+                updatedAt = comment.updatedAt,
                 children =
                     buildCommentParentTree(
                         parentId = comment.id,
@@ -99,4 +102,6 @@ data class GetCommentPageResult(
     val likeCount: Long,
     val content: String,
     val children: List<GetCommentPageResult>,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime,
 )

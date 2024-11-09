@@ -32,10 +32,14 @@ data class User(
     }
 
     fun updateFollowingCount(countOperation: CountOperation) =
-        this.copy(followingCount = followingCount + countOperation.delta)
+        this.copy(
+            followingCount = followingCount + countOperation.delta,
+        )
 
     fun updateFollowerCount(countOperation: CountOperation) =
-        this.copy(followerCount = followerCount + countOperation.delta)
+        this.copy(
+            followerCount = followerCount + countOperation.delta,
+        )
 
     companion object {
         fun signup(

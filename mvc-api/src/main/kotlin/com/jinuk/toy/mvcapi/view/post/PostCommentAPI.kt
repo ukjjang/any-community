@@ -21,6 +21,8 @@ import com.jinuk.toy.mvcapi.global.security.AuthUser
 import com.jinuk.toy.mvcapi.view.post.request.CommentCreateRequest
 import com.jinuk.toy.mvcapi.view.post.request.CommentUpdateRequest
 import com.jinuk.toy.mvcapi.view.post.request.toCommand
+import com.jinuk.toy.mvcapi.view.post.response.PostCommentResponse
+import com.jinuk.toy.util.custompage.mapToCustomPage
 
 @Tag(name = "게시글 댓글")
 @MvcAPIController
@@ -42,12 +44,11 @@ class PostCommentAPI(
         size = size,
     ).let {
         commentQueryBus ask it
+    }.mapToCustomPage {
+        PostCommentResponse.from(it)
     }
 
-    @Operation(
-        summary = "게시글 댓글 작성",
-        description = "게시글에 댓글을 작성합니다.",
-    )
+    @Operation(summary = "게시글 댓글 작성")
     @Secured(AuthRole.USER)
     @PostMapping("/v1/post/{postId}/comment")
     fun createComment(
@@ -58,10 +59,7 @@ class PostCommentAPI(
         commentCommandBus.execute(it)
     }
 
-    @Operation(
-        summary = "게시글 댓글 삭제",
-        description = "게시글에 댓글을 삭제합니다.",
-    )
+    @Operation(summary = "게시글 댓글 삭제")
     @Secured(AuthRole.USER)
     @DeleteMapping("/v1/post/{postId}/comment/{commentId}")
     fun deleteComment(
@@ -74,10 +72,7 @@ class PostCommentAPI(
         commentId = commentId,
     ).let { commentCommandBus.execute(it) }
 
-    @Operation(
-        summary = "게시글 댓글 수정",
-        description = "게시글에 댓글을 수정합니다.",
-    )
+    @Operation(summary = "게시글 댓글 수정")
     @Secured(AuthRole.USER)
     @PutMapping("/v1/post/{postId}/comment/{commentId}")
     fun updateComment(

@@ -1,6 +1,7 @@
 package com.jinuk.toy.mvcapi.view.like
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.access.annotation.Secured
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -26,7 +27,9 @@ class LikeAPI(
     @PostMapping("/v1/like/{targetType}/{targetId}")
     fun addLike(
         @AuthenticationPrincipal user: AuthUser,
+        @Parameter(description = "좋아요 대상 타입", example = "POST")
         @PathVariable targetType: LikeType,
+        @Parameter(description = "좋아요 대상 ID", example = "1")
         @PathVariable targetId: String,
     ) = AddLikeCommand(
         likeTarget = LikeTarget(targetType, targetId),
@@ -40,7 +43,9 @@ class LikeAPI(
     @DeleteMapping("/v1/like/{targetType}/{targetId}")
     fun cancelLike(
         @AuthenticationPrincipal user: AuthUser,
+        @Parameter(description = "좋아요 대상 타입", example = "POST")
         @PathVariable targetType: LikeType,
+        @Parameter(description = "좋아요 대상 ID", example = "1")
         @PathVariable targetId: String,
     ) = CancelLikeCommand(
         likeTarget = LikeTarget(targetType, targetId),
