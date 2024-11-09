@@ -13,6 +13,7 @@ import com.jinuk.toy.applicaiton.follow.command.FollowCommandBus
 import com.jinuk.toy.applicaiton.follow.command.usecase.CreateFollowCommand
 import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowCommand
 import com.jinuk.toy.applicaiton.follow.query.FollowQueryBus
+import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowerQuery
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingQuery
 import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.mvcapi.global.MvcAPIController
@@ -52,4 +53,12 @@ class UserAPI(
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
     ) = followQueryBus ask GetFollowingQuery(user.id, page, size)
+
+    @GetMapping("/v1/user/follower")
+    @Secured(AuthRole.USER)
+    fun getFollowers(
+        @AuthenticationPrincipal user: AuthUser,
+        @RequestParam page: Int = 1,
+        @RequestParam size: Int = 20,
+    ) = followQueryBus ask GetFollowerQuery(user.id, page, size)
 }

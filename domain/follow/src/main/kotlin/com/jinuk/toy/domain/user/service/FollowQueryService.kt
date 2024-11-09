@@ -24,4 +24,9 @@ class FollowQueryService(
         followerUserId: Long,
         pageable: Pageable,
     ) = followRepository.findByFollowerUserIdOrderByIdDesc(followerUserId, pageable)
+
+    fun findByFollowingUserIdOrderByIdDesc(
+        followingUserId: Long,
+        pageable: Pageable,
+    ) = followRepository.findByFollowingUserIdOrderByIdDesc(followingUserId, pageable)
 }
