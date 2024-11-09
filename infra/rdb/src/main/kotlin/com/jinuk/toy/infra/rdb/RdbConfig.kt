@@ -70,7 +70,7 @@ class RdbConfig : HikariConfig() {
         return entityManagerFactoryBuilder
             .dataSource(dataSource)
             .packages("com.jinuk.toy.**.entity")
-            .persistenceUnit("rdb")
+            .persistenceUnit("rdbEntityManager")
             .build()
     }
 
