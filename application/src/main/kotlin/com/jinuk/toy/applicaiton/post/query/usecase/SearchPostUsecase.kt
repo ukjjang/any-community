@@ -2,7 +2,6 @@ package com.jinuk.toy.applicaiton.post.query.usecase
 
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.applicaiton.post.query.result.SearchedPostResult
@@ -23,13 +22,14 @@ class SearchPostUsecase(
         cached(
             key = "SearchPostUsecase.invoke.${query.hashCode()}",
         ) {
-            val postsPage =
-                if (query.keyword != null) {
-                    postQueryService.findByTitleStartsWithIgnoreCase(query.keyword, query.pageable())
-                } else {
-                    postQueryService.findBy(query.pageable())
+            postQueryService
+                .search(
+                    keyword = query.keyword,
+                    pageable = query.pageable(),
+                    sortType = query.postSearchSortType,
+                ).let {
+                    createPage(it.content, it.pageable, it.totalElements)
                 }
-            createPage(postsPage.content, query.pageable(), postsPage.totalElements)
         }
 
     private fun createPage(
@@ -63,11 +63,5 @@ data class SearchPostQuery(
     val size: Int,
     val postSearchSortType: PostSearchSortType,
 ) {
-    private fun sort(): Sort =
-        when (postSearchSortType) {
-            PostSearchSortType.RECENTLY -> Sort.by(Sort.Order.desc("id"))
-            PostSearchSortType.OLDEST -> Sort.by(Sort.Order.asc("id"))
-        }
-
-    fun pageable(): Pageable = PageRequest.of(page - 1, size, sort())
+    fun pageable(): Pageable = PageRequest.of(page - 1, size)
 }
