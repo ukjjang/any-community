@@ -1,5 +1,6 @@
 package com.jinuk.toy.domain.user.jpa
 
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 import com.jinuk.toy.domain.user.Follow
 import com.jinuk.toy.domain.user.toEntity
@@ -23,4 +24,9 @@ class FollowRepository(
         followerUserId: Long,
         followingUserId: Long,
     ) = followEntityRepository.existsByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)
+
+    fun findByFollowerUserIdOrderByIdDesc(
+        followerUserId: Long,
+        pageable: Pageable,
+    ) = followEntityRepository.findByFollowerUserIdOrderByIdDesc(followerUserId, pageable).map { it.toModel() }
 }
