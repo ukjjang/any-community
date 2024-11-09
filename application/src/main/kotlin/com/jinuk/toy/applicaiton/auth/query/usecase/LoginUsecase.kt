@@ -2,7 +2,6 @@ package com.jinuk.toy.applicaiton.auth.query.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import com.jinuk.toy.applicaiton.auth.query.result.LoginResult
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.service.UserAuthService
 import com.jinuk.toy.domain.user.value.Username
@@ -25,3 +24,7 @@ private fun LoginQuery.toUserCredentials() =
         username = username,
         password = password,
     )
+
+data class LoginResult(
+    val token: String,
+)

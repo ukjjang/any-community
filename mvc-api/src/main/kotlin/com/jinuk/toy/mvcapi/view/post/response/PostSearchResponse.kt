@@ -1,7 +1,7 @@
 package com.jinuk.toy.mvcapi.view.post.response
 
 import java.time.LocalDateTime
-import com.jinuk.toy.applicaiton.post.query.result.SearchedPostResult
+import com.jinuk.toy.applicaiton.post.query.usecase.SearchedPostResult
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.domain.user.value.Username
 
