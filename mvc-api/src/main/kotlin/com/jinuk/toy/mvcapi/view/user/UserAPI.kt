@@ -5,11 +5,15 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.access.annotation.Secured
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import com.jinuk.toy.applicaiton.follow.command.FollowCommandBus
 import com.jinuk.toy.applicaiton.follow.command.usecase.CreateFollowCommand
 import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowCommand
+import com.jinuk.toy.applicaiton.follow.query.FollowQueryBus
+import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingQuery
 import com.jinuk.toy.domain.user.FollowRelation
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
@@ -18,6 +22,7 @@ import com.jinuk.toy.mvcapi.global.security.AuthUser
 @Tag(name = "유저")
 @MvcAPIController
 class UserAPI(
+    private val followQueryBus: FollowQueryBus,
     private val followCommandBus: FollowCommandBus,
 ) {
     @Operation(summary = "팔로우")
@@ -39,4 +44,12 @@ class UserAPI(
     ) = UnFollowCommand(FollowRelation(user.id, followingUserId)).let {
         followCommandBus.execute(it)
     }
+
+    @GetMapping("/v1/user/following")
+    @Secured(AuthRole.USER)
+    fun getFollowings(
+        @AuthenticationPrincipal user: AuthUser,
+        @RequestParam page: Int = 1,
+        @RequestParam size: Int = 20,
+    ) = followQueryBus ask GetFollowingQuery(user.id, page, size)
 }
