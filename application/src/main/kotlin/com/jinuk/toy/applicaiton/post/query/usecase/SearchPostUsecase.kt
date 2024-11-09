@@ -19,7 +19,7 @@ class SearchPostUsecase(
     @Transactional(readOnly = true)
     operator fun invoke(query: SearchPostQuery) =
         cached(
-            key = query.hashCode().toString(),
+            key = "SearchPostUsecase.invoke.${query.hashCode()}",
         ) {
             val postsPage =
                 if (query.keyword != null) {
