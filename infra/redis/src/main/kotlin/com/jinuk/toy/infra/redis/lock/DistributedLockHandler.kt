@@ -10,12 +10,12 @@ import com.jinuk.toy.infra.redis.lock.DistributedLockHandler.Companion.redisson
 
 @Component
 class DistributedLockHandler(
-    _redisson: RedissonClient,
-    _distributedLockForTransaction: DistributedLockForTransaction,
+    redisson: RedissonClient,
+    distributedLockForTransaction: DistributedLockForTransaction,
 ) {
     init {
-        redisson = _redisson
-        distributedLockForTransaction = _distributedLockForTransaction
+        Companion.redisson = redisson
+        Companion.distributedLockForTransaction = distributedLockForTransaction
     }
 
     companion object {
