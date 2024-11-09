@@ -20,4 +20,9 @@ interface FollowEntityRepository : JpaRepository<FollowEntity, Long> {
         followerUserId: Long,
         pageable: Pageable,
     ): Page<FollowEntity>
+
+    fun findByFollowingUserIdOrderByIdDesc(
+        followingUserId: Long,
+        pageable: Pageable,
+    ): Page<FollowEntity>
 }

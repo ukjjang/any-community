@@ -29,4 +29,9 @@ class FollowRepository(
         followerUserId: Long,
         pageable: Pageable,
     ) = followEntityRepository.findByFollowerUserIdOrderByIdDesc(followerUserId, pageable).map { it.toModel() }
+
+    fun findByFollowingUserIdOrderByIdDesc(
+        followingUserId: Long,
+        pageable: Pageable,
+    ) = followEntityRepository.findByFollowingUserIdOrderByIdDesc(followingUserId, pageable).map { it.toModel() }
 }
