@@ -2,12 +2,15 @@ package com.jinuk.toy.domain.user.service
 
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import com.jinuk.toy.constant.follow.FollowSearchSortType
 import com.jinuk.toy.domain.user.FollowRelation
+import com.jinuk.toy.domain.user.jpa.FollowJdslRepository
 import com.jinuk.toy.domain.user.jpa.FollowRepository
 
 @Service
 class FollowQueryService(
     private val followRepository: FollowRepository,
+    private val followJdslRepository: FollowJdslRepository,
 ) {
     fun existsByFollowRelation(followRelation: FollowRelation) =
         with(followRelation) {
@@ -29,4 +32,16 @@ class FollowQueryService(
         followingUserId: Long,
         pageable: Pageable,
     ) = followRepository.findByFollowingUserId(followingUserId, pageable)
+
+    fun search(
+        followingUserId: Long? = null,
+        followerUserId: Long? = null,
+        pageable: Pageable,
+        sortType: FollowSearchSortType,
+    ) = followJdslRepository.search(
+        followingUserId = followingUserId,
+        followerUserId = followerUserId,
+        pageable = pageable,
+        sortType = sortType,
+    )
 }
