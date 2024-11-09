@@ -11,4 +11,6 @@ dependencies {
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_TEST)
     testFixturesImplementation(Dependencies.TestContainers.JUNIT_JUPITER)
     testFixturesImplementation(Dependencies.TestContainers.MYSQL)
+
+    implementation(Dependencies.KDSL.KOTLIN_JDSL_JAKARATA)
 }
