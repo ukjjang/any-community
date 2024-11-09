@@ -10,6 +10,7 @@
 * Gradle 8.10
 * Spring Boot 3.3.2
 * JPA / Hibernate
+* Kotlin JDSL
 
 ### 세팅하기
 - IntelliJ에서 JDK 21 설정
