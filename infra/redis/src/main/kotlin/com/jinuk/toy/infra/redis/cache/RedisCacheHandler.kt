@@ -15,14 +15,14 @@ import com.jinuk.toy.util.logger.LazyLogger
 
 @Component
 class RedisCacheHandler(
-    _redisTemplate: RedisTemplate<String, String>,
-    _objectMapper: ObjectMapper,
-    _cacheForTransaction: CacheForTransaction,
+    redisTemplate: RedisTemplate<String, String>,
+    objectMapper: ObjectMapper,
+    cacheForTransaction: CacheForTransaction,
 ) {
     init {
-        redisTemplate = _redisTemplate
-        objectMapper = _objectMapper
-        cacheForTransaction = _cacheForTransaction
+        Companion.redisTemplate = redisTemplate
+        Companion.objectMapper = objectMapper
+        Companion.cacheForTransaction = cacheForTransaction
     }
 
     companion object {
