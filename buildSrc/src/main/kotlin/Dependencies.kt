@@ -94,10 +94,4 @@ object Dependencies {
 
         const val KOTLIN_LOGGING = "io.github.oshai:kotlin-logging-jvm:$VERSION"
     }
-
-    object AspectjWeaver {
-        private const val VERSION = "1.9.22.1"
-
-        const val ASPECT_WEAVER = "org.aspectj:aspectjweaver:$VERSION"
-    }
 }

@@ -11,7 +11,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit.NANOSECONDS
 import com.jinuk.toy.infra.redis.IntegrationTest
 
-internal class DistributedLockAspectTest(
+internal class DistributedLockTest(
     private val lockSample: DistributedLockSample,
 ) : IntegrationTest, DescribeSpec(
         {
