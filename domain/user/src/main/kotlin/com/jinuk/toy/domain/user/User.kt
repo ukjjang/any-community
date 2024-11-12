@@ -2,6 +2,7 @@ package com.jinuk.toy.domain.user
 
 import java.time.LocalDateTime
 import com.jinuk.toy.common.define.global.CountOperation
+import com.jinuk.toy.common.define.point.Point
 import com.jinuk.toy.common.define.user.Gender
 import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
@@ -15,7 +16,7 @@ data class User(
     val username: Username,
     val password: String,
     val gender: Gender,
-    val totalPoints: Long = 0L,
+    val totalPoints: Point = Point(0),
     val followingCount: Long = 0L,
     val followerCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt) {

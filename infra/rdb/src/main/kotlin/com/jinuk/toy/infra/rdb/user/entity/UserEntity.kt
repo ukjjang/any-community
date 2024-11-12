@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
+import com.jinuk.toy.common.define.point.Point
 import com.jinuk.toy.common.define.user.Gender
 import com.jinuk.toy.common.define.user.Username
 
@@ -29,7 +30,7 @@ class UserEntity(
     @Column(name = "gender")
     val gender: Gender,
     @Column(name = "total_points")
-    val totalPoints: Long,
+    val totalPoints: Point,
     @Column(name = "following_count")
     val followingCount: Long,
     @Column(name = "follower_count")

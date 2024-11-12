@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 value class PostTitle private constructor(val value: String) {
     companion object {
         @JsonCreator
-        fun from(title: String) = PostTitle(title)
+        private fun from(title: String) = PostTitle(title)
 
         operator fun invoke(title: String) = from(title)
     }
