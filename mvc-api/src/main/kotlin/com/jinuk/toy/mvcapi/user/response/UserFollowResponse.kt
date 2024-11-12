@@ -3,7 +3,7 @@ package com.jinuk.toy.mvcapi.user.response
 import io.swagger.v3.oas.annotations.media.Schema
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowerResult
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingResult
-import com.jinuk.toy.domain.user.value.Username
+import com.jinuk.toy.common.define.user.Username
 
 @Schema(description = "유저 팔로우 응답")
 data class UserFollowResponse(

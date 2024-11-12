@@ -3,7 +3,7 @@ package com.jinuk.toy.mvcapi.post.response
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import com.jinuk.toy.applicaiton.comment.query.usecase.GetCommentPageResult
-import com.jinuk.toy.domain.user.value.Username
+import com.jinuk.toy.common.define.user.Username
 
 @Schema(description = "게시글 댓글 응답")
 data class PostCommentResponse(

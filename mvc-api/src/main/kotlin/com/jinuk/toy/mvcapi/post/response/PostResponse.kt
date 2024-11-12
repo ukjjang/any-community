@@ -2,8 +2,8 @@ package com.jinuk.toy.mvcapi.post.response
 
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
+import com.jinuk.toy.common.define.post.PostTitle
 import com.jinuk.toy.domain.post.Post
-import com.jinuk.toy.domain.post.value.PostTitle
 
 @Schema(description = "게시글 응답")
 data class PostResponse(

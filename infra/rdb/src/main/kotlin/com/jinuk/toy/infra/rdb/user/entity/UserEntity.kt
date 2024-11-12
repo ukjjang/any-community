@@ -12,6 +12,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 import com.jinuk.toy.common.define.user.Gender
+import com.jinuk.toy.common.define.user.Username
 
 @Entity
 @Table(name = "user")
@@ -21,7 +22,7 @@ class UserEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     @Column(name = "username")
-    val username: String,
+    val username: Username,
     @Column(name = "password")
     val password: String,
     @Enumerated(EnumType.STRING)

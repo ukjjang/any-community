@@ -5,11 +5,11 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.common.define.post.PostCategory
+import com.jinuk.toy.common.define.post.PostTitle
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomString
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
-import com.jinuk.toy.domain.post.value.PostTitle
 
 internal class CreatePostUsecaseTest(
     private val createPostUsecase: CreatePostUsecase,

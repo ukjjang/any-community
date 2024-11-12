@@ -5,11 +5,11 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldNotBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.common.define.user.Gender
+import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomString
 import com.jinuk.toy.domain.user.UserFixture
 import com.jinuk.toy.domain.user.jpa.UserRepository
-import com.jinuk.toy.domain.user.value.Username
 
 internal class SignupUsecaseTest(
     private val signupUsecase: SignupUsecase,

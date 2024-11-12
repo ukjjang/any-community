@@ -3,10 +3,10 @@ package com.jinuk.toy.applicaiton.post.command.usecase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.common.define.post.PostCategory
+import com.jinuk.toy.common.define.post.PostTitle
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostCommandService
 import com.jinuk.toy.domain.post.service.PostQueryService
-import com.jinuk.toy.domain.post.value.PostTitle
 
 @Service
 class UpdatePostUsecase(
@@ -15,7 +15,7 @@ class UpdatePostUsecase(
 ) {
     @Transactional
     operator fun invoke(command: UpdatePostCommand): Post {
-        require(!postQueryService.existsByTitle(command.title.value)) { "이미 존재하는 게시글 제목입니다." }
+        require(!postQueryService.existsByTitle(command.title)) { "이미 존재하는 게시글 제목입니다." }
         val post = postQueryService.getById(command.id)
         val updatedPost = post.update(command)
         return postCommandService.save(updatedPost)

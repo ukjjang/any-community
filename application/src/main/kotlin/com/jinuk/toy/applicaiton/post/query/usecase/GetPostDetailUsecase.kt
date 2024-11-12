@@ -5,14 +5,14 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import com.jinuk.toy.common.define.like.LikeType
 import com.jinuk.toy.common.define.post.PostCategory
+import com.jinuk.toy.common.define.post.PostTitle
+import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.service.LikeQueryService
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.service.PostQueryService
-import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.service.UserQueryService
-import com.jinuk.toy.domain.user.value.Username
 
 @Service
 class GetPostDetailUsecase(
