@@ -4,8 +4,8 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.constant.global.CountOperation
-import com.jinuk.toy.domain.post.UserFixture
-import com.jinuk.toy.domain.user.FollowRelation
+import com.jinuk.toy.domain.follow.FollowRelation
+import com.jinuk.toy.domain.user.UserFixture
 import com.jinuk.toy.domain.user.jpa.UserRepository
 
 internal class UpdateUserFollowCountUsecaseTest(

@@ -2,9 +2,9 @@ package com.jinuk.toy.applicaiton.user.command.usecase
 
 import org.springframework.stereotype.Service
 import com.jinuk.toy.constant.global.CountOperation
-import com.jinuk.toy.domain.user.FollowRelation
-import com.jinuk.toy.domain.user.event.FollowAddedEvent
-import com.jinuk.toy.domain.user.event.FollowCanceledEvent
+import com.jinuk.toy.domain.follow.FollowRelation
+import com.jinuk.toy.domain.follow.event.FollowAddedEvent
+import com.jinuk.toy.domain.follow.event.FollowCanceledEvent
 import com.jinuk.toy.domain.user.service.UserCommandService
 import com.jinuk.toy.infra.redis.lock.distributedLock
 

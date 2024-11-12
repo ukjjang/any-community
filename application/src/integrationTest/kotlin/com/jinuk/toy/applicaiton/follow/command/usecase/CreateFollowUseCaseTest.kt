@@ -4,10 +4,10 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.domain.post.FollowFixture
-import com.jinuk.toy.domain.post.UserFixture
-import com.jinuk.toy.domain.user.FollowRelation
-import com.jinuk.toy.domain.user.service.FollowQueryService
+import com.jinuk.toy.domain.follow.FollowFixture
+import com.jinuk.toy.domain.follow.FollowRelation
+import com.jinuk.toy.domain.follow.service.FollowQueryService
+import com.jinuk.toy.domain.user.UserFixture
 import com.jinuk.toy.util.faker.faker
 import com.jinuk.toy.util.faker.randomLong
 
