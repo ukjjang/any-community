@@ -21,7 +21,6 @@ class FollowFixture(
     }
 
     fun persist(
-        id: Long? = null,
         followerUserId: Long = faker.randomLong(),
         followingUserId: Long = faker.randomLong(),
     ) = followRepository.save(create(followerUserId, followingUserId))
