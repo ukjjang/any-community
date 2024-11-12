@@ -2,6 +2,7 @@ package com.jinuk.toy.domain.point
 
 import java.time.LocalDateTime
 import com.jinuk.toy.common.define.point.Point
+import com.jinuk.toy.common.define.point.PointRuleType
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.infra.rdb.point.entity.PointRuleEntity
 
@@ -9,7 +10,7 @@ data class PointRule(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
-    val ruleType: String,
+    val ruleType: PointRuleType,
     val amount: Point,
     val description: String,
 ) : BaseDomain(_id, createdAt, updatedAt) {
