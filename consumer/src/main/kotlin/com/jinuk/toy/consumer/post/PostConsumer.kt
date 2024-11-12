@@ -5,12 +5,12 @@ import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
 import com.jinuk.toy.applicaiton.post.command.PostCommandBus
 import com.jinuk.toy.applicaiton.post.command.usecase.UpdatePostCommentCountCommand
+import com.jinuk.toy.common.define.global.kafka.KafkaGroupId
+import com.jinuk.toy.common.define.global.kafka.KafkaTopic
 import com.jinuk.toy.consumer.global.KafkaEventParser
 import com.jinuk.toy.domain.comment.event.CommentCreatedEvent
 import com.jinuk.toy.domain.comment.event.CommentDeletedEvent
 import com.jinuk.toy.infra.kafka.KafkaConfig.Companion.LISTENER_FACTORY
-import com.jinuk.toy.infra.kafka.model.KafkaGroupId
-import com.jinuk.toy.infra.kafka.model.KafkaTopic
 
 @Component
 class PostConsumer(
