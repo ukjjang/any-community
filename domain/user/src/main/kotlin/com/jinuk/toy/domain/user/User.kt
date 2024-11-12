@@ -15,6 +15,7 @@ data class User(
     val username: Username,
     val password: String,
     val gender: Gender,
+    val totalPoints: Long = 0L,
     val followingCount: Long = 0L,
     val followerCount: Long = 0L,
 ) : BaseDomain(_id, createdAt, updatedAt) {
@@ -59,6 +60,7 @@ internal fun UserEntity.toModel() =
         username = Username(username),
         password = password,
         gender = gender,
+        totalPoints = totalPoints,
         followingCount = followingCount,
         followerCount = followerCount,
         createdAt = createdAt,
@@ -71,6 +73,7 @@ internal fun User.toEntity() =
         username = username.value,
         password = password,
         gender = gender,
+        totalPoints = totalPoints,
         followingCount = followingCount,
         followerCount = followerCount,
         createdAt = createdAt,
