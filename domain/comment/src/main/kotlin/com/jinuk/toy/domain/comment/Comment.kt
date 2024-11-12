@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.comment
 
 import java.time.LocalDateTime
+import com.jinuk.toy.common.define.global.CountOperation
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
-import com.jinuk.toy.constant.global.CountOperation
 import com.jinuk.toy.infra.rdb.comment.entity.CommentEntity
 
 data class Comment(

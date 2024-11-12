@@ -3,8 +3,7 @@ rootProject.name = "toy"
 include("mvc-api")
 include("consumer")
 
-// common
-// util
+// common-util
 include("common:util:faker")
 include("common:util:jbcrypt")
 include("common:util:jwt")
@@ -13,13 +12,13 @@ include("common:util:domain-helper")
 include("common:util:object-mapper")
 include("common:util:custom-page")
 
+// common-define
+include("common:define")
+
 // infra
 include("infra:rdb")
 include("infra:redis")
 include("infra:kafka")
-
-// constant
-include("constant")
 
 // domain
 include("domain:post")

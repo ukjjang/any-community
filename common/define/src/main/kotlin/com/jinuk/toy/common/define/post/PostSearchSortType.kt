@@ -1,4 +1,4 @@
-package com.jinuk.toy.constant.post
+package com.jinuk.toy.common.define.post
 
 enum class PostSearchSortType {
     RECENTLY,

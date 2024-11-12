@@ -2,7 +2,7 @@ package com.jinuk.toy.domain.follow.service
 
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import com.jinuk.toy.constant.follow.FollowSearchSortType
+import com.jinuk.toy.common.define.follow.FollowSearchSortType
 import com.jinuk.toy.domain.follow.FollowRelation
 import com.jinuk.toy.domain.follow.jpa.FollowJdslRepository
 import com.jinuk.toy.domain.follow.jpa.FollowRepository

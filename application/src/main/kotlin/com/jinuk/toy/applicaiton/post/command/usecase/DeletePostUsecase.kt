@@ -2,7 +2,7 @@ package com.jinuk.toy.applicaiton.post.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import com.jinuk.toy.constant.like.LikeType
+import com.jinuk.toy.common.define.like.LikeType
 import com.jinuk.toy.domain.comment.service.CommentCommandService
 import com.jinuk.toy.domain.comment.service.CommentQueryService
 import com.jinuk.toy.domain.like.LikeTarget

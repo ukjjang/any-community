@@ -1,7 +1,7 @@
 package com.jinuk.toy.domain.user.service
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.constant.global.CountOperation
+import com.jinuk.toy.common.define.global.CountOperation
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.jpa.UserRepository
 

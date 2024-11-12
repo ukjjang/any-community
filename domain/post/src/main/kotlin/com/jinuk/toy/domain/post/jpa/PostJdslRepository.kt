@@ -7,7 +7,7 @@ import com.linecorp.kotlinjdsl.spring.data.selectQuery
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
-import com.jinuk.toy.constant.post.PostSearchSortType
+import com.jinuk.toy.common.define.post.PostSearchSortType
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.toModel
 import com.jinuk.toy.infra.rdb.post.entity.PostEntity

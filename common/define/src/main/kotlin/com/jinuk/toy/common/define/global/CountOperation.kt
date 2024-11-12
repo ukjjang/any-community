@@ -1,4 +1,4 @@
-package com.jinuk.toy.constant.global
+package com.jinuk.toy.common.define.global
 
 enum class CountOperation(
     val delta: Int,

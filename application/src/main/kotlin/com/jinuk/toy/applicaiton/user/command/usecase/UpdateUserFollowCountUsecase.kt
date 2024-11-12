@@ -1,7 +1,7 @@
 package com.jinuk.toy.applicaiton.user.command.usecase
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.constant.global.CountOperation
+import com.jinuk.toy.common.define.global.CountOperation
 import com.jinuk.toy.domain.follow.FollowRelation
 import com.jinuk.toy.domain.follow.event.FollowAddedEvent
 import com.jinuk.toy.domain.follow.event.FollowCanceledEvent

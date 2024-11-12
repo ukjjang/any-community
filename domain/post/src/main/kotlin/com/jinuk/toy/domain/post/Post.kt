@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.post
 
 import java.time.LocalDateTime
+import com.jinuk.toy.common.define.global.CountOperation
+import com.jinuk.toy.common.define.post.PostCategory
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
-import com.jinuk.toy.constant.global.CountOperation
-import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.infra.rdb.post.entity.PostEntity
 

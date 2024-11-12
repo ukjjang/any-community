@@ -1,11 +1,11 @@
 package com.jinuk.toy.domain.user
 
 import org.springframework.stereotype.Component
+import com.jinuk.toy.common.define.user.Gender
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomEnum
 import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.common.util.faker.randomString
-import com.jinuk.toy.constant.user.Gender
 import com.jinuk.toy.domain.user.jpa.UserRepository
 import com.jinuk.toy.domain.user.value.Username
 

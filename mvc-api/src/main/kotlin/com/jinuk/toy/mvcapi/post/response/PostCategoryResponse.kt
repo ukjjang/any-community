@@ -1,7 +1,7 @@
 package com.jinuk.toy.mvcapi.post.response
 
 import io.swagger.v3.oas.annotations.media.Schema
-import com.jinuk.toy.constant.post.PostCategory
+import com.jinuk.toy.common.define.post.PostCategory
 
 @Schema(description = "게시글 카테고리 응답")
 data class PostCategoryResponse(

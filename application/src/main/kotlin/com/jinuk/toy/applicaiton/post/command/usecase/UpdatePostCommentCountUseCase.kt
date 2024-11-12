@@ -1,7 +1,7 @@
 package com.jinuk.toy.applicaiton.post.command.usecase
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.constant.global.CountOperation
+import com.jinuk.toy.common.define.global.CountOperation
 import com.jinuk.toy.domain.comment.event.CommentCreatedEvent
 import com.jinuk.toy.domain.comment.event.CommentDeletedEvent
 import com.jinuk.toy.domain.post.service.PostCommandService

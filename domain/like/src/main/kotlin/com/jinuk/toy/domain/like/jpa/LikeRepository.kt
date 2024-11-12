@@ -1,7 +1,7 @@
 package com.jinuk.toy.domain.like.jpa
 
 import org.springframework.stereotype.Repository
-import com.jinuk.toy.constant.like.LikeType
+import com.jinuk.toy.common.define.like.LikeType
 import com.jinuk.toy.domain.like.Like
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.toEntity

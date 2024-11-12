@@ -1,11 +1,11 @@
 package com.jinuk.toy.domain.like
 
 import org.springframework.stereotype.Component
+import com.jinuk.toy.common.define.like.LikeType
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomEnum
 import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.common.util.faker.randomString
-import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.like.jpa.LikeRepository
 
 @Component
