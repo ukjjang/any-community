@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
+import com.jinuk.toy.common.define.point.Point
 
 @Entity
 @Table(name = "point_rule")
@@ -20,7 +21,7 @@ class PointRuleEntity(
     @Column(name = "rule_type")
     val ruleType: String,
     @Column(name = "amount")
-    val amount: Long,
+    val amount: Point,
     @Column(name = "description")
     val description: String,
     @Column(name = "created_at")

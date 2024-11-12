@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.point
 
 import java.time.LocalDateTime
+import com.jinuk.toy.common.define.point.Point
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.infra.rdb.point.entity.PointTransactionEntity
 
@@ -9,7 +10,7 @@ data class PointTransaction(
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
     val userId: Long,
-    val amount: Long,
+    val amount: Point,
     val description: String,
 ) : BaseDomain(_id, createdAt, updatedAt) {
     override fun equals(other: Any?): Boolean {
