@@ -2,9 +2,9 @@ package com.jinuk.toy.applicaiton.auth.query.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.service.UserAuthService
-import com.jinuk.toy.domain.user.value.Username
 
 @Service
 class LoginUsecase(

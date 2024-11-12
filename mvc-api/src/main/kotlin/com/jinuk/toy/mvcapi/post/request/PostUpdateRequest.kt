@@ -3,7 +3,7 @@ package com.jinuk.toy.mvcapi.post.request
 import io.swagger.v3.oas.annotations.media.Schema
 import com.jinuk.toy.applicaiton.post.command.usecase.UpdatePostCommand
 import com.jinuk.toy.common.define.post.PostCategory
-import com.jinuk.toy.domain.post.value.PostTitle
+import com.jinuk.toy.common.define.post.PostTitle
 
 @Schema(description = "게시글 수정 요청")
 data class PostUpdateRequest(

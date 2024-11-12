@@ -2,10 +2,10 @@ package com.jinuk.toy.domain.user.jpa
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
+import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.toEntity
 import com.jinuk.toy.domain.user.toModel
-import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.rdb.user.jpa.UserEntityRepository
 
 @Repository
@@ -20,7 +20,7 @@ class UserRepository(
 
     fun existsById(id: Long) = userEntityRepository.existsById(id)
 
-    fun existsByUsername(username: Username) = userEntityRepository.existsByUsername(username.value)
+    fun existsByUsername(username: Username) = userEntityRepository.existsByUsername(username)
 
-    fun findByUsername(username: Username) = userEntityRepository.findByUsername(username.value)?.toModel()
+    fun findByUsername(username: Username) = userEntityRepository.findByUsername(username)?.toModel()
 }

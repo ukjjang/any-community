@@ -2,6 +2,7 @@ package com.jinuk.toy.domain.post.jpa
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
+import com.jinuk.toy.common.define.post.PostTitle
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.toEntity
 import com.jinuk.toy.domain.post.toModel
@@ -17,5 +18,5 @@ class PostRepository(
 
     fun findById(id: Long) = postEntityRepository.findByIdOrNull(id)?.toModel()
 
-    fun existsByTitle(title: String) = postEntityRepository.existsByTitle(title)
+    fun existsByTitle(title: PostTitle) = postEntityRepository.existsByTitle(title)
 }

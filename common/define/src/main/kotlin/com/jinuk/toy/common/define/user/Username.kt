@@ -1,4 +1,4 @@
-package com.jinuk.toy.domain.user.value
+package com.jinuk.toy.common.define.user
 
 import com.fasterxml.jackson.annotation.JsonCreator
 

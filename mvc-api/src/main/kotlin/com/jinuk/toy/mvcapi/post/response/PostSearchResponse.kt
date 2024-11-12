@@ -3,8 +3,8 @@ package com.jinuk.toy.mvcapi.post.response
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchedPostResult
-import com.jinuk.toy.domain.post.value.PostTitle
-import com.jinuk.toy.domain.user.value.Username
+import com.jinuk.toy.common.define.post.PostTitle
+import com.jinuk.toy.common.define.user.Username
 
 @Schema(description = "게시글 검색 응답")
 class PostSearchResponse(

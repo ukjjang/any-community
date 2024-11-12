@@ -3,9 +3,9 @@ package com.jinuk.toy.domain.user
 import java.time.LocalDateTime
 import com.jinuk.toy.common.define.global.CountOperation
 import com.jinuk.toy.common.define.user.Gender
+import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.common.util.jbcrypt.Jbcrypt
-import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.rdb.user.entity.UserEntity
 
 data class User(
@@ -57,7 +57,7 @@ data class User(
 internal fun UserEntity.toModel() =
     User(
         _id = id,
-        username = Username(username),
+        username = username,
         password = password,
         gender = gender,
         totalPoints = totalPoints,
@@ -70,7 +70,7 @@ internal fun UserEntity.toModel() =
 internal fun User.toEntity() =
     UserEntity(
         id = _id,
-        username = username.value,
+        username = username,
         password = password,
         gender = gender,
         totalPoints = totalPoints,
