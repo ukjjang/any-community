@@ -14,7 +14,7 @@ class UpdateUserFollowCountUsecase(
 ) {
     operator fun invoke(command: UpdateUserFollowCountCommand) =
         distributedLock(
-            key = "UpdateUserFollowCountUsecase.invoke.${command.hashCode()}",
+            key = "UpdateUserFollowCountUsecase:${command.hashCode()}",
             transactional = true,
         ) {
             with(command) {

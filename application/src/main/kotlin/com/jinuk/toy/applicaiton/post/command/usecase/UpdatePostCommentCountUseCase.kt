@@ -13,7 +13,7 @@ class UpdatePostCommentCountUseCase(
 ) {
     operator fun invoke(command: UpdatePostCommentCountCommand) =
         distributedLock(
-            key = "UpdatePostCommentCountUseCase.invoke.${command.postId}",
+            key = "UpdatePostCommentCountUseCase:${command.postId}",
             transactional = true,
         ) {
             postCommandService.updateCommentCount(command.postId, command.countOperation)

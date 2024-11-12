@@ -44,19 +44,20 @@ class CacheForTransaction {
     fun <T> proceed(function: () -> T) = function()
 }
 
-inline fun <reified T> cached(
+fun <T> cached(
     key: String,
     expire: Duration = Duration.ofSeconds(300),
     transactional: Boolean = false,
-    noinline function: () -> T,
+    function: () -> T,
 ): T {
+    val cacheKey = REDIS_CACHE_KEY_PREFIX + key
     try {
-        val cachedValue = redisTemplate.opsForValue()[key]
+        val cachedValue = redisTemplate.opsForValue()[cacheKey]
         if (cachedValue != null) {
             return objectMapper.readValue(cachedValue, object : TypeReference<T>() {})
         }
     } catch (e: Exception) {
-        log.error { "redis get fail: $key, ${e.stackTraceToString()}" }
+        log.error { "redis get fail: $cacheKey, ${e.stackTraceToString()}" }
     }
 
     val notCachedValue =
@@ -67,17 +68,20 @@ inline fun <reified T> cached(
         }
 
     try {
-        redisTemplate.opsForValue().set(key, objectMapper.writeValueAsString(notCachedValue), expire)
+        redisTemplate.opsForValue().set(cacheKey, objectMapper.writeValueAsString(notCachedValue), expire)
     } catch (e: Exception) {
-        log.error { "redis set fail: $key, ${e.stackTraceToString()}" }
+        log.error { "redis set fail: $cacheKey, ${e.stackTraceToString()}" }
     }
     return notCachedValue
 }
 
 fun cacheEvict(key: String) {
+    val cacheKey = REDIS_CACHE_KEY_PREFIX + key
     try {
-        redisTemplate.delete(key)
+        redisTemplate.delete(cacheKey)
     } catch (e: Exception) {
-        log.error { "redis delete fail: $key, error: ${e.stackTraceToString()}" }
+        log.error { "redis delete fail: $cacheKey, error: ${e.stackTraceToString()}" }
     }
 }
+
+private const val REDIS_CACHE_KEY_PREFIX = "cache:"

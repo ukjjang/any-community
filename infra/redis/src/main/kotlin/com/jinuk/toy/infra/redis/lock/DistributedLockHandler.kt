@@ -41,9 +41,10 @@ fun <T> distributedLock(
     transactional: Boolean = false,
     function: () -> T,
 ): T {
-    val redisLock = redisson.getLock(key)
+    val lockKey = REDIS_LOCK_KEY_PREFIX + key
+    val redisLock = redisson.getLock(lockKey)
     if (!redisLock.tryLock(waitTime, leaseTime, timeUnit)) {
-        throw CannotAcquireLockException("Could not acquire lock. key: $key")
+        throw CannotAcquireLockException("Could not acquire lock. lockKey: $lockKey")
     }
 
     return try {
@@ -60,3 +61,5 @@ fun <T> distributedLock(
 }
 
 class CannotAcquireLockException(message: String) : RuntimeException(message)
+
+private const val REDIS_LOCK_KEY_PREFIX = "lock:"

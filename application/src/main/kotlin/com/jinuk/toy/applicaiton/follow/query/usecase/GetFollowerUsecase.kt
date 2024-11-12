@@ -20,7 +20,7 @@ class GetFollowerUsecase(
 ) {
     operator fun invoke(query: GetFollowerQuery) =
         cached(
-            key = "GetFollowerUsecase.invoke.${query.hashCode()}",
+            key = "GetFollowerUsecase:${query.hashCode()}",
             transactional = true,
         ) {
             followQueryService

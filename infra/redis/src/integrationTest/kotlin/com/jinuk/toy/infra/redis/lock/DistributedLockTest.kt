@@ -30,7 +30,7 @@ internal class DistributedLockTest(
 @Component
 internal class DistributedLockSample {
     fun concurrency() =
-        distributedLock("DistributedLockSample-concurrency") {
+        distributedLock("DistributedLockSample:concurrency") {
             ConcurrentCounter.increment()
             runBlocking { delay(5) }
             ConcurrentCounter.decrement()
@@ -38,7 +38,7 @@ internal class DistributedLockSample {
 
     fun leaseTime() =
         distributedLock(
-            "DistributedLockSample-leaseTime",
+            "DistributedLockSample:leaseTime",
             leaseTime = 1,
             timeUnit = NANOSECONDS,
         ) {

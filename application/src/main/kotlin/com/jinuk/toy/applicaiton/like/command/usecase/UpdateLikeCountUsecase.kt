@@ -17,7 +17,7 @@ class UpdateLikeCountUsecase(
 ) {
     operator fun invoke(command: UpdateLikeCountCommand) =
         distributedLock(
-            key = "UpdateLikeCountUsecase.invoke.${command.likeTarget}",
+            key = "UpdateLikeCountUsecase:${command.likeTarget}",
             transactional = true,
         ) {
             val likeTarget = command.likeTarget

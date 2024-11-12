@@ -23,7 +23,7 @@ class SearchPostUsecase(
 ) {
     operator fun invoke(query: SearchPostQuery) =
         cached(
-            key = "SearchPostUsecase.invoke.${query.hashCode()}",
+            key = "SearchPostUsecase:${query.hashCode()}",
             transactional = true,
         ) {
             postQueryService
