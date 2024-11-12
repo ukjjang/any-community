@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":util:jbcrypt"))
-    implementation(project(":util:jwt"))
+    implementation(project(":common:util:jbcrypt"))
+    implementation(project(":common:util:jwt"))
 }

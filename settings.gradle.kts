@@ -3,14 +3,15 @@ rootProject.name = "toy"
 include("mvc-api")
 include("consumer")
 
+// common
 // util
-include("util:faker")
-include("util:jbcrypt")
-include("util:jwt")
-include("util:logger")
-include("util:domain-helper")
-include("util:object-mapper")
-include("util:custom-page")
+include("common:util:faker")
+include("common:util:jbcrypt")
+include("common:util:jwt")
+include("common:util:logger")
+include("common:util:domain-helper")
+include("common:util:object-mapper")
+include("common:util:custom-page")
 
 // infra
 include("infra:rdb")

@@ -7,5 +7,5 @@ spring:
       - infra-rdb
       - infra-redis
       - infra-kafka
-      - util-jwt
+      - common-util-jwt
     active: local

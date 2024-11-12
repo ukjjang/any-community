@@ -12,7 +12,7 @@ dependencies {
 
     implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_REDISSON)
 
-    implementation(project(":util:logger"))
-    implementation(project(":util:object-mapper"))
-    implementation(project(":util:custom-page"))
+    implementation(project(":common:util:logger"))
+    implementation(project(":common:util:object-mapper"))
+    implementation(project(":common:util:custom-page"))
 }

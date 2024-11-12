@@ -35,7 +35,7 @@ dependencies {
     testImplementation(Dependencies.Logcapture.CORE)
     testImplementation(Dependencies.Kotest.EXTENSIONS_NOW)
 
-    testImplementation(project(":util:faker"))
+    testImplementation(project(":common:util:faker"))
 }
 
 kotlin.target.compilations {

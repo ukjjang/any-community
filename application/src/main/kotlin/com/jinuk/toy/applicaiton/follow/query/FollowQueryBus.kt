@@ -7,7 +7,7 @@ import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowerUsecase
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingQuery
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingResult
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingUsecase
-import com.jinuk.toy.util.custompage.CustomPage
+import com.jinuk.toy.common.util.custompage.CustomPage
 
 sealed interface FollowQueryBus {
     infix fun ask(query: GetFollowingQuery): CustomPage<GetFollowingResult>

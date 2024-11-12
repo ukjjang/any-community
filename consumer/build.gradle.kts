@@ -12,5 +12,5 @@ dependencies {
     implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_KAFKA)
 
     implementation(project(":infra:kafka"))
-    implementation(project(":util:jwt"))
+    implementation(project(":common:util:jwt"))
 }

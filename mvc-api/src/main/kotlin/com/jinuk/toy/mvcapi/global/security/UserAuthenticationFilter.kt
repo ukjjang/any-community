@@ -8,9 +8,9 @@ import org.springframework.web.filter.OncePerRequestFilter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import com.jinuk.toy.common.util.jwt.JwtTokenProvider
 import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
-import com.jinuk.toy.util.jwt.JwtTokenProvider
 
 @Component
 class UserAuthenticationFilter(

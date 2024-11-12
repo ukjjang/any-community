@@ -15,6 +15,7 @@ import com.jinuk.toy.applicaiton.comment.command.CommentCommandBus
 import com.jinuk.toy.applicaiton.comment.command.usecase.DeleteCommentCommand
 import com.jinuk.toy.applicaiton.comment.query.CommentQueryBus
 import com.jinuk.toy.applicaiton.comment.query.usecase.GetCommentPageQuery
+import com.jinuk.toy.common.util.custompage.mapToCustomPage
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
 import com.jinuk.toy.mvcapi.global.security.AuthUser
@@ -22,7 +23,6 @@ import com.jinuk.toy.mvcapi.post.request.CommentCreateRequest
 import com.jinuk.toy.mvcapi.post.request.CommentUpdateRequest
 import com.jinuk.toy.mvcapi.post.request.toCommand
 import com.jinuk.toy.mvcapi.post.response.PostCommentResponse
-import com.jinuk.toy.util.custompage.mapToCustomPage
 
 @Tag(name = "게시글 댓글")
 @MvcAPIController

@@ -4,13 +4,13 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.common.util.faker.faker
+import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.like.LikeFixture
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.user.UserFixture
-import com.jinuk.toy.util.faker.faker
-import com.jinuk.toy.util.faker.randomLong
 
 class GetPostDetailUsecaseTest(
     private val getPostDetailUsecase: GetPostDetailUsecase,

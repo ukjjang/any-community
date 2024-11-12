@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.point
 
 import java.time.LocalDateTime
+import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.infra.rdb.point.entity.PointTransactionEntity
-import com.jinuk.toy.util.domainhelper.BaseDomain
 
 data class PointTransaction(
     override val _id: Long? = null,

@@ -17,6 +17,7 @@ import com.jinuk.toy.applicaiton.post.command.usecase.DeletePostCommand
 import com.jinuk.toy.applicaiton.post.query.PostQueryBus
 import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailQuery
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchPostQuery
+import com.jinuk.toy.common.util.custompage.mapToCustomPage
 import com.jinuk.toy.constant.post.PostSearchSortType
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
@@ -25,7 +26,6 @@ import com.jinuk.toy.mvcapi.post.request.PostCreateRequest
 import com.jinuk.toy.mvcapi.post.request.PostUpdateRequest
 import com.jinuk.toy.mvcapi.post.request.toCommand
 import com.jinuk.toy.mvcapi.post.response.toResponse
-import com.jinuk.toy.util.custompage.mapToCustomPage
 
 @Tag(name = "게시글")
 @MvcAPIController

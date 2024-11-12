@@ -1,13 +1,13 @@
 package com.jinuk.toy.domain.post
 
 import org.springframework.stereotype.Component
+import com.jinuk.toy.common.util.faker.faker
+import com.jinuk.toy.common.util.faker.randomEnum
+import com.jinuk.toy.common.util.faker.randomLong
+import com.jinuk.toy.common.util.faker.randomString
 import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.domain.post.value.PostTitle
-import com.jinuk.toy.util.faker.faker
-import com.jinuk.toy.util.faker.randomEnum
-import com.jinuk.toy.util.faker.randomLong
-import com.jinuk.toy.util.faker.randomString
 
 @Component
 class PostFixture(
