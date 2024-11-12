@@ -1,16 +1,17 @@
 package com.jinuk.toy.common.util.jbcrypt
 
 import org.mindrot.jbcrypt.BCrypt
+import com.jinuk.toy.common.define.user.RawPassword
 
 object Jbcrypt {
-    fun encrypt(password: String): String {
-        return BCrypt.hashpw(password, BCrypt.gensalt())
+    fun encrypt(password: RawPassword): String {
+        return BCrypt.hashpw(password.value, BCrypt.gensalt())
     }
 
     fun verify(
-        password: String,
+        password: RawPassword,
         hashed: String,
     ): Boolean {
-        return BCrypt.checkpw(password, hashed)
+        return BCrypt.checkpw(password.value, hashed)
     }
 }

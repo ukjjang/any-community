@@ -2,11 +2,11 @@ package com.jinuk.toy.applicaiton.follow.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import com.jinuk.toy.common.define.global.kafka.KafkaTopic
 import com.jinuk.toy.domain.follow.FollowRelation
 import com.jinuk.toy.domain.follow.event.FollowAddedEvent
 import com.jinuk.toy.domain.follow.service.FollowCommandService
 import com.jinuk.toy.domain.user.service.UserQueryService
-import com.jinuk.toy.infra.kafka.model.KafkaTopic
 import com.jinuk.toy.infra.kafka.service.KafkaProducer
 
 @Service
