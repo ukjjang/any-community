@@ -18,13 +18,15 @@ class UserFixture(
         fun create(
             username: Username = Username(faker.randomString(15)),
             password: String = faker.randomString(40),
+            gender: Gender = faker.randomEnum<Gender>(),
+            totalPoints: Long = faker.randomLong(),
             followingCount: Long = faker.randomLong(),
             followerCount: Long = faker.randomLong(),
-            gender: Gender = faker.randomEnum<Gender>(),
         ) = User(
             username = username,
             password = password,
             gender = gender,
+            totalPoints = totalPoints,
             followingCount = followingCount,
             followerCount = followerCount,
         )
@@ -34,14 +36,16 @@ class UserFixture(
         id: Long? = null,
         username: Username = Username(faker.randomString(15)),
         password: String = faker.randomString(40),
+        gender: Gender = faker.randomEnum<Gender>(),
+        totalPoints: Long = faker.randomLong(),
         followingCount: Long = faker.randomLong(),
         followerCount: Long = faker.randomLong(),
-        gender: Gender = faker.randomEnum<Gender>(),
     ) = userRepository.save(
         create(
             username = username,
             password = password,
             gender = gender,
+            totalPoints = totalPoints,
             followingCount = followingCount,
             followerCount = followerCount,
         ),

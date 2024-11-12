@@ -27,6 +27,8 @@ class UserEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     val gender: Gender,
+    @Column(name = "total_points")
+    val totalPoints: Long,
     @Column(name = "following_count")
     val followingCount: Long,
     @Column(name = "follower_count")
