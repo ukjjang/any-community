@@ -3,6 +3,7 @@ package com.jinuk.toy.applicaiton.auth.command.usecase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.jinuk.toy.common.define.user.Gender
+import com.jinuk.toy.common.define.user.RawPassword
 import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.service.UserAuthService
@@ -19,7 +20,7 @@ class SignupUsecase(
 
 data class SignupCommand(
     val username: Username,
-    val password: String,
+    val password: RawPassword,
     val gender: Gender,
 )
 

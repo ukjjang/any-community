@@ -5,6 +5,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldNotBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.common.define.user.Gender
+import com.jinuk.toy.common.define.user.RawPassword
 import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomString
@@ -18,7 +19,7 @@ internal class LoginUsecaseTest(
         {
             describe("로그인 유스케이스") {
                 context("유저 존재") {
-                    val signupCredentials = UserCredentials(Username(faker.randomString(4)), "password")
+                    val signupCredentials = UserCredentials(Username(faker.randomString(4)), RawPassword("Password1"))
                     authService.signUp(signupCredentials, gender = Gender.MALE)
 
                     it("로그인 성공") {
@@ -34,7 +35,7 @@ internal class LoginUsecaseTest(
                     }
 
                     it("로그인 실패 - 잘못된 비밀번호") {
-                        val query = LoginQuery(signupCredentials.username, faker.randomString())
+                        val query = LoginQuery(signupCredentials.username, RawPassword("WrongPassword1"))
                         shouldThrow<IllegalArgumentException> {
                             loginUsecase(query)
                         }
