@@ -4,9 +4,9 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import com.jinuk.toy.common.define.follow.FollowSearchSortType
 import com.jinuk.toy.common.util.custompage.CustomPage
 import com.jinuk.toy.common.util.custompage.toCustomPage
-import com.jinuk.toy.constant.follow.FollowSearchSortType
 import com.jinuk.toy.domain.follow.Follow
 import com.jinuk.toy.domain.follow.service.FollowQueryService
 import com.jinuk.toy.domain.user.service.UserQueryService

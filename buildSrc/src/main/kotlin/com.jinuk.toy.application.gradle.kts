@@ -8,7 +8,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":constant"))
+    api(project(":common:define"))
 
     api(project(":domain:post"))
     api(project(":domain:user"))

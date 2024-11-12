@@ -1,10 +1,10 @@
 package com.jinuk.toy.domain.user
 
 import java.time.LocalDateTime
+import com.jinuk.toy.common.define.global.CountOperation
+import com.jinuk.toy.common.define.user.Gender
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.common.util.jbcrypt.Jbcrypt
-import com.jinuk.toy.constant.global.CountOperation
-import com.jinuk.toy.constant.user.Gender
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.rdb.user.entity.UserEntity
 

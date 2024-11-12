@@ -3,7 +3,7 @@ package com.jinuk.toy.applicaiton.follow.query.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.constant.follow.FollowSearchSortType
+import com.jinuk.toy.common.define.follow.FollowSearchSortType
 import com.jinuk.toy.domain.follow.FollowFixture
 import com.jinuk.toy.domain.user.UserFixture
 

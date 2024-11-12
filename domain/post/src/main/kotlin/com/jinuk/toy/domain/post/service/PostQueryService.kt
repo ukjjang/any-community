@@ -2,7 +2,7 @@ package com.jinuk.toy.domain.post.service
 
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import com.jinuk.toy.constant.post.PostSearchSortType
+import com.jinuk.toy.common.define.post.PostSearchSortType
 import com.jinuk.toy.domain.post.jpa.PostJdslRepository
 import com.jinuk.toy.domain.post.jpa.PostRepository
 

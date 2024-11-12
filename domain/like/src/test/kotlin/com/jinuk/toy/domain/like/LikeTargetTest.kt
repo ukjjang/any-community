@@ -3,10 +3,10 @@ package com.jinuk.toy.domain.like
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
+import com.jinuk.toy.common.define.like.LikeType
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.common.util.faker.randomString
-import com.jinuk.toy.constant.like.LikeType
 
 class LikeTargetTest : DescribeSpec(
     {

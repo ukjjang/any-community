@@ -17,8 +17,8 @@ import com.jinuk.toy.applicaiton.post.command.usecase.DeletePostCommand
 import com.jinuk.toy.applicaiton.post.query.PostQueryBus
 import com.jinuk.toy.applicaiton.post.query.usecase.GetPostDetailQuery
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchPostQuery
+import com.jinuk.toy.common.define.post.PostSearchSortType
 import com.jinuk.toy.common.util.custompage.mapToCustomPage
-import com.jinuk.toy.constant.post.PostSearchSortType
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
 import com.jinuk.toy.mvcapi.global.security.AuthUser

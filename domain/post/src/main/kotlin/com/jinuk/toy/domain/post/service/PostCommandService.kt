@@ -1,7 +1,7 @@
 package com.jinuk.toy.domain.post.service
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.constant.global.CountOperation
+import com.jinuk.toy.common.define.global.CountOperation
 import com.jinuk.toy.domain.post.Post
 import com.jinuk.toy.domain.post.jpa.PostRepository
 

@@ -1,4 +1,4 @@
-package com.jinuk.toy.constant.follow
+package com.jinuk.toy.common.define.follow
 
 enum class FollowSearchSortType {
     RECENTLY,

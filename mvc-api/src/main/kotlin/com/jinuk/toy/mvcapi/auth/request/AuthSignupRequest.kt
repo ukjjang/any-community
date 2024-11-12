@@ -2,7 +2,7 @@ package com.jinuk.toy.mvcapi.auth.request
 
 import io.swagger.v3.oas.annotations.media.Schema
 import com.jinuk.toy.applicaiton.auth.command.usecase.SignupCommand
-import com.jinuk.toy.constant.user.Gender
+import com.jinuk.toy.common.define.user.Gender
 import com.jinuk.toy.domain.user.value.Username
 
 @Schema(description = "회원가입 요청")
