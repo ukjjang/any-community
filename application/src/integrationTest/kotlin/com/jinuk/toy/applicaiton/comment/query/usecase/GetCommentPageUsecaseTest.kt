@@ -7,7 +7,7 @@ import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.comment.CommentFixture
 import com.jinuk.toy.domain.like.LikeFixture
 import com.jinuk.toy.domain.post.PostFixture
-import com.jinuk.toy.domain.post.UserFixture
+import com.jinuk.toy.domain.user.UserFixture
 
 class GetCommentPageUsecaseTest(
     private val getCommentPageUsecase: GetCommentPageUsecase,

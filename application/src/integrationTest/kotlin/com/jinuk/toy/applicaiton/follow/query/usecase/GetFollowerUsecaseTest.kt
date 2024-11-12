@@ -4,8 +4,8 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.constant.follow.FollowSearchSortType
-import com.jinuk.toy.domain.post.FollowFixture
-import com.jinuk.toy.domain.post.UserFixture
+import com.jinuk.toy.domain.follow.FollowFixture
+import com.jinuk.toy.domain.user.UserFixture
 
 class GetFollowerUsecaseTest(
     private val getFollowerUsecase: GetFollowerUsecase,

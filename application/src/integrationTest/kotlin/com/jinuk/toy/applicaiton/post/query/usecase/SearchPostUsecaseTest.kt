@@ -5,8 +5,8 @@ import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.constant.post.PostSearchSortType
 import com.jinuk.toy.domain.post.PostFixture
-import com.jinuk.toy.domain.post.UserFixture
 import com.jinuk.toy.domain.post.value.PostTitle
+import com.jinuk.toy.domain.user.UserFixture
 
 internal class SearchPostUsecaseTest(
     private val searchPostUsecase: SearchPostUsecase,
