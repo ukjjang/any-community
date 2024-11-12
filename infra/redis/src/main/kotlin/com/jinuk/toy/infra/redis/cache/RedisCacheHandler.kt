@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
+import com.jinuk.toy.common.util.logger.LazyLogger
 import com.jinuk.toy.infra.redis.cache.RedisCacheHandler.Companion.cacheForTransaction
 import com.jinuk.toy.infra.redis.cache.RedisCacheHandler.Companion.log
 import com.jinuk.toy.infra.redis.cache.RedisCacheHandler.Companion.objectMapper
 import com.jinuk.toy.infra.redis.cache.RedisCacheHandler.Companion.redisTemplate
-import com.jinuk.toy.util.logger.LazyLogger
 
 @Component
 class RedisCacheHandler(

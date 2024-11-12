@@ -16,13 +16,13 @@ import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowCommand
 import com.jinuk.toy.applicaiton.follow.query.FollowQueryBus
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowerQuery
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingQuery
+import com.jinuk.toy.common.util.custompage.mapToCustomPage
 import com.jinuk.toy.constant.follow.FollowSearchSortType
 import com.jinuk.toy.domain.follow.FollowRelation
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
 import com.jinuk.toy.mvcapi.global.security.AuthUser
 import com.jinuk.toy.mvcapi.user.response.UserFollowResponse
-import com.jinuk.toy.util.custompage.mapToCustomPage
 
 @Tag(name = "유저")
 @MvcAPIController

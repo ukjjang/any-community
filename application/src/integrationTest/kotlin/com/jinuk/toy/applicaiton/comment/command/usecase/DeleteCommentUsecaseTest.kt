@@ -4,11 +4,11 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.common.util.faker.faker
+import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.domain.comment.CommentFixture
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
 import com.jinuk.toy.domain.post.PostFixture
-import com.jinuk.toy.util.faker.faker
-import com.jinuk.toy.util.faker.randomLong
 
 internal class DeleteCommentUsecaseTest(
     private val deleteCommentUsecase: DeleteCommentUsecase,

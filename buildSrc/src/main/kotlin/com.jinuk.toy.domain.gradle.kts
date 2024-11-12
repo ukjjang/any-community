@@ -10,10 +10,10 @@ plugins {
 dependencies {
     api(project(":constant"))
 
-    api(project(":util:logger"))
-    api(project(":util:domain-helper"))
-    api(project(":util:object-mapper"))
-    api(project(":util:custom-page"))
+    api(project(":common:util:logger"))
+    api(project(":common:util:domain-helper"))
+    api(project(":common:util:object-mapper"))
+    api(project(":common:util:custom-page"))
 
     implementation(project(":infra:rdb"))
     testImplementation(testFixtures(project(":infra:rdb")))
@@ -21,7 +21,7 @@ dependencies {
     implementation(project(":infra:redis"))
     testImplementation(testFixtures(project(":infra:redis")))
 
-    testFixturesImplementation(project(":util:faker"))
+    testFixturesImplementation(project(":common:util:faker"))
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_WEB)
     implementation(Dependencies.KDSL.KOTLIN_JDSL_JAKARATA)
 }

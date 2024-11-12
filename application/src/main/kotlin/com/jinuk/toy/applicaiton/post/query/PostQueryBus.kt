@@ -7,7 +7,7 @@ import com.jinuk.toy.applicaiton.post.query.usecase.PostDetailResult
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchPostQuery
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchPostUsecase
 import com.jinuk.toy.applicaiton.post.query.usecase.SearchedPostResult
-import com.jinuk.toy.util.custompage.CustomPage
+import com.jinuk.toy.common.util.custompage.CustomPage
 
 sealed interface PostQueryBus {
     infix fun ask(query: GetPostDetailQuery): PostDetailResult

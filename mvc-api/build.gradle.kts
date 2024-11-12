@@ -10,7 +10,7 @@ tasks.bootJar {
 }
 
 dependencies {
-    implementation(project(":util:jwt"))
+    implementation(project(":common:util:jwt"))
 
     implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_SECURITY)
 }

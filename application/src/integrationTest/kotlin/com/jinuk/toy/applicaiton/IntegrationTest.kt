@@ -23,7 +23,7 @@ internal class IntegrationTestConfiguration
     "infra-rdb",
     "infra-redis",
     "infra-kafka",
-    "util-jwt",
+    "common-util-jwt",
 )
 @ContextConfiguration(classes = [IntegrationTestConfiguration::class])
 @SpringBootTest

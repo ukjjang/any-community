@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.follow
 
 import org.springframework.stereotype.Component
+import com.jinuk.toy.common.util.faker.faker
+import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.domain.follow.jpa.FollowRepository
-import com.jinuk.toy.util.faker.faker
-import com.jinuk.toy.util.faker.randomLong
 
 @Component
 class FollowFixture(

@@ -4,13 +4,13 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
+import com.jinuk.toy.common.util.faker.faker
+import com.jinuk.toy.common.util.faker.randomEnum
+import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.domain.like.LikeFixture
 import com.jinuk.toy.domain.like.LikeTarget
 import com.jinuk.toy.domain.like.service.LikeQueryService
-import com.jinuk.toy.util.faker.faker
-import com.jinuk.toy.util.faker.randomEnum
-import com.jinuk.toy.util.faker.randomLong
 
 internal class CancelLikeUsecaseTest(
     private val cancelLikeUseCase: CancelLikeUsecase,

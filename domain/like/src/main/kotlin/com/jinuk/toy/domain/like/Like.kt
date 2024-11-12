@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.like
 
 import java.time.LocalDateTime
+import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.constant.like.LikeType
 import com.jinuk.toy.infra.rdb.like.entity.LikeEntity
-import com.jinuk.toy.util.domainhelper.BaseDomain
 
 data class Like(
     override val _id: Long? = null,

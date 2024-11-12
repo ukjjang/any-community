@@ -5,6 +5,8 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import com.jinuk.toy.common.util.custompage.CustomPage
+import com.jinuk.toy.common.util.custompage.toCustomPage
 import com.jinuk.toy.constant.post.PostCategory
 import com.jinuk.toy.constant.post.PostSearchSortType
 import com.jinuk.toy.domain.post.Post
@@ -13,8 +15,6 @@ import com.jinuk.toy.domain.post.value.PostTitle
 import com.jinuk.toy.domain.user.service.UserQueryService
 import com.jinuk.toy.domain.user.value.Username
 import com.jinuk.toy.infra.redis.cache.cached
-import com.jinuk.toy.util.custompage.CustomPage
-import com.jinuk.toy.util.custompage.toCustomPage
 
 @Service
 class SearchPostUsecase(
