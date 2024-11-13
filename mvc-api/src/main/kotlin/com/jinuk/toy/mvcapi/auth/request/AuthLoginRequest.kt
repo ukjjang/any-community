@@ -2,8 +2,8 @@ package com.jinuk.toy.mvcapi.auth.request
 
 import io.swagger.v3.oas.annotations.media.Schema
 import com.jinuk.toy.applicaiton.auth.query.usecase.LoginQuery
-import com.jinuk.toy.common.define.user.RawPassword
-import com.jinuk.toy.common.define.user.Username
+import com.jinuk.toy.common.value.user.RawPassword
+import com.jinuk.toy.common.value.user.Username
 
 @Schema(description = "로그인 요청")
 data class AuthLoginRequest(

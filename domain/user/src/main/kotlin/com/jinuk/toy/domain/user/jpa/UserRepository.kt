@@ -2,7 +2,7 @@ package com.jinuk.toy.domain.user.jpa
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
-import com.jinuk.toy.common.define.user.Username
+import com.jinuk.toy.common.value.user.Username
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.toEntity
 import com.jinuk.toy.domain.user.toModel

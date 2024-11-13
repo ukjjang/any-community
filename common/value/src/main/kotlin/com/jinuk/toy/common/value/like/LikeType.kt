@@ -1,4 +1,4 @@
-package com.jinuk.toy.common.define.like
+package com.jinuk.toy.common.value.like
 
 enum class LikeType {
     POST,

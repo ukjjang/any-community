@@ -1,4 +1,4 @@
-package com.jinuk.toy.common.define.user
+package com.jinuk.toy.common.value.user
 
 @JvmInline
 value class RawPassword(

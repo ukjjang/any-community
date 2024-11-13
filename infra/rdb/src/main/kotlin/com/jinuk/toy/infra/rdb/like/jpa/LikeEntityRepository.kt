@@ -1,7 +1,7 @@
 package com.jinuk.toy.infra.rdb.like.jpa
 
 import org.springframework.data.jpa.repository.JpaRepository
-import com.jinuk.toy.common.define.like.LikeType
+import com.jinuk.toy.common.value.like.LikeType
 import com.jinuk.toy.infra.rdb.like.entity.LikeEntity
 
 interface LikeEntityRepository : JpaRepository<LikeEntity, Long> {

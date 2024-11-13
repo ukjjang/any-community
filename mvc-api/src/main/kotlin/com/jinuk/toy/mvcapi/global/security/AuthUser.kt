@@ -3,7 +3,7 @@ package com.jinuk.toy.mvcapi.global.security
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import com.jinuk.toy.common.define.user.Username
+import com.jinuk.toy.common.value.user.Username
 import com.jinuk.toy.domain.user.User
 
 data class AuthUser(

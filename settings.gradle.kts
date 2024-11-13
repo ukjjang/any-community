@@ -13,7 +13,7 @@ include("common:util:object-mapper")
 include("common:util:custom-page")
 
 // common-define
-include("common:define")
+include("common:value")
 
 // infra
 include("infra:rdb")

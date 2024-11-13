@@ -1,9 +1,9 @@
 package com.jinuk.toy.domain.user.service
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.common.define.user.Gender
 import com.jinuk.toy.common.util.jbcrypt.Jbcrypt
 import com.jinuk.toy.common.util.jwt.JwtTokenProvider
+import com.jinuk.toy.common.value.user.Gender
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.UserCredentials
 import com.jinuk.toy.domain.user.jpa.UserRepository

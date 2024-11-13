@@ -11,8 +11,8 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
-import com.jinuk.toy.common.define.point.Point
-import com.jinuk.toy.common.define.point.PointRuleType
+import com.jinuk.toy.common.value.point.Point
+import com.jinuk.toy.common.value.point.PointRuleType
 
 @Entity
 @Table(name = "point_rule")

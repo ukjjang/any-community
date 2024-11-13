@@ -1,7 +1,7 @@
 package com.jinuk.toy.domain.user.service
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.common.define.user.Username
+import com.jinuk.toy.common.value.user.Username
 import com.jinuk.toy.domain.user.jpa.UserRepository
 
 @Service

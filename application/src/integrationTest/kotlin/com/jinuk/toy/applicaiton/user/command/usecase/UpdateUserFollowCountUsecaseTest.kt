@@ -3,7 +3,7 @@ package com.jinuk.toy.applicaiton.user.command.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.common.define.global.CountOperation
+import com.jinuk.toy.common.value.global.CountOperation
 import com.jinuk.toy.domain.follow.FollowRelation
 import com.jinuk.toy.domain.user.UserFixture
 import com.jinuk.toy.domain.user.jpa.UserRepository

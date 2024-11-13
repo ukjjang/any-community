@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
-import com.jinuk.toy.common.define.point.Point
+import com.jinuk.toy.common.value.point.Point
 
 @Entity
 @Table(name = "point_transaction")

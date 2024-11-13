@@ -19,7 +19,7 @@ import org.springframework.kafka.listener.DefaultErrorHandler
 import org.springframework.kafka.support.KafkaUtils
 import org.springframework.util.backoff.FixedBackOff
 import java.time.LocalDateTime
-import com.jinuk.toy.common.define.global.kafka.KafkaTopic
+import com.jinuk.toy.common.value.global.kafka.KafkaTopic
 
 @Configuration
 class KafkaConfig(

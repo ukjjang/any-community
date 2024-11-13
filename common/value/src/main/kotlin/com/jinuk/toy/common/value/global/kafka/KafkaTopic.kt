@@ -1,4 +1,4 @@
-package com.jinuk.toy.common.define.global.kafka
+package com.jinuk.toy.common.value.global.kafka
 
 object KafkaTopic {
     const val DEAD_LETTER = "dead-letter"

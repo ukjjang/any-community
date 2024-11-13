@@ -1,8 +1,8 @@
 package com.jinuk.toy.domain.like
 
 import java.time.LocalDateTime
-import com.jinuk.toy.common.define.like.LikeType
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
+import com.jinuk.toy.common.value.like.LikeType
 import com.jinuk.toy.infra.rdb.like.entity.LikeEntity
 
 data class Like(

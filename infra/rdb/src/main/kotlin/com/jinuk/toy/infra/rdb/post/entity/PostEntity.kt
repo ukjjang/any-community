@@ -11,7 +11,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
-import com.jinuk.toy.common.define.post.PostCategory
+import com.jinuk.toy.common.value.post.PostCategory
 
 @Entity
 @Table(name = "post")

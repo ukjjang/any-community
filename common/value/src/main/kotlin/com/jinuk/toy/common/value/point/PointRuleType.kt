@@ -1,4 +1,4 @@
-package com.jinuk.toy.common.define.point
+package com.jinuk.toy.common.value.point
 
 enum class PointRuleType {
     ATTENDANCE,
