@@ -16,8 +16,8 @@ import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowCommand
 import com.jinuk.toy.applicaiton.follow.query.FollowQueryBus
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowerQuery
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingQuery
-import com.jinuk.toy.common.define.follow.FollowSearchSortType
 import com.jinuk.toy.common.util.custompage.mapToCustomPage
+import com.jinuk.toy.common.value.follow.FollowSearchSortType
 import com.jinuk.toy.domain.follow.FollowRelation
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole

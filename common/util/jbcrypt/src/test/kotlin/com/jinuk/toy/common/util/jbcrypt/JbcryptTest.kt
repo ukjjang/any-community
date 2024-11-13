@@ -3,7 +3,7 @@ package com.jinuk.toy.common.util.jbcrypt
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import com.jinuk.toy.common.define.user.RawPassword
+import com.jinuk.toy.common.value.user.RawPassword
 
 class JbcryptTest : DescribeSpec({
 

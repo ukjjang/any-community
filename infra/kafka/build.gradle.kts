@@ -9,5 +9,5 @@ dependencies {
     testFixturesImplementation(Dependencies.TestContainers.JUNIT_JUPITER)
     testFixturesImplementation(Dependencies.TestContainers.KAFKA)
 
-    api(project(":common:define"))
+    api(project(":common:value"))
 }

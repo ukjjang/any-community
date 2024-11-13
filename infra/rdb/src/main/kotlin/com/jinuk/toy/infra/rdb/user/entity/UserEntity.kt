@@ -11,9 +11,9 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
-import com.jinuk.toy.common.define.point.Point
-import com.jinuk.toy.common.define.user.Gender
-import com.jinuk.toy.common.define.user.Username
+import com.jinuk.toy.common.value.point.Point
+import com.jinuk.toy.common.value.user.Gender
+import com.jinuk.toy.common.value.user.Username
 
 @Entity
 @Table(name = "user")

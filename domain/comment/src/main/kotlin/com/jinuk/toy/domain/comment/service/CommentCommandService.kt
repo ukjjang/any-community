@@ -1,7 +1,7 @@
 package com.jinuk.toy.domain.comment.service
 
 import org.springframework.stereotype.Service
-import com.jinuk.toy.common.define.global.CountOperation
+import com.jinuk.toy.common.value.global.CountOperation
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
 

@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
-import com.jinuk.toy.common.define.like.LikeType
-import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.common.util.custompage.CustomPage
 import com.jinuk.toy.common.util.custompage.toCustomPage
+import com.jinuk.toy.common.value.like.LikeType
+import com.jinuk.toy.common.value.user.Username
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.service.CommentQueryService
 import com.jinuk.toy.domain.like.service.LikeQueryService

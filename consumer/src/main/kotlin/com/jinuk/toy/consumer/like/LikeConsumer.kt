@@ -5,8 +5,8 @@ import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
 import com.jinuk.toy.applicaiton.like.command.LikeCommandBus
 import com.jinuk.toy.applicaiton.like.command.usecase.UpdateLikeCountCommand
-import com.jinuk.toy.common.define.global.kafka.KafkaGroupId
-import com.jinuk.toy.common.define.global.kafka.KafkaTopic
+import com.jinuk.toy.common.value.global.kafka.KafkaGroupId
+import com.jinuk.toy.common.value.global.kafka.KafkaTopic
 import com.jinuk.toy.consumer.global.KafkaEventParser
 import com.jinuk.toy.domain.like.event.LikeAddedEvent
 import com.jinuk.toy.domain.like.event.LikeCanceledEvent

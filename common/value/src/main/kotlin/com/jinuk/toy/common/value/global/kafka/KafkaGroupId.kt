@@ -1,4 +1,4 @@
-package com.jinuk.toy.common.define.global.kafka
+package com.jinuk.toy.common.value.global.kafka
 
 object KafkaGroupId {
     object User {

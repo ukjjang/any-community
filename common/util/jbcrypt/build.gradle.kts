@@ -5,5 +5,5 @@ plugins {
 dependencies {
     implementation(Dependencies.JBcrypt.JBCRYPT)
 
-    api(project(":common:define"))
+    api(project(":common:value"))
 }

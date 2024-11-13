@@ -1,6 +1,6 @@
 package com.jinuk.toy.domain.like
 
-import com.jinuk.toy.common.define.like.LikeType
+import com.jinuk.toy.common.value.like.LikeType
 
 data class LikeTarget(
     val type: LikeType,

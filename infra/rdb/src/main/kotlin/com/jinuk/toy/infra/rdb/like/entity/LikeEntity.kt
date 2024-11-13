@@ -11,7 +11,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
-import com.jinuk.toy.common.define.like.LikeType
+import com.jinuk.toy.common.value.like.LikeType
 
 @Entity
 @Table(name = "`like`")

@@ -7,7 +7,7 @@ import com.linecorp.kotlinjdsl.spring.data.selectQuery
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
-import com.jinuk.toy.common.define.follow.FollowSearchSortType
+import com.jinuk.toy.common.value.follow.FollowSearchSortType
 import com.jinuk.toy.domain.follow.Follow
 import com.jinuk.toy.domain.follow.toModel
 import com.jinuk.toy.infra.rdb.follow.entity.FollowEntity

@@ -3,7 +3,7 @@ package com.jinuk.toy.applicaiton.comment.query.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.common.define.like.LikeType
+import com.jinuk.toy.common.value.like.LikeType
 import com.jinuk.toy.domain.comment.CommentFixture
 import com.jinuk.toy.domain.like.LikeFixture
 import com.jinuk.toy.domain.post.PostFixture

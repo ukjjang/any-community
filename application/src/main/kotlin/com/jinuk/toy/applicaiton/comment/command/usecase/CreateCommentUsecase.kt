@@ -2,7 +2,7 @@ package com.jinuk.toy.applicaiton.comment.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import com.jinuk.toy.common.define.global.kafka.KafkaTopic
+import com.jinuk.toy.common.value.global.kafka.KafkaTopic
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.event.CommentCreatedEvent
 import com.jinuk.toy.domain.comment.service.CommentCommandService

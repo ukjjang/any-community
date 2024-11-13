@@ -3,8 +3,8 @@ package com.jinuk.toy.applicaiton.post.query.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.common.define.post.PostSearchSortType
-import com.jinuk.toy.common.define.post.PostTitle
+import com.jinuk.toy.common.value.post.PostSearchSortType
+import com.jinuk.toy.common.value.post.PostTitle
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.user.UserFixture
 

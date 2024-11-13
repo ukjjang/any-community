@@ -8,8 +8,8 @@ import org.springframework.web.filter.OncePerRequestFilter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import com.jinuk.toy.common.define.user.Username
 import com.jinuk.toy.common.util.jwt.JwtTokenProvider
+import com.jinuk.toy.common.value.user.Username
 import com.jinuk.toy.domain.user.service.UserQueryService
 
 @Component

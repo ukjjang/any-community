@@ -1,10 +1,10 @@
 package com.jinuk.toy.domain.point
 
 import org.springframework.stereotype.Component
-import com.jinuk.toy.common.define.point.Point
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.common.util.faker.randomString
+import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.domain.point.jpa.PointTransactionRepository
 
 @Component

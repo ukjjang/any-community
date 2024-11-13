@@ -2,7 +2,7 @@ package com.jinuk.toy.domain.post.value
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
-import com.jinuk.toy.common.define.post.PostTitle
+import com.jinuk.toy.common.value.post.PostTitle
 
 class PostTitleTest : DescribeSpec(
     {
