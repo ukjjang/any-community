@@ -1,16 +1,9 @@
 package com.jinuk.toy.common.define.post
 
-import com.fasterxml.jackson.annotation.JsonCreator
-
 @JvmInline
-value class PostTitle private constructor(val value: String) {
-    companion object {
-        @JsonCreator
-        private fun from(title: String) = PostTitle(title)
-
-        operator fun invoke(title: String) = from(title)
-    }
-
+value class PostTitle(
+    val value: String,
+) {
     init {
         validate(value)
     }
