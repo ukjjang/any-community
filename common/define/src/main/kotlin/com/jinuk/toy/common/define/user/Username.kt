@@ -1,16 +1,9 @@
 package com.jinuk.toy.common.define.user
 
-import com.fasterxml.jackson.annotation.JsonCreator
-
 @JvmInline
-value class Username private constructor(val value: String) {
-    companion object {
-        @JsonCreator
-        fun from(username: String) = Username(username)
-
-        operator fun invoke(username: String) = from(username)
-    }
-
+value class Username(
+    val value: String,
+) {
     init {
         validate(value)
     }
