@@ -8,12 +8,15 @@ plugins {
 }
 
 dependencies {
-    api(project(":common:value"))
+    implementation(project(":common:util:domain-helper"))
 
-    api(project(":common:util:logger"))
-    api(project(":common:util:domain-helper"))
-    api(project(":common:util:object-mapper"))
-    api(project(":common:util:custom-page"))
+    implementation(project(":common:util:logger"))
+    implementation(project(":common:util:object-mapper"))
+    implementation(project(":common:util:custom-page"))
+
+    implementation(project(":common:value"))
+    testFixturesImplementation(project(":common:value"))
+    testFixturesImplementation(project(":common:util:faker"))
 
     implementation(project(":infra:rdb"))
     testImplementation(testFixtures(project(":infra:rdb")))
@@ -21,9 +24,7 @@ dependencies {
     implementation(project(":infra:redis"))
     testImplementation(testFixtures(project(":infra:redis")))
 
-    testFixturesImplementation(project(":common:util:faker"))
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_WEB)
-    implementation(Dependencies.KDSL.KOTLIN_JDSL_JAKARATA)
 }
 
 val bootJar: BootJar by tasks

@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependencies.JBcrypt.JBCRYPT)
+    implementation(project(":common:value"))
 
-    api(project(":common:value"))
+    implementation(Dependencies.JBcrypt.JBCRYPT)
 }

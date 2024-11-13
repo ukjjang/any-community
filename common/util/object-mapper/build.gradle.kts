@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    api(Dependencies.SpringBoot.SPRING_BOOT_DATA_COMMONS)
+    implementation(Dependencies.SpringBoot.SPRING_BOOT_DATA_COMMONS)
 }

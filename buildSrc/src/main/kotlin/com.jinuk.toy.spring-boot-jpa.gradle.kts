@@ -13,4 +13,5 @@ allOpen {
 
 dependencies {
     implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_DATA_JPA)
+    implementation(Dependencies.KDSL.KOTLIN_JDSL_JAKARATA)
 }
