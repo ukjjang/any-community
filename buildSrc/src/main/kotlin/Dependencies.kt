@@ -43,6 +43,12 @@ object Dependencies {
         const val EXTENSIONS_NOW = "io.kotest:kotest-extensions-now:$VERSION"
     }
 
+    object Mockk {
+        private const val VERSION = "1.13.13"
+
+        const val MOCKK = "io.mockk:mockk:$VERSION"
+    }
+
     object TestContainers {
         private const val TEST_CONTAINERS_VERSION = "1.20.0"
 
