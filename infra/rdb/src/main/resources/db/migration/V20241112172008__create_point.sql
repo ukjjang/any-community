@@ -31,7 +31,6 @@ CREATE TABLE `point_rule`
 
 INSERT INTO `point_rule` (`rule_type`, `amount`, `description`)
 VALUES
-    ('ATTENDANCE', 10, '출석체크 시 지급되는 포인트'),
     ('POST_CREATION', 50, '게시글 작성 시 지급되는 포인트'),
     ('COMMENT_CREATION', 10, '댓글 작성 시 지급되는 포인트');
 
