@@ -43,6 +43,11 @@ data class User(
             followerCount = followerCount + countOperation.delta,
         )
 
+    fun updateTotalPoints(point: Point) =
+        this.copy(
+            totalPoints = totalPoints + point,
+        )
+
     companion object {
         fun signup(
             userCredentials: UserCredentials,

@@ -23,6 +23,18 @@ data class PointTransaction(
     override fun hashCode(): Int {
         return _id?.hashCode() ?: 0
     }
+
+    companion object {
+        fun of(
+            userId: Long,
+            amount: Point,
+            description: String,
+        ) = PointTransaction(
+            userId = userId,
+            amount = amount,
+            description = description,
+        )
+    }
 }
 
 internal fun PointTransactionEntity.toModel() =

@@ -2,6 +2,7 @@ package com.jinuk.toy.domain.user.service
 
 import org.springframework.stereotype.Service
 import com.jinuk.toy.common.value.global.CountOperation
+import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.domain.user.User
 import com.jinuk.toy.domain.user.jpa.UserRepository
 
@@ -24,5 +25,12 @@ class UserCommandService(
         countOperation: CountOperation,
     ) = save(
         userQueryService.getById(useId).updateFollowerCount(countOperation),
+    )
+
+    fun updateTotalPoints(
+        useId: Long,
+        point: Point,
+    ) = save(
+        userQueryService.getById(useId).updateTotalPoints(point),
     )
 }
