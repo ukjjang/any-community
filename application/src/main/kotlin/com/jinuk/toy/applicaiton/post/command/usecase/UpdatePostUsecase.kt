@@ -15,10 +15,12 @@ class UpdatePostUsecase(
 ) {
     @Transactional
     operator fun invoke(command: UpdatePostCommand): Post {
-        require(!postQueryService.existsByTitle(command.title)) { "이미 존재하는 게시글 제목입니다." }
         val post = postQueryService.getById(command.id)
-        val updatedPost = post.update(command)
-        return postCommandService.save(updatedPost)
+        require(post.title == command.title || !postQueryService.existsByTitle(command.title)) {
+            "이미 존재하는 게시글 제목입니다."
+        }
+        return post.update(command)
+            .let { postCommandService.save(it) }
     }
 }
 
