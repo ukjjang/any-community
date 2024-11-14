@@ -34,6 +34,7 @@ dependencies {
     testImplementation(Dependencies.Logcapture.KOTEST)
     testImplementation(Dependencies.Logcapture.CORE)
     testImplementation(Dependencies.Kotest.EXTENSIONS_NOW)
+    testImplementation(Dependencies.Mockk.MOCKK)
 
     testImplementation(project(":common:util:faker"))
 }
