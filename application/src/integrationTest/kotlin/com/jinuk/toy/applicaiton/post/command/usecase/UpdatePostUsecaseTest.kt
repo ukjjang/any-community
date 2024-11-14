@@ -25,7 +25,7 @@ internal class UpdatePostUsecaseTest(
                         UpdatePostCommand(
                             exits1.userId,
                             exits1.id,
-                            PostTitle("faker.randomString()"),
+                            exits1.title,
                             PostCategory.NEWS,
                             faker.randomString(),
                         )
