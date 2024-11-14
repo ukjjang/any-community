@@ -29,36 +29,33 @@ data class Post(
         return _id?.hashCode() ?: 0
     }
 
-    fun updateCommentCount(countOperation: CountOperation) =
-        this.copy(
-            commentCount = commentCount + countOperation.delta,
-        )
+    fun updateCommentCount(countOperation: CountOperation) = this.copy(
+        commentCount = commentCount + countOperation.delta,
+    )
 
     fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
 }
 
-internal fun PostEntity.toModel() =
-    Post(
-        _id = id,
-        userId = userId,
-        title = PostTitle(title),
-        category = category,
-        content = content,
-        commentCount = commentCount,
-        likeCount = likeCount,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun PostEntity.toModel() = Post(
+    _id = id,
+    userId = userId,
+    title = PostTitle(title),
+    category = category,
+    content = content,
+    commentCount = commentCount,
+    likeCount = likeCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
 
-internal fun Post.toEntity() =
-    PostEntity(
-        id = _id,
-        userId = userId,
-        title = title.value,
-        category = category,
-        content = content,
-        commentCount = commentCount,
-        likeCount = likeCount,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun Post.toEntity() = PostEntity(
+    id = _id,
+    userId = userId,
+    title = title.value,
+    category = category,
+    content = content,
+    commentCount = commentCount,
+    likeCount = likeCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

@@ -24,13 +24,12 @@ class PostSearchResponse(
     val updatedAt: LocalDateTime,
 )
 
-fun SearchedPostResult.toResponse() =
-    PostSearchResponse(
-        id = id,
-        title = title,
-        category = PostCategoryResponse.of(category),
-        userName = userName,
-        commentCount = commentCount,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+fun SearchedPostResult.toResponse() = PostSearchResponse(
+    id = id,
+    title = title,
+    category = PostCategoryResponse.of(category),
+    userName = userName,
+    commentCount = commentCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

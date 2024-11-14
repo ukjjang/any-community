@@ -65,21 +65,20 @@ data class PostDetailResult(
             writer: User,
             isViewerLike: Boolean,
             commentCount: Long,
-        ): PostDetailResult =
-            with(post) {
-                PostDetailResult(
-                    id = id,
-                    userId = userId,
-                    username = writer.username,
-                    title = title,
-                    category = category,
-                    isViewerLike = isViewerLike,
-                    likeCount = likeCount,
-                    commentCount = commentCount,
-                    content = content,
-                    createdAt = createdAt,
-                    updatedAt = updatedAt,
-                )
-            }
+        ): PostDetailResult = with(post) {
+            PostDetailResult(
+                id = id,
+                userId = userId,
+                username = writer.username,
+                title = title,
+                category = category,
+                isViewerLike = isViewerLike,
+                likeCount = likeCount,
+                commentCount = commentCount,
+                content = content,
+                createdAt = createdAt,
+                updatedAt = updatedAt,
+            )
+        }
     }
 }

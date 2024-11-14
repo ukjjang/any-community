@@ -21,20 +21,19 @@ class SearchPostUsecase(
     private val postQueryService: PostQueryService,
     private val userQueryService: UserQueryService,
 ) {
-    operator fun invoke(query: SearchPostQuery) =
-        cached(
-            key = "SearchPostUsecase:${query.hashCode()}",
-            transactional = true,
-        ) {
-            postQueryService
-                .search(
-                    keyword = query.keyword,
-                    pageable = query.pageable(),
-                    sortType = query.postSearchSortType,
-                ).let {
-                    toCustomPage(it)
-                }
-        }
+    operator fun invoke(query: SearchPostQuery) = cached(
+        key = "SearchPostUsecase:${query.hashCode()}",
+        transactional = true,
+    ) {
+        postQueryService
+            .search(
+                keyword = query.keyword,
+                pageable = query.pageable(),
+                sortType = query.postSearchSortType,
+            ).let {
+                toCustomPage(it)
+            }
+    }
 
     private fun toCustomPage(pages: PageImpl<Post>): CustomPage<SearchedPostResult> {
         val posts = pages.content

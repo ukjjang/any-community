@@ -38,22 +38,20 @@ data class Like(
     }
 }
 
-internal fun LikeEntity.toModel() =
-    Like(
-        _id = id,
-        userId = userId,
-        targetType = targetType,
-        targetId = targetId,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun LikeEntity.toModel() = Like(
+    _id = id,
+    userId = userId,
+    targetType = targetType,
+    targetId = targetId,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
 
-internal fun Like.toEntity() =
-    LikeEntity(
-        id = _id,
-        userId = userId,
-        targetType = targetType,
-        targetId = targetId,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun Like.toEntity() = LikeEntity(
+    id = _id,
+    userId = userId,
+    targetType = targetType,
+    targetId = targetId,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

@@ -12,20 +12,19 @@ import com.jinuk.toy.infra.redis.lock.distributedLock
 class UpdateUserFollowCountUsecase(
     private val userCommandService: UserCommandService,
 ) {
-    operator fun invoke(command: UpdateUserFollowCountCommand) =
-        distributedLock(
-            key = "UpdateUserFollowCountUsecase:${command.hashCode()}",
-            transactional = true,
-        ) {
-            with(command) {
-                val followerUserId = followRelation.followerUserId
-                val followingUserId = followRelation.followingUserId
+    operator fun invoke(command: UpdateUserFollowCountCommand) = distributedLock(
+        key = "UpdateUserFollowCountUsecase:${command.hashCode()}",
+        transactional = true,
+    ) {
+        with(command) {
+            val followerUserId = followRelation.followerUserId
+            val followingUserId = followRelation.followingUserId
 
-                userCommandService.updateFollowingCount(followerUserId, countOperation)
-                userCommandService.updateFollowerCount(followingUserId, countOperation)
-                return@with
-            }
+            userCommandService.updateFollowingCount(followerUserId, countOperation)
+            userCommandService.updateFollowerCount(followingUserId, countOperation)
+            return@with
         }
+    }
 }
 
 data class UpdateUserFollowCountCommand(
@@ -35,10 +34,9 @@ data class UpdateUserFollowCountCommand(
     companion object {
         fun from(event: FollowAddedEvent) = UpdateUserFollowCountCommand(event.followRelation, CountOperation.INCREASE)
 
-        fun from(event: FollowCanceledEvent) =
-            UpdateUserFollowCountCommand(
-                event.followRelation,
-                CountOperation.DECREMENT,
-            )
+        fun from(event: FollowCanceledEvent) = UpdateUserFollowCountCommand(
+            event.followRelation,
+            CountOperation.DECREMENT,
+        )
     }
 }

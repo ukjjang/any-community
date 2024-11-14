@@ -11,14 +11,13 @@ import com.jinuk.toy.infra.redis.lock.distributedLock
 class UpdatePostCommentCountUseCase(
     private val postCommandService: PostCommandService,
 ) {
-    operator fun invoke(command: UpdatePostCommentCountCommand) =
-        distributedLock(
-            key = "UpdatePostCommentCountUseCase:${command.postId}",
-            transactional = true,
-        ) {
-            postCommandService.updateCommentCount(command.postId, command.countOperation)
-            return@distributedLock
-        }
+    operator fun invoke(command: UpdatePostCommentCountCommand) = distributedLock(
+        key = "UpdatePostCommentCountUseCase:${command.postId}",
+        transactional = true,
+    ) {
+        postCommandService.updateCommentCount(command.postId, command.countOperation)
+        return@distributedLock
+    }
 }
 
 data class UpdatePostCommentCountCommand(

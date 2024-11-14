@@ -21,12 +21,11 @@ data class PostResponse(
     val updatedAt: LocalDateTime,
 )
 
-fun Post.toResponse() =
-    PostResponse(
-        id = id,
-        title = title,
-        category = PostCategoryResponse.of(category),
-        content = content,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+fun Post.toResponse() = PostResponse(
+    id = id,
+    title = title,
+    category = PostCategoryResponse.of(category),
+    content = content,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

@@ -45,15 +45,13 @@ class PostJdslRepository(
         return PageImpl(results, pageable, totalCount)
     }
 
-    private fun <T> SpringDataCriteriaQueryDsl<T>.sort(sortType: PostSearchSortType) =
-        when (sortType) {
-            PostSearchSortType.RECENTLY -> column(PostEntity::id).desc()
-            PostSearchSortType.OLDEST -> column(PostEntity::id).asc()
-            PostSearchSortType.MOST_LIKED -> column(PostEntity::likeCount).desc()
-        }
+    private fun <T> SpringDataCriteriaQueryDsl<T>.sort(sortType: PostSearchSortType) = when (sortType) {
+        PostSearchSortType.RECENTLY -> column(PostEntity::id).desc()
+        PostSearchSortType.OLDEST -> column(PostEntity::id).asc()
+        PostSearchSortType.MOST_LIKED -> column(PostEntity::likeCount).desc()
+    }
 
-    private fun <T> SpringDataCriteriaQueryDsl<T>.condition(keyword: String?) =
-        keyword?.let {
-            column(PostEntity::title).like("$it%")
-        }
+    private fun <T> SpringDataCriteriaQueryDsl<T>.condition(keyword: String?) = keyword?.let {
+        column(PostEntity::title).like("$it%")
+    }
 }

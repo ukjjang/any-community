@@ -27,10 +27,9 @@ class LikeCommandService(
         likeRepository.delete(it)
     }
 
-    fun delete(target: LikeTarget) =
-        likeQueryService.findByTarget(target).let {
-            likeRepository.deleteAll(it)
-        }
+    fun delete(target: LikeTarget) = likeQueryService.findByTarget(target).let {
+        likeRepository.deleteAll(it)
+    }
 
     fun delete(
         likeType: LikeType,

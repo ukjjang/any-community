@@ -25,30 +25,27 @@ data class Follow(
     }
 
     companion object {
-        fun create(followRelation: FollowRelation) =
-            with(followRelation) {
-                Follow(
-                    followerUserId = followerUserId,
-                    followingUserId = followingUserId,
-                )
-            }
+        fun create(followRelation: FollowRelation) = with(followRelation) {
+            Follow(
+                followerUserId = followerUserId,
+                followingUserId = followingUserId,
+            )
+        }
     }
 }
 
-internal fun FollowEntity.toModel() =
-    Follow(
-        _id = id,
-        followerUserId = followerUserId,
-        followingUserId = followingUserId,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun FollowEntity.toModel() = Follow(
+    _id = id,
+    followerUserId = followerUserId,
+    followingUserId = followingUserId,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
 
-internal fun Follow.toEntity() =
-    FollowEntity(
-        id = _id,
-        followerUserId = followerUserId,
-        followingUserId = followingUserId,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun Follow.toEntity() = FollowEntity(
+    id = _id,
+    followerUserId = followerUserId,
+    followingUserId = followingUserId,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

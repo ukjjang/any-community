@@ -15,9 +15,8 @@ class LazyLogger : ReadOnlyProperty<Any, KLogger> {
     ) = logger ?: createLogger(thisRef::class).also { logger = it }
 
     companion object {
-        private fun createLogger(clazz: KClass<*>) =
-            KotlinLogging.logger(
-                clazz.java.enclosingClass?.name ?: clazz.java.name,
-            )
+        private fun createLogger(clazz: KClass<*>) = KotlinLogging.logger(
+            clazz.java.enclosingClass?.name ?: clazz.java.name,
+        )
     }
 }

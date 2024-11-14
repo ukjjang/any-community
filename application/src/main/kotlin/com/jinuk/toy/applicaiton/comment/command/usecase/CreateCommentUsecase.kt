@@ -30,10 +30,9 @@ data class CreateCommentCommand(
     val content: String,
 )
 
-private fun CreateCommentCommand.toComment() =
-    Comment(
-        userId = userId,
-        postId = postId,
-        parentCommentId = parentCommentId,
-        content = content,
-    )
+private fun CreateCommentCommand.toComment() = Comment(
+    userId = userId,
+    postId = postId,
+    parentCommentId = parentCommentId,
+    content = content,
+)

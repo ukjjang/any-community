@@ -24,16 +24,14 @@ class CustomPage<T> : PageImpl<T> {
 
 fun <T> Page<T>.toCustomPage() = CustomPage(this)
 
-fun <T, R> Page<T>.toCustomPage(content: List<R>) =
-    CustomPage(
-        content = content,
-        pageable = this.pageable,
-        total = this.totalElements,
-    )
+fun <T, R> Page<T>.toCustomPage(content: List<R>) = CustomPage(
+    content = content,
+    pageable = this.pageable,
+    total = this.totalElements,
+)
 
-fun <T, R> CustomPage<T>.mapToCustomPage(transform: (T) -> R): CustomPage<R> =
-    CustomPage(
-        content = content.map(transform),
-        pageable = pageable,
-        total = totalElements,
-    )
+fun <T, R> CustomPage<T>.mapToCustomPage(transform: (T) -> R): CustomPage<R> = CustomPage(
+    content = content.map(transform),
+    pageable = pageable,
+    total = totalElements,
+)

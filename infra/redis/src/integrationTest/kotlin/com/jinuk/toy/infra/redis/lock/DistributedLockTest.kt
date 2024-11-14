@@ -29,23 +29,21 @@ internal class DistributedLockTest(
 
 @Component
 internal class DistributedLockSample {
-    fun concurrency() =
-        distributedLock("DistributedLockSample:concurrency") {
-            ConcurrentCounter.increment()
-            runBlocking { delay(5) }
-            ConcurrentCounter.decrement()
-        }
+    fun concurrency() = distributedLock("DistributedLockSample:concurrency") {
+        ConcurrentCounter.increment()
+        runBlocking { delay(5) }
+        ConcurrentCounter.decrement()
+    }
 
-    fun leaseTime() =
-        distributedLock(
-            "DistributedLockSample:leaseTime",
-            leaseTime = 1,
-            timeUnit = NANOSECONDS,
-        ) {
-            ConcurrentCounter.increment()
-            runBlocking { delay(5) }
-            ConcurrentCounter.decrement()
-        }
+    fun leaseTime() = distributedLock(
+        "DistributedLockSample:leaseTime",
+        leaseTime = 1,
+        timeUnit = NANOSECONDS,
+    ) {
+        ConcurrentCounter.increment()
+        runBlocking { delay(5) }
+        ConcurrentCounter.decrement()
+    }
 }
 
 private fun DistributedLockSample.catchExceptionCountOnConcurrency(block: DistributedLockSample.() -> Unit): Int {
