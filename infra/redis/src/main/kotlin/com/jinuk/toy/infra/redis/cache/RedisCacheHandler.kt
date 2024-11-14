@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
 import com.jinuk.toy.common.util.logger.LazyLogger
@@ -40,7 +39,7 @@ class RedisCacheHandler(
 
 @Component
 class CacheForTransaction {
-    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
+    @Transactional(readOnly = true)
     fun <T> proceed(function: () -> T) = function()
 }
 
