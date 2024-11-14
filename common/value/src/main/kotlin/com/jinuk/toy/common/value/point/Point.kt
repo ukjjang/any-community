@@ -3,4 +3,6 @@ package com.jinuk.toy.common.value.point
 @JvmInline
 value class Point(
     val value: Long,
-)
+) {
+    operator fun plus(point: Point) = Point(value + point.value)
+}
