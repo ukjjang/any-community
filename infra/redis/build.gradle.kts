@@ -5,12 +5,11 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_REDIS)
+    implementation(Dependencies.Redis.SPRING_BOOT_STARTER_REDIS)
+    implementation(Dependencies.Redis.SPRING_BOOT_STARTER_REDISSON)
 
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_TEST)
     testFixturesImplementation(Dependencies.TestContainers.JUNIT_JUPITER)
-
-    implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_REDISSON)
 
     implementation(project(":common:util:logger"))
     implementation(project(":common:util:object-mapper"))
