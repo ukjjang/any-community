@@ -13,7 +13,7 @@ object Dependencies {
     private object Versions {
         const val KOTLIN = "2.0.20"
         const val KTLINT = "12.1.1"
-        const val SPRING_BOOT = "3.3.2"
+        const val SPRING_BOOT = "3.3.5"
         const val SPRING_DEPENDENCY = "1.1.6"
         const val KSP = "$KOTLIN-1.0.25"
         const val KOVER = "0.8.3"

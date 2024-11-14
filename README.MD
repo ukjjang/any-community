@@ -8,7 +8,7 @@
 * Kotlin 2.0.20
 * JDK 21
 * Gradle 8.10
-* Spring Boot 3.3.2
+* Spring Boot 3.3.5
 * JPA / Hibernate
 * Kotlin JDSL
 
