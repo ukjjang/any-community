@@ -1,6 +1,7 @@
 package com.jinuk.toy.domain.point.jpa
 
 import org.springframework.stereotype.Repository
+import com.jinuk.toy.common.value.point.PointRuleType
 import com.jinuk.toy.domain.point.PointRule
 import com.jinuk.toy.domain.point.toEntity
 import com.jinuk.toy.domain.point.toModel
@@ -13,4 +14,6 @@ class PointRuleRepository(
     fun save(pointRule: PointRule) = pointRuleEntityRepository.save(pointRule.toEntity()).toModel()
 
     fun delete(pointRule: PointRule) = pointRuleEntityRepository.delete(pointRule.toEntity())
+
+    fun findByRuleType(ruleType: PointRuleType) = pointRuleEntityRepository.findByRuleType(ruleType)?.toModel()
 }
