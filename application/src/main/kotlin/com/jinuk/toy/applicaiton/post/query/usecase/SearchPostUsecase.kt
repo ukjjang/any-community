@@ -4,6 +4,7 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import com.jinuk.toy.common.util.custompage.CustomPage
 import com.jinuk.toy.common.util.custompage.toCustomPage
@@ -21,9 +22,9 @@ class SearchPostUsecase(
     private val postQueryService: PostQueryService,
     private val userQueryService: UserQueryService,
 ) {
+    @Transactional(readOnly = true)
     operator fun invoke(query: SearchPostQuery) = cached(
         key = "SearchPostUsecase:${query.hashCode()}",
-        transactional = true,
     ) {
         postQueryService
             .search(
