@@ -2,8 +2,8 @@ package com.jinuk.toy.applicaiton.comment.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import com.jinuk.toy.applicaiton.point.command.PointCommandBus
 import com.jinuk.toy.applicaiton.point.command.usecase.PointProcessCommand
+import com.jinuk.toy.applicaiton.point.command.usecase.PointProcessUsecase
 import com.jinuk.toy.common.value.global.kafka.KafkaTopic
 import com.jinuk.toy.common.value.point.PointRuleType
 import com.jinuk.toy.domain.comment.Comment
@@ -17,7 +17,7 @@ class CreateCommentUsecase(
     private val commentCommandService: CommentCommandService,
     private val kafkaProducer: KafkaProducer,
     private val pointRuleQueryService: PointRuleQueryService,
-    private val pointCommandBus: PointCommandBus,
+    private val pointProcessUsecase: PointProcessUsecase,
 ) {
     companion object {
         private const val POINT_DESCRIPTION_TEMPLATE = "댓글 작성으로 포인트 지급 | 게시글 ID: "
@@ -42,7 +42,7 @@ class CreateCommentUsecase(
                 point = pointRule.amount,
                 description = "$POINT_DESCRIPTION_TEMPLATE${comment.id}",
             )
-        pointCommandBus execute processCommand
+        pointProcessUsecase(processCommand)
     }
 }
 
