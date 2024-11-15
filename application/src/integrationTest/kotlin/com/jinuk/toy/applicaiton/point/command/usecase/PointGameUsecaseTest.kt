@@ -41,11 +41,12 @@ class PointGameUsecaseTest(
 
                 verify(exactly = 1) {
                     pointProcessUsecase(
-                        withArg<PointProcessCommand> { command ->
+                        withArg { command ->
                             command.userId shouldBe user.id
                             command.point shouldBe Point(100)
                             command.description.shouldNotBeBlank()
                         },
+                        skipLock = true,
                     )
                 }
             }

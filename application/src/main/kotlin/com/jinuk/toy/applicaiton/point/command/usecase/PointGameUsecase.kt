@@ -14,6 +14,7 @@ class PointGameUsecase(
     private val pointProcessUsecase: PointProcessUsecase,
 ) {
     companion object {
+        private const val POINT_DESCRIPTION_TEMPLATE = "포인트 게임으로 지급"
         private val POINT_GAME_COST = Point(-10)
     }
 
@@ -29,7 +30,7 @@ class PointGameUsecase(
             val processCommand = PointProcessCommand(
                 userId = command.userId,
                 point = point,
-                description = "description",
+                description = POINT_DESCRIPTION_TEMPLATE,
             )
             pointProcessUsecase(command = processCommand, skipLock = true)
         }
