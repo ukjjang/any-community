@@ -15,25 +15,24 @@ class UpdateLikeCountUsecase(
     private val postCommandService: PostCommandService,
     private val commentCommandService: CommentCommandService,
 ) {
-    operator fun invoke(command: UpdateLikeCountCommand) = distributedLock(
-        key = "UpdateLikeCountUsecase:${command.likeTarget}",
-        transactional = true,
-    ) {
-        val likeTarget = command.likeTarget
-        when (likeTarget.type) {
-            LikeType.POST ->
-                postCommandService.updateLikeCount(
-                    likeTarget.id.toLong(),
-                    command.countOperation,
+    operator fun invoke(command: UpdateLikeCountCommand) = with(command) {
+        distributedLock(
+            key = "UpdateLikeCountUsecase:${command.likeTarget}",
+            transactional = true,
+        ) {
+            when (likeTarget.type) {
+                LikeType.POST -> postCommandService.updateLikeCount(
+                    postId = likeTarget.id.toLong(),
+                    countOperation = countOperation,
                 )
 
-            LikeType.COMMENT ->
-                commentCommandService.updateLikeCount(
-                    likeTarget.id.toLong(),
-                    command.countOperation,
+                LikeType.COMMENT -> commentCommandService.updateLikeCount(
+                    commentId = likeTarget.id.toLong(),
+                    countOperation = countOperation,
                 )
+            }
+            return@distributedLock
         }
-        return@distributedLock
     }
 }
 
@@ -42,10 +41,12 @@ data class UpdateLikeCountCommand(
     val countOperation: CountOperation,
 ) {
     companion object {
-        fun from(event: LikeAddedEvent) = with(event) { UpdateLikeCountCommand(likeTarget, CountOperation.INCREASE) }
+        fun from(event: LikeAddedEvent) = with(event) {
+            UpdateLikeCountCommand(likeTarget, CountOperation.INCREASE)
+        }
 
-        fun from(event: LikeCanceledEvent) = with(
-            event,
-        ) { UpdateLikeCountCommand(likeTarget, CountOperation.DECREMENT) }
+        fun from(event: LikeCanceledEvent) = with(event) {
+            UpdateLikeCountCommand(likeTarget, CountOperation.DECREMENT)
+        }
     }
 }

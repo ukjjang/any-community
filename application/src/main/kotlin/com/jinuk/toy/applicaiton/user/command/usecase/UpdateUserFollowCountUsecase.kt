@@ -12,17 +12,14 @@ import com.jinuk.toy.infra.redis.lock.distributedLock
 class UpdateUserFollowCountUsecase(
     private val userCommandService: UserCommandService,
 ) {
-    operator fun invoke(command: UpdateUserFollowCountCommand) = distributedLock(
-        key = "UpdateUserFollowCountUsecase:${command.hashCode()}",
-        transactional = true,
-    ) {
-        with(command) {
-            val followerUserId = followRelation.followerUserId
-            val followingUserId = followRelation.followingUserId
-
-            userCommandService.updateFollowingCount(followerUserId, countOperation)
-            userCommandService.updateFollowerCount(followingUserId, countOperation)
-            return@with
+    operator fun invoke(command: UpdateUserFollowCountCommand) = with(command) {
+        distributedLock(
+            key = "UpdateUserFollowCountUsecase:${command.hashCode()}",
+            transactional = true,
+        ) {
+            userCommandService.updateFollowingCount(followRelation.followerUserId, countOperation)
+            userCommandService.updateFollowerCount(followRelation.followingUserId, countOperation)
+            return@distributedLock
         }
     }
 }

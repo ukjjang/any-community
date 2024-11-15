@@ -39,8 +39,11 @@ fun <T> distributedLock(
     leaseTime: Long = 5L,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
     transactional: Boolean = false,
+    skipLock: Boolean = false,
     function: () -> T,
 ): T {
+    if (skipLock) return function()
+
     val lockKey = REDIS_LOCK_KEY_PREFIX + key
     val redisLock = redisson.getLock(lockKey)
     if (!redisLock.tryLock(waitTime, leaseTime, timeUnit)) {

@@ -31,7 +31,7 @@ class PointGameUsecase(
                 point = point,
                 description = "description",
             )
-            pointProcessUsecase(processCommand)
+            pointProcessUsecase(command = processCommand, skipLock = true)
         }
     }
 }
