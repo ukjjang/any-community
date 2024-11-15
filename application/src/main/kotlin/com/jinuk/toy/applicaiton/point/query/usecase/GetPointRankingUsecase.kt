@@ -1,6 +1,7 @@
 package com.jinuk.toy.applicaiton.point.query.usecase
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
 import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.common.value.user.Username
@@ -12,9 +13,9 @@ import com.jinuk.toy.infra.redis.cache.cached
 class GetPointRankingUsecase(
     private val userQueryService: UserQueryService,
 ) {
+    @Transactional(readOnly = true)
     operator fun invoke(query: GetPointRankingQuery) = cached(
         key = "GetPointRankingUsecase:${query.limit}",
-        transactional = true,
         expire = Duration.ofMinutes(10),
     ) {
         GetPointRankingResult.from(
