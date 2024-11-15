@@ -6,7 +6,7 @@ import io.kotest.matchers.string.shouldNotBeBlank
 import io.mockk.mockk
 import io.mockk.verify
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.applicaiton.point.command.PointCommandBus
+import com.jinuk.toy.applicaiton.point.command.usecase.PointProcessUsecase
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.domain.comment.jpa.CommentRepository
@@ -24,9 +24,9 @@ internal class CreateCommentUsecaseTest(
 ) : IntegrationTest, DescribeSpec(
     {
         describe("댓글 생성 유스케이스") {
-            val pointCommandBus: PointCommandBus = mockk(relaxed = true)
+            val pointProcessUsecase: PointProcessUsecase = mockk(relaxed = true)
             val createCommentUsecase =
-                CreateCommentUsecase(commentCommandService, kafkaProducer, pointRuleQueryService, pointCommandBus)
+                CreateCommentUsecase(commentCommandService, kafkaProducer, pointRuleQueryService, pointProcessUsecase)
 
             context("게시글 및 유저 존재") {
                 val post = postFixture.persist()
@@ -44,7 +44,7 @@ internal class CreateCommentUsecaseTest(
                     comments[0].content shouldBe command.content
 
                     verify(exactly = 1) {
-                        pointCommandBus.execute(
+                        pointProcessUsecase(
                             withArg { command ->
                                 command.userId shouldBe userId
                                 command.point shouldBe Point(10)

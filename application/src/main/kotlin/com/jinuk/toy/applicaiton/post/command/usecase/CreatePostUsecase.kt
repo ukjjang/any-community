@@ -2,8 +2,8 @@ package com.jinuk.toy.applicaiton.post.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import com.jinuk.toy.applicaiton.point.command.PointCommandBus
 import com.jinuk.toy.applicaiton.point.command.usecase.PointProcessCommand
+import com.jinuk.toy.applicaiton.point.command.usecase.PointProcessUsecase
 import com.jinuk.toy.common.value.point.PointRuleType
 import com.jinuk.toy.common.value.post.PostCategory
 import com.jinuk.toy.common.value.post.PostTitle
@@ -17,7 +17,7 @@ class CreatePostUsecase(
     private val postQueryService: PostQueryService,
     private val postCommandService: PostCommandService,
     private val pointRuleQueryService: PointRuleQueryService,
-    private val pointCommandBus: PointCommandBus,
+    private val pointProcessUsecase: PointProcessUsecase,
 ) {
     companion object {
         private const val POINT_DESCRIPTION_TEMPLATE = "게시글 작성으로 포인트 지급 | 게시글 ID: "
@@ -37,7 +37,7 @@ class CreatePostUsecase(
                 point = pointRule.amount,
                 description = "$POINT_DESCRIPTION_TEMPLATE${post.id}",
             )
-        pointCommandBus execute processCommand
+        pointProcessUsecase(processCommand)
     }
 }
 

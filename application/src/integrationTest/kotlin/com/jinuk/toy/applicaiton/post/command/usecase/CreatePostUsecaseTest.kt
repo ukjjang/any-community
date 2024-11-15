@@ -8,7 +8,7 @@ import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
 import com.jinuk.toy.applicaiton.IntegrationTest
-import com.jinuk.toy.applicaiton.point.command.PointCommandBus
+import com.jinuk.toy.applicaiton.point.command.usecase.PointProcessUsecase
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomLong
 import com.jinuk.toy.common.util.faker.randomString
@@ -30,12 +30,12 @@ internal class CreatePostUsecaseTest(
 ) : IntegrationTest, DescribeSpec(
     {
         describe("게시글 생성 유스케이스") {
-            val pointCommandBus: PointCommandBus = mockk(relaxed = true)
+            val pointProcessUsecase: PointProcessUsecase = mockk(relaxed = true)
             val createPostUsecase =
-                CreatePostUsecase(postQueryService, postCommandService, pointRuleQueryService, pointCommandBus)
+                CreatePostUsecase(postQueryService, postCommandService, pointRuleQueryService, pointProcessUsecase)
 
             beforeTest {
-                clearMocks(pointCommandBus)
+                clearMocks(pointProcessUsecase)
             }
 
             context("게시글 존재") {
@@ -56,7 +56,7 @@ internal class CreatePostUsecaseTest(
                     post.content shouldBe "content"
 
                     verify(exactly = 1) {
-                        pointCommandBus.execute(
+                        pointProcessUsecase(
                             withArg { command ->
                                 command.userId shouldBe post.userId
                                 command.point shouldBe Point(50)
@@ -73,7 +73,7 @@ internal class CreatePostUsecaseTest(
                     }
 
                     verify(exactly = 0) {
-                        pointCommandBus.execute(any())
+                        pointProcessUsecase(any())
                     }
                 }
             }
