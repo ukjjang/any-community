@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component
 import com.jinuk.toy.common.util.faker.faker
 import com.jinuk.toy.common.util.faker.randomEnum
 import com.jinuk.toy.common.util.faker.randomLong
+import com.jinuk.toy.common.util.faker.randomLongPositive
 import com.jinuk.toy.common.util.faker.randomString
 import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.common.value.user.Gender
@@ -19,7 +20,7 @@ class UserFixture(
             username: Username = Username(faker.randomString(15)),
             password: String = faker.randomString(40),
             gender: Gender = faker.randomEnum<Gender>(),
-            totalPoints: Point = Point(faker.randomLong()),
+            totalPoints: Point = Point(faker.randomLongPositive()),
             followingCount: Long = faker.randomLong(),
             followerCount: Long = faker.randomLong(),
         ) = User(
@@ -37,7 +38,7 @@ class UserFixture(
         username: Username = Username(faker.randomString(15)),
         password: String = faker.randomString(40),
         gender: Gender = faker.randomEnum<Gender>(),
-        totalPoints: Point = Point(faker.randomLong()),
+        totalPoints: Point = Point(faker.randomLongPositive()),
         followingCount: Long = faker.randomLong(),
         followerCount: Long = faker.randomLong(),
     ) = userRepository.save(
