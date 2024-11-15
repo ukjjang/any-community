@@ -23,4 +23,6 @@ class UserRepository(
     fun existsByUsername(username: Username) = userEntityRepository.existsByUsername(username)
 
     fun findByUsername(username: Username) = userEntityRepository.findByUsername(username)?.toModel()
+
+    fun deleteAll() = userEntityRepository.deleteAll()
 }
