@@ -2,24 +2,47 @@ package com.jinuk.toy.applicaiton.comment.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import com.jinuk.toy.applicaiton.point.command.PointCommandBus
+import com.jinuk.toy.applicaiton.point.command.usecase.PointProcessCommand
 import com.jinuk.toy.common.value.global.kafka.KafkaTopic
+import com.jinuk.toy.common.value.point.PointRuleType
 import com.jinuk.toy.domain.comment.Comment
 import com.jinuk.toy.domain.comment.event.CommentCreatedEvent
 import com.jinuk.toy.domain.comment.service.CommentCommandService
+import com.jinuk.toy.domain.point.service.PointRuleQueryService
 import com.jinuk.toy.infra.kafka.service.KafkaProducer
 
 @Service
 class CreateCommentUsecase(
     private val commentCommandService: CommentCommandService,
     private val kafkaProducer: KafkaProducer,
+    private val pointRuleQueryService: PointRuleQueryService,
+    private val pointCommandBus: PointCommandBus,
 ) {
+    companion object {
+        private const val POINT_DESCRIPTION_TEMPLATE = "댓글 작성으로 포인트 지급 | 게시글 ID: "
+    }
+
     @Transactional
     operator fun invoke(command: CreateCommentCommand) {
-        val comment = commentCommandService.save(command.toComment())
+        val comment =
+            commentCommandService.save(command.toComment())
+                .also { pointProcess(it) }
         kafkaProducer.send(
             topic = KafkaTopic.Comment.CREATE,
             payload = CommentCreatedEvent.of(comment),
         )
+    }
+
+    private fun pointProcess(comment: Comment) {
+        val pointRule = pointRuleQueryService.getByRuleType(PointRuleType.COMMENT_CREATION)
+        val processCommand =
+            PointProcessCommand(
+                userId = comment.userId,
+                point = pointRule.amount,
+                description = "$POINT_DESCRIPTION_TEMPLATE${comment.id}",
+            )
+        pointCommandBus execute processCommand
     }
 }
 
