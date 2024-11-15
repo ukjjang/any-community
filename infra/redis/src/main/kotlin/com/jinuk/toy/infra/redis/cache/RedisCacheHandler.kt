@@ -43,13 +43,14 @@ class CacheForTransaction {
     fun <T> proceed(function: () -> T) = function()
 }
 
-fun <T> cached(
+inline fun <reified T> cached(
     key: String,
-    expire: Duration = Duration.ofSeconds(300),
+    expire: Duration = Duration.ofMinutes(5),
     transactional: Boolean = false,
-    function: () -> T,
+    noinline function: () -> T,
 ): T {
-    val cacheKey = REDIS_CACHE_KEY_PREFIX + key
+    val redisCacheKeyPrefix = "cache:"
+    val cacheKey = redisCacheKeyPrefix + key
     try {
         val cachedValue = redisTemplate.opsForValue()[cacheKey]
         if (cachedValue != null) {
@@ -73,14 +74,3 @@ fun <T> cached(
     }
     return notCachedValue
 }
-
-fun cacheEvict(key: String) {
-    val cacheKey = REDIS_CACHE_KEY_PREFIX + key
-    try {
-        redisTemplate.delete(cacheKey)
-    } catch (e: Exception) {
-        log.error { "redis delete fail: $cacheKey, error: ${e.stackTraceToString()}" }
-    }
-}
-
-private const val REDIS_CACHE_KEY_PREFIX = "cache:"
