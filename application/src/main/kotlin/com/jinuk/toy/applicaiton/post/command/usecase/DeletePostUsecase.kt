@@ -17,15 +17,14 @@ class DeletePostUsecase(
     private val likeCommandService: LikeCommandService,
 ) {
     @Transactional
-    operator fun invoke(command: DeletePostCommand) =
-        with(command) {
-            postCommandService.delete(id, userId)
-            likeCommandService.delete(LikeTarget.from(LikeType.POST, id))
+    operator fun invoke(command: DeletePostCommand) = with(command) {
+        postCommandService.delete(id, userId)
+        likeCommandService.delete(LikeTarget.from(LikeType.POST, id))
 
-            val comments = commentQueryService.findByPostId(id)
-            commentCommandService.deleteAll(comments)
-            likeCommandService.delete(LikeType.COMMENT, comments.map { it.id })
-        }
+        val comments = commentQueryService.findByPostId(id)
+        commentCommandService.deleteAll(comments)
+        likeCommandService.delete(LikeType.COMMENT, comments.map { it.id })
+    }
 }
 
 data class DeletePostCommand(val userId: Long, val id: Long)

@@ -25,11 +25,7 @@ data class PointTransaction(
     }
 
     companion object {
-        fun of(
-            userId: Long,
-            amount: Point,
-            description: String,
-        ) = PointTransaction(
+        fun of(userId: Long, amount: Point, description: String) = PointTransaction(
             userId = userId,
             amount = amount,
             description = description,
@@ -37,22 +33,20 @@ data class PointTransaction(
     }
 }
 
-internal fun PointTransactionEntity.toModel() =
-    PointTransaction(
-        _id = id,
-        userId = userId,
-        amount = amount,
-        description = description,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun PointTransactionEntity.toModel() = PointTransaction(
+    _id = id,
+    userId = userId,
+    amount = amount,
+    description = description,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
 
-internal fun PointTransaction.toEntity() =
-    PointTransactionEntity(
-        id = _id,
-        userId = userId,
-        amount = amount,
-        description = description,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun PointTransaction.toEntity() = PointTransactionEntity(
+    id = _id,
+    userId = userId,
+    amount = amount,
+    description = description,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

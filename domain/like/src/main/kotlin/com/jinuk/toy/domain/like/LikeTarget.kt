@@ -7,25 +7,16 @@ data class LikeTarget(
     val id: String,
 ) {
     companion object {
-        fun from(
-            type: LikeType,
-            id: String,
-        ) = LikeTarget(type, id)
+        fun from(type: LikeType, id: String) = LikeTarget(type, id)
 
-        fun from(
-            type: LikeType,
-            id: Long,
-        ) = from(type, id.toString())
+        fun from(type: LikeType, id: Long) = from(type, id.toString())
     }
 
     init {
         validate(type, id)
     }
 
-    private fun validate(
-        type: LikeType,
-        id: String,
-    ) {
+    private fun validate(type: LikeType, id: String) {
         when (type) {
             LikeType.POST,
             LikeType.COMMENT,

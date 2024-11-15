@@ -16,11 +16,7 @@ import com.jinuk.toy.infra.rdb.post.entity.PostEntity
 class PostJdslRepository(
     private val queryFactory: SpringDataQueryFactory,
 ) {
-    fun search(
-        keyword: String?,
-        pageable: Pageable,
-        sortType: PostSearchSortType,
-    ): PageImpl<Post> {
+    fun search(keyword: String?, pageable: Pageable, sortType: PostSearchSortType): PageImpl<Post> {
         val totalCount =
             queryFactory
                 .selectQuery<Long> {
@@ -45,15 +41,13 @@ class PostJdslRepository(
         return PageImpl(results, pageable, totalCount)
     }
 
-    private fun <T> SpringDataCriteriaQueryDsl<T>.sort(sortType: PostSearchSortType) =
-        when (sortType) {
-            PostSearchSortType.RECENTLY -> column(PostEntity::id).desc()
-            PostSearchSortType.OLDEST -> column(PostEntity::id).asc()
-            PostSearchSortType.MOST_LIKED -> column(PostEntity::likeCount).desc()
-        }
+    private fun <T> SpringDataCriteriaQueryDsl<T>.sort(sortType: PostSearchSortType) = when (sortType) {
+        PostSearchSortType.RECENTLY -> column(PostEntity::id).desc()
+        PostSearchSortType.OLDEST -> column(PostEntity::id).asc()
+        PostSearchSortType.MOST_LIKED -> column(PostEntity::likeCount).desc()
+    }
 
-    private fun <T> SpringDataCriteriaQueryDsl<T>.condition(keyword: String?) =
-        keyword?.let {
-            column(PostEntity::title).like("$it%")
-        }
+    private fun <T> SpringDataCriteriaQueryDsl<T>.condition(keyword: String?) = keyword?.let {
+        column(PostEntity::title).like("$it%")
+    }
 }

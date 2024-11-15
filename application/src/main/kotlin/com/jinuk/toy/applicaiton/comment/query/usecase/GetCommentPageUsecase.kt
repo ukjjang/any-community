@@ -73,13 +73,13 @@ class GetCommentPageUsecase(
                 createdAt = comment.createdAt,
                 updatedAt = comment.updatedAt,
                 children =
-                    buildCommentParentTree(
-                        parentId = comment.id,
-                        commentParentGroup = commentParentGroup,
-                        commentMap = commentMap,
-                        isViewerLikeSet = isViewerLikeSet,
-                        usernameMap = usernameMap,
-                    ).sortedByDescending { it.id },
+                buildCommentParentTree(
+                    parentId = comment.id,
+                    commentParentGroup = commentParentGroup,
+                    commentMap = commentMap,
+                    isViewerLikeSet = isViewerLikeSet,
+                    usernameMap = usernameMap,
+                ).sortedByDescending { it.id },
             )
         } ?: emptyList()
     }

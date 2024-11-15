@@ -5,22 +5,11 @@ import com.jinuk.toy.common.value.like.LikeType
 import com.jinuk.toy.infra.rdb.like.entity.LikeEntity
 
 interface LikeEntityRepository : JpaRepository<LikeEntity, Long> {
-    fun findByUserIdAndTargetTypeAndTargetId(
-        userId: Long,
-        targetType: LikeType,
-        targetId: String,
-    ): LikeEntity?
+    fun findByUserIdAndTargetTypeAndTargetId(userId: Long, targetType: LikeType, targetId: String): LikeEntity?
 
-    fun existsByUserIdAndTargetTypeAndTargetId(
-        userId: Long,
-        targetType: LikeType,
-        targetId: String,
-    ): Boolean
+    fun existsByUserIdAndTargetTypeAndTargetId(userId: Long, targetType: LikeType, targetId: String): Boolean
 
-    fun findByTargetTypeAndTargetId(
-        targetType: LikeType,
-        targetId: String,
-    ): List<LikeEntity>
+    fun findByTargetTypeAndTargetId(targetType: LikeType, targetId: String): List<LikeEntity>
 
     fun findByUserIdAndTargetTypeAndTargetIdIn(
         userId: Long,
@@ -28,8 +17,5 @@ interface LikeEntityRepository : JpaRepository<LikeEntity, Long> {
         targetId: List<String>,
     ): List<LikeEntity>
 
-    fun findByTargetTypeAndTargetIdIn(
-        targetType: LikeType,
-        targetId: List<String>,
-    ): List<LikeEntity>
+    fun findByTargetTypeAndTargetIdIn(targetType: LikeType, targetId: List<String>): List<LikeEntity>
 }

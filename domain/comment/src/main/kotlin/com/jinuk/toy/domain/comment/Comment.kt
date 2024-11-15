@@ -22,33 +22,29 @@ data class Comment(
         return true
     }
 
-    override fun hashCode(): Int {
-        return _id?.hashCode() ?: 0
-    }
+    override fun hashCode(): Int = _id?.hashCode() ?: 0
 
     fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
 }
 
-internal fun CommentEntity.toModel() =
-    Comment(
-        _id = id,
-        userId = userId,
-        postId = postId,
-        parentCommentId = parentCommentId,
-        content = content,
-        likeCount = likeCount,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun CommentEntity.toModel() = Comment(
+    _id = id,
+    userId = userId,
+    postId = postId,
+    parentCommentId = parentCommentId,
+    content = content,
+    likeCount = likeCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
 
-internal fun Comment.toEntity() =
-    CommentEntity(
-        id = _id,
-        userId = userId,
-        postId = postId,
-        parentCommentId = parentCommentId,
-        content = content,
-        likeCount = likeCount,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun Comment.toEntity() = CommentEntity(
+    id = _id,
+    userId = userId,
+    postId = postId,
+    parentCommentId = parentCommentId,
+    content = content,
+    likeCount = likeCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

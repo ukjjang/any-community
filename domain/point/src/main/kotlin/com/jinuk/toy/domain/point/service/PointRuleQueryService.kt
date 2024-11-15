@@ -12,12 +12,11 @@ class PointRuleQueryService(
 ) {
     fun findByRuleType(ruleType: PointRuleType) = pointRuleRepository.findByRuleType(ruleType)
 
-    fun getByRuleType(ruleType: PointRuleType) =
-        cached(
-            key = "PointRuleQueryService:getByRuleType:$ruleType",
-            expire = Duration.ofHours(1),
-        ) {
-            findByRuleType(ruleType)
-                ?: throw NoSuchElementException("존재하지 않는 포인트 룰 타입입니다.")
-        }
+    fun getByRuleType(ruleType: PointRuleType) = cached(
+        key = "PointRuleQueryService:getByRuleType:$ruleType",
+        expire = Duration.ofHours(1),
+    ) {
+        findByRuleType(ruleType)
+            ?: throw NoSuchElementException("존재하지 않는 포인트 룰 타입입니다.")
+    }
 }

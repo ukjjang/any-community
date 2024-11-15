@@ -21,13 +21,9 @@ class AuthAPI(
 ) {
     @Operation(summary = "로그인")
     @PostMapping("/v1/auth/login")
-    fun login(
-        @RequestBody request: AuthLoginRequest,
-    ) = AuthLoginResponse.from(authQueryBus ask request.toQuery())
+    fun login(@RequestBody request: AuthLoginRequest) = AuthLoginResponse.from(authQueryBus ask request.toQuery())
 
     @Operation(summary = "회원가입")
     @PostMapping("/v1/auth/signup")
-    fun signup(
-        @RequestBody request: AuthSignupRequest,
-    ) = authCommandBus execute request.toCommand()
+    fun signup(@RequestBody request: AuthSignupRequest) = authCommandBus execute request.toCommand()
 }

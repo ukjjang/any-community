@@ -15,9 +15,8 @@ class JdslConfiguration(
     private val entityManager: EntityManager,
 ) {
     @Bean
-    fun queryFactory(): SpringDataQueryFactory =
-        SpringDataQueryFactoryImpl(
-            criteriaQueryCreator = CriteriaQueryCreatorImpl(entityManager),
-            subqueryCreator = SubqueryCreatorImpl(),
-        )
+    fun queryFactory(): SpringDataQueryFactory = SpringDataQueryFactoryImpl(
+        criteriaQueryCreator = CriteriaQueryCreatorImpl(entityManager),
+        subqueryCreator = SubqueryCreatorImpl(),
+    )
 }

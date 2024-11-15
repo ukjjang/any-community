@@ -11,10 +11,7 @@ data class CommentCreateRequest(
     val content: String,
 )
 
-internal fun CommentCreateRequest.toCommand(
-    postId: Long,
-    userId: Long,
-) = CreateCommentCommand(
+internal fun CommentCreateRequest.toCommand(postId: Long, userId: Long) = CreateCommentCommand(
     userId = userId,
     postId = postId,
     parentCommentId = parentCommentId,

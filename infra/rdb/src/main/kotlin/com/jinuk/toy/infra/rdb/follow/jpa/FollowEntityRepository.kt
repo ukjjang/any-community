@@ -6,23 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository
 import com.jinuk.toy.infra.rdb.follow.entity.FollowEntity
 
 interface FollowEntityRepository : JpaRepository<FollowEntity, Long> {
-    fun findByFollowerUserIdAndFollowingUserId(
-        followerUserId: Long,
-        followingUserId: Long,
-    ): FollowEntity?
+    fun findByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long): FollowEntity?
 
-    fun existsByFollowerUserIdAndFollowingUserId(
-        followerUserId: Long,
-        followingUserId: Long,
-    ): Boolean
+    fun existsByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long): Boolean
 
-    fun findByFollowerUserId(
-        followerUserId: Long,
-        pageable: Pageable,
-    ): Page<FollowEntity>
+    fun findByFollowerUserId(followerUserId: Long, pageable: Pageable): Page<FollowEntity>
 
-    fun findByFollowingUserId(
-        followingUserId: Long,
-        pageable: Pageable,
-    ): Page<FollowEntity>
+    fun findByFollowingUserId(followingUserId: Long, pageable: Pageable): Page<FollowEntity>
 }

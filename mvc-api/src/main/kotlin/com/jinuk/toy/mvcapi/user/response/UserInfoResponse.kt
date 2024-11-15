@@ -15,13 +15,12 @@ data class UserInfoResponse(
     val totalPoints: Point,
 ) {
     companion object {
-        fun from(result: GetUserInfoResult) =
-            with(result) {
-                UserInfoResponse(
-                    id = id,
-                    username = username,
-                    totalPoints = totalPoints,
-                )
-            }
+        fun from(result: GetUserInfoResult) = with(result) {
+            UserInfoResponse(
+                id = id,
+                username = username,
+                totalPoints = totalPoints,
+            )
+        }
     }
 }

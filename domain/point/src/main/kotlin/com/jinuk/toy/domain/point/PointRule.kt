@@ -26,22 +26,20 @@ data class PointRule(
     }
 }
 
-internal fun PointRuleEntity.toModel() =
-    PointRule(
-        _id = id,
-        ruleType = ruleType,
-        amount = amount,
-        description = description,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun PointRuleEntity.toModel() = PointRule(
+    _id = id,
+    ruleType = ruleType,
+    amount = amount,
+    description = description,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
 
-internal fun PointRule.toEntity() =
-    PointRuleEntity(
-        id = _id,
-        ruleType = ruleType,
-        amount = amount,
-        description = description,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-    )
+internal fun PointRule.toEntity() = PointRuleEntity(
+    id = _id,
+    ruleType = ruleType,
+    amount = amount,
+    description = description,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

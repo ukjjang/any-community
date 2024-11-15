@@ -24,8 +24,7 @@ data class SignupCommand(
     val gender: Gender,
 )
 
-private fun SignupCommand.toUserCredentials() =
-    UserCredentials(
-        username = username,
-        password = password,
-    )
+private fun SignupCommand.toUserCredentials() = UserCredentials(
+    username = username,
+    password = password,
+)

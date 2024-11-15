@@ -10,20 +10,13 @@ class KafkaProducer(
     private val kafkaStringTemplate: KafkaTemplate<String, String>,
     private val objectMapper: ObjectMapper,
 ) {
-    fun <T : Any> send(
-        topic: String,
-        key: String,
-        payload: T,
-    ) {
+    fun <T : Any> send(topic: String, key: String, payload: T) {
         KafkaMessage.of(topic, payload).let {
             kafkaStringTemplate.send(topic, key, objectMapper.writeValueAsString(it))
         }
     }
 
-    fun <T : Any> send(
-        topic: String,
-        payload: T,
-    ) {
+    fun <T : Any> send(topic: String, payload: T) {
         KafkaMessage.of(topic, payload).let {
             kafkaStringTemplate.send(topic, objectMapper.writeValueAsString(it))
         }

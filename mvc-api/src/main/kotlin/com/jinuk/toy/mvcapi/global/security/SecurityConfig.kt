@@ -18,10 +18,7 @@ class SecurityConfig(
     private val userAuthenticationFilter: UserAuthenticationFilter,
 ) {
     @Bean
-    fun filterChain(
-        http: HttpSecurity,
-        corsConfigurationSource: CorsConfigurationSource,
-    ): SecurityFilterChain {
+    fun filterChain(http: HttpSecurity, corsConfigurationSource: CorsConfigurationSource): SecurityFilterChain {
         http
             .headers { headerConfig -> headerConfig.frameOptions { it.disable() } }
             .csrf { it.disable() }

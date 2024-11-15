@@ -8,10 +8,7 @@ data class KafkaMessage<T>(
     val sentAt: String,
 ) {
     companion object {
-        fun <T : Any> of(
-            topic: String,
-            payload: T,
-        ) = KafkaMessage(
+        fun <T : Any> of(topic: String, payload: T) = KafkaMessage(
             topic = topic,
             payload = payload,
             sentAt = LocalDateTime.now().toString(),

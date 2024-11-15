@@ -27,19 +27,18 @@ data class PostCommentResponse(
     val updatedAt: LocalDateTime,
 ) {
     companion object {
-        fun from(result: GetCommentPageResult): PostCommentResponse =
-            with(result) {
-                return PostCommentResponse(
-                    id = id,
-                    username = username,
-                    isViewerLike = isViewerLike,
-                    parentCommentId = parentCommentId,
-                    likeCount = likeCount,
-                    content = content,
-                    children = children.map { from(it) },
-                    createdAt = createdAt,
-                    updatedAt = updatedAt,
-                )
-            }
+        fun from(result: GetCommentPageResult): PostCommentResponse = with(result) {
+            return PostCommentResponse(
+                id = id,
+                username = username,
+                isViewerLike = isViewerLike,
+                parentCommentId = parentCommentId,
+                likeCount = likeCount,
+                content = content,
+                children = children.map { from(it) },
+                createdAt = createdAt,
+                updatedAt = updatedAt,
+            )
+        }
     }
 }

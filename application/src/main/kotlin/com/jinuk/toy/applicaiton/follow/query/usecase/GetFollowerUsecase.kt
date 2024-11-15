@@ -18,18 +18,17 @@ class GetFollowerUsecase(
     private val followQueryService: FollowQueryService,
     private val userQueryService: UserQueryService,
 ) {
-    operator fun invoke(query: GetFollowerQuery) =
-        cached(
-            key = "GetFollowerUsecase:${query.hashCode()}",
-            transactional = true,
-        ) {
-            followQueryService
-                .search(
-                    followingUserId = query.followingUserId,
-                    pageable = query.pageable(),
-                    sortType = query.followSearchSortType,
-                ).let { createPage(it) }
-        }
+    operator fun invoke(query: GetFollowerQuery) = cached(
+        key = "GetFollowerUsecase:${query.hashCode()}",
+        transactional = true,
+    ) {
+        followQueryService
+            .search(
+                followingUserId = query.followingUserId,
+                pageable = query.pageable(),
+                sortType = query.followSearchSortType,
+            ).let { createPage(it) }
+    }
 
     private fun createPage(pages: PageImpl<Follow>): CustomPage<GetFollowerResult> {
         val content =

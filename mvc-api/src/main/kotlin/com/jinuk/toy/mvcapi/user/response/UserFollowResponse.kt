@@ -13,16 +13,14 @@ data class UserFollowResponse(
     val username: Username,
 ) {
     companion object {
-        fun from(result: GetFollowerResult) =
-            UserFollowResponse(
-                id = result.id,
-                username = result.username,
-            )
+        fun from(result: GetFollowerResult) = UserFollowResponse(
+            id = result.id,
+            username = result.username,
+        )
 
-        fun from(result: GetFollowingResult) =
-            UserFollowResponse(
-                id = result.id,
-                username = result.username,
-            )
+        fun from(result: GetFollowingResult) = UserFollowResponse(
+            id = result.id,
+            username = result.username,
+        )
     }
 }

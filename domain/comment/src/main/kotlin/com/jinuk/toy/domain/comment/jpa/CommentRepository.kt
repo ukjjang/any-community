@@ -21,10 +21,7 @@ class CommentRepository(
 
     fun findById(id: Long) = commentEntityRepository.findByIdOrNull(id)?.toModel()
 
-    fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
-        postId: Long,
-        pageable: Pageable,
-    ) = commentEntityRepository
+    fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(postId: Long, pageable: Pageable) = commentEntityRepository
         .findByPostIdAndParentCommentIdIsNullOrderByIdDesc(postId, pageable)
         .map { it.toModel() }
         .toCustomPage()
@@ -34,8 +31,6 @@ class CommentRepository(
     fun findByPostIdAndParentCommentIdIsNotNull(postId: Long) =
         commentEntityRepository.findByPostIdAndParentCommentIdIsNotNull(postId).map { it.toModel() }
 
-    fun findByUserIdAndPostId(
-        userId: Long,
-        postId: Long,
-    ) = commentEntityRepository.findByUserIdAndPostId(userId, postId).map { it.toModel() }
+    fun findByUserIdAndPostId(userId: Long, postId: Long) =
+        commentEntityRepository.findByUserIdAndPostId(userId, postId).map { it.toModel() }
 }

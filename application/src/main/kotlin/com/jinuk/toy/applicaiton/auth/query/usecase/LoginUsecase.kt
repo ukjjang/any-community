@@ -20,11 +20,10 @@ data class LoginQuery(
     val password: RawPassword,
 )
 
-private fun LoginQuery.toUserCredentials() =
-    UserCredentials(
-        username = username,
-        password = password,
-    )
+private fun LoginQuery.toUserCredentials() = UserCredentials(
+    username = username,
+    password = password,
+)
 
 data class LoginResult(
     val token: String,
