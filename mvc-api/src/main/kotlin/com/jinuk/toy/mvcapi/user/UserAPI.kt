@@ -16,20 +16,33 @@ import com.jinuk.toy.applicaiton.follow.command.usecase.UnFollowCommand
 import com.jinuk.toy.applicaiton.follow.query.FollowQueryBus
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowerQuery
 import com.jinuk.toy.applicaiton.follow.query.usecase.GetFollowingQuery
+import com.jinuk.toy.applicaiton.user.query.UserQueryBus
+import com.jinuk.toy.applicaiton.user.query.usecase.GetUserInfoQuery
 import com.jinuk.toy.common.util.custompage.mapToCustomPage
 import com.jinuk.toy.common.value.follow.FollowSearchSortType
+import com.jinuk.toy.common.value.user.Username
 import com.jinuk.toy.domain.follow.FollowRelation
 import com.jinuk.toy.mvcapi.global.MvcAPIController
 import com.jinuk.toy.mvcapi.global.security.AuthRole
 import com.jinuk.toy.mvcapi.global.security.AuthUser
 import com.jinuk.toy.mvcapi.user.response.UserFollowResponse
+import com.jinuk.toy.mvcapi.user.response.UserInfoResponse
 
 @Tag(name = "유저")
 @MvcAPIController
 class UserAPI(
+    private val userQueryBus: UserQueryBus,
     private val followQueryBus: FollowQueryBus,
     private val followCommandBus: FollowCommandBus,
 ) {
+    @Operation(summary = "유저 정보")
+    @GetMapping("/v1/user/info/{username}")
+    fun userInfo(
+        @PathVariable username: Username,
+    ) = UserInfoResponse.from(
+        userQueryBus ask GetUserInfoQuery(username),
+    )
+
     @Operation(summary = "팔로우")
     @Secured(AuthRole.USER)
     @PostMapping("/v1/user/{followingUserId}/follow")
