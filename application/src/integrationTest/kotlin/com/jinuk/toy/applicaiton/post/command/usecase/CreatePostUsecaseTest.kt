@@ -44,7 +44,7 @@ internal class CreatePostUsecaseTest(
                     fun createPostCommand(title: PostTitle = PostTitle(faker.randomString())) =
                         CreatePostCommand(faker.randomLong(), title, PostCategory.ETC, "content")
 
-                    it("생성의 성공하고, 포인트 지급 유스케이스 호출") {
+                    it("다른 게시글 제목으로 생성 성공하고, 포인트 지급 유스케이스 호출") {
                         val command = createPostCommand()
 
                         val post = createPostUsecase(command)
