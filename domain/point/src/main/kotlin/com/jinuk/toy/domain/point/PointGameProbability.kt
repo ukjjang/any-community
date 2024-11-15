@@ -24,7 +24,7 @@ data class PointGameProbability(
     override fun hashCode(): Int = _id?.hashCode() ?: 0
 
     companion object {
-        const val TOTAL_PROBABILITY = 10000
+        internal const val TOTAL_PROBABILITY = 10000
     }
 }
 
