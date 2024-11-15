@@ -34,7 +34,7 @@ internal class CreatePostUsecaseTest(
             val createPostUsecase =
                 CreatePostUsecase(postQueryService, postCommandService, pointRuleQueryService, pointCommandBus)
 
-            beforeEach {
+            beforeTest {
                 clearMocks(pointCommandBus)
             }
 

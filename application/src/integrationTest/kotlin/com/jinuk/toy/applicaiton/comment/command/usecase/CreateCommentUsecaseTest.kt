@@ -3,7 +3,6 @@ package com.jinuk.toy.applicaiton.comment.command.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldNotBeBlank
-import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
 import com.jinuk.toy.applicaiton.IntegrationTest
@@ -28,10 +27,6 @@ internal class CreateCommentUsecaseTest(
             val pointCommandBus: PointCommandBus = mockk(relaxed = true)
             val createCommentUsecase =
                 CreateCommentUsecase(commentCommandService, kafkaProducer, pointRuleQueryService, pointCommandBus)
-
-            beforeEach {
-                clearMocks(pointCommandBus)
-            }
 
             context("게시글 및 유저 존재") {
                 val post = postFixture.persist()
