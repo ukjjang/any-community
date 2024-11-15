@@ -14,7 +14,7 @@ import com.jinuk.toy.mvcapi.point.response.PointRankingResponse
 class PointApi(
     private val pointQueryBus: PointQueryBus,
 ) {
-    @Operation(summary = "유저 정보")
+    @Operation(summary = "포인트 랭킹 유저 조회")
     @GetMapping("/v1/point/ranking")
     fun getPointRanking(@RequestParam limit: Int = 10) = (
         pointQueryBus ask GetPointRankingQuery(limit)
