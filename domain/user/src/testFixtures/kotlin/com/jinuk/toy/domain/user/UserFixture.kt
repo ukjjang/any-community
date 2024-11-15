@@ -50,4 +50,8 @@ class UserFixture(
             followerCount = followerCount,
         ),
     )
+
+    fun clear() {
+        userRepository.deleteAll()
+    }
 }
