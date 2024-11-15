@@ -55,9 +55,7 @@ class RdbConfig : HikariConfig() {
     @Primary
     @Bean
     @DependsOn("writerDataSource", "readerDataSource", "routingDataSource")
-    fun dataSource(
-        @Qualifier("routingDataSource") routingDataSource: DataSource,
-    ): DataSource {
+    fun dataSource(@Qualifier("routingDataSource") routingDataSource: DataSource): DataSource {
         return LazyConnectionDataSourceProxy(routingDataSource)
     }
 

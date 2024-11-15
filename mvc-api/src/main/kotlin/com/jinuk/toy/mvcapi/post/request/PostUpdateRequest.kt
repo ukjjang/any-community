@@ -15,10 +15,7 @@ data class PostUpdateRequest(
     val content: String,
 )
 
-internal fun PostUpdateRequest.toCommand(
-    userId: Long,
-    id: Long,
-) = UpdatePostCommand(
+internal fun PostUpdateRequest.toCommand(userId: Long, id: Long) = UpdatePostCommand(
     userId = userId,
     id = id,
     title = title,

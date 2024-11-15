@@ -9,7 +9,7 @@ insert_final_newline = true
 max_line_length = 120
 
 [*.{kt,kts}]
-ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
+ktlint_code_style = intellij_idea
 
 ij_kotlin_imports_layout = *, jakarta.**, java.**, javax.**, kotlin.**, com.jinuk.toy.**, ^
 

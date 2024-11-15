@@ -16,18 +16,18 @@ class PointProcessUsecaseTest(
     private val userFixture: UserFixture,
     private val userRepository: UserRepository,
 ) : IntegrationTest, DescribeSpec({
-        describe("포인트 처리 유스케이스") {
-            context("유저 존재") {
-                val user = userFixture.persist()
+    describe("포인트 처리 유스케이스") {
+        context("유저 존재") {
+            val user = userFixture.persist()
 
-                it("포인트 지급에 성공한다") {
-                    val point = Point(faker.randomLong())
-                    val command = PointProcessCommand(user.id, point, faker.randomString())
-                    pointProcessUsecase(command)
+            it("포인트 지급에 성공한다") {
+                val point = Point(faker.randomLong())
+                val command = PointProcessCommand(user.id, point, faker.randomString())
+                pointProcessUsecase(command)
 
-                    val updatedUser = userRepository.findById(user.id).shouldNotBeNull()
-                    updatedUser.totalPoints shouldBe user.totalPoints + point
-                }
+                val updatedUser = userRepository.findById(user.id).shouldNotBeNull()
+                updatedUser.totalPoints shouldBe user.totalPoints + point
             }
         }
-    })
+    }
+})

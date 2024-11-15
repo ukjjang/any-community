@@ -37,9 +37,7 @@ class UserAPI(
 ) {
     @Operation(summary = "유저 정보")
     @GetMapping("/v1/user/info/{username}")
-    fun userInfo(
-        @PathVariable username: Username,
-    ) = UserInfoResponse.from(
+    fun userInfo(@PathVariable username: Username) = UserInfoResponse.from(
         userQueryBus ask GetUserInfoQuery(username),
     )
 

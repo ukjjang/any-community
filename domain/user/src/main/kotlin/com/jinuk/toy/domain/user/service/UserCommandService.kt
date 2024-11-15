@@ -13,24 +13,15 @@ class UserCommandService(
 ) {
     fun save(post: User) = userRepository.save(post)
 
-    fun updateFollowingCount(
-        useId: Long,
-        countOperation: CountOperation,
-    ) = save(
+    fun updateFollowingCount(useId: Long, countOperation: CountOperation) = save(
         userQueryService.getById(useId).updateFollowingCount(countOperation),
     )
 
-    fun updateFollowerCount(
-        useId: Long,
-        countOperation: CountOperation,
-    ) = save(
+    fun updateFollowerCount(useId: Long, countOperation: CountOperation) = save(
         userQueryService.getById(useId).updateFollowerCount(countOperation),
     )
 
-    fun updateTotalPoints(
-        useId: Long,
-        point: Point,
-    ) = save(
+    fun updateTotalPoints(useId: Long, point: Point) = save(
         userQueryService.getById(useId).updateTotalPoints(point),
     )
 }

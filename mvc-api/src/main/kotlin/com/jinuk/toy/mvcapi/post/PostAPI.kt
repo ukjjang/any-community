@@ -53,18 +53,14 @@ class PostAPI(
     @Operation(summary = "게시글 등록")
     @Secured(AuthRole.USER)
     @PostMapping("/v1/post")
-    fun create(
-        @AuthenticationPrincipal user: AuthUser,
-        @RequestBody request: PostCreateRequest,
-    ) = request.toCommand(user.id).let {
-        postCommandBus.execute(it)
-    }.toResponse()
+    fun create(@AuthenticationPrincipal user: AuthUser, @RequestBody request: PostCreateRequest) =
+        request.toCommand(user.id).let {
+            postCommandBus.execute(it)
+        }.toResponse()
 
     @Operation(summary = "게시글 상세 조회")
     @GetMapping("/v1/post/{postId}")
-    fun getPostDetail(
-        @PathVariable postId: Long,
-    ) = GetPostDetailQuery(postId).let {
+    fun getPostDetail(@PathVariable postId: Long) = GetPostDetailQuery(postId).let {
         postQueryBus.ask(it)
     }.toResponse()
 
@@ -82,10 +78,8 @@ class PostAPI(
     @Operation(summary = "게시글 삭제")
     @Secured(AuthRole.USER)
     @DeleteMapping("/v1/post/{postId}")
-    fun delete(
-        @AuthenticationPrincipal user: AuthUser,
-        @PathVariable postId: Long,
-    ) = DeletePostCommand(user.id, postId).let {
-        postCommandBus.execute(it)
-    }
+    fun delete(@AuthenticationPrincipal user: AuthUser, @PathVariable postId: Long) =
+        DeletePostCommand(user.id, postId).let {
+            postCommandBus.execute(it)
+        }
 }

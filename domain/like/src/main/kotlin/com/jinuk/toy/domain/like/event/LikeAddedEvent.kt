@@ -8,9 +8,8 @@ data class LikeAddedEvent(
     val likeTarget: LikeTarget,
 ) {
     companion object {
-        fun of(like: Like) =
-            with(like) {
-                LikeAddedEvent(userId, LikeTarget.from(like.targetType, like.id))
-            }
+        fun of(like: Like) = with(like) {
+            LikeAddedEvent(userId, LikeTarget.from(like.targetType, like.id))
+        }
     }
 }

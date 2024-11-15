@@ -28,55 +28,55 @@ internal class CreatePostUsecaseTest(
     private val postRepository: PostRepository,
     private val postFixture: PostFixture,
 ) : IntegrationTest, DescribeSpec(
-        {
-            describe("게시글 생성 유스케이스") {
-                val pointCommandBus: PointCommandBus = mockk(relaxed = true)
-                val createPostUsecase =
-                    CreatePostUsecase(postQueryService, postCommandService, pointRuleQueryService, pointCommandBus)
+    {
+        describe("게시글 생성 유스케이스") {
+            val pointCommandBus: PointCommandBus = mockk(relaxed = true)
+            val createPostUsecase =
+                CreatePostUsecase(postQueryService, postCommandService, pointRuleQueryService, pointCommandBus)
 
-                beforeEach {
-                    clearMocks(pointCommandBus)
+            beforeEach {
+                clearMocks(pointCommandBus)
+            }
+
+            context("게시글 존재") {
+                val exits = postFixture.persist()
+
+                fun createPostCommand(title: PostTitle = PostTitle(faker.randomString())) =
+                    CreatePostCommand(faker.randomLong(), title, PostCategory.ETC, "content")
+
+                it("다른 게시글 제목으로 생성 성공하고, 포인트 지급 유스케이스 호출") {
+                    val command = createPostCommand()
+
+                    val post = createPostUsecase(command)
+                    val postEntity = postRepository.findById(post.id)
+                    post shouldBe postEntity
+                    post.userId shouldBe command.userId
+                    post.title shouldBe command.title
+                    post.category shouldBe PostCategory.ETC
+                    post.content shouldBe "content"
+
+                    verify(exactly = 1) {
+                        pointCommandBus.execute(
+                            withArg { command ->
+                                command.userId shouldBe post.userId
+                                command.point shouldBe Point(50)
+                                command.description.shouldNotBeBlank()
+                            },
+                        )
+                    }
                 }
 
-                context("게시글 존재") {
-                    val exits = postFixture.persist()
-
-                    fun createPostCommand(title: PostTitle = PostTitle(faker.randomString())) =
-                        CreatePostCommand(faker.randomLong(), title, PostCategory.ETC, "content")
-
-                    it("다른 게시글 제목으로 생성 성공하고, 포인트 지급 유스케이스 호출") {
-                        val command = createPostCommand()
-
-                        val post = createPostUsecase(command)
-                        val postEntity = postRepository.findById(post.id)
-                        post shouldBe postEntity
-                        post.userId shouldBe command.userId
-                        post.title shouldBe command.title
-                        post.category shouldBe PostCategory.ETC
-                        post.content shouldBe "content"
-
-                        verify(exactly = 1) {
-                            pointCommandBus.execute(
-                                withArg { command ->
-                                    command.userId shouldBe post.userId
-                                    command.point shouldBe Point(50)
-                                    command.description.shouldNotBeBlank()
-                                },
-                            )
-                        }
+                it("생성에 실패하고 IllegalArgumentException 에러를 던진다.") {
+                    val command = createPostCommand(exits.title)
+                    shouldThrow<IllegalArgumentException> {
+                        createPostUsecase(command)
                     }
 
-                    it("생성에 실패하고 IllegalArgumentException 에러를 던진다.") {
-                        val command = createPostCommand(exits.title)
-                        shouldThrow<IllegalArgumentException> {
-                            createPostUsecase(command)
-                        }
-
-                        verify(exactly = 0) {
-                            pointCommandBus.execute(any())
-                        }
+                    verify(exactly = 0) {
+                        pointCommandBus.execute(any())
                     }
                 }
             }
-        },
-    )
+        }
+    },
+)

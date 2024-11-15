@@ -23,42 +23,42 @@ internal class CreateCommentUsecaseTest(
     private val commentRepository: CommentRepository,
     private val postFixture: PostFixture,
 ) : IntegrationTest, DescribeSpec(
-        {
-            describe("댓글 생성 유스케이스") {
-                val pointCommandBus: PointCommandBus = mockk(relaxed = true)
-                val createCommentUsecase =
-                    CreateCommentUsecase(commentCommandService, kafkaProducer, pointRuleQueryService, pointCommandBus)
+    {
+        describe("댓글 생성 유스케이스") {
+            val pointCommandBus: PointCommandBus = mockk(relaxed = true)
+            val createCommentUsecase =
+                CreateCommentUsecase(commentCommandService, kafkaProducer, pointRuleQueryService, pointCommandBus)
 
-                beforeEach {
-                    clearMocks(pointCommandBus)
-                }
+            beforeEach {
+                clearMocks(pointCommandBus)
+            }
 
-                context("게시글 및 유저 존재") {
-                    val post = postFixture.persist()
-                    val userId = faker.random().nextLong()
+            context("게시글 및 유저 존재") {
+                val post = postFixture.persist()
+                val userId = faker.random().nextLong()
 
-                    it("생성 성공") {
-                        val command = CreateCommentCommand(userId, post.id, null, "content")
-                        createCommentUsecase(command)
+                it("생성 성공") {
+                    val command = CreateCommentCommand(userId, post.id, null, "content")
+                    createCommentUsecase(command)
 
-                        val comments = commentRepository.findByUserIdAndPostId(userId, post.id)
-                        comments.size shouldBe 1
-                        comments[0].userId shouldBe command.userId
-                        comments[0].postId shouldBe command.postId
-                        comments[0].parentCommentId shouldBe command.parentCommentId
-                        comments[0].content shouldBe command.content
+                    val comments = commentRepository.findByUserIdAndPostId(userId, post.id)
+                    comments.size shouldBe 1
+                    comments[0].userId shouldBe command.userId
+                    comments[0].postId shouldBe command.postId
+                    comments[0].parentCommentId shouldBe command.parentCommentId
+                    comments[0].content shouldBe command.content
 
-                        verify(exactly = 1) {
-                            pointCommandBus.execute(
-                                withArg { command ->
-                                    command.userId shouldBe userId
-                                    command.point shouldBe Point(10)
-                                    command.description.shouldNotBeBlank()
-                                },
-                            )
-                        }
+                    verify(exactly = 1) {
+                        pointCommandBus.execute(
+                            withArg { command ->
+                                command.userId shouldBe userId
+                                command.point shouldBe Point(10)
+                                command.description.shouldNotBeBlank()
+                            },
+                        )
                     }
                 }
             }
-        },
-    )
+        }
+    },
+)

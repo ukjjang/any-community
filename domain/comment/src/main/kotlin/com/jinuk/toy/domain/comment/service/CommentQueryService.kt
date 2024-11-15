@@ -19,11 +19,9 @@ class CommentQueryService(
             postId,
         )
 
-    fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
-        postId: Long,
-        pageable: Pageable,
-    ) = commentRepository.findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
-        postId,
-        pageable,
-    )
+    fun findByPostIdAndParentCommentIdIsNullOrderByIdDesc(postId: Long, pageable: Pageable) =
+        commentRepository.findByPostIdAndParentCommentIdIsNullOrderByIdDesc(
+            postId,
+            pageable,
+        )
 }

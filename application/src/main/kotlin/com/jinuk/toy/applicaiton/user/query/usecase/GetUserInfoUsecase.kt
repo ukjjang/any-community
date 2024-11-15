@@ -12,10 +12,9 @@ class GetUserInfoUsecase(
     private val userQueryService: UserQueryService,
 ) {
     @Transactional(readOnly = true)
-    operator fun invoke(query: GetUserInfoQuery) =
-        with(query) {
-            userQueryService.getByUsername(username).let { GetUserInfoResult.from(it) }
-        }
+    operator fun invoke(query: GetUserInfoQuery) = with(query) {
+        userQueryService.getByUsername(username).let { GetUserInfoResult.from(it) }
+    }
 }
 
 data class GetUserInfoQuery(
@@ -28,13 +27,12 @@ data class GetUserInfoResult(
     val totalPoints: Point,
 ) {
     companion object {
-        fun from(user: User) =
-            with(user) {
-                GetUserInfoResult(
-                    id = id,
-                    username = username,
-                    totalPoints = totalPoints,
-                )
-            }
+        fun from(user: User) = with(user) {
+            GetUserInfoResult(
+                id = id,
+                username = username,
+                totalPoints = totalPoints,
+            )
+        }
     }
 }

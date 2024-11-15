@@ -46,16 +46,12 @@ class FollowJdslRepository(
         return PageImpl(results, pageable, totalCount)
     }
 
-    private fun <T> SpringDataCriteriaQueryDsl<T>.sort(sortType: FollowSearchSortType) =
-        when (sortType) {
-            FollowSearchSortType.RECENTLY -> column(FollowEntity::id).desc()
-            FollowSearchSortType.OLDEST -> column(FollowEntity::id).asc()
-        }
+    private fun <T> SpringDataCriteriaQueryDsl<T>.sort(sortType: FollowSearchSortType) = when (sortType) {
+        FollowSearchSortType.RECENTLY -> column(FollowEntity::id).desc()
+        FollowSearchSortType.OLDEST -> column(FollowEntity::id).asc()
+    }
 
-    private fun <T> SpringDataCriteriaQueryDsl<T>.condition(
-        followingUserId: Long?,
-        followerUserId: Long?,
-    ) = and(
+    private fun <T> SpringDataCriteriaQueryDsl<T>.condition(followingUserId: Long?, followerUserId: Long?) = and(
         followingUserId?.let { column(FollowEntity::followingUserId).equal(it) },
         followerUserId?.let { column(FollowEntity::followerUserId).equal(it) },
     )

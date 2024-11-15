@@ -16,11 +16,7 @@ class PostQueryService(
 
     fun existsByTitle(title: PostTitle) = postRepository.existsByTitle(title)
 
-    fun search(
-        keyword: String?,
-        pageable: Pageable,
-        sortType: PostSearchSortType,
-    ) = postJdslRepository.search(
+    fun search(keyword: String?, pageable: Pageable, sortType: PostSearchSortType) = postJdslRepository.search(
         keyword = keyword,
         pageable = pageable,
         sortType = sortType,

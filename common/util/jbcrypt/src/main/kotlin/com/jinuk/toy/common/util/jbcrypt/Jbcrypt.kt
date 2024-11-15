@@ -8,10 +8,7 @@ object Jbcrypt {
         return BCrypt.hashpw(password.value, BCrypt.gensalt())
     }
 
-    fun verify(
-        password: RawPassword,
-        hashed: String,
-    ): Boolean {
+    fun verify(password: RawPassword, hashed: String): Boolean {
         return BCrypt.checkpw(password.value, hashed)
     }
 }

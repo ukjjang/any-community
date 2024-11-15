@@ -12,27 +12,20 @@ data class AuthUser(
     val userRoles: List<String> = listOf(),
 ) : UserDetails {
     companion object {
-        operator fun invoke(user: User) =
-            AuthUser(
-                id = user.id,
-                username = user.username,
-                userRoles = listOf(AuthRole.USER),
-            )
+        operator fun invoke(user: User) = AuthUser(
+            id = user.id,
+            username = user.username,
+            userRoles = listOf(AuthRole.USER),
+        )
     }
 
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return userRoles.stream()
-            .map { SimpleGrantedAuthority(it) }
-            .toList()
-    }
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = userRoles.stream()
+        .map { SimpleGrantedAuthority(it) }
+        .toList()
 
-    override fun getPassword(): String {
-        return ""
-    }
+    override fun getPassword(): String = ""
 
-    override fun getUsername(): String {
-        return ""
-    }
+    override fun getUsername(): String = ""
 }
 
 object AuthRole {

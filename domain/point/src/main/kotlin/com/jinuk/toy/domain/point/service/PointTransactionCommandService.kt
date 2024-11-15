@@ -9,11 +9,7 @@ import com.jinuk.toy.domain.point.jpa.PointTransactionRepository
 class PointTransactionCommandService(
     private val pointTransactionRepository: PointTransactionRepository,
 ) {
-    fun save(
-        userId: Long,
-        point: Point,
-        description: String,
-    ) {
+    fun save(userId: Long, point: Point, description: String) {
         val pointTransaction =
             PointTransaction.of(
                 userId = userId,

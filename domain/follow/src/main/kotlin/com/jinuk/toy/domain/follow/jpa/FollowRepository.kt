@@ -15,23 +15,15 @@ class FollowRepository(
 
     fun delete(follow: Follow) = followEntityRepository.delete(follow.toEntity())
 
-    fun findByFollowerUserIdAndFollowingUserId(
-        followerUserId: Long,
-        followingUserId: Long,
-    ) = followEntityRepository.findByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)?.toModel()
+    fun findByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long) =
+        followEntityRepository.findByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)?.toModel()
 
-    fun existsByFollowerUserIdAndFollowingUserId(
-        followerUserId: Long,
-        followingUserId: Long,
-    ) = followEntityRepository.existsByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)
+    fun existsByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long) =
+        followEntityRepository.existsByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)
 
-    fun findByFollowerUserId(
-        followerUserId: Long,
-        pageable: Pageable,
-    ) = followEntityRepository.findByFollowerUserId(followerUserId, pageable).map { it.toModel() }
+    fun findByFollowerUserId(followerUserId: Long, pageable: Pageable) =
+        followEntityRepository.findByFollowerUserId(followerUserId, pageable).map { it.toModel() }
 
-    fun findByFollowingUserId(
-        followingUserId: Long,
-        pageable: Pageable,
-    ) = followEntityRepository.findByFollowingUserId(followingUserId, pageable).map { it.toModel() }
+    fun findByFollowingUserId(followingUserId: Long, pageable: Pageable) =
+        followEntityRepository.findByFollowingUserId(followingUserId, pageable).map { it.toModel() }
 }

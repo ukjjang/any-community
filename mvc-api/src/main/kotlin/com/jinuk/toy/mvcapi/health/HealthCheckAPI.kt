@@ -19,7 +19,5 @@ class HealthCheckAPI {
     @Secured(AuthRole.USER)
     @Operation(summary = "인증 체크")
     @GetMapping("/v1/health/auth")
-    fun authHealthCheck(
-        @AuthenticationPrincipal user: AuthUser,
-    ) = "Hi! my username is ${user.username} :)"
+    fun authHealthCheck(@AuthenticationPrincipal user: AuthUser) = "Hi! my username is ${user.username} :)"
 }

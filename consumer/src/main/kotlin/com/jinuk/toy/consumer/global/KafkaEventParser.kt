@@ -7,17 +7,11 @@ import com.jinuk.toy.infra.kafka.model.KafkaMessage
 
 @Component
 class KafkaEventParser(private val objectMapper: ObjectMapper) {
-    fun <T> parse(
-        message: String,
-        payloadClass: Class<T>,
-    ): T {
+    fun <T> parse(message: String, payloadClass: Class<T>): T {
         return parse<T>(message, objectMapper.constructType(payloadClass)).payload
     }
 
-    private fun <T> parse(
-        message: String,
-        payloadType: JavaType,
-    ): KafkaMessage<T> {
+    private fun <T> parse(message: String, payloadType: JavaType): KafkaMessage<T> {
         require(message.isNotBlank()) { "Message is blank" }
 
         try {

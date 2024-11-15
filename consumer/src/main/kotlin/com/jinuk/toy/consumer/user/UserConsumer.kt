@@ -22,9 +22,7 @@ class UserConsumer(
         groupId = KafkaGroupId.User.INCREASE_FOLLOW_COUNT,
         containerFactory = LISTENER_FACTORY,
     )
-    fun commentCreatedEventConsume(
-        @Payload message: String,
-    ) {
+    fun commentCreatedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, FollowAddedEvent::class.java)
         userCommandBus execute UpdateUserFollowCountCommand.from(event)
     }
@@ -34,9 +32,7 @@ class UserConsumer(
         groupId = KafkaGroupId.User.DECREASE_FOLLOW_COUNT,
         containerFactory = LISTENER_FACTORY,
     )
-    fun commentDeletedEventConsume(
-        @Payload message: String,
-    ) {
+    fun commentDeletedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, FollowCanceledEvent::class.java)
         userCommandBus execute UpdateUserFollowCountCommand.from(event)
     }

@@ -32,19 +32,18 @@ data class PostDetailResponse(
     val updatedAt: LocalDateTime,
 )
 
-internal fun PostDetailResult.toResponse() =
-    with(this) {
-        PostDetailResponse(
-            id = id,
-            userId = userId,
-            username = username,
-            title = title,
-            category = PostCategoryResponse.of(category),
-            content = content,
-            isViewerLike = isViewerLike,
-            likeCount = likeCount,
-            commentCount = commentCount,
-            createdAt = createdAt,
-            updatedAt = updatedAt,
-        )
-    }
+internal fun PostDetailResult.toResponse() = with(this) {
+    PostDetailResponse(
+        id = id,
+        userId = userId,
+        username = username,
+        title = title,
+        category = PostCategoryResponse.of(category),
+        content = content,
+        isViewerLike = isViewerLike,
+        likeCount = likeCount,
+        commentCount = commentCount,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+    )
+}

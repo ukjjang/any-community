@@ -48,10 +48,9 @@ data class CreatePostCommand(
     val content: String,
 )
 
-private fun CreatePostCommand.toPost() =
-    Post(
-        userId = userId,
-        title = title,
-        category = category,
-        content = content,
-    )
+private fun CreatePostCommand.toPost() = Post(
+    userId = userId,
+    title = title,
+    category = category,
+    content = content,
+)

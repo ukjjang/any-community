@@ -9,11 +9,7 @@ data class CommentUpdateRequest(
     val content: String,
 )
 
-internal fun CommentUpdateRequest.toCommand(
-    id: Long,
-    postId: Long,
-    userId: Long,
-) = UpdateCommentCommand(
+internal fun CommentUpdateRequest.toCommand(id: Long, postId: Long, userId: Long) = UpdateCommentCommand(
     id = id,
     userId = userId,
     postId = postId,

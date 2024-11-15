@@ -12,24 +12,15 @@ class PostCommandService(
 ) {
     fun save(post: Post) = postRepository.save(post)
 
-    fun delete(
-        postId: Long,
-        deleteUserId: Long,
-    ) = postQueryService.getById(postId).apply {
+    fun delete(postId: Long, deleteUserId: Long) = postQueryService.getById(postId).apply {
         require(userId == deleteUserId) { "작성자만 게시글을 삭제할 수 있습니다." }
     }.let(postRepository::delete)
 
-    fun updateCommentCount(
-        postId: Long,
-        countOperation: CountOperation,
-    ) = save(
+    fun updateCommentCount(postId: Long, countOperation: CountOperation) = save(
         postQueryService.getById(postId).updateCommentCount(countOperation),
     )
 
-    fun updateLikeCount(
-        postId: Long,
-        countOperation: CountOperation,
-    ) = save(
+    fun updateLikeCount(postId: Long, countOperation: CountOperation) = save(
         postQueryService.getById(postId).updateLikeCount(countOperation),
     )
 }
