@@ -23,15 +23,11 @@ data class User(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false
-
         if (_id != other._id) return false
-
         return true
     }
 
-    override fun hashCode(): Int {
-        return _id?.hashCode() ?: 0
-    }
+    override fun hashCode() = _id?.hashCode() ?: 0
 
     fun updateFollowingCount(countOperation: CountOperation) = this.copy(
         followingCount = followingCount + countOperation.delta,
@@ -42,7 +38,8 @@ data class User(
     )
 
     fun updateTotalPoints(point: Point) = this.copy(
-        totalPoints = totalPoints + point,
+        totalPoints = (totalPoints + point)
+            .also { require(it >= Point.ZERO) { "포인트가 부족합니다." } },
     )
 
     companion object {
