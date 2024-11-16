@@ -8,7 +8,6 @@ data class LikeTarget(
 ) {
     companion object {
         fun from(type: LikeType, id: String) = LikeTarget(type, id)
-
         fun from(type: LikeType, id: Long) = from(type, id.toString())
     }
 
@@ -24,7 +23,5 @@ data class LikeTarget(
         }
     }
 
-    private fun isNumeric(id: String): Boolean {
-        return id.toLongOrNull() != null
-    }
+    private fun isNumeric(id: String) = id.toLongOrNull() != null
 }

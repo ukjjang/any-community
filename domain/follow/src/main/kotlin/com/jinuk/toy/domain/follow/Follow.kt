@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.infra.rdb.follow.entity.FollowEntity
 
-data class Follow(
+data class Follow internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
@@ -14,23 +14,17 @@ data class Follow(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Follow) return false
-
         if (_id != other._id) return false
-
         return true
     }
 
-    override fun hashCode(): Int {
-        return _id?.hashCode() ?: 0
-    }
+    override fun hashCode() = _id?.hashCode() ?: 0
 
     companion object {
-        fun create(followRelation: FollowRelation) = with(followRelation) {
-            Follow(
-                followerUserId = followerUserId,
-                followingUserId = followingUserId,
-            )
-        }
+        fun create(followRelation: FollowRelation) = Follow(
+            followerUserId = followRelation.followerUserId,
+            followingUserId = followRelation.followingUserId,
+        )
     }
 }
 

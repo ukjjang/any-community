@@ -10,12 +10,10 @@ class PointTransactionCommandService(
     private val pointTransactionRepository: PointTransactionRepository,
 ) {
     fun save(userId: Long, point: Point, description: String) {
-        val pointTransaction =
-            PointTransaction.of(
-                userId = userId,
-                amount = point,
-                description = description,
-            )
-        pointTransactionRepository.save(pointTransaction)
+        PointTransaction.create(
+            userId = userId,
+            amount = point,
+            description = description,
+        ).let { pointTransactionRepository.save(it) }
     }
 }

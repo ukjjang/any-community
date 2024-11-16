@@ -9,7 +9,7 @@ import com.jinuk.toy.common.value.user.Gender
 import com.jinuk.toy.common.value.user.Username
 import com.jinuk.toy.infra.rdb.user.entity.UserEntity
 
-data class User(
+data class User internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),

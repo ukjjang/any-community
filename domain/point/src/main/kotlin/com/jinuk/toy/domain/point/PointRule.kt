@@ -6,7 +6,7 @@ import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.common.value.point.PointRuleType
 import com.jinuk.toy.infra.rdb.point.entity.PointRuleEntity
 
-data class PointRule(
+data class PointRule internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
@@ -21,9 +21,7 @@ data class PointRule(
         return true
     }
 
-    override fun hashCode(): Int {
-        return _id?.hashCode() ?: 0
-    }
+    override fun hashCode() = _id?.hashCode() ?: 0
 }
 
 internal fun PointRuleEntity.toModel() = PointRule(

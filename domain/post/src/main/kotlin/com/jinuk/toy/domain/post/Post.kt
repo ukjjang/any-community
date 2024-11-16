@@ -7,7 +7,7 @@ import com.jinuk.toy.common.value.post.PostCategory
 import com.jinuk.toy.common.value.post.PostTitle
 import com.jinuk.toy.infra.rdb.post.entity.PostEntity
 
-data class Post(
+data class Post internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
@@ -25,9 +25,7 @@ data class Post(
         return true
     }
 
-    override fun hashCode(): Int {
-        return _id?.hashCode() ?: 0
-    }
+    override fun hashCode() = _id?.hashCode() ?: 0
 
     fun update(title: PostTitle, category: PostCategory, content: String) = this.copy(
         title = title,
@@ -40,6 +38,15 @@ data class Post(
     )
 
     fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
+
+    companion object {
+        fun create(userId: Long, title: PostTitle, category: PostCategory, content: String) = Post(
+            userId = userId,
+            title = title,
+            category = category,
+            content = content,
+        )
+    }
 }
 
 internal fun PostEntity.toModel() = Post(

@@ -5,7 +5,7 @@ import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.common.value.like.LikeType
 import com.jinuk.toy.infra.rdb.like.entity.LikeEntity
 
-data class Like(
+data class Like internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
@@ -16,15 +16,11 @@ data class Like(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Like) return false
-
         if (_id != other._id) return false
-
         return true
     }
 
-    override fun hashCode(): Int {
-        return _id?.hashCode() ?: 0
-    }
+    override fun hashCode() = _id?.hashCode() ?: 0
 
     companion object {
         fun create(userId: Long, likeTarget: LikeTarget) = Like(

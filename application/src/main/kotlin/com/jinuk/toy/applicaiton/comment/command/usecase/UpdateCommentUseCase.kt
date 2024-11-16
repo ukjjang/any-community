@@ -16,7 +16,7 @@ class UpdateCommentUsecase(
         val comment = commentQueryService.getById(command.id)
         validate(comment, command)
         comment.update(content = command.content)
-            .also { commentCommandService.save(it) }
+            .let { commentCommandService.save(it) }
     }
 
     private fun validate(comment: Comment, command: UpdateCommentCommand) {

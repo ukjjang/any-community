@@ -5,7 +5,7 @@ import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.infra.rdb.point.entity.PointTransactionEntity
 
-data class PointTransaction(
+data class PointTransaction internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
@@ -20,12 +20,10 @@ data class PointTransaction(
         return true
     }
 
-    override fun hashCode(): Int {
-        return _id?.hashCode() ?: 0
-    }
+    override fun hashCode() = _id?.hashCode() ?: 0
 
     companion object {
-        fun of(userId: Long, amount: Point, description: String) = PointTransaction(
+        fun create(userId: Long, amount: Point, description: String) = PointTransaction(
             userId = userId,
             amount = amount,
             description = description,
