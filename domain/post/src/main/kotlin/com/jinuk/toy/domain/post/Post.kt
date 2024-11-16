@@ -7,6 +7,7 @@ import com.jinuk.toy.common.value.post.PostCategory
 import com.jinuk.toy.common.value.post.PostTitle
 import com.jinuk.toy.infra.rdb.post.entity.PostEntity
 
+@ConsistentCopyVisibility
 data class Post internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

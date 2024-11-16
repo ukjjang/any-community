@@ -6,6 +6,7 @@ import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.common.value.point.PointRuleType
 import com.jinuk.toy.infra.rdb.point.entity.PointRuleEntity
 
+@ConsistentCopyVisibility
 data class PointRule internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

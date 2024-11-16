@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.infra.rdb.follow.entity.FollowEntity
 
+@ConsistentCopyVisibility
 data class Follow internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
