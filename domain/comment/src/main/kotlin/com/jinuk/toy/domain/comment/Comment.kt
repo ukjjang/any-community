@@ -5,6 +5,7 @@ import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.common.value.global.CountOperation
 import com.jinuk.toy.infra.rdb.comment.entity.CommentEntity
 
+@ConsistentCopyVisibility
 data class Comment internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

@@ -5,6 +5,7 @@ import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.infra.rdb.point.entity.PointTransactionEntity
 
+@ConsistentCopyVisibility
 data class PointTransaction internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

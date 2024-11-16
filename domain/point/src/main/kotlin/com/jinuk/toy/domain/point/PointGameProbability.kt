@@ -7,6 +7,7 @@ import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.domain.point.PointGameProbability.Companion.TOTAL_PROBABILITY
 import com.jinuk.toy.infra.rdb.point.entity.PointGameProbabilityEntity
 
+@ConsistentCopyVisibility
 data class PointGameProbability internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

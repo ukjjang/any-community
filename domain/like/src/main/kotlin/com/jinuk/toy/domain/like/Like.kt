@@ -5,6 +5,7 @@ import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.common.value.like.LikeType
 import com.jinuk.toy.infra.rdb.like.entity.LikeEntity
 
+@ConsistentCopyVisibility
 data class Like internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
