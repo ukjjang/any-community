@@ -26,7 +26,16 @@ class CreatePostUsecase(
     @Transactional
     operator fun invoke(command: CreatePostCommand): Post {
         require(!postQueryService.existsByTitle(command.title)) { "이미 존재하는 게시글 제목입니다." }
-        return postCommandService.save(command.toPost()).also { pointProcess(it) }
+        return Post.create(
+            userId = command.userId,
+            title = command.title,
+            category = command.category,
+            content = command.content,
+        ).let {
+            postCommandService.save(it)
+        }.also {
+            pointProcess(it)
+        }
     }
 
     private fun pointProcess(post: Post) {
@@ -46,11 +55,4 @@ data class CreatePostCommand(
     val title: PostTitle,
     val category: PostCategory,
     val content: String,
-)
-
-private fun CreatePostCommand.toPost() = Post(
-    userId = userId,
-    title = title,
-    category = category,
-    content = content,
 )

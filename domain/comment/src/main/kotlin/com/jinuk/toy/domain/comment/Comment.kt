@@ -5,7 +5,7 @@ import com.jinuk.toy.common.util.domainhelper.BaseDomain
 import com.jinuk.toy.common.value.global.CountOperation
 import com.jinuk.toy.infra.rdb.comment.entity.CommentEntity
 
-data class Comment(
+data class Comment internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
@@ -22,10 +22,19 @@ data class Comment(
         return true
     }
 
-    override fun hashCode(): Int = _id?.hashCode() ?: 0
+    override fun hashCode() = _id?.hashCode() ?: 0
 
     fun update(content: String) = this.copy(content = content)
     fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
+
+    companion object {
+        fun create(userId: Long, postId: Long, parentCommentId: Long? = null, content: String) = Comment(
+            userId = userId,
+            postId = postId,
+            parentCommentId = parentCommentId,
+            content = content,
+        )
+    }
 }
 
 internal fun CommentEntity.toModel() = Comment(

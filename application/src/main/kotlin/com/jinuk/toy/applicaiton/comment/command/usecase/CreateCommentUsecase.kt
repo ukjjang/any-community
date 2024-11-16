@@ -20,14 +20,22 @@ class CreateCommentUsecase(
     private val pointProcessUsecase: PointProcessUsecase,
 ) {
     companion object {
-        private const val POINT_DESCRIPTION_TEMPLATE = "댓글 작성으로 포인트 지급 | 게시글 ID: "
+        private const val POINT_DESCRIPTION_TEMPLATE = "댓글 작성으로 포인트 지급 | 댓글 ID: "
     }
 
     @Transactional
-    operator fun invoke(command: CreateCommentCommand) {
-        val comment =
-            commentCommandService.save(command.toComment())
-                .also { pointProcess(it) }
+    operator fun invoke(command: CreateCommentCommand) = with(command) {
+        val comment = Comment.create(
+            userId = userId,
+            postId = postId,
+            parentCommentId = parentCommentId,
+            content = content,
+        ).let {
+            commentCommandService.save(it)
+        }.also {
+            pointProcess(it)
+        }
+
         kafkaProducer.send(
             topic = KafkaTopic.Comment.CREATE,
             payload = CommentCreatedEvent.of(comment),
@@ -36,12 +44,11 @@ class CreateCommentUsecase(
 
     private fun pointProcess(comment: Comment) {
         val pointRule = pointRuleQueryService.getByRuleType(PointRuleType.COMMENT_CREATION)
-        val processCommand =
-            PointProcessCommand(
-                userId = comment.userId,
-                point = pointRule.amount,
-                description = "$POINT_DESCRIPTION_TEMPLATE${comment.id}",
-            )
+        val processCommand = PointProcessCommand(
+            userId = comment.userId,
+            point = pointRule.amount,
+            description = "$POINT_DESCRIPTION_TEMPLATE${comment.id}",
+        )
         pointProcessUsecase(processCommand)
     }
 }
@@ -51,11 +58,4 @@ data class CreateCommentCommand(
     val postId: Long,
     val parentCommentId: Long?,
     val content: String,
-)
-
-private fun CreateCommentCommand.toComment() = Comment(
-    userId = userId,
-    postId = postId,
-    parentCommentId = parentCommentId,
-    content = content,
 )

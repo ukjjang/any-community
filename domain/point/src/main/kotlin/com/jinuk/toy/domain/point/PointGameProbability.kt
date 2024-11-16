@@ -7,7 +7,7 @@ import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.domain.point.PointGameProbability.Companion.TOTAL_PROBABILITY
 import com.jinuk.toy.infra.rdb.point.entity.PointGameProbabilityEntity
 
-data class PointGameProbability(
+data class PointGameProbability internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
@@ -21,7 +21,7 @@ data class PointGameProbability(
         return true
     }
 
-    override fun hashCode(): Int = _id?.hashCode() ?: 0
+    override fun hashCode() = _id?.hashCode() ?: 0
 
     companion object {
         internal const val TOTAL_PROBABILITY = 10000

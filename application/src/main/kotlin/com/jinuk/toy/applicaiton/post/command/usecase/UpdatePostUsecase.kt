@@ -21,7 +21,7 @@ class UpdatePostUsecase(
             title = command.title,
             category = command.category,
             content = command.content,
-        ).also { postCommandService.save(it) }
+        ).let { postCommandService.save(it) }
     }
 
     private fun validate(post: Post, command: UpdatePostCommand) {
