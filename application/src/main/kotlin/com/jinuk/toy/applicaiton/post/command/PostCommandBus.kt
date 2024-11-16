@@ -14,7 +14,7 @@ import com.jinuk.toy.domain.post.Post
 sealed interface PostCommandBus {
     infix fun execute(command: CreatePostCommand): Post
 
-    infix fun execute(command: UpdatePostCommand): Post
+    infix fun execute(command: UpdatePostCommand)
 
     infix fun execute(command: DeletePostCommand)
 

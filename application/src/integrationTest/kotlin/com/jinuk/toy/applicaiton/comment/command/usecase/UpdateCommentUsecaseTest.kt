@@ -2,6 +2,7 @@ package com.jinuk.toy.applicaiton.comment.command.usecase
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.common.util.faker.faker
@@ -29,7 +30,8 @@ internal class UpdateCommentUsecaseTest(
 
                 updateCommentUsecase(command)
                 val comment = commentRepository.findById(command.id)
-                comment?.content shouldBe command.content
+                comment.shouldNotBeNull()
+                comment.content shouldBe command.content
             }
 
             it("수정 실패 - 작성자가 아닌 유저") {

@@ -29,6 +29,12 @@ data class Post(
         return _id?.hashCode() ?: 0
     }
 
+    fun update(title: PostTitle, category: PostCategory, content: String) = this.copy(
+        title = title,
+        category = category,
+        content = content,
+    )
+
     fun updateCommentCount(countOperation: CountOperation) = this.copy(
         commentCount = commentCount + countOperation.delta,
     )

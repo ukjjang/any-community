@@ -2,6 +2,7 @@ package com.jinuk.toy.applicaiton.post.command.usecase
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import com.jinuk.toy.applicaiton.IntegrationTest
 import com.jinuk.toy.common.util.faker.faker
@@ -30,10 +31,10 @@ internal class UpdatePostUsecaseTest(
                         faker.randomString(),
                     )
 
-                val post = updatePostUsecase(command)
-                val postEntity = postRepository.findById(post.id)
+                updatePostUsecase(command)
+                val post = postRepository.findById(command.id)
 
-                post shouldBe postEntity
+                post.shouldNotBeNull()
                 post.title shouldBe command.title
                 post.content shouldBe command.content
                 post.category shouldBe PostCategory.NEWS

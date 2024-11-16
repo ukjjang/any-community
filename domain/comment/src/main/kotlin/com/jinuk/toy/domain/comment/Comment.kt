@@ -24,6 +24,7 @@ data class Comment(
 
     override fun hashCode(): Int = _id?.hashCode() ?: 0
 
+    fun update(content: String) = this.copy(content = content)
     fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
 }
 
