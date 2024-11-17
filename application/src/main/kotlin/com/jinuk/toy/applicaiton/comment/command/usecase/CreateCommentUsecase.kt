@@ -7,6 +7,7 @@ import com.jinuk.toy.applicaiton.point.command.usecase.PointProcessUsecase
 import com.jinuk.toy.common.value.global.kafka.KafkaTopic
 import com.jinuk.toy.common.value.point.PointRuleType
 import com.jinuk.toy.domain.comment.Comment
+import com.jinuk.toy.domain.comment.CommentCreateInfo
 import com.jinuk.toy.domain.comment.event.CommentCreatedEvent
 import com.jinuk.toy.domain.comment.service.CommentCommandService
 import com.jinuk.toy.domain.point.service.PointRuleQueryService
@@ -24,18 +25,8 @@ class CreateCommentUsecase(
     }
 
     @Transactional
-    operator fun invoke(command: CreateCommentCommand) = with(command) {
-        val comment = Comment.create(
-            userId = userId,
-            postId = postId,
-            parentCommentId = parentCommentId,
-            content = content,
-        ).let {
-            commentCommandService.save(it)
-        }.also {
-            pointProcess(it)
-        }
-
+    operator fun invoke(command: CreateCommentCommand) {
+        val comment = commentCommandService.create(command.toInfo()).also { pointProcess(it) }
         kafkaProducer.send(
             topic = KafkaTopic.Comment.CREATE,
             payload = CommentCreatedEvent.of(comment),
@@ -58,4 +49,11 @@ data class CreateCommentCommand(
     val postId: Long,
     val parentCommentId: Long?,
     val content: String,
-)
+) {
+    fun toInfo() = CommentCreateInfo(
+        userId = userId,
+        postId = postId,
+        parentCommentId = parentCommentId,
+        content = content,
+    )
+}

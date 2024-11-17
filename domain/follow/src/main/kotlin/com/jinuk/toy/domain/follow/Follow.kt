@@ -22,7 +22,7 @@ data class Follow internal constructor(
     override fun hashCode() = _id?.hashCode() ?: 0
 
     companion object {
-        fun create(followRelation: FollowRelation) = Follow(
+        internal fun create(followRelation: FollowRelation) = Follow(
             followerUserId = followRelation.followerUserId,
             followingUserId = followRelation.followingUserId,
         )

@@ -28,24 +28,28 @@ data class Post internal constructor(
 
     override fun hashCode() = _id?.hashCode() ?: 0
 
-    fun update(title: PostTitle, category: PostCategory, content: String) = this.copy(
-        title = title,
-        category = category,
-        content = content,
-    )
+    internal fun update(info: PostUpdateInfo): Post {
+        require(userId == info.userId) { "작성자만 게시글을 수정할 수 있습니다." }
+        return this.copy(
+            title = info.title,
+            category = info.category,
+            content = info.content,
+        )
+    }
 
-    fun updateCommentCount(countOperation: CountOperation) = this.copy(
+    internal fun updateCommentCount(countOperation: CountOperation) = this.copy(
         commentCount = commentCount + countOperation.delta,
     )
 
-    fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
+    internal fun updateLikeCount(countOperation: CountOperation) =
+        this.copy(likeCount = likeCount + countOperation.delta)
 
     companion object {
-        fun create(userId: Long, title: PostTitle, category: PostCategory, content: String) = Post(
-            userId = userId,
-            title = title,
-            category = category,
-            content = content,
+        internal fun create(info: PostCreateInfo) = Post(
+            userId = info.userId,
+            title = info.title,
+            category = info.category,
+            content = info.content,
         )
     }
 }

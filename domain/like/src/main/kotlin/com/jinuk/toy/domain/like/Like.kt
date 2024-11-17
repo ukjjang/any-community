@@ -24,7 +24,7 @@ data class Like internal constructor(
     override fun hashCode() = _id?.hashCode() ?: 0
 
     companion object {
-        fun create(userId: Long, likeTarget: LikeTarget) = Like(
+        internal fun create(userId: Long, likeTarget: LikeTarget) = Like(
             userId = userId,
             targetType = likeTarget.type,
             targetId = likeTarget.id,

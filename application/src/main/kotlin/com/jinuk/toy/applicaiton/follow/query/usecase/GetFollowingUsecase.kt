@@ -21,7 +21,7 @@ class GetFollowingUsecase(
 ) {
     @Transactional(readOnly = true)
     operator fun invoke(query: GetFollowingQuery) = cached(
-        key = "GetFollowingUsecase:${query.hashCode()}",
+        key = "GetFollowingUsecase:${query.cacheKey}",
     ) {
         followQueryService
             .search(
@@ -59,6 +59,9 @@ data class GetFollowingQuery(
     val size: Int,
     val followSearchSortType: FollowSearchSortType,
 ) {
+    val cacheKey: String
+        get() = "followerUserId:$followerUserId:page:$page:size:$size:followSearchSortType:$followSearchSortType"
+
     fun pageable(): Pageable = PageRequest.of(page - 1, size)
 }
 

@@ -13,10 +13,10 @@ import com.jinuk.toy.common.value.point.Point
 import com.jinuk.toy.domain.point.PointGameProbabilityFixture
 import com.jinuk.toy.domain.point.service.PointGameProbabilityQueryService
 import com.jinuk.toy.domain.user.UserFixture
-import com.jinuk.toy.domain.user.service.UserQueryService
+import com.jinuk.toy.domain.user.service.UserCommandService
 
 class PointGameUsecaseTest(
-    private val userQueryService: UserQueryService,
+    private val userCommandService: UserCommandService,
     private val userFixture: UserFixture,
 ) : IntegrationTest, DescribeSpec(
     {
@@ -24,7 +24,7 @@ class PointGameUsecaseTest(
             val pointGameProbabilityQueryService: PointGameProbabilityQueryService = mockk(relaxed = true)
             val pointProcessUsecase: PointProcessUsecase = mockk(relaxed = true)
             val pointGameUsecase =
-                PointGameUsecase(pointGameProbabilityQueryService, userQueryService, pointProcessUsecase)
+                PointGameUsecase(pointGameProbabilityQueryService, pointProcessUsecase, userCommandService)
 
             beforeTest {
                 clearMocks(pointGameProbabilityQueryService, pointProcessUsecase)

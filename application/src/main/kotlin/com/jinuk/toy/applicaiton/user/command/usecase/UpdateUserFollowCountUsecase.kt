@@ -14,7 +14,7 @@ class UpdateUserFollowCountUsecase(
 ) {
     operator fun invoke(command: UpdateUserFollowCountCommand) = with(command) {
         distributedLock(
-            key = "UpdateUserFollowCountUsecase:${command.hashCode()}",
+            key = command.lockKey,
             transactional = true,
         ) {
             userCommandService.updateFollowingCount(followRelation.followerUserId, countOperation)
@@ -28,6 +28,9 @@ data class UpdateUserFollowCountCommand(
     val followRelation: FollowRelation,
     val countOperation: CountOperation,
 ) {
+    val lockKey: String
+        get() = "followRelation:$followRelation"
+
     companion object {
         fun from(event: FollowAddedEvent) = UpdateUserFollowCountCommand(event.followRelation, CountOperation.INCREASE)
 

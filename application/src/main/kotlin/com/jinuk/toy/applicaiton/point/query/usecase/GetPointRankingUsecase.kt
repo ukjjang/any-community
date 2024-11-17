@@ -15,7 +15,7 @@ class GetPointRankingUsecase(
 ) {
     @Transactional(readOnly = true)
     operator fun invoke(query: GetPointRankingQuery) = cached(
-        key = "GetPointRankingUsecase:${query.limit}",
+        key = "GetPointRankingUsecase:${query.cacheKey}",
         expire = Duration.ofMinutes(10),
     ) {
         GetPointRankingResult.from(
@@ -26,7 +26,10 @@ class GetPointRankingUsecase(
 
 data class GetPointRankingQuery(
     val limit: Int,
-)
+) {
+    val cacheKey: String
+        get() = "limit:$limit"
+}
 
 data class GetPointRankingResult(
     val ranking: Int,

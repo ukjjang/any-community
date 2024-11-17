@@ -25,15 +25,20 @@ data class Comment internal constructor(
 
     override fun hashCode() = _id?.hashCode() ?: 0
 
-    fun update(content: String) = this.copy(content = content)
-    fun updateLikeCount(countOperation: CountOperation) = this.copy(likeCount = likeCount + countOperation.delta)
+    internal fun update(info: CommentUpdateInfo): Comment {
+        require(userId == info.userId) { "작성자만 게시글을 수정할 수 있습니다." }
+        require(postId == info.postId) { "해당 댓글은 지정된 게시글에 속하지 않습니다." }
+        return this.copy(content = info.content)
+    }
+
+    internal fun updateLikeCount(info: CountOperation) = this.copy(likeCount = likeCount + info.delta)
 
     companion object {
-        fun create(userId: Long, postId: Long, parentCommentId: Long? = null, content: String) = Comment(
-            userId = userId,
-            postId = postId,
-            parentCommentId = parentCommentId,
-            content = content,
+        internal fun create(info: CommentCreateInfo) = Comment(
+            userId = info.userId,
+            postId = info.postId,
+            parentCommentId = info.parentCommentId,
+            content = info.content,
         )
     }
 }

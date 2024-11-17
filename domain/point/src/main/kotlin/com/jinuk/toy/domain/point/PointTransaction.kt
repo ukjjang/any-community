@@ -24,10 +24,10 @@ data class PointTransaction internal constructor(
     override fun hashCode() = _id?.hashCode() ?: 0
 
     companion object {
-        fun create(userId: Long, amount: Point, description: String) = PointTransaction(
-            userId = userId,
-            amount = amount,
-            description = description,
+        internal fun create(info: PointTransactionCreateInfo) = PointTransaction(
+            userId = info.userId,
+            amount = info.amount,
+            description = info.description,
         )
     }
 }

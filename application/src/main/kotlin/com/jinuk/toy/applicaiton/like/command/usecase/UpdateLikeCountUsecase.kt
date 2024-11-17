@@ -17,7 +17,7 @@ class UpdateLikeCountUsecase(
 ) {
     operator fun invoke(command: UpdateLikeCountCommand) = with(command) {
         distributedLock(
-            key = "UpdateLikeCountUsecase:${command.likeTarget}",
+            key = "UpdateLikeCountUsecase:${command.lockKey}",
             transactional = true,
         ) {
             when (likeTarget.type) {
@@ -40,6 +40,9 @@ data class UpdateLikeCountCommand(
     val likeTarget: LikeTarget,
     val countOperation: CountOperation,
 ) {
+    val lockKey: String
+        get() = "likeTarget:$likeTarget"
+
     companion object {
         fun from(event: LikeAddedEvent) = with(event) {
             UpdateLikeCountCommand(likeTarget, CountOperation.INCREASE)

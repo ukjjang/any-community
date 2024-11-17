@@ -12,7 +12,7 @@ class UpdatePostCommentCountUseCase(
     private val postCommandService: PostCommandService,
 ) {
     operator fun invoke(command: UpdatePostCommentCountCommand) = distributedLock(
-        key = "UpdatePostCommentCountUseCase:${command.postId}",
+        key = "UpdatePostCommentCountUseCase:${command.lockKey}",
         transactional = true,
     ) {
         postCommandService.updateCommentCount(command.postId, command.countOperation)
@@ -24,6 +24,9 @@ data class UpdatePostCommentCountCommand(
     val postId: Long,
     val countOperation: CountOperation,
 ) {
+    val lockKey: String
+        get() = "postId:$postId"
+
     companion object {
         fun from(event: CommentCreatedEvent) = UpdatePostCommentCountCommand(event.postId, CountOperation.INCREASE)
 

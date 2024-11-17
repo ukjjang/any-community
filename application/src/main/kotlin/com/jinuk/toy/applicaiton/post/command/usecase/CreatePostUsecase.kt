@@ -9,12 +9,11 @@ import com.jinuk.toy.common.value.post.PostCategory
 import com.jinuk.toy.common.value.post.PostTitle
 import com.jinuk.toy.domain.point.service.PointRuleQueryService
 import com.jinuk.toy.domain.post.Post
+import com.jinuk.toy.domain.post.PostCreateInfo
 import com.jinuk.toy.domain.post.service.PostCommandService
-import com.jinuk.toy.domain.post.service.PostQueryService
 
 @Service
 class CreatePostUsecase(
-    private val postQueryService: PostQueryService,
     private val postCommandService: PostCommandService,
     private val pointRuleQueryService: PointRuleQueryService,
     private val pointProcessUsecase: PointProcessUsecase,
@@ -24,19 +23,8 @@ class CreatePostUsecase(
     }
 
     @Transactional
-    operator fun invoke(command: CreatePostCommand): Post {
-        require(!postQueryService.existsByTitle(command.title)) { "이미 존재하는 게시글 제목입니다." }
-        return Post.create(
-            userId = command.userId,
-            title = command.title,
-            category = command.category,
-            content = command.content,
-        ).let {
-            postCommandService.save(it)
-        }.also {
-            pointProcess(it)
-        }
-    }
+    operator fun invoke(command: CreatePostCommand) =
+        postCommandService.create(command.toInfo()).also { pointProcess(it) }
 
     private fun pointProcess(post: Post) {
         val pointRule = pointRuleQueryService.getByRuleType(PointRuleType.POST_CREATION)
@@ -55,4 +43,11 @@ data class CreatePostCommand(
     val title: PostTitle,
     val category: PostCategory,
     val content: String,
-)
+) {
+    fun toInfo() = PostCreateInfo(
+        userId = userId,
+        title = title,
+        category = category,
+        content = content,
+    )
+}

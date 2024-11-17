@@ -24,7 +24,7 @@ class SearchPostUsecase(
 ) {
     @Transactional(readOnly = true)
     operator fun invoke(query: SearchPostQuery) = cached(
-        key = "SearchPostUsecase:${query.hashCode()}",
+        key = "SearchPostUsecase:${query.cacheKey}",
     ) {
         postQueryService
             .search(
@@ -64,6 +64,9 @@ data class SearchPostQuery(
     val size: Int,
     val postSearchSortType: PostSearchSortType,
 ) {
+    val cacheKey: String
+        get() = "keyword:$keyword:page:$page:size:$size:postSearchSortType:$postSearchSortType"
+
     fun pageable(): Pageable = PageRequest.of(page - 1, size)
 }
 

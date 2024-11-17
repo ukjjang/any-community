@@ -30,21 +30,21 @@ data class User internal constructor(
 
     override fun hashCode() = _id?.hashCode() ?: 0
 
-    fun updateFollowingCount(countOperation: CountOperation) = this.copy(
+    internal fun updateFollowingCount(countOperation: CountOperation) = this.copy(
         followingCount = followingCount + countOperation.delta,
     )
 
-    fun updateFollowerCount(countOperation: CountOperation) = this.copy(
+    internal fun updateFollowerCount(countOperation: CountOperation) = this.copy(
         followerCount = followerCount + countOperation.delta,
     )
 
-    fun updateTotalPoints(point: Point) = this.copy(
+    internal fun updateTotalPoints(point: Point) = this.copy(
         totalPoints = (totalPoints + point)
             .also { require(it >= Point.ZERO) { "포인트가 부족합니다." } },
     )
 
     companion object {
-        fun signup(userCredentials: UserCredentials, gender: Gender) = User(
+        internal fun signup(userCredentials: UserCredentials, gender: Gender) = User(
             username = userCredentials.username,
             password = Jbcrypt.encrypt(userCredentials.password),
             gender = gender,

@@ -19,10 +19,8 @@ import com.jinuk.toy.domain.point.service.PointRuleQueryService
 import com.jinuk.toy.domain.post.PostFixture
 import com.jinuk.toy.domain.post.jpa.PostRepository
 import com.jinuk.toy.domain.post.service.PostCommandService
-import com.jinuk.toy.domain.post.service.PostQueryService
 
 internal class CreatePostUsecaseTest(
-    private val postQueryService: PostQueryService,
     private val postCommandService: PostCommandService,
     private val pointRuleQueryService: PointRuleQueryService,
     private val postRepository: PostRepository,
@@ -32,7 +30,7 @@ internal class CreatePostUsecaseTest(
         describe("게시글 생성 유스케이스") {
             val pointProcessUsecase: PointProcessUsecase = mockk(relaxed = true)
             val createPostUsecase =
-                CreatePostUsecase(postQueryService, postCommandService, pointRuleQueryService, pointProcessUsecase)
+                CreatePostUsecase(postCommandService, pointRuleQueryService, pointProcessUsecase)
 
             beforeTest {
                 clearMocks(pointProcessUsecase)
