@@ -67,15 +67,15 @@ object Dependencies {
     object Logcapture {
         private const val VERSION = "1.3.3"
 
-        const val KOTEST = "org.logcapture:logcapture-kotest:${VERSION}"
-        const val CORE = "org.logcapture:logcapture-core:${VERSION}"
+        const val KOTEST = "org.logcapture:logcapture-kotest:$VERSION"
+        const val CORE = "org.logcapture:logcapture-core:$VERSION"
     }
 
     object Openapi {
         private const val VERSION = "2.6.0"
 
-        const val WEBMVC_UI = "org.springdoc:springdoc-openapi-starter-webmvc-ui:${VERSION}"
-        const val COMMON = "org.springdoc:springdoc-openapi-starter-common:${VERSION}"
+        const val WEBMVC_UI = "org.springdoc:springdoc-openapi-starter-webmvc-ui:$VERSION"
+        const val COMMON = "org.springdoc:springdoc-openapi-starter-common:$VERSION"
     }
 
     object JJWT {

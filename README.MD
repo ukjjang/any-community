@@ -1,6 +1,6 @@
-# Toy Project
+# Any Community
 
-- 내가 만들고 싶은 거 만드는 장난감 프로젝트
+- 커뮤니티 서비스!
 
 ---
 

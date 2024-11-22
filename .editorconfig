@@ -11,7 +11,7 @@ max_line_length = 120
 [*.{kt,kts}]
 ktlint_code_style = intellij_idea
 
-ij_kotlin_imports_layout = *, jakarta.**, java.**, javax.**, kotlin.**, com.jinuk.toy.**, ^
+ij_kotlin_imports_layout = *, jakarta.**, java.**, javax.**, kotlin.**, com.anycommunity.**, ^
 
 ij_kotlin_allow_trailing_comma_on_call_site = true
 ij_kotlin_allow_trailing_comma = true

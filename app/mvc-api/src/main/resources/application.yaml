@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    include:
+      - infra-mysql
+      - infra-redis
+      - infra-kafka
+      - util-jwt
+    active: local
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui

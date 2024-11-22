@@ -1,10 +1,10 @@
 plugins {
-    id("com.jinuk.toy.lib")
+    id("com.anycommunity.lib")
     id("java-test-fixtures")
 }
 
 dependencies {
-    implementation(project(":common:value"))
+    implementation(project(":definition"))
 
     implementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_KAFKA)
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_TEST)

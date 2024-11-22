@@ -1,0 +1,11 @@
+server:
+  port: 8090
+
+spring:
+  profiles:
+    include:
+      - infra-mysql
+      - infra-redis
+      - infra-kafka
+      - util-jwt
+    active: local
