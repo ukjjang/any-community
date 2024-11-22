@@ -1,32 +1,32 @@
-rootProject.name = "toy"
+rootProject.name = "any-community"
 
-include("mvc-api")
-include("consumer")
+include("app:mvc-api")
+include("app:consumer")
 
-// common-util
-include("common:util:faker")
-include("common:util:jbcrypt")
-include("common:util:jwt")
-include("common:util:logger")
-include("common:util:domain-helper")
-include("common:util:object-mapper")
-include("common:util:custom-page")
+// util
+include("util:faker")
+include("util:jbcrypt")
+include("util:jwt")
+include("util:logger")
+include("util:object-mapper")
+include("util:custom-page")
 
-// common-define
-include("common:value")
+// definition
+include("definition")
 
 // infra
-include("infra:rdb")
+include("infra:mysql")
 include("infra:redis")
 include("infra:kafka")
 
 // domain
-include("domain:post")
-include("domain:user")
-include("domain:follow")
-include("domain:comment")
-include("domain:like")
-include("domain:point")
+include("core:domain:shared")
+include("core:domain:post")
+include("core:domain:user")
+include("core:domain:follow")
+include("core:domain:comment")
+include("core:domain:like")
+include("core:domain:point")
 
-// application
-include("application")
+// usecase
+include("core:usecase")

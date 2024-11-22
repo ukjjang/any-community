@@ -18,10 +18,10 @@ services:
     depends_on:
       - zookeeper
 
-  rdb:
+  mysql:
     image: mysql:latest
     environment:
-      MYSQL_DATABASE: rdb
+      MYSQL_DATABASE: any-community
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: rootpassword
@@ -41,12 +41,12 @@ services:
     image: flyway/flyway
     command: -configFiles=/flyway/conf/flyway.config -locations=filesystem:/flyway/sql -connectRetries=60 migrate
     volumes:
-      - ./infra/rdb/src/main/resources/db/migration:/flyway/sql
-      - ./infra/rdb/src/main/resources/db/flyway.conf:/flyway/conf/flyway.config
+      - ./infra/mysql/src/main/resources/db/migration:/flyway/sql
+      - ./infra/mysql/src/main/resources/db/flyway.conf:/flyway/conf/flyway.config
     depends_on:
-      - rdb
+      - mysql
     environment:
-      FLYWAY_DB_URL: jdbc:mysql://rdb:3306/rdb?useSSL=false&allowPublicKeyRetrieval=true
+      FLYWAY_DB_URL: jdbc:mysql://mysql:3306/any-community?useSSL=false&allowPublicKeyRetrieval=true
       FLYWAY_DB_USER: user
       FLYWAY_DB_PASSWORD: password
       FLYWAY_BASELINE_ON_MIGRATE: true
