@@ -16,7 +16,6 @@ dependencies {
     implementation(Dependencies.Kotlin.KOTLIN_REFLECT)
     implementation(Dependencies.Kotlin.KOTLIN_STDLIB)
     implementation(Dependencies.Kotlin.JACKSON_MODULE_KOTLIN)
-    testImplementation(Dependencies.Kotlin.KOTLIN_TEST_JUNIT5)
 
     testImplementation(Dependencies.Kotlin.KOTLINX_COROUTINES_TEST)
     testImplementation(Dependencies.Kotest.RUNNER_JUNIT5)

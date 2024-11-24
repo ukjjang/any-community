@@ -23,7 +23,6 @@ object Dependencies {
         const val KOTLIN_REFLECT = "org.jetbrains.kotlin:kotlin-reflect"
         const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib"
         const val JACKSON_MODULE_KOTLIN = "com.fasterxml.jackson.module:jackson-module-kotlin"
-        const val KOTLIN_TEST_JUNIT5 = "org.jetbrains.kotlin:kotlin-test-junit5"
     }
 
     object Kotest {
