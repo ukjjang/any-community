@@ -19,7 +19,7 @@ services:
       - zookeeper
 
   mysql:
-    image: mysql:latest
+    image: mysql:8.4
     environment:
       MYSQL_DATABASE: any-community
       MYSQL_USER: user
@@ -31,14 +31,14 @@ services:
       - 'mysqldata:/var/lib/mysql'
 
   redis:
-    image: redis:latest
+    image: redis:7.4.1
     ports:
       - '6379:6379'
     volumes:
       - 'redisdata:/data'
 
   flyway:
-    image: flyway/flyway
+    image: flyway/flyway:11.0
     command: -configFiles=/flyway/conf/flyway.config -locations=filesystem:/flyway/sql -connectRetries=60 migrate
     volumes:
       - ./infra/mysql/src/main/resources/db/migration:/flyway/sql
