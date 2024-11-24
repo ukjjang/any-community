@@ -1,0 +1,46 @@
+services:
+  mvc-api:
+    build:
+      context: ./app/mvc-api
+    depends_on:
+      - mysql
+      - redis
+      - kafka
+    ports:
+      - '8080:8080'
+    restart: always
+    environment:
+      DATASOURCE_MYSQL_WRITER_JDBC-URL: jdbc:mysql://mysql:3306/any-community
+      DATASOURCE_MYSQL_WRITER_USERNAME: user
+      DATASOURCE_MYSQL_WRITER_PASSWORD: password
+      DATASOURCE_MYSQL_READER_JDBC-URL: jdbc:mysql://mysql:3306/any-community
+      DATASOURCE_MYSQL_READER_USERNAME: user
+      DATASOURCE_MYSQL_READER_PASSWORD: password
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      KAFKA_BOOTSTRAP-SERVERS: kafka:9092
+
+  consumer:
+    build:
+      context: ./app/consumer
+    depends_on:
+      - mysql
+      - redis
+      - kafka
+    ports:
+      - '8090:8090'
+    restart: always
+    environment:
+      DATASOURCE_MYSQL_WRITER_JDBC-URL: jdbc:mysql://mysql:3306/any-community
+      DATASOURCE_MYSQL_WRITER_USERNAME: user
+      DATASOURCE_MYSQL_WRITER_PASSWORD: password
+      DATASOURCE_MYSQL_READER_JDBC-URL: jdbc:mysql://mysql:3306/any-community
+      DATASOURCE_MYSQL_READER_USERNAME: user
+      DATASOURCE_MYSQL_READER_PASSWORD: password
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      KAFKA_BOOTSTRAP-SERVERS: kafka:9092
+
+volumes:
+  mysqldata:
+  redisdata:
