@@ -1,16 +1,15 @@
-# Any Community
+# 🧑‍🤝‍🧑 Any Community
 
-- 커뮤니티 서비스!
+- Any Community는 좋아요, 팔로우, 게시글 작성, 포인트 등 다양한 기능을 제공하는 커뮤니티 서비스입니다.
+- 학습을 목적으로 진행한 프로젝트로, 구현하고 싶었던 기능과 사용해보고 싶었던 기술을 적용한 개인 메모장과 같은 프로젝트입니다. 😊
 
 ---
 
-### 개발 환경
+### 스펙
 * Kotlin 2.0.20
 * JDK 21
 * Gradle 8.10
 * Spring Boot 3.3.5
-* JPA / Hibernate
-* Kotlin JDSL
 
 ### 세팅하기
 - IntelliJ에서 JDK 21 설정
@@ -21,9 +20,17 @@
 
 ### 시작하기
 
-```bash
-$ ./gradlew build
-$ docker compose up
-```
+1. 인프라와 애플리케이션 함께 실행
+    ```bash
+    $ ./gradlew clean build -x test -x integrationTest # Build JAR without running tests
+    $ docker compose up # Run infra with application (mvc-api, consumer)
+    ```
 
+2. 인프라만 실행 (IntelijJ에서 애플리케이션 실행하는 경우)
+    ```bash
+    $ docker compose -f docker-compose.yaml up # Run only infra
+    # Run the application manually in IntelliJ
+    ```
+
+스웨거 접속
 - http://localhost:8080/swagger-ui
