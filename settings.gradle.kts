@@ -1,5 +1,6 @@
 rootProject.name = "any-community"
 
+// app
 include("app:mvc-api")
 include("app:consumer")
 

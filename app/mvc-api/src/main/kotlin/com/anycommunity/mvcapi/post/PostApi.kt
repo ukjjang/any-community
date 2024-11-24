@@ -37,7 +37,7 @@ class PostApi(
     @Operation(summary = "게시글 검색")
     @GetMapping("/v1/post/search")
     fun getPosts(
-        @Parameter(description = "검색 키워드 (특정 접두사로 시작해야 함)", example = "start_")
+        @Parameter(description = "검색 키워드 (특정 접두사로 시작해야 함)", example = "제목")
         @RequestParam keyword: String?,
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
