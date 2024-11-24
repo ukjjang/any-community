@@ -40,7 +40,3 @@ services:
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
       KAFKA_BOOTSTRAP-SERVERS: kafka:9092
-
-volumes:
-  mysqldata:
-  redisdata:
