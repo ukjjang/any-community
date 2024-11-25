@@ -20,6 +20,8 @@
 
 ### 시작하기
 
+> 최초 빌드시에는 이미지, 의존성 다운로드로 인해 시간이 다소 소요될 수 있습니다.
+
 1. 인프라와 애플리케이션 함께 실행
     ```bash
     $ ./gradlew clean build -x test -x integrationTest # Build JAR without running tests
