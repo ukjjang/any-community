@@ -6,7 +6,7 @@
 ---
 
 ### 스펙
-* Kotlin 2.0.20
+* Kotlin 2.1.0
 * JDK 21
 * Gradle 8.10
 * Spring Boot 3.3.5

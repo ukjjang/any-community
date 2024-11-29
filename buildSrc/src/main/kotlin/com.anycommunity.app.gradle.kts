@@ -1,4 +1,4 @@
-import gradle.kotlin.dsl.accessors._53aec52b18a06826989757eb5753d77a.implementation
+import gradle.kotlin.dsl.accessors._00f9db233bd20c7f65806b43654e6e61.implementation
 
 plugins {
     id("com.anycommunity.kotlin")
