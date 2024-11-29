@@ -5,7 +5,6 @@ import com.anycommunity.definition.point.Point
 import com.anycommunity.domain.shared.BaseDomain
 import com.anycommunity.infra.mysql.point.entity.PointTransactionEntity
 
-@ConsistentCopyVisibility
 data class PointTransaction internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

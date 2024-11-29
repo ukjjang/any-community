@@ -7,7 +7,6 @@ import com.anycommunity.domain.point.PointGameProbability.Companion.TOTAL_PROBAB
 import com.anycommunity.domain.shared.BaseDomain
 import com.anycommunity.infra.mysql.point.entity.PointGameProbabilityEntity
 
-@ConsistentCopyVisibility
 data class PointGameProbability internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

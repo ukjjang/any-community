@@ -5,7 +5,6 @@ import com.anycommunity.definition.like.LikeType
 import com.anycommunity.domain.shared.BaseDomain
 import com.anycommunity.infra.mysql.like.entity.LikeEntity
 
-@ConsistentCopyVisibility
 data class Like internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
