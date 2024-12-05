@@ -37,6 +37,12 @@ kotlin {
     }
 }
 
+// kotlin 2.1 Support https://github.com/JLLeitschuh/ktlint-gradle/issues/809#issuecomment-2515514826
+ktlint {
+    version = "1.4.1"
+}
+
+
 kover.reports {
     filters.excludes {
         packages(
