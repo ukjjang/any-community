@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 import com.anycommunity.domain.shared.BaseDomain
 import com.anycommunity.infra.mysql.follow.entity.FollowEntity
 
+@ConsistentCopyVisibility
 data class Follow internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

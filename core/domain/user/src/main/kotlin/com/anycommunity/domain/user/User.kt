@@ -9,6 +9,7 @@ import com.anycommunity.domain.shared.BaseDomain
 import com.anycommunity.infra.mysql.user.entity.UserEntity
 import com.anycommunity.util.jbcrypt.Jbcrypt
 
+@ConsistentCopyVisibility
 data class User internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

@@ -6,6 +6,7 @@ import com.anycommunity.definition.point.PointRuleType
 import com.anycommunity.domain.shared.BaseDomain
 import com.anycommunity.infra.mysql.point.entity.PointRuleEntity
 
+@ConsistentCopyVisibility
 data class PointRule internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
