@@ -12,11 +12,10 @@ class PointProcessUsecase(
     private val userCommandService: UserCommandService,
     private val pointTransactionCommandService: PointTransactionCommandService,
 ) {
-    operator fun invoke(command: PointProcessCommand, skipLock: Boolean = false) = with(command) {
+    operator fun invoke(command: PointProcessCommand) = with(command) {
         distributedLock(
             key = "PointProcessUsecase:$lockKey",
             transactional = true,
-            skipLock = skipLock,
         ) {
             pointTransactionCommandService.create(command.toInfo())
             userCommandService.updateTotalPoints(useId = userId, point = point)

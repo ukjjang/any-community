@@ -50,7 +50,6 @@ class PointGameUsecaseTest(
                             command.point shouldBe Point(100)
                             command.description.shouldNotBeBlank()
                         },
-                        skipLock = true,
                     )
                 }
             }
