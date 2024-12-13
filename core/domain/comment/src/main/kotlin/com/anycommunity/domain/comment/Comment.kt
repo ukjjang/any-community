@@ -5,6 +5,7 @@ import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.domain.shared.BaseDomain
 import com.anycommunity.infra.mysql.comment.entity.CommentEntity
 
+@ConsistentCopyVisibility
 data class Comment internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),

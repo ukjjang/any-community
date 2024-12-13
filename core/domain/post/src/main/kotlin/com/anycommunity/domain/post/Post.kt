@@ -7,6 +7,7 @@ import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.domain.shared.BaseDomain
 import com.anycommunity.infra.mysql.post.entity.PostEntity
 
+@ConsistentCopyVisibility
 data class Post internal constructor(
     override val _id: Long? = null,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
