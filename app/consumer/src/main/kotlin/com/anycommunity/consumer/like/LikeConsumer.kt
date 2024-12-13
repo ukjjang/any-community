@@ -22,7 +22,7 @@ class LikeConsumer(
         groupId = KafkaGroupId.Like.INCREASE_LIKE_COUNT,
         containerFactory = LISTENER_FACTORY,
     )
-    fun commentCreatedEventConsume(@Payload message: String) {
+    fun likeAddedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, LikeAddedEvent::class.java)
         likeCommandBus execute UpdateLikeCountCommand.from(event)
     }
@@ -32,7 +32,7 @@ class LikeConsumer(
         groupId = KafkaGroupId.Like.DECREASE_LIKE_COUNT,
         containerFactory = LISTENER_FACTORY,
     )
-    fun commentDeletedEventConsume(@Payload message: String) {
+    fun likeCanceledEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, LikeCanceledEvent::class.java)
         likeCommandBus execute UpdateLikeCountCommand.from(event)
     }

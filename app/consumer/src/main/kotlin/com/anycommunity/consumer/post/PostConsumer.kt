@@ -22,7 +22,7 @@ class PostConsumer(
         groupId = KafkaGroupId.Post.INCREASE_COMMENT_COUNT,
         containerFactory = LISTENER_FACTORY,
     )
-    fun commentCreatedEventConsume(@Payload message: String) {
+    fun postCreatedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, CommentCreatedEvent::class.java)
         postCommandBus execute UpdatePostCommentCountCommand.from(event)
     }
@@ -32,7 +32,7 @@ class PostConsumer(
         groupId = KafkaGroupId.Post.DECREASE_COMMENT_COUNT,
         containerFactory = LISTENER_FACTORY,
     )
-    fun commentDeletedEventConsume(@Payload message: String) {
+    fun postDeletedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, CommentDeletedEvent::class.java)
         postCommandBus execute UpdatePostCommentCountCommand.from(event)
     }
