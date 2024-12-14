@@ -9,6 +9,9 @@ spring:
       - infra-kafka
       - util-jwt
     active: local
+  threads:
+    virtual:
+      enabled: true
 
 springdoc:
   swagger-ui:
