@@ -25,6 +25,7 @@ internal class ExecuteIfAcquiredTest(
                             try {
                                 executeIfAcquired(key = key) {
                                     count++
+                                    Thread.sleep(50)
                                 }
                             } finally {
                                 latch.countDown()
