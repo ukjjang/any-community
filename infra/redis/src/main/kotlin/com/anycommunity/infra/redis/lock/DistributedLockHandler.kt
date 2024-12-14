@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.util.concurrent.TimeUnit
 import com.anycommunity.infra.redis.lock.DistributedLockHandler.Companion.distributedLockForTransaction
+import com.anycommunity.infra.redis.lock.DistributedLockHandler.Companion.log
 import com.anycommunity.infra.redis.lock.DistributedLockHandler.Companion.redisson
+import com.anycommunity.util.logger.LazyLogger
 
 @Component
 class DistributedLockHandler(
@@ -24,6 +26,8 @@ class DistributedLockHandler(
 
         lateinit var distributedLockForTransaction: DistributedLockForTransaction
             private set
+
+        val log by LazyLogger()
     }
 }
 
@@ -43,10 +47,10 @@ fun <T> distributedLock(
 ): T {
     val lockKey = REDIS_LOCK_KEY_PREFIX + key
     val redisLock = redisson.getLock(lockKey)
-    if (!redisLock.tryLock(waitTime, leaseTime, timeUnit)) {
-        throw CannotAcquireLockException("Could not acquire lock. lockKey: $lockKey")
+    val acquired = redisLock.tryLock(waitTime, leaseTime, timeUnit)
+    if (!acquired) {
+        throw CannotAcquireLockException("락 획득에 실패했습니다. lockKey: $lockKey")
     }
-
     return try {
         if (transactional) {
             distributedLockForTransaction.proceed(function)
@@ -56,6 +60,8 @@ fun <T> distributedLock(
     } finally {
         if (redisLock.isLocked && redisLock.isHeldByCurrentThread) {
             redisLock.unlock()
+        } else {
+            log.warn { "작업이 완료되기 전 락이 해제되었습니다. lockKey: $lockKey" }
         }
     }
 }
