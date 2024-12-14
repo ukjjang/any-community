@@ -2,7 +2,6 @@ package com.anycommunity.infra.redis.lock
 
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service
-import java.util.UUID
 import java.util.concurrent.TimeUnit
 import com.anycommunity.util.logger.LazyLogger
 
@@ -17,7 +16,7 @@ class LettuceDistributedLockService(
 
     fun <T> distributedLock(key: String, waitTime: Long = 10000L, leaseTime: Long = 5000L, function: () -> T): T {
         val lockKey = REDIS_LOCK_KEY_PREFIX + key
-        val lockValue = UUID.randomUUID().toString()
+        val lockValue = Thread.currentThread().name
         val endTime = System.currentTimeMillis() + waitTime
         while (System.currentTimeMillis() < endTime) {
             val acquired =

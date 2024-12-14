@@ -9,16 +9,16 @@ import com.anycommunity.domain.comment.CommentCreateInfo
 import com.anycommunity.domain.comment.event.CommentCreatedEvent
 import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.point.service.PointRuleQueryService
-import com.anycommunity.infra.kafka.service.KafkaProducer
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessCommand
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
 
 @Service
 class CreateCommentUsecase(
     private val commentCommandService: CommentCommandService,
-    private val kafkaProducer: KafkaProducer,
     private val pointRuleQueryService: PointRuleQueryService,
     private val pointProcessUsecase: PointProcessUsecase,
+    private val outboxCreator: OutboxCreator,
 ) {
     companion object {
         private const val POINT_DESCRIPTION_TEMPLATE = "댓글 작성으로 포인트 지급 | 댓글 ID: "
@@ -26,11 +26,11 @@ class CreateCommentUsecase(
 
     @Transactional
     operator fun invoke(command: CreateCommentCommand) {
-        val comment = commentCommandService.create(command.toInfo()).also { pointProcess(it) }
-        kafkaProducer.send(
-            topic = KafkaTopic.Comment.CREATE,
-            payload = CommentCreatedEvent.of(comment),
-        )
+        commentCommandService.create(command.toInfo())
+            .also {
+                outboxCreator.create(KafkaTopic.Comment.CREATE, CommentCreatedEvent.of(it))
+                pointProcess(it)
+            }
     }
 
     private fun pointProcess(comment: Comment) {

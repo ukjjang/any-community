@@ -3,29 +3,40 @@ package com.anycommunity.usecase.comment.command.usecase
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldNotBeBlank
+import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
+import com.anycommunity.domain.comment.event.CommentCreatedEvent
 import com.anycommunity.domain.comment.jpa.CommentRepository
 import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.point.service.PointRuleQueryService
 import com.anycommunity.domain.post.PostFixture
-import com.anycommunity.infra.kafka.service.KafkaProducer
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.IntegrationTest
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
 import com.anycommunity.util.faker.faker
 
 internal class CreateCommentUsecaseTest(
     private val commentCommandService: CommentCommandService,
-    private val kafkaProducer: KafkaProducer,
     private val pointRuleQueryService: PointRuleQueryService,
     private val commentRepository: CommentRepository,
     private val postFixture: PostFixture,
 ) : IntegrationTest, DescribeSpec(
     {
+        val outboxCreator: OutboxCreator = mockk(relaxed = true)
+        val pointProcessUsecase: PointProcessUsecase = mockk(relaxed = true)
+        val createCommentUsecase =
+            CreateCommentUsecase(
+                commentCommandService,
+                pointRuleQueryService,
+                pointProcessUsecase,
+                outboxCreator,
+            )
+
         describe("댓글 생성 유스케이스") {
-            val pointProcessUsecase: PointProcessUsecase = mockk(relaxed = true)
-            val createCommentUsecase =
-                CreateCommentUsecase(commentCommandService, kafkaProducer, pointRuleQueryService, pointProcessUsecase)
+            beforeTest {
+                clearMocks(pointProcessUsecase, outboxCreator)
+            }
 
             context("게시글 및 유저 존재") {
                 val post = postFixture.persist()
@@ -50,6 +61,10 @@ internal class CreateCommentUsecaseTest(
                                 command.description.shouldNotBeBlank()
                             },
                         )
+                    }
+
+                    verify(exactly = 1) {
+                        outboxCreator.create(any(), any<CommentCreatedEvent>())
                     }
                 }
             }

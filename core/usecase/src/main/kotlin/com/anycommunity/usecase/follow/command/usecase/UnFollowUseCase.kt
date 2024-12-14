@@ -6,14 +6,14 @@ import com.anycommunity.definition.global.kafka.KafkaTopic
 import com.anycommunity.domain.follow.FollowRelation
 import com.anycommunity.domain.follow.event.FollowCanceledEvent
 import com.anycommunity.domain.follow.service.FollowCommandService
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.domain.user.service.UserQueryService
-import com.anycommunity.infra.kafka.service.KafkaProducer
 
 @Service
 class UnFollowUseCase(
     private val followCommandService: FollowCommandService,
     private val userQueryService: UserQueryService,
-    private val kafkaProducer: KafkaProducer,
+    private val outboxCreator: OutboxCreator,
 ) {
     @Transactional
     operator fun invoke(command: UnFollowCommand) {
@@ -22,7 +22,10 @@ class UnFollowUseCase(
         }
         followCommandService.delete(command.followRelation)
 
-        kafkaProducer.send(KafkaTopic.Follow.CANCEL, FollowCanceledEvent(command.followRelation))
+        outboxCreator.create(
+            KafkaTopic.Follow.CANCEL,
+            FollowCanceledEvent(command.followRelation),
+        )
     }
 }
 
