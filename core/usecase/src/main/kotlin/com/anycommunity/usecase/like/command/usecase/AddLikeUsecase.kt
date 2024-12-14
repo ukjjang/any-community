@@ -6,17 +6,17 @@ import com.anycommunity.definition.global.kafka.KafkaTopic
 import com.anycommunity.domain.like.LikeTarget
 import com.anycommunity.domain.like.event.LikeAddedEvent
 import com.anycommunity.domain.like.service.LikeCommandService
-import com.anycommunity.infra.kafka.service.KafkaProducer
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 
 @Service
 class AddLikeUseCase(
     private val likeCommandService: LikeCommandService,
-    private val kafkaProducer: KafkaProducer,
+    private val outboxCreator: OutboxCreator,
 ) {
     @Transactional
     operator fun invoke(command: AddLikeCommand) {
-        val like = likeCommandService.add(command.userId, command.likeTarget)
-        kafkaProducer.send(KafkaTopic.Like.ADD, LikeAddedEvent.of(like))
+        likeCommandService.add(command.userId, command.likeTarget)
+            .also { outboxCreator.create(KafkaTopic.Like.ADD, LikeAddedEvent.of(it)) }
     }
 }
 

@@ -6,14 +6,14 @@ import com.anycommunity.definition.global.kafka.KafkaTopic
 import com.anycommunity.domain.follow.FollowRelation
 import com.anycommunity.domain.follow.event.FollowAddedEvent
 import com.anycommunity.domain.follow.service.FollowCommandService
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.domain.user.service.UserQueryService
-import com.anycommunity.infra.kafka.service.KafkaProducer
 
 @Service
 class CreateFollowUseCase(
     private val followCommandService: FollowCommandService,
     private val userQueryService: UserQueryService,
-    private val kafkaProducer: KafkaProducer,
+    private val outboxCreator: OutboxCreator,
 ) {
     @Transactional
     operator fun invoke(command: CreateFollowCommand) {
@@ -22,7 +22,7 @@ class CreateFollowUseCase(
         }
         followCommandService.create(command.followRelation)
 
-        kafkaProducer.send(KafkaTopic.Follow.ADD, FollowAddedEvent(command.followRelation))
+        outboxCreator.create(KafkaTopic.Follow.ADD, FollowAddedEvent(command.followRelation))
     }
 }
 

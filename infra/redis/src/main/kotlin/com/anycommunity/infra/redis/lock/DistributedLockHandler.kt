@@ -21,13 +21,13 @@ class DistributedLockHandler(
     }
 
     companion object {
-        lateinit var redisson: RedissonClient
+        internal lateinit var redisson: RedissonClient
             private set
 
-        lateinit var distributedLockForTransaction: DistributedLockForTransaction
+        internal lateinit var distributedLockForTransaction: DistributedLockForTransaction
             private set
 
-        val log by LazyLogger()
+        internal val log by LazyLogger()
     }
 }
 
