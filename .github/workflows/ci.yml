@@ -11,7 +11,6 @@ on:
 
 jobs:
   pr-build:
-    timeout-minutes: 10
     runs-on : ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,7 +28,6 @@ jobs:
               - '**/build.gradle.kts'
 
       - name: Set up JDK
-        if: steps.changes.outputs.application == 'true'
         uses: actions/setup-java@v4
         with:
           distribution: corretto
@@ -37,7 +35,6 @@ jobs:
           cache: 'gradle'
 
       - name: build
-        if: steps.changes.outputs.application == 'true'
         run: |
           ./gradlew build --parallel
 

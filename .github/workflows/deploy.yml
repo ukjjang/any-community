@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    service:
+      description: '배포할 서비스를 선택해주세요'
+      required: true
+      default: 'API'
+      type: choice
+      options:
+        - API
+        - CONSUMER
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 21
+          cache: 'gradle'
+
+      - name: build
+        run: |
+          ./gradlew app:mvc-api:bootJar --parallel -x test
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Generate Random Tag
+        id: tag
+        run: echo "tag=$(date +%Y%m%d%H%M%S)-${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/spring-app:${{ env.tag }} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/spring-app:${{ env.tag }}
