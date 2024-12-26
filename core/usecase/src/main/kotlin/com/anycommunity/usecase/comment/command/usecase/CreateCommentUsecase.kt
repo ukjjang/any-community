@@ -2,23 +2,23 @@ package com.anycommunity.usecase.comment.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import com.anycommunity.definition.global.kafka.KafkaTopic
+import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.definition.point.PointRuleType
 import com.anycommunity.domain.comment.Comment
 import com.anycommunity.domain.comment.CommentCreateInfo
-import com.anycommunity.domain.comment.event.CommentCreatedEvent
 import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.point.service.PointRuleQueryService
-import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessCommand
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
+import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountCommand
+import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountUseCase
 
 @Service
 class CreateCommentUsecase(
     private val commentCommandService: CommentCommandService,
     private val pointRuleQueryService: PointRuleQueryService,
     private val pointProcessUsecase: PointProcessUsecase,
-    private val outboxCreator: OutboxCreator,
+    private val updatePostCommentCountUseCase: UpdatePostCommentCountUseCase,
 ) {
     companion object {
         private const val POINT_DESCRIPTION_TEMPLATE = "댓글 작성으로 포인트 지급 | 댓글 ID: "
@@ -28,19 +28,27 @@ class CreateCommentUsecase(
     operator fun invoke(command: CreateCommentCommand) {
         commentCommandService.create(command.toInfo())
             .also {
-                outboxCreator.create(KafkaTopic.Comment.CREATE, CommentCreatedEvent.of(it))
+                updatePostCommentCount(it)
                 pointProcess(it)
             }
     }
 
+    private fun updatePostCommentCount(comment: Comment) {
+        val command = UpdatePostCommentCountCommand(
+            postId = comment.postId,
+            countOperation = CountOperation.INCREASE,
+        )
+        updatePostCommentCountUseCase(command)
+    }
+
     private fun pointProcess(comment: Comment) {
         val pointRule = pointRuleQueryService.getByRuleType(PointRuleType.COMMENT_CREATION)
-        val processCommand = PointProcessCommand(
+        val command = PointProcessCommand(
             userId = comment.userId,
             point = pointRule.amount,
             description = "$POINT_DESCRIPTION_TEMPLATE${comment.id}",
         )
-        pointProcessUsecase(processCommand)
+        pointProcessUsecase(command)
     }
 }
 

@@ -6,6 +6,8 @@ import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.domain.post.jpa.PostRepository
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountCommand
+import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountUseCase
 
 internal class UpdatePostCommentCountUseCaseTest(
     private val updatePostCommentCountUseCase: UpdatePostCommentCountUseCase,
