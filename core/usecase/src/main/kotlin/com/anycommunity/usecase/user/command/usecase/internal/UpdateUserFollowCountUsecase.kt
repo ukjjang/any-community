@@ -3,8 +3,6 @@ package com.anycommunity.usecase.user.command.usecase.internal
 import org.springframework.stereotype.Service
 import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.domain.follow.FollowRelation
-import com.anycommunity.domain.follow.event.FollowAddedEvent
-import com.anycommunity.domain.follow.event.FollowCanceledEvent
 import com.anycommunity.domain.user.service.UserCommandService
 import com.anycommunity.infra.redis.lock.distributedLock
 
@@ -30,11 +28,4 @@ class UpdateUserFollowCountUsecase(
 data class UpdateUserFollowCountCommand(
     val followRelation: FollowRelation,
     val countOperation: CountOperation,
-) {
-    companion object {
-        fun from(event: FollowAddedEvent) = UpdateUserFollowCountCommand(event.followRelation, CountOperation.INCREASE)
-
-        fun from(event: FollowCanceledEvent) =
-            UpdateUserFollowCountCommand(event.followRelation, CountOperation.DECREMENT)
-    }
-}
+)

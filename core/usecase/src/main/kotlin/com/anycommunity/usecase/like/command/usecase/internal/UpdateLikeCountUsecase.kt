@@ -5,7 +5,6 @@ import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.definition.like.LikeType
 import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.like.LikeTarget
-import com.anycommunity.domain.like.event.LikeCanceledEvent
 import com.anycommunity.domain.post.service.PostCommandService
 import com.anycommunity.infra.redis.lock.distributedLock
 
@@ -38,10 +37,4 @@ class UpdateLikeCountUsecase(
 data class UpdateLikeCountCommand(
     val likeTarget: LikeTarget,
     val countOperation: CountOperation,
-) {
-    companion object {
-        fun from(event: LikeCanceledEvent) = with(event) {
-            UpdateLikeCountCommand(likeTarget, CountOperation.DECREMENT)
-        }
-    }
-}
+)
