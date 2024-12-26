@@ -6,4 +6,8 @@ object KafkaTopic {
     object Post {
         const val DELETE = "anycommunity-post-delete"
     }
+
+    object Follow {
+        const val UNFOLLOW = "anycommunity-follow-unFollow"
+    }
 }

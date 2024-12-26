@@ -3,8 +3,11 @@ package com.anycommunity.usecase.follow.command.usecase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.anycommunity.definition.global.CountOperation
+import com.anycommunity.definition.global.kafka.KafkaTopic
 import com.anycommunity.domain.follow.FollowRelation
+import com.anycommunity.domain.follow.event.UnFollowEvent
 import com.anycommunity.domain.follow.service.FollowCommandService
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.domain.user.service.UserQueryService
 import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountCommand
 import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountUsecase
@@ -14,6 +17,7 @@ class UnFollowUseCase(
     private val followCommandService: FollowCommandService,
     private val userQueryService: UserQueryService,
     private val updateUserFollowCountUsecase: UpdateUserFollowCountUsecase,
+    private val outboxCreator: OutboxCreator,
 ) {
     @Transactional
     operator fun invoke(command: UnFollowCommand) {
@@ -22,6 +26,8 @@ class UnFollowUseCase(
         }
         followCommandService.delete(command.followRelation)
         updateUserFollowCount(command.followRelation)
+
+        outboxCreator.create(KafkaTopic.Follow.UNFOLLOW, UnFollowEvent(command.followRelation))
     }
 
     private fun updateUserFollowCount(followRelation: FollowRelation) {
