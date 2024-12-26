@@ -7,9 +7,11 @@ import com.anycommunity.consumer.global.KafkaEventParser
 import com.anycommunity.definition.global.kafka.KafkaGroupId
 import com.anycommunity.definition.global.kafka.KafkaTopic
 import com.anycommunity.domain.follow.event.UnFollowEvent
+import com.anycommunity.domain.post.event.PostCreatedEvent
 import com.anycommunity.domain.post.event.PostDeletedEvent
 import com.anycommunity.infra.kafka.KafkaConfig.Companion.LISTENER_FACTORY
 import com.anycommunity.usecase.user_feed.command.UserFeedCommandBus
+import com.anycommunity.usecase.user_feed.command.usecase.UserFeedCreateCommand
 import com.anycommunity.usecase.user_feed.command.usecase.UserFeedDeleteCommandByPostDelete
 import com.anycommunity.usecase.user_feed.command.usecase.UserFeedDeleteCommandByUnFollow
 
@@ -36,5 +38,15 @@ class UserFeedConsumer(
     fun unFollowEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, UnFollowEvent::class.java)
         userFeedCommandBus execute UserFeedDeleteCommandByUnFollow.from(event)
+    }
+
+    @KafkaListener(
+        topics = [KafkaTopic.Post.CREATE],
+        groupId = KafkaGroupId.UserFeed.CREATE,
+        containerFactory = LISTENER_FACTORY,
+    )
+    fun postCreatedEventConsume(@Payload message: String) {
+        val event = kafkaEventParser.parse(message, PostCreatedEvent::class.java)
+        userFeedCommandBus execute UserFeedCreateCommand.from(event)
     }
 }

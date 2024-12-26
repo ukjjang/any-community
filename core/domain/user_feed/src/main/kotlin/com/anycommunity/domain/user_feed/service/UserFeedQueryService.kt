@@ -8,4 +8,5 @@ class UserFeedQueryService(
     private val userFeedRepository: UserFeedRepository,
 ) {
     fun existsByUserIdAndPostId(userId: Long, postId: Long) = userFeedRepository.existsByUserIdAndPostId(userId, postId)
+    fun findByPostId(postId: Long) = userFeedRepository.findByPostId(postId)
 }

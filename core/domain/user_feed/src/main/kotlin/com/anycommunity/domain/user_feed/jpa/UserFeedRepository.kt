@@ -13,11 +13,14 @@ class UserFeedRepository(
 ) {
     fun save(userFeed: UserFeed) = userFeedEntityRepository.save(userFeed.toEntity()).toModel()
 
+    fun saveAll(userFeeds: List<UserFeed>) =
+        userFeedEntityRepository.saveAll(userFeeds.map { it.toEntity() }).map { it.toModel() }
+
     fun delete(userFeed: UserFeed) = userFeedEntityRepository.delete(userFeed.toEntity())
 
     fun findById(id: Long) = userFeedEntityRepository.findByIdOrNull(id)?.toModel()
     fun findByUserId(userId: Long) = userFeedEntityRepository.findByUserId(userId).map { it.toModel() }
-    fun findByPostId(userId: Long) = userFeedEntityRepository.findByPostId(userId).map { it.toModel() }
+    fun findByPostId(postId: Long) = userFeedEntityRepository.findByPostId(postId).map { it.toModel() }
 
     fun deleteAll() = userFeedEntityRepository.deleteAll()
 

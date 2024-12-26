@@ -23,11 +23,13 @@ data class UserFeed internal constructor(
     override fun hashCode() = _id?.hashCode() ?: 0
 
     companion object {
-        internal fun create(info: UserFeedCreateInfo) = UserFeed(
-            userId = info.userId,
-            postId = info.postId,
-            postAuthorId = info.postAuthorId,
-        )
+        internal fun create(info: UserFeedCreateInfo) = info.userId.map {
+            UserFeed(
+                userId = it,
+                postId = info.postId,
+                postAuthorId = info.postAuthorId,
+            )
+        }
     }
 }
 
