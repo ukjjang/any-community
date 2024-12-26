@@ -6,14 +6,14 @@ import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
+import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.definition.like.LikeType
 import com.anycommunity.domain.like.LikeFixture
 import com.anycommunity.domain.like.LikeTarget
-import com.anycommunity.domain.like.event.LikeCanceledEvent
 import com.anycommunity.domain.like.service.LikeCommandService
 import com.anycommunity.domain.like.service.LikeQueryService
-import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.like.command.usecase.internal.UpdateLikeCountUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomEnum
 import com.anycommunity.util.faker.randomLong
@@ -24,13 +24,13 @@ internal class CancelLikeUsecaseTest(
     private val likeCommandService: LikeCommandService,
 ) : IntegrationTest, DescribeSpec(
     {
-        val outboxCreator: OutboxCreator = mockk(relaxed = true)
+        val updateLikeCountUsecase: UpdateLikeCountUsecase = mockk(relaxed = true)
         val cancelLikeUsecase =
-            CancelLikeUsecase(likeCommandService, outboxCreator)
+            CancelLikeUsecase(likeCommandService, updateLikeCountUsecase)
 
         describe("좋아요 삭제 유스케이스") {
             beforeTest {
-                clearMocks(outboxCreator)
+                clearMocks(updateLikeCountUsecase)
             }
 
             val userId = faker.randomLong()
@@ -45,7 +45,12 @@ internal class CancelLikeUsecaseTest(
                 likeQueryService.existsByUserIdAndTarget(userId, likeTarget) shouldBe false
 
                 verify(exactly = 1) {
-                    outboxCreator.create(any(), any<LikeCanceledEvent>())
+                    updateLikeCountUsecase(
+                        withArg { command ->
+                            command.likeTarget shouldBe likeTarget
+                            command.countOperation shouldBe CountOperation.DECREMENT
+                        },
+                    )
                 }
             }
 
@@ -56,7 +61,7 @@ internal class CancelLikeUsecaseTest(
                 }
 
                 verify(exactly = 0) {
-                    outboxCreator.create(any(), any<LikeCanceledEvent>())
+                    updateLikeCountUsecase(any())
                 }
             }
         }
