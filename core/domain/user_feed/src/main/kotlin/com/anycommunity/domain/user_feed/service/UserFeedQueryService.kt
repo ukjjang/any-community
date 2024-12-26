@@ -7,7 +7,5 @@ import com.anycommunity.domain.user_feed.jpa.UserFeedRepository
 class UserFeedQueryService(
     private val userFeedRepository: UserFeedRepository,
 ) {
-    fun existsByUserIdAndPostId(userId: Long, postId: Long) =
-        userFeedRepository.existsByUserIdAndPostId(userId, postId)
-
+    fun existsByUserIdAndPostId(userId: Long, postId: Long) = userFeedRepository.existsByUserIdAndPostId(userId, postId)
 }
