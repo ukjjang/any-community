@@ -6,15 +6,15 @@ import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
+import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.domain.follow.FollowFixture
 import com.anycommunity.domain.follow.FollowRelation
-import com.anycommunity.domain.follow.event.FollowAddedEvent
 import com.anycommunity.domain.follow.service.FollowCommandService
 import com.anycommunity.domain.follow.service.FollowQueryService
-import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.domain.user.service.UserQueryService
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 
@@ -26,13 +26,13 @@ internal class CreateFollowUseCaseTest(
     private val userQueryService: UserQueryService,
 ) : IntegrationTest, DescribeSpec(
     {
-        val outboxCreator: OutboxCreator = mockk(relaxed = true)
+        val updateUserFollowCountUsecase: UpdateUserFollowCountUsecase = mockk(relaxed = true)
         val createFollowUseCase =
-            CreateFollowUseCase(followCommandService, userQueryService, outboxCreator)
+            CreateFollowUseCase(followCommandService, userQueryService, updateUserFollowCountUsecase)
 
         describe("팔로우 생성 유스케이스") {
             beforeTest {
-                clearMocks(outboxCreator)
+                clearMocks(updateUserFollowCountUsecase)
             }
 
             context("a,b,c 유저가 존재하고 a->b 팔로우 상태이다.") {
@@ -53,7 +53,12 @@ internal class CreateFollowUseCaseTest(
                     followQueryService.existsByFollowRelation(relation) shouldBe true
 
                     verify(exactly = 1) {
-                        outboxCreator.create(any(), any<FollowAddedEvent>())
+                        updateUserFollowCountUsecase(
+                            withArg { command ->
+                                command.followRelation shouldBe relation
+                                command.countOperation shouldBe CountOperation.INCREASE
+                            },
+                        )
                     }
                 }
 
@@ -65,7 +70,7 @@ internal class CreateFollowUseCaseTest(
                     }
 
                     verify(exactly = 0) {
-                        outboxCreator.create(any(), any<FollowAddedEvent>())
+                        updateUserFollowCountUsecase(any())
                     }
                 }
 
@@ -77,7 +82,7 @@ internal class CreateFollowUseCaseTest(
                     }
 
                     verify(exactly = 0) {
-                        outboxCreator.create(any(), any<FollowAddedEvent>())
+                        updateUserFollowCountUsecase(any())
                     }
                 }
             }

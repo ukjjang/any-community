@@ -1,8 +1,8 @@
 package com.anycommunity.usecase.user.command
 
 import org.springframework.stereotype.Service
-import com.anycommunity.usecase.user.command.usecase.UpdateUserFollowCountCommand
-import com.anycommunity.usecase.user.command.usecase.UpdateUserFollowCountUsecase
+import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountCommand
+import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountUsecase
 
 sealed interface UserCommandBus {
     infix fun execute(command: UpdateUserFollowCountCommand)

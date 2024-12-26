@@ -7,10 +7,10 @@ import com.anycommunity.usecase.post.command.usecase.CreatePostUsecase
 import com.anycommunity.usecase.post.command.usecase.DeletePostCommand
 import com.anycommunity.usecase.post.command.usecase.DeletePostUsecase
 import com.anycommunity.usecase.post.command.usecase.UpdatePostCommand
-import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountCommand
-import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountUseCase
 import com.anycommunity.usecase.post.command.usecase.UpdatePostResult
 import com.anycommunity.usecase.post.command.usecase.UpdatePostUsecase
+import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountCommand
+import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountUseCase
 
 sealed interface PostCommandBus {
     infix fun execute(command: CreatePostCommand): CreatePostResult
