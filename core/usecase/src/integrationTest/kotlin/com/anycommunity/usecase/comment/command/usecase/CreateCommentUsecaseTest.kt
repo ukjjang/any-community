@@ -6,14 +6,15 @@ import io.kotest.matchers.string.shouldNotBeBlank
 import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
-import com.anycommunity.domain.comment.event.CommentCreatedEvent
+import com.anycommunity.definition.global.CountOperation
+import com.anycommunity.definition.point.Point
 import com.anycommunity.domain.comment.jpa.CommentRepository
 import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.point.service.PointRuleQueryService
 import com.anycommunity.domain.post.PostFixture
-import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.IntegrationTest
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
+import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountUseCase
 import com.anycommunity.util.faker.faker
 
 internal class CreateCommentUsecaseTest(
@@ -23,19 +24,19 @@ internal class CreateCommentUsecaseTest(
     private val postFixture: PostFixture,
 ) : IntegrationTest, DescribeSpec(
     {
-        val outboxCreator: OutboxCreator = mockk(relaxed = true)
+        val updatePostCommentCountUseCase: UpdatePostCommentCountUseCase = mockk(relaxed = true)
         val pointProcessUsecase: PointProcessUsecase = mockk(relaxed = true)
         val createCommentUsecase =
             CreateCommentUsecase(
                 commentCommandService,
                 pointRuleQueryService,
                 pointProcessUsecase,
-                outboxCreator,
+                updatePostCommentCountUseCase,
             )
 
         describe("댓글 생성 유스케이스") {
             beforeTest {
-                clearMocks(pointProcessUsecase, outboxCreator)
+                clearMocks(pointProcessUsecase, updatePostCommentCountUseCase)
             }
 
             context("게시글 및 유저 존재") {
@@ -57,14 +58,19 @@ internal class CreateCommentUsecaseTest(
                         pointProcessUsecase(
                             withArg { command ->
                                 command.userId shouldBe userId
-                                command.point shouldBe com.anycommunity.definition.point.Point(10)
+                                command.point shouldBe Point(10)
                                 command.description.shouldNotBeBlank()
                             },
                         )
                     }
 
                     verify(exactly = 1) {
-                        outboxCreator.create(any(), any<CommentCreatedEvent>())
+                        updatePostCommentCountUseCase(
+                            withArg { command ->
+                                command.postId shouldBe post.id
+                                command.countOperation shouldBe CountOperation.INCREASE
+                            },
+                        )
                     }
                 }
             }
