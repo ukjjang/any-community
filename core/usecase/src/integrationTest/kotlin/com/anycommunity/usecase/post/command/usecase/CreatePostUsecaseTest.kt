@@ -12,7 +12,9 @@ import com.anycommunity.definition.post.PostCategory
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.domain.point.service.PointRuleQueryService
 import com.anycommunity.domain.post.PostFixture
+import com.anycommunity.domain.post.event.PostCreatedEvent
 import com.anycommunity.domain.post.service.PostCommandService
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.IntegrationTest
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
 import com.anycommunity.util.faker.faker
@@ -26,12 +28,13 @@ internal class CreatePostUsecaseTest(
 ) : IntegrationTest, DescribeSpec(
     {
         describe("게시글 생성 유스케이스") {
+            val outboxCreator: OutboxCreator = mockk(relaxed = true)
             val pointProcessUsecase: PointProcessUsecase = mockk(relaxed = true)
             val createPostUsecase =
-                CreatePostUsecase(postCommandService, pointRuleQueryService, pointProcessUsecase)
+                CreatePostUsecase(postCommandService, pointRuleQueryService, pointProcessUsecase, outboxCreator)
 
             beforeTest {
-                clearMocks(pointProcessUsecase)
+                clearMocks(pointProcessUsecase, outboxCreator)
             }
 
             context("게시글 존재") {
@@ -56,6 +59,10 @@ internal class CreatePostUsecaseTest(
                             },
                         )
                     }
+
+                    verify(exactly = 1) {
+                        outboxCreator.create(any(), any<PostCreatedEvent>())
+                    }
                 }
 
                 it("생성에 실패하고 IllegalArgumentException 에러를 던진다.") {
@@ -66,6 +73,10 @@ internal class CreatePostUsecaseTest(
 
                     verify(exactly = 0) {
                         pointProcessUsecase(any())
+                    }
+
+                    verify(exactly = 0) {
+                        outboxCreator.create(any(), any<PostCreatedEvent>())
                     }
                 }
             }
