@@ -6,15 +6,14 @@ import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
-import com.anycommunity.definition.global.kafka.KafkaTopic
+import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.definition.like.LikeType
 import com.anycommunity.domain.like.LikeFixture
 import com.anycommunity.domain.like.LikeTarget
-import com.anycommunity.domain.like.event.LikeAddedEvent
 import com.anycommunity.domain.like.service.LikeCommandService
 import com.anycommunity.domain.like.service.LikeQueryService
-import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.like.command.usecase.internal.UpdateLikeCountUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomEnum
 import com.anycommunity.util.faker.randomLong
@@ -25,13 +24,13 @@ internal class AddLikeUseCaseTest(
     private val likeQueryService: LikeQueryService,
 ) : IntegrationTest, DescribeSpec(
     {
-        val outboxCreator: OutboxCreator = mockk(relaxed = true)
+        val updateLikeCountUsecase: UpdateLikeCountUsecase = mockk(relaxed = true)
         val addLikeUseCase =
-            AddLikeUseCase(likeCommandService, outboxCreator)
+            AddLikeUseCase(likeCommandService, updateLikeCountUsecase)
 
         describe("좋아요 추가 유스케이스") {
             beforeTest {
-                clearMocks(outboxCreator)
+                clearMocks(updateLikeCountUsecase)
             }
 
             val userId = faker.randomLong()
@@ -44,7 +43,12 @@ internal class AddLikeUseCaseTest(
                 likeQueryService.existsByUserIdAndTarget(userId, likeTarget) shouldBe true
 
                 verify(exactly = 1) {
-                    outboxCreator.create(KafkaTopic.Like.ADD, any<LikeAddedEvent>())
+                    updateLikeCountUsecase(
+                        withArg { command ->
+                            command.likeTarget shouldBe likeTarget
+                            command.countOperation shouldBe CountOperation.INCREASE
+                        },
+                    )
                 }
             }
 
@@ -57,7 +61,7 @@ internal class AddLikeUseCaseTest(
                 }
 
                 verify(exactly = 0) {
-                    outboxCreator.create(KafkaTopic.Like.ADD, any<LikeAddedEvent>())
+                    updateLikeCountUsecase(any())
                 }
             }
         }

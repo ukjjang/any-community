@@ -10,6 +10,8 @@ import com.anycommunity.domain.like.LikeTarget
 import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.domain.post.jpa.PostRepository
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.like.command.usecase.internal.UpdateLikeCountCommand
+import com.anycommunity.usecase.like.command.usecase.internal.UpdateLikeCountUsecase
 
 class UpdateLikeCountUsecaseTest(
     private val updateLikeCountUsecase: UpdateLikeCountUsecase,

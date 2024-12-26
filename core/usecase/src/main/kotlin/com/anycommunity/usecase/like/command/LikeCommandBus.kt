@@ -5,8 +5,8 @@ import com.anycommunity.usecase.like.command.usecase.AddLikeCommand
 import com.anycommunity.usecase.like.command.usecase.AddLikeUseCase
 import com.anycommunity.usecase.like.command.usecase.CancelLikeCommand
 import com.anycommunity.usecase.like.command.usecase.CancelLikeUsecase
-import com.anycommunity.usecase.like.command.usecase.UpdateLikeCountCommand
-import com.anycommunity.usecase.like.command.usecase.UpdateLikeCountUsecase
+import com.anycommunity.usecase.like.command.usecase.internal.UpdateLikeCountCommand
+import com.anycommunity.usecase.like.command.usecase.internal.UpdateLikeCountUsecase
 
 sealed interface LikeCommandBus {
     infix fun execute(command: AddLikeCommand)
