@@ -9,8 +9,10 @@ import io.mockk.verify
 import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.domain.follow.FollowFixture
 import com.anycommunity.domain.follow.FollowRelation
+import com.anycommunity.domain.follow.event.UnFollowEvent
 import com.anycommunity.domain.follow.service.FollowCommandService
 import com.anycommunity.domain.follow.service.FollowQueryService
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.domain.user.service.UserQueryService
 import com.anycommunity.usecase.IntegrationTest
@@ -24,19 +26,22 @@ internal class UnFollowUseCaseTest(
     private val followFixture: FollowFixture,
     private val userFixture: UserFixture,
     private val followQueryService: FollowQueryService,
+    private val outboxCreator: OutboxCreator,
 ) : IntegrationTest, DescribeSpec(
     {
         val updateUserFollowCountUsecase: UpdateUserFollowCountUsecase = mockk(relaxed = true)
+        val outboxCreator: OutboxCreator = mockk(relaxed = true)
         val unFollowUseCase =
             UnFollowUseCase(
                 followCommandService,
                 userQueryService,
                 updateUserFollowCountUsecase,
+                outboxCreator,
             )
 
         describe("언팔로우 유스케이스") {
             beforeTest {
-                clearMocks(updateUserFollowCountUsecase)
+                clearMocks(updateUserFollowCountUsecase, outboxCreator)
             }
 
             context("a,b,c 유저가 존재하고 a->b 팔로우 상태이다.") {
@@ -64,6 +69,10 @@ internal class UnFollowUseCaseTest(
                             },
                         )
                     }
+
+                    verify(exactly = 1) {
+                        outboxCreator.create(any(), any<UnFollowEvent>())
+                    }
                 }
 
                 it("언팔로우 실패 - 팔로우 관계가 아님") {
@@ -76,6 +85,10 @@ internal class UnFollowUseCaseTest(
                     verify(exactly = 0) {
                         updateUserFollowCountUsecase(any())
                     }
+
+                    verify(exactly = 0) {
+                        outboxCreator.create(any(), any<UnFollowEvent>())
+                    }
                 }
 
                 it("언팔로우 실패 - 존재하지 않는 대상") {
@@ -87,6 +100,10 @@ internal class UnFollowUseCaseTest(
 
                     verify(exactly = 0) {
                         updateUserFollowCountUsecase(any())
+                    }
+
+                    verify(exactly = 0) {
+                        outboxCreator.create(any(), any<UnFollowEvent>())
                     }
                 }
             }
