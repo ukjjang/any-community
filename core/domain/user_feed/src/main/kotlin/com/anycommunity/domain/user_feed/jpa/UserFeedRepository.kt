@@ -16,6 +16,8 @@ class UserFeedRepository(
     fun delete(userFeed: UserFeed) = userFeedEntityRepository.delete(userFeed.toEntity())
 
     fun findById(id: Long) = userFeedEntityRepository.findByIdOrNull(id)?.toModel()
+    fun findByUserId(userId: Long) = userFeedEntityRepository.findByUserId(userId).map { it.toModel() }
+    fun findByPostId(userId: Long) = userFeedEntityRepository.findByPostId(userId).map { it.toModel() }
 
     fun deleteAll() = userFeedEntityRepository.deleteAll()
 
@@ -23,4 +25,6 @@ class UserFeedRepository(
         userFeedEntityRepository.existsByUserIdAndPostId(userId, postId)
 
     fun deleteByPostId(postId: Long) = userFeedEntityRepository.deleteByPostId(postId)
+    fun deleteByUserIdAndPostAuthorId(userId: Long, postAuthorId: Long) =
+        userFeedEntityRepository.deleteByUserIdAndPostAuthorId(userId, postAuthorId)
 }

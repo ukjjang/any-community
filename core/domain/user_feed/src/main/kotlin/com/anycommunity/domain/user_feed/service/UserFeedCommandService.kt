@@ -20,5 +20,6 @@ class UserFeedCommandService(
     }
 
     fun deleteByPostId(postId: Long) = userFeedRepository.deleteByPostId(postId)
+    fun deleteByUserIdAndPostAuthorId(userId: Long, postAuthorId: Long) =
+        userFeedRepository.deleteByUserIdAndPostAuthorId(userId, postAuthorId)
 }
-
