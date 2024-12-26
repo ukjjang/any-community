@@ -10,13 +10,16 @@ class UserFeedCommandService(
     private val userFeedRepository: UserFeedRepository,
     private val userFeedQueryService: UserFeedQueryService,
 ) {
-    fun save(userFeed: UserFeed) = userFeedRepository.save(userFeed)
+    fun saveAll(userFeeds: List<UserFeed>) = userFeedRepository.saveAll(userFeeds)
 
-    fun create(info: UserFeedCreateInfo): UserFeed {
-        require(!userFeedQueryService.existsByUserIdAndPostId(info.userId, info.postId)) {
-            "이미 존재하는 유저 피드입니다."
-        }
-        return save(UserFeed.create(info))
+    fun create(info: UserFeedCreateInfo): List<UserFeed> {
+        val exists = userFeedQueryService.findByPostId(info.postId).map { it.userId }.toSet()
+        val createInfo = UserFeedCreateInfo(
+            userId = info.userId.filterNot { exists.contains(it) },
+            postId = info.postId,
+            postAuthorId = info.postAuthorId,
+        )
+        return saveAll(UserFeed.create(createInfo))
     }
 
     fun deleteByPostId(postId: Long) = userFeedRepository.deleteByPostId(postId)

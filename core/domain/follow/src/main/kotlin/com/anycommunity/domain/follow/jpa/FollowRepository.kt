@@ -1,6 +1,5 @@
 package com.anycommunity.domain.follow.jpa
 
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 import com.anycommunity.domain.follow.Follow
 import com.anycommunity.domain.follow.toEntity
@@ -21,9 +20,6 @@ class FollowRepository(
     fun existsByFollowerUserIdAndFollowingUserId(followerUserId: Long, followingUserId: Long) =
         followEntityRepository.existsByFollowerUserIdAndFollowingUserId(followerUserId, followingUserId)
 
-    fun findByFollowerUserId(followerUserId: Long, pageable: Pageable) =
-        followEntityRepository.findByFollowerUserId(followerUserId, pageable).map { it.toModel() }
-
-    fun findByFollowingUserId(followingUserId: Long, pageable: Pageable) =
-        followEntityRepository.findByFollowingUserId(followingUserId, pageable).map { it.toModel() }
+    fun findByFollowingUserId(followingUserId: Long) =
+        followEntityRepository.findByFollowingUserId(followingUserId).map { it.toModel() }
 }
