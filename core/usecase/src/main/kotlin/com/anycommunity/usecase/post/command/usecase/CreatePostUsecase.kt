@@ -3,13 +3,16 @@ package com.anycommunity.usecase.post.command.usecase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
+import com.anycommunity.definition.global.kafka.KafkaTopic
 import com.anycommunity.definition.point.PointRuleType
 import com.anycommunity.definition.post.PostCategory
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.domain.point.service.PointRuleQueryService
 import com.anycommunity.domain.post.Post
 import com.anycommunity.domain.post.PostCreateInfo
+import com.anycommunity.domain.post.event.PostCreatedEvent
 import com.anycommunity.domain.post.service.PostCommandService
+import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessCommand
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
 
@@ -18,6 +21,7 @@ class CreatePostUsecase(
     private val postCommandService: PostCommandService,
     private val pointRuleQueryService: PointRuleQueryService,
     private val pointProcessUsecase: PointProcessUsecase,
+    private val outboxCreator: OutboxCreator,
 ) {
     companion object {
         private const val POINT_DESCRIPTION_TEMPLATE = "게시글 작성으로 포인트 지급 | 게시글 ID: "
@@ -25,7 +29,11 @@ class CreatePostUsecase(
 
     @Transactional
     operator fun invoke(command: CreatePostCommand): CreatePostResult {
-        val post = postCommandService.create(command.toInfo()).also { pointProcess(it) }
+        val post = postCommandService.create(command.toInfo())
+            .also {
+                outboxCreator.create(KafkaTopic.Post.CREATE, PostCreatedEvent.from(it))
+                pointProcess(it)
+            }
         return CreatePostResult.from(post)
     }
 

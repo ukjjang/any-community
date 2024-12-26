@@ -5,6 +5,7 @@ object KafkaTopic {
 
     object Post {
         const val DELETE = "anycommunity-post-delete"
+        const val CREATE = "anycommunity-post-create"
     }
 
     object Follow {
