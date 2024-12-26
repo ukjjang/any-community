@@ -1,4 +1,4 @@
-package com.anycommunity.usecase.user.command.usecase
+package com.anycommunity.usecase.user.command.usecase.internal
 
 import org.springframework.stereotype.Service
 import com.anycommunity.definition.global.CountOperation

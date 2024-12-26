@@ -22,7 +22,7 @@ class CancelLikeUsecase(
     private fun updateLikeCount(likeTarget: LikeTarget) {
         val command = UpdateLikeCountCommand(
             likeTarget = likeTarget,
-            countOperation = CountOperation.INCREASE,
+            countOperation = CountOperation.DECREMENT,
         )
         updateLikeCountUsecase(command)
     }
