@@ -6,14 +6,14 @@ import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
+import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.domain.comment.CommentFixture
-import com.anycommunity.domain.comment.event.CommentDeletedEvent
 import com.anycommunity.domain.comment.jpa.CommentRepository
 import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.like.service.LikeCommandService
 import com.anycommunity.domain.post.PostFixture
-import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountUseCase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 
@@ -25,14 +25,14 @@ internal class DeleteCommentUsecaseTest(
     private val postFixture: PostFixture,
 ) : IntegrationTest, DescribeSpec(
     {
-        val outboxCreator: OutboxCreator = mockk(relaxed = true)
+        val updatePostCommentCountUseCase: UpdatePostCommentCountUseCase = mockk(relaxed = true)
         val deleteCommentUsecase =
-            DeleteCommentUsecase(commentCommandService, likeCommandService, outboxCreator)
+            DeleteCommentUsecase(commentCommandService, likeCommandService, updatePostCommentCountUseCase)
 
         describe("댓글 삭제 유스케이스") {
 
             beforeTest {
-                clearMocks(outboxCreator)
+                clearMocks(updatePostCommentCountUseCase)
             }
 
             it("삭제 성공") {
@@ -45,7 +45,12 @@ internal class DeleteCommentUsecaseTest(
                 comment shouldBe null
 
                 verify(exactly = 1) {
-                    outboxCreator.create(any(), any<CommentDeletedEvent>())
+                    updatePostCommentCountUseCase(
+                        withArg { command ->
+                            command.postId shouldBe post.id
+                            command.countOperation shouldBe CountOperation.DECREMENT
+                        },
+                    )
                 }
             }
 
@@ -59,7 +64,7 @@ internal class DeleteCommentUsecaseTest(
                 }
 
                 verify(exactly = 0) {
-                    outboxCreator.create(any(), any<CommentDeletedEvent>())
+                    updatePostCommentCountUseCase(any())
                 }
             }
 
@@ -73,7 +78,7 @@ internal class DeleteCommentUsecaseTest(
                 }
 
                 verify(exactly = 0) {
-                    outboxCreator.create(any(), any<CommentDeletedEvent>())
+                    updatePostCommentCountUseCase(any())
                 }
             }
         }
