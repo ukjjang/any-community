@@ -6,15 +6,15 @@ import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
 import io.mockk.mockk
 import io.mockk.verify
+import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.domain.follow.FollowFixture
 import com.anycommunity.domain.follow.FollowRelation
-import com.anycommunity.domain.follow.event.FollowCanceledEvent
 import com.anycommunity.domain.follow.service.FollowCommandService
 import com.anycommunity.domain.follow.service.FollowQueryService
-import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.domain.user.service.UserQueryService
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 
@@ -26,17 +26,17 @@ internal class UnFollowUseCaseTest(
     private val followQueryService: FollowQueryService,
 ) : IntegrationTest, DescribeSpec(
     {
-        val outboxCreator: OutboxCreator = mockk(relaxed = true)
+        val updateUserFollowCountUsecase: UpdateUserFollowCountUsecase = mockk(relaxed = true)
         val unFollowUseCase =
             UnFollowUseCase(
                 followCommandService,
                 userQueryService,
-                outboxCreator,
+                updateUserFollowCountUsecase,
             )
 
         describe("언팔로우 유스케이스") {
             beforeTest {
-                clearMocks(outboxCreator)
+                clearMocks(updateUserFollowCountUsecase)
             }
 
             context("a,b,c 유저가 존재하고 a->b 팔로우 상태이다.") {
@@ -57,7 +57,12 @@ internal class UnFollowUseCaseTest(
                     followQueryService.existsByFollowRelation(relation) shouldBe false
 
                     verify(exactly = 1) {
-                        outboxCreator.create(any(), any<FollowCanceledEvent>())
+                        updateUserFollowCountUsecase(
+                            withArg { command ->
+                                command.followRelation shouldBe relation
+                                command.countOperation shouldBe CountOperation.DECREMENT
+                            },
+                        )
                     }
                 }
 
@@ -69,7 +74,7 @@ internal class UnFollowUseCaseTest(
                     }
 
                     verify(exactly = 0) {
-                        outboxCreator.create(any(), any<FollowCanceledEvent>())
+                        updateUserFollowCountUsecase(any())
                     }
                 }
 
@@ -81,7 +86,7 @@ internal class UnFollowUseCaseTest(
                     }
 
                     verify(exactly = 0) {
-                        outboxCreator.create(any(), any<FollowCanceledEvent>())
+                        updateUserFollowCountUsecase(any())
                     }
                 }
             }
