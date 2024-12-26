@@ -20,4 +20,7 @@ dependencies {
 
     implementation(project(":core:domain:point"))
     testImplementation(testFixtures(project(":core:domain:point")))
+
+    implementation(project(":core:domain:user_feed"))
+    testImplementation(testFixtures(project(":core:domain:user_feed")))
 }
