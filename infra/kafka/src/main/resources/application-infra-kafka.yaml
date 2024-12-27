@@ -1,5 +1,19 @@
 kafka:
+  offset-reset: latest
+
+---
+
+spring.config.activate.on-profile: local
+
+kafka:
   bootstrap-servers: localhost:9093
   security:
     protocol: PLAINTEXT
-  offset-reset: latest
+
+---
+
+spring.config.activate.on-profile: test
+
+kafka:
+  security:
+    protocol: PLAINTEXT

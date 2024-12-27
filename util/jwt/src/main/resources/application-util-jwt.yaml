@@ -1,2 +1,9 @@
+spring.config.activate.on-profile: local
 jwt:
   secret: waokdmaokcmzclvmakjsvmklasvmajvno44fnoi2foi2j3doidoijaocjoicajoidjadoijdio1dj12dj1j
+
+---
+
+spring.config.activate.on-profile: test
+jwt:
+  secret: testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest

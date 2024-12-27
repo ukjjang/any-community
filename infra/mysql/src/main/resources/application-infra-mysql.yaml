@@ -2,16 +2,27 @@ datasource:
   mysql:
     writer:
       pool-name: any-community-writer
-      jdbc-url: jdbc:mysql://127.0.0.1:3307/any-community
-      username: user
-      password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
     reader:
       pool-name: any-community-reader
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+spring:
+  jpa:
+    open-in-view: false
+---
+
+spring.config.activate.on-profile: local
+datasource:
+  mysql:
+    writer:
       jdbc-url: jdbc:mysql://127.0.0.1:3307/any-community
       username: user
       password: password
-      driver-class-name: com.mysql.cj.jdbc.Driver
+    reader:
+      jdbc-url: jdbc:mysql://127.0.0.1:3307/any-community
+      username: user
+      password: password
 
 spring:
   jpa:
@@ -19,4 +30,3 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-    open-in-view: false
