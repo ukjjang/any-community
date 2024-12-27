@@ -21,7 +21,7 @@ internal class UserFeedDeleteUsecaseTest(
                 userFeedFixture.persist(postId = userFeed.postId)
                 userFeedFixture.persist(postId = userFeed.postId)
 
-                userFeedDeleteUsecase(UserFeedDeleteCommandByPostDelete(userFeed.postId))
+                userFeedDeleteUsecase(DeleteUserFeedCommandByPostDelete(userFeed.postId))
                 userFeedRepository.findByPostId(userFeed.postId) shouldBe emptyList()
             }
 
@@ -33,7 +33,7 @@ internal class UserFeedDeleteUsecaseTest(
                 userFeedFixture.persist(userId = userFeed.userId, postAuthorId = userFeed.postAuthorId)
 
                 val followRelation = FollowRelation(userFeed.userId, userFeed.postAuthorId)
-                userFeedDeleteUsecase(UserFeedDeleteCommandByUnFollow(followRelation))
+                userFeedDeleteUsecase(DeleteUserFeedCommandByUnFollow(followRelation))
 
                 userFeedRepository.findByUserId(userFeed.userId) shouldBe emptyList()
             }

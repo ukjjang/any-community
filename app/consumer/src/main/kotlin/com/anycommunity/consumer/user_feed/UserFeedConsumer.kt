@@ -11,9 +11,9 @@ import com.anycommunity.domain.post.event.PostCreatedEvent
 import com.anycommunity.domain.post.event.PostDeletedEvent
 import com.anycommunity.infra.kafka.KafkaConfig.Companion.LISTENER_FACTORY
 import com.anycommunity.usecase.user_feed.command.UserFeedCommandBus
-import com.anycommunity.usecase.user_feed.command.usecase.UserFeedCreateCommand
-import com.anycommunity.usecase.user_feed.command.usecase.UserFeedDeleteCommandByPostDelete
-import com.anycommunity.usecase.user_feed.command.usecase.UserFeedDeleteCommandByUnFollow
+import com.anycommunity.usecase.user_feed.command.usecase.CreateUserFeedCommand
+import com.anycommunity.usecase.user_feed.command.usecase.DeleteUserFeedCommandByPostDelete
+import com.anycommunity.usecase.user_feed.command.usecase.DeleteUserFeedCommandByUnFollow
 
 @Component
 class UserFeedConsumer(
@@ -27,7 +27,7 @@ class UserFeedConsumer(
     )
     fun postDeletedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, PostDeletedEvent::class.java)
-        userFeedCommandBus execute UserFeedDeleteCommandByPostDelete.from(event)
+        userFeedCommandBus execute DeleteUserFeedCommandByPostDelete.from(event)
     }
 
     @KafkaListener(
@@ -37,7 +37,7 @@ class UserFeedConsumer(
     )
     fun unFollowEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, UnFollowEvent::class.java)
-        userFeedCommandBus execute UserFeedDeleteCommandByUnFollow.from(event)
+        userFeedCommandBus execute DeleteUserFeedCommandByUnFollow.from(event)
     }
 
     @KafkaListener(
@@ -47,6 +47,6 @@ class UserFeedConsumer(
     )
     fun postCreatedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, PostCreatedEvent::class.java)
-        userFeedCommandBus execute UserFeedCreateCommand.from(event)
+        userFeedCommandBus execute CreateUserFeedCommand.from(event)
     }
 }

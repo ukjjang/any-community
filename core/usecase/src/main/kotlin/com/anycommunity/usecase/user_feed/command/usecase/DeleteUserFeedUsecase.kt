@@ -12,23 +12,23 @@ class UserFeedDeleteUsecase(
     private val userFeedCommandService: UserFeedCommandService,
 ) {
     @Transactional
-    operator fun invoke(command: UserFeedDeleteCommandByPostDelete) =
+    operator fun invoke(command: DeleteUserFeedCommandByPostDelete) =
         userFeedCommandService.deleteByPostId(command.postId)
 
     @Transactional
-    operator fun invoke(command: UserFeedDeleteCommandByUnFollow) = with(command.followRelation) {
+    operator fun invoke(command: DeleteUserFeedCommandByUnFollow) = with(command.followRelation) {
         userFeedCommandService.deleteByUserIdAndPostAuthorId(followerUserId, followingUserId)
     }
 }
 
-data class UserFeedDeleteCommandByPostDelete(val postId: Long) {
+data class DeleteUserFeedCommandByPostDelete(val postId: Long) {
     companion object {
-        fun from(event: PostDeletedEvent) = UserFeedDeleteCommandByPostDelete(event.id)
+        fun from(event: PostDeletedEvent) = DeleteUserFeedCommandByPostDelete(event.id)
     }
 }
 
-data class UserFeedDeleteCommandByUnFollow(val followRelation: FollowRelation) {
+data class DeleteUserFeedCommandByUnFollow(val followRelation: FollowRelation) {
     companion object {
-        fun from(event: UnFollowEvent) = UserFeedDeleteCommandByUnFollow(event.followRelation)
+        fun from(event: UnFollowEvent) = DeleteUserFeedCommandByUnFollow(event.followRelation)
     }
 }

@@ -20,7 +20,7 @@ internal class UserFeedCreateUsecaseTest(
                 val followingUserId = faker.randomLong()
                 val follows = (0..9).map { followFixture.persist(followingUserId = followingUserId) }
 
-                userFeedCreateUsecase(UserFeedCreateCommand(postId, followingUserId))
+                userFeedCreateUsecase(CreateUserFeedCommand(postId, followingUserId))
 
                 val userFeeds = userFeedRepository.findByPostId(postId)
                 userFeeds.size shouldBe 10

@@ -13,18 +13,18 @@ class UserFeedCreateUsecase(
     private val followQueryService: FollowQueryService,
 ) {
     @Transactional
-    operator fun invoke(command: UserFeedCreateCommand) {
+    operator fun invoke(command: CreateUserFeedCommand) {
         val followerUserIds = followQueryService.findByFollowingUserId(command.userId).map { it.followerUserId }
         val createInfo = UserFeedCreateInfo(followerUserIds, command.postId, command.userId)
         userFeedCommandService.create(createInfo)
     }
 }
 
-data class UserFeedCreateCommand(
+data class CreateUserFeedCommand(
     val postId: Long,
     val userId: Long,
 ) {
     companion object {
-        fun from(event: PostCreatedEvent) = UserFeedCreateCommand(event.id, event.userId)
+        fun from(event: PostCreatedEvent) = CreateUserFeedCommand(event.id, event.userId)
     }
 }
