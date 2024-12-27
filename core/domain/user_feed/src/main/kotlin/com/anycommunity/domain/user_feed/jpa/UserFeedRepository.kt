@@ -1,5 +1,6 @@
 package com.anycommunity.domain.user_feed.jpa
 
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import com.anycommunity.domain.user_feed.UserFeed
@@ -19,7 +20,10 @@ class UserFeedRepository(
     fun delete(userFeed: UserFeed) = userFeedEntityRepository.delete(userFeed.toEntity())
 
     fun findById(id: Long) = userFeedEntityRepository.findByIdOrNull(id)?.toModel()
-    fun findByUserId(userId: Long) = userFeedEntityRepository.findByUserId(userId).map { it.toModel() }
+    fun findByUserId(userId: Long) = userFeedEntityRepository.findByUserId(userId)
+    fun findByUserIdOrderByIdDesc(userId: Long, pageable: Pageable) =
+        userFeedEntityRepository.findByUserIdOrderByIdDesc(userId, pageable).map { it.toModel() }
+
     fun findByPostId(postId: Long) = userFeedEntityRepository.findByPostId(postId).map { it.toModel() }
 
     fun deleteAll() = userFeedEntityRepository.deleteAll()

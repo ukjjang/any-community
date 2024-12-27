@@ -23,13 +23,12 @@ internal class SearchPostUsecaseTest(
                     }
                 val postsSize = posts.size
 
-                val query =
-                    SearchPostQuery(
-                        keyword = "title",
-                        page = 1,
-                        size = 3,
-                        PostSearchSortType.RECENTLY,
-                    )
+                val query = SearchPostQuery(
+                    keyword = "title",
+                    page = 1,
+                    size = 3,
+                    PostSearchSortType.RECENTLY,
+                )
                 val result = searchPostUsecase(query)
 
                 result.totalElements shouldBe postsSize

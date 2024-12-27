@@ -6,4 +6,5 @@ import com.anycommunity.infra.mysql.post.entity.PostEntity
 
 interface PostEntityRepository : JpaRepository<PostEntity, Long> {
     fun existsByTitle(title: PostTitle): Boolean
+    fun findByIdIn(ids: List<Long>): List<PostEntity>
 }
