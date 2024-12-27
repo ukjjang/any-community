@@ -19,4 +19,5 @@ class PostRepository(
     fun findById(id: Long) = postEntityRepository.findByIdOrNull(id)?.toModel()
 
     fun existsByTitle(title: PostTitle) = postEntityRepository.existsByTitle(title)
+    fun findByIdIn(ids: List<Long>) = postEntityRepository.findByIdIn(ids).map { it.toModel() }
 }

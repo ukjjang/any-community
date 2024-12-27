@@ -21,4 +21,6 @@ class PostQueryService(
         pageable = pageable,
         sortType = sortType,
     )
+
+    fun findByIdIn(ids: List<Long>) = postRepository.findByIdIn(ids)
 }
