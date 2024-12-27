@@ -30,7 +30,7 @@ import com.anycommunity.util.custompage.mapToCustomPage
 
 @Tag(name = "유저")
 @MvcApiController
-class UserAPI(
+class UserApi(
     private val userQueryBus: UserQueryBus,
     private val followQueryBus: FollowQueryBus,
     private val followCommandBus: FollowCommandBus,
