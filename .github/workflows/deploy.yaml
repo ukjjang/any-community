@@ -54,7 +54,6 @@ jobs:
           currentTime=$(date +'%Y%m%d%H%M')
           short_commit_hash=$(git rev-parse --short HEAD)
           echo "tag=${currentTime}-${short_commit_hash}" >> $GITHUB_ENV
-          echo "::set-output name=tag::${currentTime}-${short_commit_hash}"
 
       - name: Set up Docker Buildx
         run: |
