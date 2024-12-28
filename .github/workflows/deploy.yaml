@@ -1,0 +1,95 @@
+name: Deploy
+run-name: Deploy to ${{ inputs.env }} | ${{ inputs.service }} | ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: '배포할 환경을 선택해주세요'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+          - prod
+      service:
+        description: '배포할 서비스를 선택해주세요'
+        required: true
+        default: 'mvc-api'
+        type: choice
+        options:
+          - mvc-api
+          - consumer
+
+jobs:
+  docker_build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 21
+          cache: 'gradle'
+
+      - name: Build
+        run: |
+          ./gradlew app:${{ github.event.inputs.service }}:bootJar --parallel -x test
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.PAT }}
+
+      - name: Set Commit Hash as Tag
+        id: tag
+        run: |
+          currentTime=$(date +'%Y%m%d%H%M')
+          short_commit_hash=$(git rev-parse --short HEAD)
+          echo "tag=${currentTime}-${short_commit_hash}" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        run: |
+          docker buildx create --use
+
+      - name: Build and Push Docker Image
+        run: |
+          docker buildx build \
+            --platform linux/arm64 \
+            -t ghcr.io/${{ secrets.DOCKER_USERNAME }}/any-community/${{ github.event.inputs.env }}/${{ github.event.inputs.service }}:${{ env.tag }} \
+            --push ./app/${{ github.event.inputs.service }}
+
+    outputs:
+      tag: ${{ env.tag }}
+
+  update_manifest:
+    needs: docker_build_and_push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ukjjang/any-community-gitops
+          ref: main
+          token: ${{ secrets.PAT }}
+          path: gitops
+
+      - name: Update image tag in manifest
+        run: |
+          IMAGE_PREFIX="ghcr.io/ukjjang/any-community/prod/${{ github.event.inputs.service }}"
+          FILE_PATH="gitops/manifest/prod/application/any-community/${{ github.event.inputs.service }}/dep.yaml"
+          sed -i "s|image: ${IMAGE_PREFIX}:.*|image: ${IMAGE_PREFIX}:${{ needs.docker_build_and_push.outputs.tag }}|" $FILE_PATH
+
+      - name: Commit and Push changes
+        run: |
+          cd gitops
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git pull
+          git add .
+          git commit -m "Update image tag to ${{ needs.docker_build_and_push.outputs.tag }} for ${{ github.event.inputs.service }}" || echo "No changes to commit"
+          git push
