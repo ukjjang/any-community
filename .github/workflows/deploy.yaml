@@ -23,8 +23,6 @@ on:
 jobs:
   docker_build_and_push:
     runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -66,6 +64,9 @@ jobs:
             -t ghcr.io/${{ secrets.DOCKER_USERNAME }}/any-community/${{ github.event.inputs.env }}/${{ github.event.inputs.service }}:${{ env.tag }} \
             --push ./app/${{ github.event.inputs.service }}
 
+    outputs:
+      tag: ${{ env.tag }}
+
   update_manifest:
     needs: docker_build_and_push
     runs-on: ubuntu-latest
@@ -76,6 +77,10 @@ jobs:
           ref: main
           token: ${{ secrets.PAT }}
           path: gitops
+
+      - name: test
+        run: |
+          echo hiyo: ${{ needs.docker_build_and_push.outputs.tag }}
 
       - name: Update image tag in manifest
         run: |
