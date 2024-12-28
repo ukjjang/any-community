@@ -85,9 +85,8 @@ jobs:
       - name: Update image tag in manifest
         run: |
           IMAGE_PREFIX="ghcr.io/ukjjang/any-community/prod/mvc-api"
-          TAG="${{ needs.docker_build_and_push.outputs.tag }}"
           FILE_PATH="gitops/manifest/prod/application/any-community/mvc-api/dep.yaml"
-          sed -i "s|image: ${IMAGE_PREFIX}:.*|image: ${IMAGE_PREFIX}:${TAG}|" $FILE_PATH
+          sed -i "s|image: ${IMAGE_PREFIX}:.*|image: ${IMAGE_PREFIX}:${{ needs.docker_build_and_push.outputs.tag }}|" $FILE_PATH
 #          sed -i 's|image: ghcr.io/ukjjang/any-community/prod/mvc-api:.*|image: ghcr.io/ukjjang/any-community/prod/mvc-api:${{ needs.docker_build_and_push.outputs.tag }}|' gitops/manifest/prod/application/any-community/mvc-api/dep.yaml
 
       - name: Commit and Push changes
