@@ -79,7 +79,9 @@ jobs:
 
       - name: Update image tag in manifest
         run: |
-          sed -i 's|image: ghcr.io/ukjjang/any-community/${{ github.event.inputs.env }}/${{ github.event.inputs.service }}:.*|image: ghcr.io/ukjjang/any-community/${{ github.event.inputs.env }}/${{ github.event.inputs.service }}:${{ needs.docker_build_and_push.outputs.tag }}|' gitops/manifest/${{ github.event.inputs.env }}/application/any-community/${{ github.event.inputs.service }}/dep.yaml
+          IMAGE_PREFIX="ghcr.io/ukjjang/any-community/${{ github.event.inputs.env }}/${{ github.event.inputs.service }}"
+          MANIFEST_PATH="gitops/manifest/${{ github.event.inputs.env }}/application/any-community/${{ github.event.inputs.service }}/dep.yaml"
+          sed -i "s|image:.*${IMAGE_PREFIX}:.*|image: ${IMAGE_PREFIX}:${{ needs.docker_build_and_push.outputs.tag }}|" $MANIFEST_PATH
 
       - name: Commit and Push changes
         run: |
@@ -87,6 +89,6 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git pull
-          git add manifest/${{ github.event.inputs.env }}/application/any-community/${{ github.event.inputs.service }}/dep.yaml
+          git add .
           git commit -m "Update image tag to ${{ needs.docker_build_and_push.outputs.tag }} for ${{ github.event.inputs.service }}" || echo "No changes to commit"
           git push
