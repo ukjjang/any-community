@@ -21,8 +21,10 @@ on:
           - consumer
 
 jobs:
-  deploy:
+  docker_build_and_push:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,7 +50,11 @@ jobs:
 
       - name: Set Commit Hash as Tag
         id: tag
-        run: echo "tag=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        run: |
+          currentTime=$(date +'%Y%m%d%H%M')
+          short_commit_hash=$(git rev-parse --short HEAD)
+          echo "tag=${currentTime}-${short_commit_hash}" >> $GITHUB_ENV
+          echo "::set-output name=tag::${currentTime}-${short_commit_hash}"
 
       - name: Set up Docker Buildx
         run: |
@@ -60,3 +66,28 @@ jobs:
             --platform linux/arm64 \
             -t ghcr.io/${{ secrets.DOCKER_USERNAME }}/any-community/${{ github.event.inputs.service }}:${{ env.tag }} \
             --push ./app/${{ github.event.inputs.service }}
+
+  update_manifest:
+    needs: docker_build_and_push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ukjjang/any-community-gitops
+          ref: main
+          token: ${{ secrets.PAT }}
+          path: gitops
+
+      - name: Update image tag in manifest
+        run: |
+          sed -i 's|image: ghcr.io/ukjjang/any-community/${{ github.event.inputs.service }}:.*|image: ghcr.io/ukjjang/any-community/${{ github.event.inputs.service }}:${{ needs.docker_build_and_push.outputs.tag }}|' gitops/any-community/${{ github.event.inputs.service }}/dep.yaml
+
+      - name: Commit and Push changes
+        run: |
+          cd gitops
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git pull
+          git add any-community/${{ github.event.inputs.service }}/dep.yaml
+          git commit -m "Update image tag to ${{ needs.docker_build_and_push.outputs.tag }} for ${{ github.event.inputs.service }}" || echo "No changes to commit"
+          git push
