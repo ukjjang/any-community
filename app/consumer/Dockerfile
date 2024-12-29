@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY build/libs/*.jar consumer.jar
 
-ENTRYPOINT ["java", "-jar", "consumer.jar"]
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75.0", "-jar", "consumer.jar"]

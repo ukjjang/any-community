@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY build/libs/*.jar mvc-api.jar
 
-ENTRYPOINT ["java", "-jar", "mvc-api.jar"]
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75.0", "-jar", "mvc-api.jar"]
