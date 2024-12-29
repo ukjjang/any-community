@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import com.anycommunity.infra.redis.IntegrationTest
 
 internal class ExecuteIfAcquiredTest(
@@ -23,9 +24,9 @@ internal class ExecuteIfAcquiredTest(
                     repeat(10) {
                         execute {
                             try {
-                                executeIfAcquired(key = key) {
+                                executeIfAcquired(key = key, leaseTime = 5, timeUnit = TimeUnit.SECONDS) {
                                     count++
-                                    Thread.sleep(50)
+                                    Thread.sleep(200)
                                 }
                             } finally {
                                 latch.countDown()
