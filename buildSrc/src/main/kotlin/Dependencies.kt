@@ -102,4 +102,8 @@ object Dependencies {
 
         const val KOTLIN_LOGGING = "io.github.oshai:kotlin-logging-jvm:$VERSION"
     }
+
+    object Micrometer {
+        const val PROMETHEUS = "io.micrometer:micrometer-registry-prometheus"
+    }
 }
