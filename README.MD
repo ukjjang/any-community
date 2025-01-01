@@ -14,7 +14,7 @@
 |------------|-----------------------------------|
 | API Server | https://api.ukjjang.me/swagger-ui |
 | ArgoCD     | https://argocd.ukjjang.me         |
-| SonarQube  | http://sonarqube.ukjjang.me       |
+| SonarQube  | https://sonarqube.ukjjang.me       |
 
 ### GitOps Repository
 - https://github.com/ukjjang/any-community-gitops
