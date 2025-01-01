@@ -13,5 +13,4 @@ dependencies {
 
     implementation(project(":infra:kafka"))
     implementation(project(":infra:redis"))
-    implementation(project(":util:jwt"))
 }
