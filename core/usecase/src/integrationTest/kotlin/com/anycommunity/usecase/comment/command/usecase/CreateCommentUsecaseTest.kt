@@ -41,9 +41,9 @@ internal class CreateCommentUsecaseTest(
 
             context("게시글 및 유저 존재") {
                 val post = postFixture.persist()
-                val userId = faker.random().nextLong()
 
                 it("생성 성공") {
+                    val userId = faker.random().nextLong()
                     val command = CreateCommentCommand(userId, post.id, null, "content")
                     createCommentUsecase(command)
 
@@ -65,6 +65,35 @@ internal class CreateCommentUsecaseTest(
                     }
 
                     verify(exactly = 1) {
+                        updatePostCommentCountUseCase(
+                            withArg { command ->
+                                command.postId shouldBe post.id
+                                command.countOperation shouldBe CountOperation.INCREASE
+                            },
+                        )
+                    }
+                }
+
+                it("동일 유저가 10분 이내 여러 댓글 생성시 포인트 1회만 지급") {
+                    val userId = faker.random().nextLong()
+                    val command = CreateCommentCommand(userId, post.id, null, "content")
+                    createCommentUsecase(command)
+                    createCommentUsecase(command)
+
+                    val comments = commentRepository.findByUserIdAndPostId(userId, post.id)
+                    comments.size shouldBe 2
+
+                    verify(exactly = 1) {
+                        pointProcessUsecase(
+                            withArg { command ->
+                                command.userId shouldBe userId
+                                command.point shouldBe Point(10)
+                                command.description.shouldNotBeBlank()
+                            },
+                        )
+                    }
+
+                    verify(exactly = 2) {
                         updatePostCommentCountUseCase(
                             withArg { command ->
                                 command.postId shouldBe post.id
