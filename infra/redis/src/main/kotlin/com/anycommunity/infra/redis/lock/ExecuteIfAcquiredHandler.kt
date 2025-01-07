@@ -37,6 +37,11 @@ class ExecuteIfAcquiredForTransaction {
     fun <T> proceed(function: () -> T) = function()
 }
 
+/**
+ * 락을 획득한 경우에만 주어진 로직을 실행한다.
+ * 락 획득에 실패하면 로직은 실행하지 않고 무시하고 넘어간다.
+ * 로직 실행이 끝난 후에는 락을 반환하며, 설정된 시간이 지나도 자동으로 락이 해제된다.
+ */
 fun executeIfAcquired(
     key: String,
     leaseTime: Long = 5L,
