@@ -2,12 +2,14 @@ package com.anycommunity.usecase.comment.command.usecase
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.concurrent.TimeUnit
 import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.definition.point.PointRuleType
 import com.anycommunity.domain.comment.Comment
 import com.anycommunity.domain.comment.CommentCreateInfo
 import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.point.service.PointRuleQueryService
+import com.anycommunity.infra.redis.lock.timeBoundLock
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessCommand
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
 import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountCommand
@@ -29,7 +31,14 @@ class CreateCommentUsecase(
         commentCommandService.create(command.toInfo())
             .also {
                 updatePostCommentCount(it)
-                pointProcess(it)
+
+                timeBoundLock(
+                    key = "CreateCommentUsecase:pointProcess:${command.userId}",
+                    leaseTime = 10,
+                    timeUnit = TimeUnit.MINUTES,
+                ) {
+                    pointProcess(it)
+                }
             }
     }
 

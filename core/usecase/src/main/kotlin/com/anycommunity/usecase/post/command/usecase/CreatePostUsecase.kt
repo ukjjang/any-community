@@ -3,6 +3,7 @@ package com.anycommunity.usecase.post.command.usecase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
+import java.util.concurrent.TimeUnit
 import com.anycommunity.definition.global.kafka.KafkaTopic
 import com.anycommunity.definition.point.PointRuleType
 import com.anycommunity.definition.post.PostCategory
@@ -13,6 +14,7 @@ import com.anycommunity.domain.post.PostCreateInfo
 import com.anycommunity.domain.post.event.PostCreatedEvent
 import com.anycommunity.domain.post.service.PostCommandService
 import com.anycommunity.domain.shared.outbox.OutboxCreator
+import com.anycommunity.infra.redis.lock.timeBoundLock
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessCommand
 import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
 
@@ -32,7 +34,14 @@ class CreatePostUsecase(
         val post = postCommandService.create(command.toInfo())
             .also {
                 outboxCreator.create(KafkaTopic.Post.CREATE, PostCreatedEvent.from(it))
-                pointProcess(it)
+
+                timeBoundLock(
+                    key = "CreatePostUsecase:pointProcess:${command.userId}",
+                    leaseTime = 10,
+                    timeUnit = TimeUnit.MINUTES,
+                ) {
+                    pointProcess(it)
+                }
             }
         return CreatePostResult.from(post)
     }

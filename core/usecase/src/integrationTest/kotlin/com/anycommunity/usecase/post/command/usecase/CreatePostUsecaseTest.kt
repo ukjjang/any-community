@@ -40,8 +40,10 @@ internal class CreatePostUsecaseTest(
             context("게시글 존재") {
                 val exits = postFixture.persist()
 
-                fun createPostCommand(title: PostTitle = PostTitle(faker.randomString())) =
-                    CreatePostCommand(faker.randomLong(), title, PostCategory.ETC, "content")
+                fun createPostCommand(
+                    userId: Long = faker.randomLong(),
+                    title: PostTitle = PostTitle(faker.randomString()),
+                ) = CreatePostCommand(userId, title, PostCategory.ETC, "content")
 
                 it("다른 게시글 제목으로 생성 성공하고, 포인트 지급 유스케이스 호출") {
                     val command = createPostCommand()
@@ -65,8 +67,8 @@ internal class CreatePostUsecaseTest(
                     }
                 }
 
-                it("생성에 실패하고 IllegalArgumentException 에러를 던진다.") {
-                    val command = createPostCommand(exits.title)
+                it("중목된 이름의 게시글 생성에 실패하고 IllegalArgumentException 에러를 던진다.") {
+                    val command = createPostCommand(title = exits.title)
                     shouldThrow<IllegalArgumentException> {
                         createPostUsecase(command)
                     }
@@ -76,6 +78,25 @@ internal class CreatePostUsecaseTest(
                     }
 
                     verify(exactly = 0) {
+                        outboxCreator.create(any(), any<PostCreatedEvent>())
+                    }
+                }
+
+                it("동일 유저가 10분 이내 여러 게시글 생성시 포인트 1회만 지급") {
+                    val userId = faker.randomLong()
+                    createPostUsecase(createPostCommand(userId = userId))
+                    createPostUsecase(createPostCommand(userId = userId))
+
+                    verify(exactly = 1) {
+                        pointProcessUsecase(
+                            withArg { command ->
+                                command.point shouldBe Point(50)
+                                command.description.shouldNotBeBlank()
+                            },
+                        )
+                    }
+
+                    verify(exactly = 2) {
                         outboxCreator.create(any(), any<PostCreatedEvent>())
                     }
                 }
