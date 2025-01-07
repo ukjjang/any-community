@@ -27,7 +27,7 @@
 
 # Code Architecture
 
-![any-community-code](https://github.com/user-attachments/assets/2f2c3b46-2cae-445f-857c-fb779e6074dc)
+![any-community-code](https://github.com/user-attachments/assets/dab8f0a8-5893-4260-8dac-18b9d5fd83c2)
 - ### [코드 아키텍처 Wiki](https://github.com/ukjjang/any-community/wiki/Code-Architecture)
 
 #### ERD
