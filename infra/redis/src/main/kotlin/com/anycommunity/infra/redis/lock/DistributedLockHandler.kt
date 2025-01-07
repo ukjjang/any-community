@@ -37,6 +37,11 @@ class DistributedLockForTransaction {
     fun <T> proceed(function: () -> T) = function()
 }
 
+/**
+ * 분산 환경에서 락을 획득하여 주어진 로직을 실행한다.
+ * 락을 획득하지 못하면 CannotAcquireLockException 에러를 던진다.
+ * 로직 실행이 끝난 후에는 락을 반환하며, 설정된 시간이 지나도 자동으로 락이 해제된다.
+ */
 fun <T> distributedLock(
     key: String,
     waitTime: Long = 10L,
