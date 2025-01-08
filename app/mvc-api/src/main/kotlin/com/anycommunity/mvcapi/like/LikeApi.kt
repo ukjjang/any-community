@@ -13,14 +13,14 @@ import com.anycommunity.domain.like.LikeTarget
 import com.anycommunity.mvcapi.global.MvcApiController
 import com.anycommunity.mvcapi.global.security.AuthRole
 import com.anycommunity.mvcapi.global.security.AuthUser
-import com.anycommunity.usecase.like.command.LikeCommandBus
-import com.anycommunity.usecase.like.command.usecase.AddLikeCommand
-import com.anycommunity.usecase.like.command.usecase.CancelLikeCommand
+import com.anycommunity.usecase.like.command.port.command.LikeCommandPort
+import com.anycommunity.usecase.like.command.port.command.model.AddLikeCommand
+import com.anycommunity.usecase.like.command.port.command.model.CancelLikeCommand
 
 @Tag(name = "좋아요")
 @MvcApiController
 class LikeApi(
-    private val likeCommandBus: LikeCommandBus,
+    private val likeCommandPort: LikeCommandPort,
 ) {
     @Operation(summary = "좋아요 추가")
     @Secured(AuthRole.USER)
@@ -35,7 +35,7 @@ class LikeApi(
         likeTarget = LikeTarget(targetType, targetId),
         userId = user.id,
     ).let {
-        likeCommandBus execute it
+        likeCommandPort execute it
     }
 
     @Operation(summary = "좋아요 취소")
@@ -51,6 +51,6 @@ class LikeApi(
         likeTarget = LikeTarget(targetType, targetId),
         userId = user.id,
     ).let {
-        likeCommandBus execute it
+        likeCommandPort execute it
     }
 }

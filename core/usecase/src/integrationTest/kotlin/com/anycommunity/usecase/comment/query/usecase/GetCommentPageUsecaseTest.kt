@@ -8,6 +8,8 @@ import com.anycommunity.domain.like.LikeFixture
 import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.comment.port.query.model.GetCommentPageQuery
+import com.anycommunity.usecase.comment.usecase.query.GetCommentPageUsecase
 
 class GetCommentPageUsecaseTest(
     private val getCommentPageUsecase: GetCommentPageUsecase,
@@ -83,13 +85,12 @@ class GetCommentPageUsecaseTest(
                     targetId = comment2.id.toString(),
                 )
 
-                val query =
-                    GetCommentPageQuery(
-                        postId = post.id,
-                        viewerId = viewer.id,
-                        page = 1,
-                        size = 2,
-                    )
+                val query = GetCommentPageQuery(
+                    postId = post.id,
+                    viewerId = viewer.id,
+                    page = 1,
+                    size = 2,
+                )
 
                 val result = getCommentPageUsecase(query)
 

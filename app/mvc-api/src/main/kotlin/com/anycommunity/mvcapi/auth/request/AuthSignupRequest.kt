@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import com.anycommunity.definition.user.Gender
 import com.anycommunity.definition.user.RawPassword
 import com.anycommunity.definition.user.Username
-import com.anycommunity.usecase.auth.command.usecase.SignupCommand
+import com.anycommunity.usecase.auth.port.command.model.SignupCommand
 
 @Schema(description = "회원가입 요청")
 data class AuthSignupRequest(

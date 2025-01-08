@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.definition.user.Username
-import com.anycommunity.usecase.post.query.usecase.SearchedPostResult
+import com.anycommunity.usecase.post.port.query.model.SearchedPostResult
 
 @Schema(description = "게시글 검색 응답")
 class PostSearchResponse(

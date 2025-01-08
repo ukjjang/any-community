@@ -7,8 +7,8 @@ import com.anycommunity.domain.follow.FollowRelation
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.domain.user.jpa.UserRepository
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountCommand
-import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountUsecase
+import com.anycommunity.usecase.user.port.command.model.UpdateUserFollowCountCommand
+import com.anycommunity.usecase.user.usecase.command.internal.UpdateUserFollowCountUsecase
 
 internal class UpdateUserFollowCountUsecaseTest(
     private val updateUserFollowCountUsecase: UpdateUserFollowCountUsecase,

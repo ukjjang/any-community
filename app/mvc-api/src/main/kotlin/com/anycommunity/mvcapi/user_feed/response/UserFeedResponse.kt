@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.definition.user.Username
 import com.anycommunity.mvcapi.post.response.PostCategoryResponse
-import com.anycommunity.usecase.user_feed.query.usecase.UserFeedResult
+import com.anycommunity.usecase.user_feed.port.query.model.UserFeedResult
 
 @Schema(description = "유저피드 조회 응답")
 class UserFeedResponse(

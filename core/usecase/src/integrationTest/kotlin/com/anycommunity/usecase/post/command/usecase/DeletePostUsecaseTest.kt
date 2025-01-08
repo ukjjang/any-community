@@ -18,6 +18,8 @@ import com.anycommunity.domain.post.jpa.PostRepository
 import com.anycommunity.domain.post.service.PostCommandService
 import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.post.port.command.model.DeletePostCommand
+import com.anycommunity.usecase.post.usecase.command.DeletePostUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 

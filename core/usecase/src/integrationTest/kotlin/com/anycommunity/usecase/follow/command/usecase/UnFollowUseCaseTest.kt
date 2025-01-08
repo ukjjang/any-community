@@ -16,7 +16,9 @@ import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.domain.user.service.UserQueryService
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.user.command.usecase.internal.UpdateUserFollowCountUsecase
+import com.anycommunity.usecase.follow.port.command.model.UnFollowCommand
+import com.anycommunity.usecase.follow.usecase.command.UnFollowUseCase
+import com.anycommunity.usecase.user.usecase.command.internal.UpdateUserFollowCountUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 

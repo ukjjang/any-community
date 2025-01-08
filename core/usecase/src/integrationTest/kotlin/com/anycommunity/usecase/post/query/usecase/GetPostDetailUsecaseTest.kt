@@ -9,6 +9,8 @@ import com.anycommunity.domain.like.LikeTarget
 import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.post.port.query.model.GetPostDetailQuery
+import com.anycommunity.usecase.post.usecase.query.GetPostDetailUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 

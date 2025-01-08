@@ -13,8 +13,10 @@ import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.point.service.PointRuleQueryService
 import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
-import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountUseCase
+import com.anycommunity.usecase.comment.port.command.model.CreateCommentCommand
+import com.anycommunity.usecase.comment.usecase.command.CreateCommentUsecase
+import com.anycommunity.usecase.point.usecase.command.internal.PointProcessUsecase
+import com.anycommunity.usecase.post.usecase.command.internal.UpdatePostCommentCountUseCase
 import com.anycommunity.util.faker.faker
 
 internal class CreateCommentUsecaseTest(

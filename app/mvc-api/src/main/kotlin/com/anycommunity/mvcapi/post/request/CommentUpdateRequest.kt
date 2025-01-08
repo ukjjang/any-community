@@ -1,7 +1,7 @@
 package com.anycommunity.mvcapi.post.request
 
 import io.swagger.v3.oas.annotations.media.Schema
-import com.anycommunity.usecase.comment.command.usecase.UpdateCommentCommand
+import com.anycommunity.usecase.comment.port.command.model.UpdateCommentCommand
 
 @Schema(description = "댓글 수정 요청")
 data class CommentUpdateRequest(

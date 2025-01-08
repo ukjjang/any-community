@@ -21,18 +21,18 @@ import com.anycommunity.mvcapi.post.request.PostUpdateRequest
 import com.anycommunity.mvcapi.post.response.PostDetailResponse
 import com.anycommunity.mvcapi.post.response.PostResponse
 import com.anycommunity.mvcapi.post.response.PostSearchResponse
-import com.anycommunity.usecase.post.command.PostCommandBus
-import com.anycommunity.usecase.post.command.usecase.DeletePostCommand
-import com.anycommunity.usecase.post.query.PostQueryBus
-import com.anycommunity.usecase.post.query.usecase.GetPostDetailQuery
-import com.anycommunity.usecase.post.query.usecase.SearchPostQuery
+import com.anycommunity.usecase.post.port.command.PostCommandPort
+import com.anycommunity.usecase.post.port.command.model.DeletePostCommand
+import com.anycommunity.usecase.post.port.query.PostQueryPort
+import com.anycommunity.usecase.post.port.query.model.GetPostDetailQuery
+import com.anycommunity.usecase.post.port.query.model.SearchPostQuery
 import com.anycommunity.util.custompage.mapToCustomPage
 
 @Tag(name = "게시글")
 @MvcApiController
 class PostApi(
-    private val postCommandBus: PostCommandBus,
-    private val postQueryBus: PostQueryBus,
+    private val postCommandPort: PostCommandPort,
+    private val postQueryPort: PostQueryPort,
 ) {
     @Operation(summary = "게시글 검색")
     @GetMapping("/v1/post/search")
@@ -48,7 +48,7 @@ class PostApi(
         size = size,
         postSearchSortType = postSearchSortType,
     ).let {
-        postQueryBus ask it
+        postQueryPort ask it
     }.mapToCustomPage { PostSearchResponse.from(it) }
 
     @Operation(summary = "게시글 등록")
@@ -56,13 +56,13 @@ class PostApi(
     @PostMapping("/v1/post")
     fun create(@AuthenticationPrincipal user: AuthUser, @RequestBody request: PostCreateRequest) =
         request.toCommand(user.id).let {
-            postCommandBus execute it
+            postCommandPort execute it
         }.let { PostResponse.from(it) }
 
     @Operation(summary = "게시글 상세 조회")
     @GetMapping("/v1/post/{postId}")
     fun getPostDetail(@PathVariable postId: Long) = GetPostDetailQuery(postId).let {
-        postQueryBus.ask(it)
+        postQueryPort.ask(it)
     }.let { PostDetailResponse.from(it) }
 
     @Operation(summary = "게시글 수정")
@@ -73,7 +73,7 @@ class PostApi(
         @PathVariable postId: Long,
         @RequestBody request: PostUpdateRequest,
     ) = request.toCommand(user.id, postId).let {
-        postCommandBus execute it
+        postCommandPort execute it
     }.let { PostResponse.from(it) }
 
     @Operation(summary = "게시글 삭제")
@@ -81,6 +81,6 @@ class PostApi(
     @DeleteMapping("/v1/post/{postId}")
     fun delete(@AuthenticationPrincipal user: AuthUser, @PathVariable postId: Long) =
         DeletePostCommand(user.id, postId).let {
-            postCommandBus execute it
+            postCommandPort execute it
         }
 }

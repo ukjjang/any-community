@@ -3,8 +3,8 @@ package com.anycommunity.mvcapi.post.response
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import com.anycommunity.definition.post.PostTitle
-import com.anycommunity.usecase.post.command.usecase.CreatePostResult
-import com.anycommunity.usecase.post.command.usecase.UpdatePostResult
+import com.anycommunity.usecase.post.port.command.model.CreatePostResult
+import com.anycommunity.usecase.post.port.command.model.UpdatePostResult
 
 @Schema(description = "게시글 기본 응답")
 data class PostResponse(

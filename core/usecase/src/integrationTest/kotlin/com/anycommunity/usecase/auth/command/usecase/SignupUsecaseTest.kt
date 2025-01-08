@@ -9,6 +9,8 @@ import com.anycommunity.definition.user.Username
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.domain.user.jpa.UserRepository
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.auth.port.command.model.SignupCommand
+import com.anycommunity.usecase.auth.usecase.command.SignupUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomString
 

@@ -3,8 +3,8 @@ package com.anycommunity.mvcapi.user.response
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import com.anycommunity.definition.user.Username
-import com.anycommunity.usecase.follow.query.usecase.GetFollowerResult
-import com.anycommunity.usecase.follow.query.usecase.GetFollowingResult
+import com.anycommunity.usecase.follow.port.query.model.GetFollowerResult
+import com.anycommunity.usecase.follow.port.query.model.GetFollowingResult
 
 @Schema(description = "유저 팔로우 응답")
 data class UserFollowResponse(

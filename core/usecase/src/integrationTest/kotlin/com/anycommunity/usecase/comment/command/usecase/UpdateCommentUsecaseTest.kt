@@ -6,6 +6,8 @@ import io.kotest.matchers.shouldBe
 import com.anycommunity.domain.comment.CommentFixture
 import com.anycommunity.domain.comment.jpa.CommentRepository
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.comment.port.command.model.UpdateCommentCommand
+import com.anycommunity.usecase.comment.usecase.command.UpdateCommentUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 import com.anycommunity.util.faker.randomString
@@ -34,13 +36,12 @@ internal class UpdateCommentUsecaseTest(
 
             it("수정 실패 - 작성자가 아닌 유저") {
                 val exits = commentFixture.persist()
-                val command =
-                    UpdateCommentCommand(
-                        id = exits.id,
-                        userId = faker.randomLong(),
-                        postId = exits.postId,
-                        content = faker.randomString(),
-                    )
+                val command = UpdateCommentCommand(
+                    id = exits.id,
+                    userId = faker.randomLong(),
+                    postId = exits.postId,
+                    content = faker.randomString(),
+                )
                 shouldThrow<IllegalArgumentException> {
                     updateCommentUsecase(command)
                 }
@@ -48,13 +49,12 @@ internal class UpdateCommentUsecaseTest(
 
             it("수정 실패 - 게시글에 속하지 않은 댓글") {
                 val exits = commentFixture.persist()
-                val command =
-                    UpdateCommentCommand(
-                        id = exits.id,
-                        userId = exits.userId,
-                        postId = faker.randomLong(),
-                        content = faker.randomString(),
-                    )
+                val command = UpdateCommentCommand(
+                    id = exits.id,
+                    userId = exits.userId,
+                    postId = faker.randomLong(),
+                    content = faker.randomString(),
+                )
                 shouldThrow<IllegalArgumentException> {
                     updateCommentUsecase(command)
                 }

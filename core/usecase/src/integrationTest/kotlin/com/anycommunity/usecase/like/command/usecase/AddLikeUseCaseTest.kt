@@ -13,7 +13,9 @@ import com.anycommunity.domain.like.LikeTarget
 import com.anycommunity.domain.like.service.LikeCommandService
 import com.anycommunity.domain.like.service.LikeQueryService
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.like.command.usecase.internal.UpdateLikeCountUsecase
+import com.anycommunity.usecase.like.command.port.command.model.AddLikeCommand
+import com.anycommunity.usecase.like.command.usecase.command.AddLikeUsecase
+import com.anycommunity.usecase.like.command.usecase.command.internal.UpdateLikeCountUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomEnum
 import com.anycommunity.util.faker.randomLong
@@ -26,7 +28,7 @@ internal class AddLikeUseCaseTest(
     {
         val updateLikeCountUsecase: UpdateLikeCountUsecase = mockk(relaxed = true)
         val addLikeUseCase =
-            AddLikeUseCase(likeCommandService, updateLikeCountUsecase)
+            AddLikeUsecase(likeCommandService, updateLikeCountUsecase)
 
         describe("좋아요 추가 유스케이스") {
             beforeTest {

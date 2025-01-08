@@ -16,7 +16,9 @@ import com.anycommunity.domain.post.event.PostCreatedEvent
 import com.anycommunity.domain.post.service.PostCommandService
 import com.anycommunity.domain.shared.outbox.OutboxCreator
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
+import com.anycommunity.usecase.point.usecase.command.internal.PointProcessUsecase
+import com.anycommunity.usecase.post.port.command.model.CreatePostCommand
+import com.anycommunity.usecase.post.usecase.command.CreatePostUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 import com.anycommunity.util.faker.randomString

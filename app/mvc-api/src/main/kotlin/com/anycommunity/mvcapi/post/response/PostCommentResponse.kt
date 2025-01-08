@@ -3,7 +3,7 @@ package com.anycommunity.mvcapi.post.response
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import com.anycommunity.definition.user.Username
-import com.anycommunity.usecase.comment.query.usecase.GetCommentPageResult
+import com.anycommunity.usecase.comment.port.query.model.GetCommentPageResult
 
 @Schema(description = "게시글 댓글 응답")
 data class PostCommentResponse(
