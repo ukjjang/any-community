@@ -15,6 +15,7 @@ import com.anycommunity.usecase.point.command.PointCommandBus
 import com.anycommunity.usecase.point.command.usecase.PointGameCommand
 import com.anycommunity.usecase.point.query.PointQueryBus
 import com.anycommunity.usecase.point.query.usecase.GetPointRankingQuery
+import com.anycommunity.util.custompage.toCustomPage
 
 @Tag(name = "포인트")
 @MvcApiController
@@ -24,8 +25,8 @@ class PointApi(
 ) {
     @Operation(summary = "포인트 랭킹 유저 조회")
     @GetMapping("/v1/point/ranking")
-    fun getPointRanking(@RequestParam limit: Int = 10) =
-        pointQueryBus.ask(GetPointRankingQuery(limit)).map(PointRankingResponse::from)
+    fun getPointRanking(@RequestParam page: Int = 1, @RequestParam size: Int = 20) =
+        pointQueryBus.ask(GetPointRankingQuery(page, size)).map(PointRankingResponse::from).toCustomPage()
 
     @Operation(summary = "포인트 게임")
     @Secured(AuthRole.USER)

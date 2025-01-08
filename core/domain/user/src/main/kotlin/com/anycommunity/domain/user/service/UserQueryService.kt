@@ -1,14 +1,14 @@
 package com.anycommunity.domain.user.service
 
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import com.anycommunity.definition.user.Username
-import com.anycommunity.domain.user.jpa.UserJdslRepository
 import com.anycommunity.domain.user.jpa.UserRepository
+import com.anycommunity.util.custompage.toCustomPage
 
 @Service
 class UserQueryService(
     private val userRepository: UserRepository,
-    private val userJdslRepository: UserJdslRepository,
 ) {
     fun findByIdIn(id: List<Long>) = userRepository.findByIdIn(id)
 
@@ -20,5 +20,5 @@ class UserQueryService(
 
     fun getByUsername(username: Username) = findByUsername(username) ?: throw NoSuchElementException("존재하지 않는 유저입니다.")
 
-    fun getPointRankingUser(limit: Int) = userJdslRepository.getPointRankingUser(limit)
+    fun getPointRankingUser(pageable: Pageable) = userRepository.findByOrderByTotalPointsDesc(pageable).toCustomPage()
 }

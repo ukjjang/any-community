@@ -1,5 +1,7 @@
 package com.anycommunity.usecase.point.query.usecase
 
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
@@ -8,6 +10,7 @@ import com.anycommunity.definition.user.Username
 import com.anycommunity.domain.user.User
 import com.anycommunity.domain.user.service.UserQueryService
 import com.anycommunity.infra.redis.cache.cached
+import com.anycommunity.util.custompage.toCustomPage
 
 @Service
 class GetPointRankingUsecase(
@@ -15,28 +18,34 @@ class GetPointRankingUsecase(
 ) {
     @Transactional(readOnly = true)
     operator fun invoke(query: GetPointRankingQuery) = cached(
-        key = "GetPointRankingUsecase:${query.limit}",
+        key = "GetPointRankingUsecase:${query.hashCode()}",
         expire = Duration.ofMinutes(10),
     ) {
-        GetPointRankingResult.from(
-            userQueryService.getPointRankingUser(query.limit),
-        )
+        val pages = userQueryService.getPointRankingUser(query.pageable())
+        val content = pages.mapIndexed { idx, user ->
+            val rank = query.pageable().offset + idx + 1
+            GetPointRankingResult.from(user, rank)
+        }
+
+        pages.toCustomPage(content)
     }
 }
 
 data class GetPointRankingQuery(
-    val limit: Int,
-)
+    val page: Int,
+    val size: Int,
+) {
+    fun pageable(): Pageable = PageRequest.of(page - 1, size)
+}
 
 data class GetPointRankingResult(
-    val ranking: Int,
+    val ranking: Long,
     val userId: Long,
     val username: Username,
     val totalPoints: Point,
 ) {
     companion object {
-        fun from(users: List<User>): List<GetPointRankingResult> = users.mapIndexed { idx, user -> from(user, idx + 1) }
-        fun from(user: User, ranking: Int) = GetPointRankingResult(
+        fun from(user: User, ranking: Long) = GetPointRankingResult(
             ranking = ranking,
             userId = user.id,
             username = user.username,

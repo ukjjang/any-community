@@ -1,5 +1,6 @@
 package com.anycommunity.domain.user.jpa
 
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import com.anycommunity.definition.user.Username
@@ -23,6 +24,9 @@ class UserRepository(
     fun existsByUsername(username: Username) = userEntityRepository.existsByUsername(username)
 
     fun findByUsername(username: Username) = userEntityRepository.findByUsername(username)?.toModel()
+
+    fun findByOrderByTotalPointsDesc(pageable: Pageable) =
+        userEntityRepository.findByOrderByTotalPointsDesc(pageable).map { it.toModel() }
 
     fun deleteAll() = userEntityRepository.deleteAll()
 }
