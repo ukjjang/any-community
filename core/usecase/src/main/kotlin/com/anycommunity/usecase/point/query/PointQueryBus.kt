@@ -4,9 +4,10 @@ import org.springframework.stereotype.Service
 import com.anycommunity.usecase.point.query.usecase.GetPointRankingQuery
 import com.anycommunity.usecase.point.query.usecase.GetPointRankingResult
 import com.anycommunity.usecase.point.query.usecase.GetPointRankingUsecase
+import com.anycommunity.util.custompage.CustomPage
 
 sealed interface PointQueryBus {
-    infix fun ask(query: GetPointRankingQuery): List<GetPointRankingResult>
+    infix fun ask(query: GetPointRankingQuery): CustomPage<GetPointRankingResult>
 }
 
 @Service
