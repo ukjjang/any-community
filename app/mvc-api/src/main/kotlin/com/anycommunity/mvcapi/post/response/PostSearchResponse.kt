@@ -18,6 +18,8 @@ class PostSearchResponse(
     val userName: Username,
     @field:Schema(description = "댓글 개수", example = "10")
     val commentCount: Long,
+    @field:Schema(description = "좋아요 개수", example = "10")
+    val likeCount: Long,
     @field:Schema(description = "게시글 생성 시간", example = "2024-01-01T12:00:00")
     val createdAt: LocalDateTime,
     @field:Schema(description = "게시글 수정 시간", example = "2024-01-02T15:30:00")
@@ -31,6 +33,7 @@ class PostSearchResponse(
                 category = PostCategoryResponse.of(category),
                 userName = userName,
                 commentCount = commentCount,
+                likeCount = likeCount,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )

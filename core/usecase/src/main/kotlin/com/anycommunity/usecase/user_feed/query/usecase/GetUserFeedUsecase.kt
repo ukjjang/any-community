@@ -55,6 +55,7 @@ class GetUserFeedUsecase(
                 category = post.category,
                 userName = author.username,
                 commentCount = post.commentCount,
+                likeCount = post.likeCount,
                 createdAt = it.createdAt,
                 updatedAt = it.updatedAt,
             )
@@ -79,6 +80,7 @@ data class UserFeedResult(
     val category: PostCategory,
     val userName: Username,
     val commentCount: Long,
+    val likeCount: Long,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )
