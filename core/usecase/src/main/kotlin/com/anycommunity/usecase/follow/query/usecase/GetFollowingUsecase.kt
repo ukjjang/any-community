@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 import com.anycommunity.definition.follow.FollowSearchSortType
 import com.anycommunity.definition.user.Username
 import com.anycommunity.domain.follow.Follow
@@ -32,23 +33,16 @@ class GetFollowingUsecase(
     }
 
     private fun createPage(pages: PageImpl<Follow>): CustomPage<GetFollowingResult> {
-        val content =
-            pages.content
-                .map { it.followingUserId }
-                .let { followingUserId ->
-                    userQueryService
-                        .findByIdIn(followingUserId)
-                        .associateBy { it.id }
-                        .let { userMap ->
-                            followingUserId.mapNotNull { userMap[it] }
-                        }
-                }.map { user ->
-                    GetFollowingResult(
-                        id = user.id,
-                        username = user.username,
-                    )
-                }
+        val followingUserIds = pages.content.map { it.followingUserId }
+        val userMap = userQueryService.findByIdIn(followingUserIds).associateBy { it.id }
 
+        val content = pages.content.map { follow ->
+            GetFollowingResult(
+                id = follow.followingUserId,
+                username = userMap.getValue(follow.followingUserId).username,
+                createdAt = follow.createdAt,
+            )
+        }
         return pages.toCustomPage(content)
     }
 }
@@ -65,4 +59,5 @@ data class GetFollowingQuery(
 data class GetFollowingResult(
     val id: Long,
     val username: Username,
+    val createdAt: LocalDateTime,
 )
