@@ -3,7 +3,7 @@ package com.anycommunity.mvcapi.point.response
 import io.swagger.v3.oas.annotations.media.Schema
 import com.anycommunity.definition.point.Point
 import com.anycommunity.definition.user.Username
-import com.anycommunity.usecase.point.query.usecase.GetPointRankingResult
+import com.anycommunity.usecase.point.port.query.model.GetPointRankingResult
 
 @Schema(description = "포인트 랭킹 유저 조회 응답")
 data class PointRankingResponse(

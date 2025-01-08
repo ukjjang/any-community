@@ -7,6 +7,8 @@ import com.anycommunity.definition.post.PostCategory
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.post.port.command.model.UpdatePostCommand
+import com.anycommunity.usecase.post.usecase.command.UpdatePostUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 import com.anycommunity.util.faker.randomString
@@ -19,14 +21,13 @@ internal class UpdatePostUsecaseTest(
         describe("게시글 수정 유스케이스") {
             it("수정 성공") {
                 val exits1 = postFixture.persist()
-                val command =
-                    UpdatePostCommand(
-                        exits1.userId,
-                        exits1.id,
-                        exits1.title,
-                        PostCategory.NEWS,
-                        faker.randomString(),
-                    )
+                val command = UpdatePostCommand(
+                    exits1.userId,
+                    exits1.id,
+                    exits1.title,
+                    PostCategory.NEWS,
+                    faker.randomString(),
+                )
 
                 val result = updatePostUsecase(command)
                 result.title shouldBe command.title
@@ -38,14 +39,13 @@ internal class UpdatePostUsecaseTest(
                 val exits1 = postFixture.persist()
                 val randomContent = faker.randomString()
 
-                val command =
-                    UpdatePostCommand(
-                        faker.randomLong(),
-                        exits1.id,
-                        PostTitle("faker.randomString()"),
-                        PostCategory.NEWS,
-                        randomContent,
-                    )
+                val command = UpdatePostCommand(
+                    faker.randomLong(),
+                    exits1.id,
+                    PostTitle("faker.randomString()"),
+                    PostCategory.NEWS,
+                    randomContent,
+                )
                 shouldThrow<IllegalArgumentException> {
                     updatePostUsecase(command)
                 }

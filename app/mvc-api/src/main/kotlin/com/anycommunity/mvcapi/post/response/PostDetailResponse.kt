@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.definition.user.Username
-import com.anycommunity.usecase.post.query.usecase.PostDetailResult
+import com.anycommunity.usecase.post.port.query.model.PostDetailResult
 
 @Schema(description = "게시글 상세 응답")
 data class PostDetailResponse(

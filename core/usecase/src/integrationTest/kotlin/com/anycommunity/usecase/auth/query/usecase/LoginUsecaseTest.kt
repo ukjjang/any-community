@@ -9,6 +9,8 @@ import com.anycommunity.definition.user.Username
 import com.anycommunity.domain.user.UserCredentials
 import com.anycommunity.domain.user.service.UserAuthService
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.auth.port.query.model.LoginQuery
+import com.anycommunity.usecase.auth.usecase.query.LoginUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomString
 
@@ -31,11 +33,10 @@ internal class LoginUsecaseTest(
                 }
 
                 it("로그인 실패 - 잘못된 사용자 이름") {
-                    val query =
-                        LoginQuery(
-                            Username(faker.randomString(5)),
-                            signupCredentials.password,
-                        )
+                    val query = LoginQuery(
+                        Username(faker.randomString(5)),
+                        signupCredentials.password,
+                    )
                     shouldThrow<NoSuchElementException> {
                         loginUsecase(query)
                     }

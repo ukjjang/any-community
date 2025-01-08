@@ -3,7 +3,7 @@ package com.anycommunity.mvcapi.post.request
 import io.swagger.v3.oas.annotations.media.Schema
 import com.anycommunity.definition.post.PostCategory
 import com.anycommunity.definition.post.PostTitle
-import com.anycommunity.usecase.post.command.usecase.UpdatePostCommand
+import com.anycommunity.usecase.post.port.command.model.UpdatePostCommand
 
 @Schema(description = "게시글 수정 요청")
 data class PostUpdateRequest(

@@ -13,7 +13,9 @@ import com.anycommunity.domain.like.LikeTarget
 import com.anycommunity.domain.like.service.LikeCommandService
 import com.anycommunity.domain.like.service.LikeQueryService
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.like.command.usecase.internal.UpdateLikeCountUsecase
+import com.anycommunity.usecase.like.command.port.command.model.CancelLikeCommand
+import com.anycommunity.usecase.like.command.usecase.command.CancelLikeUsecase
+import com.anycommunity.usecase.like.command.usecase.command.internal.UpdateLikeCountUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomEnum
 import com.anycommunity.util.faker.randomLong

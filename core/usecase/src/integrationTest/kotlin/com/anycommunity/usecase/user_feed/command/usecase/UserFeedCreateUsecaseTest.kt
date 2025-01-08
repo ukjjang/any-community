@@ -5,11 +5,13 @@ import io.kotest.matchers.shouldBe
 import com.anycommunity.domain.follow.FollowFixture
 import com.anycommunity.domain.user_feed.jpa.UserFeedRepository
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.user_feed.port.command.model.CreateUserFeedCommand
+import com.anycommunity.usecase.user_feed.usecase.command.CreateUserFeedUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 
 internal class UserFeedCreateUsecaseTest(
-    private val userFeedCreateUsecase: UserFeedCreateUsecase,
+    private val createUserFeedUsecase: CreateUserFeedUsecase,
     private val userFeedRepository: UserFeedRepository,
     private val followFixture: FollowFixture,
 ) : IntegrationTest, DescribeSpec(
@@ -20,7 +22,7 @@ internal class UserFeedCreateUsecaseTest(
                 val followingUserId = faker.randomLong()
                 val follows = (0..9).map { followFixture.persist(followingUserId = followingUserId) }
 
-                userFeedCreateUsecase(CreateUserFeedCommand(postId, followingUserId))
+                createUserFeedUsecase(CreateUserFeedCommand(postId, followingUserId))
 
                 val userFeeds = userFeedRepository.findByPostId(postId)
                 userFeeds.size shouldBe 10

@@ -4,6 +4,8 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.user.port.query.model.GetUserInfoQuery
+import com.anycommunity.usecase.user.usecase.query.GetUserInfoUsecase
 
 internal class GetUserInfoUsecaseTest(
     private val getUserInfoUsecase: GetUserInfoUsecase,

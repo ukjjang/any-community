@@ -6,9 +6,12 @@ import com.anycommunity.domain.follow.FollowRelation
 import com.anycommunity.domain.user_feed.UserFeedFixture
 import com.anycommunity.domain.user_feed.jpa.UserFeedRepository
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.user_feed.port.command.model.DeleteUserFeedCommandByPostDelete
+import com.anycommunity.usecase.user_feed.port.command.model.DeleteUserFeedCommandByUnFollow
+import com.anycommunity.usecase.user_feed.usecase.command.DeleteUserFeedUsecase
 
 internal class UserFeedDeleteUsecaseTest(
-    private val userFeedDeleteUsecase: UserFeedDeleteUsecase,
+    private val deleteUserFeedUsecase: DeleteUserFeedUsecase,
     private val userFeedFixture: UserFeedFixture,
     private val userFeedRepository: UserFeedRepository,
 ) : IntegrationTest, DescribeSpec(
@@ -21,7 +24,7 @@ internal class UserFeedDeleteUsecaseTest(
                 userFeedFixture.persist(postId = userFeed.postId)
                 userFeedFixture.persist(postId = userFeed.postId)
 
-                userFeedDeleteUsecase(DeleteUserFeedCommandByPostDelete(userFeed.postId))
+                deleteUserFeedUsecase(DeleteUserFeedCommandByPostDelete(userFeed.postId))
                 userFeedRepository.findByPostId(userFeed.postId) shouldBe emptyList()
             }
 
@@ -33,7 +36,7 @@ internal class UserFeedDeleteUsecaseTest(
                 userFeedFixture.persist(userId = userFeed.userId, postAuthorId = userFeed.postAuthorId)
 
                 val followRelation = FollowRelation(userFeed.userId, userFeed.postAuthorId)
-                userFeedDeleteUsecase(DeleteUserFeedCommandByUnFollow(followRelation))
+                deleteUserFeedUsecase(DeleteUserFeedCommandByUnFollow(followRelation))
 
                 userFeedRepository.findByUserId(userFeed.userId) shouldBe emptyList()
             }

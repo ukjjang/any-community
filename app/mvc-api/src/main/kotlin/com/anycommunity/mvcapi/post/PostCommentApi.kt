@@ -17,17 +17,17 @@ import com.anycommunity.mvcapi.global.security.AuthUser
 import com.anycommunity.mvcapi.post.request.CommentCreateRequest
 import com.anycommunity.mvcapi.post.request.CommentUpdateRequest
 import com.anycommunity.mvcapi.post.response.PostCommentResponse
-import com.anycommunity.usecase.comment.command.CommentCommandBus
-import com.anycommunity.usecase.comment.command.usecase.DeleteCommentCommand
-import com.anycommunity.usecase.comment.query.CommentQueryBus
-import com.anycommunity.usecase.comment.query.usecase.GetCommentPageQuery
+import com.anycommunity.usecase.comment.port.command.CommentCommandPort
+import com.anycommunity.usecase.comment.port.command.model.DeleteCommentCommand
+import com.anycommunity.usecase.comment.port.query.CommentQueryPort
+import com.anycommunity.usecase.comment.port.query.model.GetCommentPageQuery
 import com.anycommunity.util.custompage.mapToCustomPage
 
 @Tag(name = "게시글 댓글")
 @MvcApiController
 class PostCommentApi(
-    private val commentCommandBus: CommentCommandBus,
-    private val commentQueryBus: CommentQueryBus,
+    private val commentCommandPort: CommentCommandPort,
+    private val commentQueryPort: CommentQueryPort,
 ) {
     @Operation(summary = "게시글의 댓글 조회")
     @GetMapping("/v1/post/{postId}/comment")
@@ -42,7 +42,7 @@ class PostCommentApi(
         page = page,
         size = size,
     ).let {
-        commentQueryBus ask it
+        commentQueryPort ask it
     }.mapToCustomPage {
         PostCommentResponse.from(it)
     }
@@ -55,7 +55,7 @@ class PostCommentApi(
         @PathVariable postId: Long,
         @RequestBody request: CommentCreateRequest,
     ) = request.toCommand(postId, user.id).let {
-        commentCommandBus execute it
+        commentCommandPort execute it
     }
 
     @Operation(summary = "게시글 댓글 삭제")
@@ -69,7 +69,7 @@ class PostCommentApi(
         userId = user.id,
         postId = postId,
         commentId = commentId,
-    ).let { commentCommandBus execute it }
+    ).let { commentCommandPort execute it }
 
     @Operation(summary = "게시글 댓글 수정")
     @Secured(AuthRole.USER)
@@ -83,5 +83,5 @@ class PostCommentApi(
         id = commentId,
         userId = user.id,
         postId = postId,
-    ).let { commentCommandBus execute it }
+    ).let { commentCommandPort execute it }
 }

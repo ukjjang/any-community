@@ -3,7 +3,7 @@ package com.anycommunity.mvcapi.auth.request
 import io.swagger.v3.oas.annotations.media.Schema
 import com.anycommunity.definition.user.RawPassword
 import com.anycommunity.definition.user.Username
-import com.anycommunity.usecase.auth.query.usecase.LoginQuery
+import com.anycommunity.usecase.auth.port.query.model.LoginQuery
 
 @Schema(description = "로그인 요청")
 data class AuthLoginRequest(

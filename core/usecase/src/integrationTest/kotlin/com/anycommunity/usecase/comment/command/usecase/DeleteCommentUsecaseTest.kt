@@ -13,7 +13,9 @@ import com.anycommunity.domain.comment.service.CommentCommandService
 import com.anycommunity.domain.like.service.LikeCommandService
 import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.post.command.usecase.internal.UpdatePostCommentCountUseCase
+import com.anycommunity.usecase.comment.port.command.model.DeleteCommentCommand
+import com.anycommunity.usecase.comment.usecase.command.DeleteCommentUsecase
+import com.anycommunity.usecase.post.usecase.command.internal.UpdatePostCommentCountUseCase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomLong
 

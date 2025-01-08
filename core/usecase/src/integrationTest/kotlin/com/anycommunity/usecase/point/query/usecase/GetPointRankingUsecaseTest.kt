@@ -5,6 +5,8 @@ import io.kotest.matchers.shouldBe
 import com.anycommunity.definition.point.Point
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.point.port.query.model.GetPointRankingQuery
+import com.anycommunity.usecase.point.usecase.query.GetPointRankingUsecase
 
 internal class GetPointRankingUsecaseTest(
     private val getPointRankingUsecase: GetPointRankingUsecase,

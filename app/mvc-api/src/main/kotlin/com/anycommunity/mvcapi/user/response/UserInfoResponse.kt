@@ -3,7 +3,7 @@ package com.anycommunity.mvcapi.user.response
 import io.swagger.v3.oas.annotations.media.Schema
 import com.anycommunity.definition.point.Point
 import com.anycommunity.definition.user.Username
-import com.anycommunity.usecase.user.query.usecase.GetUserInfoResult
+import com.anycommunity.usecase.user.port.query.model.GetUserInfoResult
 
 @Schema(description = "유저 정보 응답")
 data class UserInfoResponse(

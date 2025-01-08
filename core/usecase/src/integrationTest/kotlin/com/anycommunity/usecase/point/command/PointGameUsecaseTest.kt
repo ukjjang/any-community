@@ -12,10 +12,10 @@ import com.anycommunity.domain.point.PointGameProbabilityFixture
 import com.anycommunity.domain.point.service.PointGameProbabilityQueryService
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.point.command.usecase.PointGameCommand
-import com.anycommunity.usecase.point.command.usecase.PointGameUsecase
-import com.anycommunity.usecase.point.command.usecase.internal.PointProcessCommand
-import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
+import com.anycommunity.usecase.point.port.command.model.PointGameCommand
+import com.anycommunity.usecase.point.port.command.model.PointProcessCommand
+import com.anycommunity.usecase.point.usecase.command.PointGameUsecase
+import com.anycommunity.usecase.point.usecase.command.internal.PointProcessUsecase
 
 class PointGameUsecaseTest(
     private val userFixture: UserFixture,

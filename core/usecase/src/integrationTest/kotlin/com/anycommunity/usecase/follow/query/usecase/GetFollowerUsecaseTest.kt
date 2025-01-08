@@ -6,6 +6,8 @@ import com.anycommunity.definition.follow.FollowSearchSortType
 import com.anycommunity.domain.follow.FollowFixture
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.follow.port.query.model.GetFollowerQuery
+import com.anycommunity.usecase.follow.usecase.query.GetFollowerUsecase
 
 class GetFollowerUsecaseTest(
     private val getFollowerUsecase: GetFollowerUsecase,
@@ -23,13 +25,12 @@ class GetFollowerUsecaseTest(
                     }
                 val followCount = follows.size
 
-                val query =
-                    GetFollowerQuery(
-                        followingUserId = followingUser.id,
-                        page = 1,
-                        size = 3,
-                        FollowSearchSortType.RECENTLY,
-                    )
+                val query = GetFollowerQuery(
+                    followingUserId = followingUser.id,
+                    page = 1,
+                    size = 3,
+                    FollowSearchSortType.RECENTLY,
+                )
                 val result = getFollowerUsecase(query)
 
                 result.totalElements shouldBe followCount

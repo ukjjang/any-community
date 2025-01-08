@@ -7,6 +7,8 @@ import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.post.port.query.model.SearchPostQuery
+import com.anycommunity.usecase.post.usecase.query.SearchPostUsecase
 
 internal class SearchPostUsecaseTest(
     private val searchPostUsecase: SearchPostUsecase,

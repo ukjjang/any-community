@@ -7,8 +7,8 @@ import com.anycommunity.definition.point.Point
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.domain.user.jpa.UserRepository
 import com.anycommunity.usecase.IntegrationTest
-import com.anycommunity.usecase.point.command.usecase.internal.PointProcessCommand
-import com.anycommunity.usecase.point.command.usecase.internal.PointProcessUsecase
+import com.anycommunity.usecase.point.port.command.model.PointProcessCommand
+import com.anycommunity.usecase.point.usecase.command.internal.PointProcessUsecase
 import com.anycommunity.util.faker.faker
 import com.anycommunity.util.faker.randomString
 

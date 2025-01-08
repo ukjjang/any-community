@@ -6,6 +6,8 @@ import com.anycommunity.domain.post.PostFixture
 import com.anycommunity.domain.user.UserFixture
 import com.anycommunity.domain.user_feed.UserFeedFixture
 import com.anycommunity.usecase.IntegrationTest
+import com.anycommunity.usecase.user_feed.port.query.model.GetUserFeedQuery
+import com.anycommunity.usecase.user_feed.usecase.query.GetUserFeedUsecase
 
 internal class GetUserFeedUsecaseTest(
     private val getUserFeedUsecase: GetUserFeedUsecase,

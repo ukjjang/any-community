@@ -10,14 +10,14 @@ import com.anycommunity.mvcapi.global.MvcApiController
 import com.anycommunity.mvcapi.global.security.AuthRole
 import com.anycommunity.mvcapi.global.security.AuthUser
 import com.anycommunity.mvcapi.user_feed.response.UserFeedResponse
-import com.anycommunity.usecase.user_feed.query.UserFeedQueryBus
-import com.anycommunity.usecase.user_feed.query.usecase.GetUserFeedQuery
+import com.anycommunity.usecase.user_feed.port.query.UserFeedQueryPort
+import com.anycommunity.usecase.user_feed.port.query.model.GetUserFeedQuery
 import com.anycommunity.util.custompage.mapToCustomPage
 
 @Tag(name = "유저 피드")
 @MvcApiController
 class UserFeedApi(
-    private val userFeedQueryBus: UserFeedQueryBus,
+    private val userFeedQueryPort: UserFeedQueryPort,
 ) {
     @Operation(summary = "유저 피드 조회")
     @Secured(AuthRole.USER)
@@ -27,6 +27,6 @@ class UserFeedApi(
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
     ) = GetUserFeedQuery(user.id, page, size).let {
-        userFeedQueryBus ask it
+        userFeedQueryPort ask it
     }.mapToCustomPage { UserFeedResponse.from(it) }
 }

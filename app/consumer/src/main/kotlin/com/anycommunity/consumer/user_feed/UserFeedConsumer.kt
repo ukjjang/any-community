@@ -10,15 +10,15 @@ import com.anycommunity.domain.follow.event.UnFollowEvent
 import com.anycommunity.domain.post.event.PostCreatedEvent
 import com.anycommunity.domain.post.event.PostDeletedEvent
 import com.anycommunity.infra.kafka.KafkaConfig.Companion.LISTENER_FACTORY
-import com.anycommunity.usecase.user_feed.command.UserFeedCommandBus
-import com.anycommunity.usecase.user_feed.command.usecase.CreateUserFeedCommand
-import com.anycommunity.usecase.user_feed.command.usecase.DeleteUserFeedCommandByPostDelete
-import com.anycommunity.usecase.user_feed.command.usecase.DeleteUserFeedCommandByUnFollow
+import com.anycommunity.usecase.user_feed.port.command.UserFeedCommandPort
+import com.anycommunity.usecase.user_feed.port.command.model.CreateUserFeedCommand
+import com.anycommunity.usecase.user_feed.port.command.model.DeleteUserFeedCommandByPostDelete
+import com.anycommunity.usecase.user_feed.port.command.model.DeleteUserFeedCommandByUnFollow
 
 @Component
 class UserFeedConsumer(
     private val kafkaEventParser: KafkaEventParser,
-    private val userFeedCommandBus: UserFeedCommandBus,
+    private val userFeedCommandPort: UserFeedCommandPort,
 ) {
     @KafkaListener(
         topics = [KafkaTopic.Post.DELETE],
@@ -27,7 +27,7 @@ class UserFeedConsumer(
     )
     fun postDeletedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, PostDeletedEvent::class.java)
-        userFeedCommandBus execute DeleteUserFeedCommandByPostDelete.from(event)
+        userFeedCommandPort execute DeleteUserFeedCommandByPostDelete.from(event)
     }
 
     @KafkaListener(
@@ -37,7 +37,7 @@ class UserFeedConsumer(
     )
     fun unFollowEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, UnFollowEvent::class.java)
-        userFeedCommandBus execute DeleteUserFeedCommandByUnFollow.from(event)
+        userFeedCommandPort execute DeleteUserFeedCommandByUnFollow.from(event)
     }
 
     @KafkaListener(
@@ -47,6 +47,6 @@ class UserFeedConsumer(
     )
     fun postCreatedEventConsume(@Payload message: String) {
         val event = kafkaEventParser.parse(message, PostCreatedEvent::class.java)
-        userFeedCommandBus execute CreateUserFeedCommand.from(event)
+        userFeedCommandPort execute CreateUserFeedCommand.from(event)
     }
 }
