@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
+import com.anycommunity.definition.post.PostSearchCategory
 import com.anycommunity.definition.post.PostSearchSortType
 import com.anycommunity.mvcapi.global.MvcApiController
 import com.anycommunity.mvcapi.global.security.AuthRole
@@ -41,11 +42,13 @@ class PostApi(
         @RequestParam keyword: String?,
         @RequestParam page: Int = 1,
         @RequestParam size: Int = 20,
+        @RequestParam postSearchCategory: PostSearchCategory = PostSearchCategory.ALL,
         @RequestParam postSearchSortType: PostSearchSortType = PostSearchSortType.RECENTLY,
     ) = SearchPostQuery(
         keyword = keyword,
         page = page,
         size = size,
+        postSearchCategory = postSearchCategory,
         postSearchSortType = postSearchSortType,
     ).let {
         postQueryPort ask it

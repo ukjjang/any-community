@@ -2,6 +2,7 @@ package com.anycommunity.usecase.post.usecase.query
 
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
+import com.anycommunity.definition.post.PostSearchCategory
 import com.anycommunity.definition.post.PostSearchSortType
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.domain.post.PostFixture
@@ -28,7 +29,8 @@ internal class SearchPostUsecaseTest(
                     keyword = "title",
                     page = 1,
                     size = 3,
-                    PostSearchSortType.RECENTLY,
+                    postSearchCategory = PostSearchCategory.ALL,
+                    postSearchSortType = PostSearchSortType.RECENTLY,
                 )
                 val result = searchPostUsecase(query)
 

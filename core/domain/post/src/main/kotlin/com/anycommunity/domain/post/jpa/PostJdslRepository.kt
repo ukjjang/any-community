@@ -7,6 +7,8 @@ import com.linecorp.kotlinjdsl.spring.data.selectQuery
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
+import com.anycommunity.definition.post.PostCategory
+import com.anycommunity.definition.post.PostSearchCategory
 import com.anycommunity.definition.post.PostSearchSortType
 import com.anycommunity.domain.post.Post
 import com.anycommunity.domain.post.toModel
@@ -16,27 +18,30 @@ import com.anycommunity.infra.mysql.post.entity.PostEntity
 class PostJdslRepository(
     private val queryFactory: SpringDataQueryFactory,
 ) {
-    fun search(keyword: String?, pageable: Pageable, sortType: PostSearchSortType): PageImpl<Post> {
-        val totalCount =
-            queryFactory
-                .selectQuery<Long> {
-                    select(count(entity(PostEntity::class)))
-                    from(entity(PostEntity::class))
-                    where(condition(keyword))
-                }.singleResult
+    fun search(
+        keyword: String?,
+        pageable: Pageable,
+        postSearchCategory: PostSearchCategory,
+        sortType: PostSearchSortType,
+    ): PageImpl<Post> {
+        val totalCount = queryFactory
+            .selectQuery<Long> {
+                select(count(entity(PostEntity::class)))
+                from(entity(PostEntity::class))
+                where(condition(keyword, postSearchCategory))
+            }.singleResult
 
-        val results =
-            queryFactory
-                .selectQuery<PostEntity> {
-                    select(entity(PostEntity::class))
-                    from(entity(PostEntity::class))
-                    where(condition(keyword))
-                    orderBy(sort(sortType))
-                }.let {
-                    it.setFirstResult(pageable.offset.toInt())
-                    it.maxResults = pageable.pageSize
-                    it.resultList
-                }.map { it.toModel() }
+        val results = queryFactory
+            .selectQuery<PostEntity> {
+                select(entity(PostEntity::class))
+                from(entity(PostEntity::class))
+                where(condition(keyword, postSearchCategory))
+                orderBy(sort(sortType))
+            }.let {
+                it.setFirstResult(pageable.offset.toInt())
+                it.maxResults = pageable.pageSize
+                it.resultList
+            }.map { it.toModel() }
 
         return PageImpl(results, pageable, totalCount)
     }
@@ -47,7 +52,23 @@ class PostJdslRepository(
         PostSearchSortType.MOST_LIKED -> column(PostEntity::likeCount).desc()
     }
 
-    private fun <T> SpringDataCriteriaQueryDsl<T>.condition(keyword: String?) = keyword?.let {
-        column(PostEntity::title).like("$it%")
+    private fun <T> SpringDataCriteriaQueryDsl<T>.condition(keyword: String?, postSearchCategory: PostSearchCategory) =
+        and(
+            keyword?.let { column(PostEntity::title).like("$it%") },
+            postSearchCategory.let {
+                mapToPostCategory(postSearchCategory)?.let { column(PostEntity::category).equal(it) }
+            },
+        )
+
+    private fun mapToPostCategory(postSearchCategory: PostSearchCategory): PostCategory? = when (postSearchCategory) {
+        PostSearchCategory.ALL -> null
+        PostSearchCategory.FREEDOM -> PostCategory.FREEDOM
+        PostSearchCategory.HUMOR -> PostCategory.HUMOR
+        PostSearchCategory.QUESTION -> PostCategory.QUESTION
+        PostSearchCategory.NEWS -> PostCategory.NEWS
+        PostSearchCategory.SPORTS -> PostCategory.SPORTS
+        PostSearchCategory.TRAVEL -> PostCategory.TRAVEL
+        PostSearchCategory.FOOD -> PostCategory.FOOD
+        PostSearchCategory.ETC -> PostCategory.ETC
     }
 }

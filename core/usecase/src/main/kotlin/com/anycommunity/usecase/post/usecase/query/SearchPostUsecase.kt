@@ -24,6 +24,7 @@ class SearchPostUsecase(
         postQueryService.search(
             keyword = query.keyword,
             pageable = query.pageable(),
+            postSearchCategory = query.postSearchCategory,
             sortType = query.postSearchSortType,
         ).let {
             toCustomPage(it)

@@ -2,6 +2,7 @@ package com.anycommunity.domain.post.service
 
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import com.anycommunity.definition.post.PostSearchCategory
 import com.anycommunity.definition.post.PostSearchSortType
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.domain.post.jpa.PostJdslRepository
@@ -16,9 +17,15 @@ class PostQueryService(
 
     fun existsByTitle(title: PostTitle) = postRepository.existsByTitle(title)
 
-    fun search(keyword: String?, pageable: Pageable, sortType: PostSearchSortType) = postJdslRepository.search(
+    fun search(
+        keyword: String?,
+        pageable: Pageable,
+        postSearchCategory: PostSearchCategory,
+        sortType: PostSearchSortType,
+    ) = postJdslRepository.search(
         keyword = keyword,
         pageable = pageable,
+        postSearchCategory = postSearchCategory,
         sortType = sortType,
     )
 
