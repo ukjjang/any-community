@@ -1,5 +1,6 @@
 package com.anycommunity.domain.point.jpa
 
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 import com.anycommunity.domain.point.PointTransaction
 import com.anycommunity.domain.point.toEntity
@@ -15,4 +16,7 @@ class PointTransactionRepository(
 
     fun delete(pointTransaction: PointTransaction) =
         pointTransactionEntityRepository.delete(pointTransaction.toEntity())
+
+    fun findByUserIdOrderByIdDesc(userId: Long, pageable: Pageable) =
+        pointTransactionEntityRepository.findByUserIdOrderByIdDesc(userId, pageable).map { it.toModel() }
 }
