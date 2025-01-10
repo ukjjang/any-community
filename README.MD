@@ -27,7 +27,7 @@
 
 # Code Architecture
 
-![any-community-code](https://github.com/user-attachments/assets/dab8f0a8-5893-4260-8dac-18b9d5fd83c2)
+![any-community-code](https://github.com/user-attachments/assets/d6c6051e-4e49-4210-8958-2143757c28b4)
 - ### [코드 아키텍처 Wiki](https://github.com/ukjjang/any-community/wiki/Code-Architecture)
 
 #### ERD
@@ -43,7 +43,7 @@
 * JDK 21
 * Gradle 8.10
 * Spring Boot 3.3.5
-*
+
 ### 세팅하기
 - IntelliJ에서 JDK 21 설정
 - ktlint pre-commit-hook 설정
