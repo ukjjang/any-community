@@ -6,10 +6,9 @@ plugins {
 
 dependencies {
     implementation(project(":definition"))
+    implementation(Dependencies.KDSL.KOTLIN_JDSL_JAKARATA)
 
     runtimeOnly(Dependencies.Mysql.CONNECTOR)
-
-    implementation(Dependencies.KDSL.KOTLIN_JDSL_JAKARATA)
 
     testFixturesImplementation(Dependencies.SpringBoot.SPRING_BOOT_STARTER_TEST)
     testFixturesImplementation(Dependencies.TestContainers.JUNIT_JUPITER)
