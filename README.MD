@@ -10,13 +10,13 @@
 ![any-community-infra](https://github.com/user-attachments/assets/1b8ba365-2566-411e-8ef8-744a203495d2)
 ### 서비스 URL
 
-| 서비스명        | URL                               |
-|-------------|-----------------------------------|
-| API Server  | https://api.ukjjang.me/swagger-ui |
-| ArgoCD      | https://argocd.ukjjang.me         |
-| SonarQube   | https://sonarqube.ukjjang.me      |
-| Prometheus  | https://prometheus.ukjjang.me     |
-| Grafana     | https://grafana.ukjjang.me        |
+| 서비스명             | URL                               |
+|------------------|-----------------------------------|
+| API Server       | https://api.ukjjang.me/swagger-ui |
+| ArgoCD           | https://argocd.ukjjang.me         |
+| SonarQube        | https://sonarqube.ukjjang.me      |
+| Prometheus (wip) | https://prometheus.ukjjang.me     |
+| Grafana (wip)    | https://grafana.ukjjang.me        |
 
 ### GitOps Repository
 - https://github.com/ukjjang/any-community-gitops
