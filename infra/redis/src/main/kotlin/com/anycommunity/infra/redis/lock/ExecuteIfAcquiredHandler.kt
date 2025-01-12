@@ -61,7 +61,7 @@ fun executeIfAcquired(
                 function()
             }
         } finally {
-            if (redisTemplate.opsForValue().get(lockKey) == lockValue) {
+            if (redisTemplate.opsForValue()[lockKey] == lockValue) {
                 redisTemplate.delete(lockKey)
             } else {
                 log.warn { "작업이 완료되기 전 락이 해제되었습니다. lockKey: $lockKey" }
