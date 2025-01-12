@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 plugins {
     idea
     kotlin("jvm")
+    id("org.sonarqube")
 }
 
 val integrationTest: SourceSet by sourceSets.creating
@@ -51,5 +52,19 @@ idea {
             integrationTest.kotlin.srcDirs,
             integrationTest.resources.srcDirs,
         )
+    }
+}
+
+sonar {
+    val testDir = file("src/test/kotlin")
+    val integrationTestDir = file("src/integrationTest/kotlin")
+
+    val testSources = mutableListOf<String>().also {
+        testDir.isDirectory && it.add(testDir.path)
+        integrationTestDir.isDirectory && it.add(integrationTestDir.path)
+    }
+
+    properties {
+        property("sonar.tests", testSources)
     }
 }
