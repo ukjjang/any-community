@@ -44,15 +44,26 @@ ktlint {
 }
 
 
-kover.reports {
-    filters.excludes {
-        packages(
-            "com.anycommunity.infra",
-            "com.anycommunity.mvcapi",
-        )
-    }
+kover {
+    reports {
+        filters {
+            includes {
+                packages(
+                    "com.anycommunity.usecase",
+                )
+            }
+        }
 
-    total {
-        xml.onCheck = true
+        total {
+            xml.onCheck = true
+        }
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "any-community")
+        property("sonar.projectName", "any-community")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/kover/report.xml")
     }
 }
