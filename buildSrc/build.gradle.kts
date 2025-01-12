@@ -29,7 +29,7 @@ object Dependencies {
     const val KTLINT = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.KTLINT}"
     const val SPRING_BOOT = "org.springframework.boot:spring-boot-gradle-plugin:${Versions.SPRING_BOOT}"
     const val SPRING_DEPENDENCY = "io.spring.gradle:dependency-management-plugin:${Versions.SPRING_DEPENDENCY}"
-    val SONARQUBE = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${Versions.SONARQUBE}"
+    const val SONARQUBE = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${Versions.SONARQUBE}"
 }
 
 dependencies {

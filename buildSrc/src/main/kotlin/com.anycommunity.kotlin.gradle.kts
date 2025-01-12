@@ -43,27 +43,8 @@ ktlint {
     version = "1.4.1"
 }
 
-
-kover {
-    reports {
-        filters {
-            includes {
-                packages(
-                    "com.anycommunity.usecase",
-                )
-            }
-        }
-
-        total {
-            xml.onCheck = true
-        }
-    }
-}
-
-sonar {
-    properties {
-        property("sonar.projectKey", "any-community")
-        property("sonar.projectName", "any-community")
-        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/kover/report.xml")
+kover.reports {
+    total {
+        xml.onCheck = true
     }
 }
