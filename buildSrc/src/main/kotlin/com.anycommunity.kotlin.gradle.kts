@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
     id("org.jetbrains.kotlinx.kover")
     id("org.jlleitschuh.gradle.ktlint")
+    id("org.sonarqube")
 }
 
 repositories {

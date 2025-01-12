@@ -17,6 +17,7 @@ object Dependencies {
         const val SPRING_DEPENDENCY = "1.1.6"
         const val KSP = "$KOTLIN-1.0.29"
         const val KOVER = "0.8.3"
+        const val SONARQUBE = "6.0.1.5171"
     }
 
     const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
@@ -28,6 +29,7 @@ object Dependencies {
     const val KTLINT = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.KTLINT}"
     const val SPRING_BOOT = "org.springframework.boot:spring-boot-gradle-plugin:${Versions.SPRING_BOOT}"
     const val SPRING_DEPENDENCY = "io.spring.gradle:dependency-management-plugin:${Versions.SPRING_DEPENDENCY}"
+    val SONARQUBE = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${Versions.SONARQUBE}"
 }
 
 dependencies {
@@ -39,6 +41,7 @@ dependencies {
     implementation(Dependencies.KTLINT)
     implementation(Dependencies.SPRING_BOOT)
     implementation(Dependencies.SPRING_DEPENDENCY)
+    implementation(Dependencies.SONARQUBE)
 
     runtimeOnly(Dependencies.KSP)
 }
