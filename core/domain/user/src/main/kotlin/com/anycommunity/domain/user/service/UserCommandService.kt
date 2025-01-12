@@ -11,7 +11,7 @@ class UserCommandService(
     private val userQueryService: UserQueryService,
     private val userRepository: UserRepository,
 ) {
-    fun save(post: User) = userRepository.save(post)
+    fun save(user: User) = userRepository.save(user)
 
     fun updateFollowingCount(useId: Long, countOperation: CountOperation) = save(
         userQueryService.getById(useId).updateFollowingCount(countOperation),
