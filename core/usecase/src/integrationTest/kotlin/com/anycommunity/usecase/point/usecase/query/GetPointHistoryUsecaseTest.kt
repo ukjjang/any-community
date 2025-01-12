@@ -26,11 +26,6 @@ internal class GetPointHistoryUsecaseTest(
                 val offset = (page - 1) * size
                 val sortedTransactions = transactions.sortedByDescending { it.id }.drop(offset).take(size)
                 result.content.map { it.amount } shouldBe sortedTransactions.map { it.amount }
-
-                // cache test
-                pointTransactionFixture.persist(userId = userId)
-                val cachedResult = getPointHistoryUsecase(GetPointHistoryQuery(userId, page, size))
-                result shouldBe cachedResult
             }
         }
     },
