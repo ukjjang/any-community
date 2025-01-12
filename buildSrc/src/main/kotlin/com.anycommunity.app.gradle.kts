@@ -10,6 +10,7 @@ dependencies {
     implementation(project(":core:usecase"))
     implementation(project(":definition"))
     implementation(project(":util:custom-page"))
+    implementation(project(":util:logger"))
 
     implementation(Dependencies.Micrometer.PROMETHEUS)
 
