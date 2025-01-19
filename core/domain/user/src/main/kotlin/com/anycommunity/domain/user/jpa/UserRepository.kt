@@ -5,8 +5,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import com.anycommunity.definition.user.Username
 import com.anycommunity.domain.user.User
-import com.anycommunity.domain.user.toEntity
-import com.anycommunity.domain.user.toModel
+import com.anycommunity.infra.mysql.user.entity.UserEntity
 import com.anycommunity.infra.mysql.user.jpa.UserEntityRepository
 
 @Repository
@@ -30,3 +29,27 @@ class UserRepository(
 
     fun deleteAll() = userEntityRepository.deleteAll()
 }
+
+private fun UserEntity.toModel() = User(
+    _id = id,
+    username = username,
+    password = password,
+    gender = gender,
+    totalPoints = totalPoints,
+    followingCount = followingCount,
+    followerCount = followerCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+private fun User.toEntity() = UserEntity(
+    id = _id,
+    username = username,
+    password = password,
+    gender = gender,
+    totalPoints = totalPoints,
+    followingCount = followingCount,
+    followerCount = followerCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

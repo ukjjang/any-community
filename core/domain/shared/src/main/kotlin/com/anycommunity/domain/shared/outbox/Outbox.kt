@@ -3,7 +3,6 @@ package com.anycommunity.domain.shared.outbox
 import java.time.LocalDateTime
 import com.anycommunity.definition.outbox.OutboxStatus
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.outbox.entity.OutboxEntity
 
 @ConsistentCopyVisibility
 data class Outbox internal constructor(
@@ -33,21 +32,3 @@ data class Outbox internal constructor(
         )
     }
 }
-
-internal fun OutboxEntity.toModel() = Outbox(
-    _id = id,
-    topic = topic,
-    payload = payload,
-    status = status,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun Outbox.toEntity() = OutboxEntity(
-    id = _id,
-    topic = topic,
-    payload = payload,
-    status = status,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)

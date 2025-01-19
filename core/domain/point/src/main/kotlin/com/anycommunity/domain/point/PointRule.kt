@@ -4,7 +4,6 @@ import java.time.LocalDateTime
 import com.anycommunity.definition.point.Point
 import com.anycommunity.definition.point.PointRuleType
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.point.entity.PointRuleEntity
 
 @ConsistentCopyVisibility
 data class PointRule internal constructor(
@@ -24,21 +23,3 @@ data class PointRule internal constructor(
 
     override fun hashCode() = _id?.hashCode() ?: 0
 }
-
-internal fun PointRuleEntity.toModel() = PointRule(
-    _id = id,
-    ruleType = ruleType,
-    amount = amount,
-    description = description,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun PointRule.toEntity() = PointRuleEntity(
-    id = _id,
-    ruleType = ruleType,
-    amount = amount,
-    description = description,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)

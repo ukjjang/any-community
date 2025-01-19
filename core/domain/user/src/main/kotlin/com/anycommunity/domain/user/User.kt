@@ -6,7 +6,6 @@ import com.anycommunity.definition.point.Point
 import com.anycommunity.definition.user.Gender
 import com.anycommunity.definition.user.Username
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.user.entity.UserEntity
 import com.anycommunity.util.jbcrypt.Jbcrypt
 
 @ConsistentCopyVisibility
@@ -51,27 +50,3 @@ data class User internal constructor(
         )
     }
 }
-
-internal fun UserEntity.toModel() = User(
-    _id = id,
-    username = username,
-    password = password,
-    gender = gender,
-    totalPoints = totalPoints,
-    followingCount = followingCount,
-    followerCount = followerCount,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun User.toEntity() = UserEntity(
-    id = _id,
-    username = username,
-    password = password,
-    gender = gender,
-    totalPoints = totalPoints,
-    followingCount = followingCount,
-    followerCount = followerCount,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)

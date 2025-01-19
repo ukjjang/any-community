@@ -2,7 +2,6 @@ package com.anycommunity.domain.follow
 
 import java.time.LocalDateTime
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.follow.entity.FollowEntity
 
 @ConsistentCopyVisibility
 data class Follow internal constructor(
@@ -28,19 +27,3 @@ data class Follow internal constructor(
         )
     }
 }
-
-internal fun FollowEntity.toModel() = Follow(
-    _id = id,
-    followerUserId = followerUserId,
-    followingUserId = followingUserId,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun Follow.toEntity() = FollowEntity(
-    id = _id,
-    followerUserId = followerUserId,
-    followingUserId = followingUserId,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)

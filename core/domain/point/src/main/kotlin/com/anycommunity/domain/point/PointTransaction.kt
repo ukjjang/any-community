@@ -3,7 +3,6 @@ package com.anycommunity.domain.point
 import java.time.LocalDateTime
 import com.anycommunity.definition.point.Point
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.point.entity.PointTransactionEntity
 
 @ConsistentCopyVisibility
 data class PointTransaction internal constructor(
@@ -31,21 +30,3 @@ data class PointTransaction internal constructor(
         )
     }
 }
-
-internal fun PointTransactionEntity.toModel() = PointTransaction(
-    _id = id,
-    userId = userId,
-    amount = amount,
-    description = description,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun PointTransaction.toEntity() = PointTransactionEntity(
-    id = _id,
-    userId = userId,
-    amount = amount,
-    description = description,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)

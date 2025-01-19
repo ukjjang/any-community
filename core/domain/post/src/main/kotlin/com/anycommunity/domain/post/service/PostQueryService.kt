@@ -5,13 +5,11 @@ import org.springframework.stereotype.Service
 import com.anycommunity.definition.post.PostSearchCategory
 import com.anycommunity.definition.post.PostSearchSortType
 import com.anycommunity.definition.post.PostTitle
-import com.anycommunity.domain.post.jpa.PostJdslRepository
 import com.anycommunity.domain.post.jpa.PostRepository
 
 @Service
 class PostQueryService(
     private val postRepository: PostRepository,
-    private val postJdslRepository: PostJdslRepository,
 ) {
     fun getById(id: Long) = postRepository.findById(id) ?: throw NoSuchElementException("존재하지 않는 게시글입니다.")
 
@@ -22,7 +20,7 @@ class PostQueryService(
         pageable: Pageable,
         postSearchCategory: PostSearchCategory,
         sortType: PostSearchSortType,
-    ) = postJdslRepository.search(
+    ) = postRepository.search(
         keyword = keyword,
         pageable = pageable,
         postSearchCategory = postSearchCategory,

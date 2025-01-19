@@ -5,7 +5,6 @@ import kotlin.random.Random
 import com.anycommunity.definition.point.Point
 import com.anycommunity.domain.point.PointGameProbability.Companion.TOTAL_PROBABILITY
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.point.entity.PointGameProbabilityEntity
 
 @ConsistentCopyVisibility
 data class PointGameProbability internal constructor(
@@ -40,19 +39,3 @@ fun List<PointGameProbability>.pick(): Point {
     val selectedIndex = cumulativeProbabilities.indexOfFirst { randomValue < it }
     return this[selectedIndex].point
 }
-
-internal fun PointGameProbabilityEntity.toModel() = PointGameProbability(
-    _id = id,
-    point = point,
-    probability = probability,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun PointGameProbability.toEntity() = PointGameProbabilityEntity(
-    id = _id,
-    point = point,
-    probability = probability,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)

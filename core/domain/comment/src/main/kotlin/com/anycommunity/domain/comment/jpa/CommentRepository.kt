@@ -4,8 +4,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import com.anycommunity.domain.comment.Comment
-import com.anycommunity.domain.comment.toEntity
-import com.anycommunity.domain.comment.toModel
+import com.anycommunity.infra.mysql.comment.entity.CommentEntity
 import com.anycommunity.infra.mysql.comment.jpa.CommentEntityRepository
 import com.anycommunity.util.custompage.toCustomPage
 
@@ -34,3 +33,25 @@ class CommentRepository(
     fun findByUserIdAndPostId(userId: Long, postId: Long) =
         commentEntityRepository.findByUserIdAndPostId(userId, postId).map { it.toModel() }
 }
+
+private fun CommentEntity.toModel() = Comment(
+    _id = id,
+    userId = userId,
+    postId = postId,
+    parentCommentId = parentCommentId,
+    content = content,
+    likeCount = likeCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+private fun Comment.toEntity() = CommentEntity(
+    id = _id,
+    userId = userId,
+    postId = postId,
+    parentCommentId = parentCommentId,
+    content = content,
+    likeCount = likeCount,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

@@ -1,6 +1,6 @@
 package com.anycommunity.usecase.post.usecase.query
 
-import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.anycommunity.domain.post.Post
@@ -31,7 +31,7 @@ class SearchPostUsecase(
         }
     }
 
-    private fun toCustomPage(pages: PageImpl<Post>): CustomPage<SearchedPostResult> {
+    private fun toCustomPage(pages: Page<Post>): CustomPage<SearchedPostResult> {
         val posts = pages.content.toList()
         val userIds = posts.map { it.userId }
         val userMap = userQueryService.findByIdIn(userIds).associateBy { it.id }

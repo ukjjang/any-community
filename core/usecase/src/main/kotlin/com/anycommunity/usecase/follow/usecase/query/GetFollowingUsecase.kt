@@ -1,6 +1,6 @@
 package com.anycommunity.usecase.follow.usecase.query
 
-import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import com.anycommunity.domain.follow.Follow
@@ -29,7 +29,7 @@ class GetFollowingUsecase(
             ).let { createPage(it) }
     }
 
-    private fun createPage(pages: PageImpl<Follow>): CustomPage<GetFollowingResult> {
+    private fun createPage(pages: Page<Follow>): CustomPage<GetFollowingResult> {
         val followingUserIds = pages.content.map { it.followingUserId }
         val userMap = userQueryService.findByIdIn(followingUserIds).associateBy { it.id }
 

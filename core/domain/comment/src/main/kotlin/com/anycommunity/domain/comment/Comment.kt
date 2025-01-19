@@ -3,7 +3,6 @@ package com.anycommunity.domain.comment
 import java.time.LocalDateTime
 import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.comment.entity.CommentEntity
 
 @ConsistentCopyVisibility
 data class Comment internal constructor(
@@ -42,25 +41,3 @@ data class Comment internal constructor(
         )
     }
 }
-
-internal fun CommentEntity.toModel() = Comment(
-    _id = id,
-    userId = userId,
-    postId = postId,
-    parentCommentId = parentCommentId,
-    content = content,
-    likeCount = likeCount,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun Comment.toEntity() = CommentEntity(
-    id = _id,
-    userId = userId,
-    postId = postId,
-    parentCommentId = parentCommentId,
-    content = content,
-    likeCount = likeCount,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
