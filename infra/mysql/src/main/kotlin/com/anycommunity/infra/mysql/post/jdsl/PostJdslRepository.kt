@@ -1,4 +1,4 @@
-package com.anycommunity.domain.post.jpa
+package com.anycommunity.infra.mysql.post.jdsl
 
 import com.linecorp.kotlinjdsl.querydsl.expression.column
 import com.linecorp.kotlinjdsl.spring.data.SpringDataQueryFactory
@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository
 import com.anycommunity.definition.post.PostCategory
 import com.anycommunity.definition.post.PostSearchCategory
 import com.anycommunity.definition.post.PostSearchSortType
-import com.anycommunity.domain.post.Post
-import com.anycommunity.domain.post.toModel
 import com.anycommunity.infra.mysql.post.entity.PostEntity
 
 @Repository
@@ -23,7 +21,7 @@ class PostJdslRepository(
         pageable: Pageable,
         postSearchCategory: PostSearchCategory,
         sortType: PostSearchSortType,
-    ): PageImpl<Post> {
+    ): PageImpl<PostEntity> {
         val totalCount = queryFactory
             .selectQuery<Long> {
                 select(count(entity(PostEntity::class)))
@@ -41,7 +39,7 @@ class PostJdslRepository(
                 it.setFirstResult(pageable.offset.toInt())
                 it.maxResults = pageable.pageSize
                 it.resultList
-            }.map { it.toModel() }
+            }
 
         return PageImpl(results, pageable, totalCount)
     }

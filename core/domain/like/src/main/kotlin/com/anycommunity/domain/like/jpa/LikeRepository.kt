@@ -4,8 +4,7 @@ import org.springframework.stereotype.Repository
 import com.anycommunity.definition.like.LikeType
 import com.anycommunity.domain.like.Like
 import com.anycommunity.domain.like.LikeTarget
-import com.anycommunity.domain.like.toEntity
-import com.anycommunity.domain.like.toModel
+import com.anycommunity.infra.mysql.like.entity.LikeEntity
 import com.anycommunity.infra.mysql.like.jpa.LikeEntityRepository
 
 @Repository
@@ -37,3 +36,21 @@ class LikeRepository(
             it.toModel()
         }
 }
+
+private fun LikeEntity.toModel() = Like(
+    _id = id,
+    userId = userId,
+    targetType = targetType,
+    targetId = targetId,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+private fun Like.toEntity() = LikeEntity(
+    id = _id,
+    userId = userId,
+    targetType = targetType,
+    targetId = targetId,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

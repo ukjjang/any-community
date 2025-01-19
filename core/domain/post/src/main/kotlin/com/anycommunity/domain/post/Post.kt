@@ -5,7 +5,6 @@ import com.anycommunity.definition.global.CountOperation
 import com.anycommunity.definition.post.PostCategory
 import com.anycommunity.definition.post.PostTitle
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.post.entity.PostEntity
 
 @ConsistentCopyVisibility
 data class Post internal constructor(
@@ -53,27 +52,3 @@ data class Post internal constructor(
         )
     }
 }
-
-internal fun PostEntity.toModel() = Post(
-    _id = id,
-    userId = userId,
-    title = PostTitle(title),
-    category = category,
-    content = content,
-    commentCount = commentCount,
-    likeCount = likeCount,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun Post.toEntity() = PostEntity(
-    id = _id,
-    userId = userId,
-    title = title.value,
-    category = category,
-    content = content,
-    commentCount = commentCount,
-    likeCount = likeCount,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)

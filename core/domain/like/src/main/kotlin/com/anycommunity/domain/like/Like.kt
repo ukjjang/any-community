@@ -3,7 +3,6 @@ package com.anycommunity.domain.like
 import java.time.LocalDateTime
 import com.anycommunity.definition.like.LikeType
 import com.anycommunity.domain.shared.BaseDomain
-import com.anycommunity.infra.mysql.like.entity.LikeEntity
 
 @ConsistentCopyVisibility
 data class Like internal constructor(
@@ -31,21 +30,3 @@ data class Like internal constructor(
         )
     }
 }
-
-internal fun LikeEntity.toModel() = Like(
-    _id = id,
-    userId = userId,
-    targetType = targetType,
-    targetId = targetId,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)
-
-internal fun Like.toEntity() = LikeEntity(
-    id = _id,
-    userId = userId,
-    targetType = targetType,
-    targetId = targetId,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-)

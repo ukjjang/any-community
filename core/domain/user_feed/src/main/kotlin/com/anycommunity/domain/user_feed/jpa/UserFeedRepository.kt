@@ -4,8 +4,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import com.anycommunity.domain.user_feed.UserFeed
-import com.anycommunity.domain.user_feed.toEntity
-import com.anycommunity.domain.user_feed.toModel
+import com.anycommunity.infra.mysql.user_feed.entity.UserFeedEntity
 import com.anycommunity.infra.mysql.user_feed.jpa.UserFeedEntityRepository
 
 @Repository
@@ -35,3 +34,21 @@ class UserFeedRepository(
     fun deleteByUserIdAndPostAuthorId(userId: Long, postAuthorId: Long) =
         userFeedEntityRepository.deleteByUserIdAndPostAuthorId(userId, postAuthorId)
 }
+
+private fun UserFeedEntity.toModel() = UserFeed(
+    _id = id,
+    userId = userId,
+    postId = postId,
+    postAuthorId = postAuthorId,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+private fun UserFeed.toEntity() = UserFeedEntity(
+    id = _id,
+    userId = userId,
+    postId = postId,
+    postAuthorId = postAuthorId,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

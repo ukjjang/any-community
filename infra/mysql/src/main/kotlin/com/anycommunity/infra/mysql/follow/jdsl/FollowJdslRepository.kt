@@ -1,4 +1,4 @@
-package com.anycommunity.domain.follow.jpa
+package com.anycommunity.infra.mysql.follow.jdsl
 
 import com.linecorp.kotlinjdsl.querydsl.expression.column
 import com.linecorp.kotlinjdsl.spring.data.SpringDataQueryFactory
@@ -8,8 +8,6 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 import com.anycommunity.definition.follow.FollowSearchSortType
-import com.anycommunity.domain.follow.Follow
-import com.anycommunity.domain.follow.toModel
 import com.anycommunity.infra.mysql.follow.entity.FollowEntity
 
 @Repository
@@ -21,27 +19,25 @@ class FollowJdslRepository(
         followerUserId: Long? = null,
         pageable: Pageable,
         sortType: FollowSearchSortType,
-    ): PageImpl<Follow> {
-        val totalCount =
-            queryFactory
-                .selectQuery<Long> {
-                    select(count(entity(FollowEntity::class)))
-                    from(entity(FollowEntity::class))
-                    where(condition(followingUserId = followingUserId, followerUserId = followerUserId))
-                }.singleResult
+    ): PageImpl<FollowEntity> {
+        val totalCount = queryFactory
+            .selectQuery<Long> {
+                select(count(entity(FollowEntity::class)))
+                from(entity(FollowEntity::class))
+                where(condition(followingUserId = followingUserId, followerUserId = followerUserId))
+            }.singleResult
 
-        val results =
-            queryFactory
-                .selectQuery<FollowEntity> {
-                    select(entity(FollowEntity::class))
-                    from(entity(FollowEntity::class))
-                    where(condition(followingUserId = followingUserId, followerUserId = followerUserId))
-                    orderBy(sort(sortType))
-                }.let {
-                    it.setFirstResult(pageable.offset.toInt())
-                    it.maxResults = pageable.pageSize
-                    it.resultList
-                }.map { it.toModel() }
+        val results = queryFactory
+            .selectQuery<FollowEntity> {
+                select(entity(FollowEntity::class))
+                from(entity(FollowEntity::class))
+                where(condition(followingUserId = followingUserId, followerUserId = followerUserId))
+                orderBy(sort(sortType))
+            }.let {
+                it.setFirstResult(pageable.offset.toInt())
+                it.maxResults = pageable.pageSize
+                it.resultList
+            }
 
         return PageImpl(results, pageable, totalCount)
     }
